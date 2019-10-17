@@ -1,0 +1,19 @@
+@import './normalize.css';
+@import './helpers.css';
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext');
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: medium;
+}
