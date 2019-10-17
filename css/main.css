@@ -30,6 +30,58 @@ body {
   align-items: center;
   background-color: #B4CECF;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+}
+
+.intro {
+  border: 1px solid #000;
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  grid-template-areas:
+    "label-task input-task ."
+    "label-time input-time ."
+    ". start .";
+  width: 100%;
+  max-width: 800px;
+}
+
+.intro__label {
+  
+}
+
+.intro__label--task { grid-area: label-task; }
+.intro__label--time { grid-area: label-time; }
+
+.intro__input {
+  
+}
+
+.intro__input--task { grid-area: input-task; }
+.intro__input--time { grid-area: input-time; }
+
+.intro__start {
+  grid-area: start;
+  
+}
+
+.timer {
+  border: 1px solid #000;
+}
+
+.timer__display {
+  
+}
+
+.timer__time {
+  
+}
+
+.timer__breaks {
+  
+}
+
+.timer__button {
+  
 }
