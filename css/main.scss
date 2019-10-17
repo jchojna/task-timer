@@ -1,0 +1,88 @@
+@import url('normalize.css');
+@import url('helpers.css');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext');
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: medium;
+  color: #fff;
+}
+
+.button {
+  background: none;
+  border: 1px solid #fff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.app {
+  align-items: center;
+  background-color: #B4CECF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.intro {
+  border: 1px solid #000;
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  grid-template-areas:
+    "label-task input-task ."
+    "label-time input-time ."
+    ". start .";
+  width: 100%;
+  max-width: 800px;
+  
+  &__label {
+    
+    &--task { grid-area: label-task; }
+    &--time { grid-area: label-time; }
+  }
+  
+  
+  .intro__input {
+    
+    &--task { grid-area: input-task; }
+    &--time { grid-area: input-time; }
+  }
+  
+  
+  .intro__start {
+    grid-area: start;
+    
+  }
+}
+
+
+.timer {
+  border: 1px solid #000;
+  
+  &__display {
+    
+  }
+  
+  &__time {
+    
+  }
+  
+  &__breaks {
+    
+  }
+  
+  &__button {
+    
+  }
+}

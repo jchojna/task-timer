@@ -1,15 +1,16 @@
-@import './normalize.css';
-@import './helpers.css';
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext');
-
+@import url("normalize.css");
+@import url("helpers.css");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext");
 html {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
 }
 
 body {
@@ -27,61 +28,64 @@ body {
 }
 
 .app {
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #B4CECF;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   min-height: 100vh;
 }
 
 .intro {
   border: 1px solid #000;
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: 100px 1fr 100px;
-  grid-template-areas:
-    "label-task input-task ."
-    "label-time input-time ."
-    ". start .";
+  -ms-grid-columns: 100px 1fr 100px;
+      grid-template-columns: 100px 1fr 100px;
+      grid-template-areas: "label-task input-task ." "label-time input-time ." ". start .";
   width: 100%;
   max-width: 800px;
 }
 
-.intro__label {
-  
+.intro__label--task {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: label-task;
 }
 
-.intro__label--task { grid-area: label-task; }
-.intro__label--time { grid-area: label-time; }
-
-.intro__input {
-  
+.intro__label--time {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: label-time;
 }
 
-.intro__input--task { grid-area: input-task; }
-.intro__input--time { grid-area: input-time; }
+.intro .intro__input--task {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: input-task;
+}
 
-.intro__start {
+.intro .intro__input--time {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: input-time;
+}
+
+.intro .intro__start {
+  -ms-grid-row: 3;
+  -ms-grid-column: 2;
   grid-area: start;
-  
 }
 
 .timer {
   border: 1px solid #000;
-}
-
-.timer__display {
-  
-}
-
-.timer__time {
-  
-}
-
-.timer__breaks {
-  
-}
-
-.timer__button {
-  
 }
