@@ -10,26 +10,32 @@
 <body>
   <main class="app">
     <h1 class="app__heading visuallyhidden">Task Timer App</h1>
-    <section class="intro">
-      <h2 class="intro__heading visuallyhidden">Next Task Definition</h2>
-      <label for="task-name" class="intro__label intro__label--task">
-        Step #1
+
+    <section class="task">
+      <h2 class="task__heading visuallyhidden">Next Task Definition</h2>
+      <label for="task-name" class="task__label">
+        Write your task
       </label>
       <input
         id="task-name"
-        class="intro__input intro__input--task"
+        class="task__input"
         placeholder="What would be your next task?"
       />
-      <label for="task-time" class="intro__label intro__label--time">
-        Step #2
+    </section>
+
+    <section class="time">
+      <h2 class="time__heading visuallyhidden">Next Task Definition</h2>
+      <label for="task-time" class="time__label">
+        Set time for task
       </label>
       <input
         id="task-time"
-        class="intro__input intro__input--time"
+        class="time__input"
         placeholder="How much time do you want to spend on it?"
       />
       <button class="button intro__start">Start</button>
     </section>
+
     <section class="timer">
       <h2 class="timer__heading visuallyhidden">Task Activation</h2>
       <div class="timer__display">

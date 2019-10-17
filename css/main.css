@@ -45,47 +45,37 @@ body {
   min-height: 100vh;
 }
 
-.intro {
-  border: 1px solid #000;
+.task {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 100px 1fr 100px;
-      grid-template-columns: 100px 1fr 100px;
-      grid-template-areas: "label-task input-task ." "label-time input-time ." ". start .";
+  font-size: 1.6em;
+  font-weight: 400;
+  -ms-grid-rows: 1fr 80px 1fr;
+      grid-template-rows: 1fr 80px 1fr;
+  max-width: 1000px;
   width: 100%;
-  max-width: 800px;
 }
 
-.intro__label--task {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  grid-area: label-task;
+.task__label {
+  font-size: 2em;
+  font-weight: 400;
+  margin-bottom: 3em;
+  text-align: center;
 }
 
-.intro__label--time {
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  grid-area: label-time;
+.task__input {
+  background: none;
+  border: 2px solid #fff;
+  border-radius: 100px;
+  color: #fff;
+  padding: 0 1.3em;
 }
 
-.intro .intro__input--task {
-  -ms-grid-row: 1;
-  -ms-grid-column: 2;
-  grid-area: input-task;
-}
-
-.intro .intro__input--time {
-  -ms-grid-row: 2;
-  -ms-grid-column: 2;
-  grid-area: input-time;
-}
-
-.intro .intro__start {
-  -ms-grid-row: 3;
-  -ms-grid-column: 2;
-  grid-area: start;
+.time {
+  display: none;
 }
 
 .timer {
   border: 1px solid #000;
+  display: none;
 }

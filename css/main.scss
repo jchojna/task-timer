@@ -35,40 +35,37 @@ body {
   min-height: 100vh;
 }
 
-.intro {
-  border: 1px solid #000;
+.task {
   display: grid;
-  grid-template-columns: 100px 1fr 100px;
-  grid-template-areas:
-    "label-task input-task ."
-    "label-time input-time ."
-    ". start .";
+  font-size: 1.6em;
+  font-weight: 400;
+  grid-template-rows: 1fr 80px 1fr;
+  max-width: 1000px;
   width: 100%;
-  max-width: 800px;
-  
+
   &__label {
-    
-    &--task { grid-area: label-task; }
-    &--time { grid-area: label-time; }
+    font-size: 2em;
+    font-weight: 400;
+    margin-bottom: 3em;
+    text-align: center;
   }
-  
-  
-  .intro__input {
     
-    &--task { grid-area: input-task; }
-    &--time { grid-area: input-time; }
-  }
-  
-  
-  .intro__start {
-    grid-area: start;
-    
+  &__input {
+    background: none;
+    border: 2px solid #fff;
+    border-radius: 100px;
+    color: #fff;
+    padding: 0 1.3em;
   }
 }
 
+.time {
+  display: none;
+}
 
 .timer {
   border: 1px solid #000;
+  display: none;
   
   &__display {
     
