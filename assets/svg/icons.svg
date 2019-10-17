@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="arrow-left" viewBox="0 0 512 512">
+    <path d="M366.1 15.7l-206 206c-19 19-19 49.8 0 68.7l206 206"/>
+  </symbol>
   <symbol id="arrow-right" viewBox="0 0 512 512">
     <path d="M145.9 496.4l206-206c19-19 19-49.8 0-68.7l-206-206"/>
   </symbol>
