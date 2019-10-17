@@ -13,22 +13,22 @@
     <section class="intro">
       <h2 class="intro__heading visuallyhidden">Next Task Definition</h2>
       <label for="task-name" class="intro__label intro__label--task">
-        Task Name:
+        Step #1
       </label>
       <input
         id="task-name"
         class="intro__input intro__input--task"
         placeholder="What would be your next task?"
       />
+      <label for="task-time visuallyhidden" class="intro__label intro__label--time">
+        Step #2
+      </label>
       <input
         id="task-time"
         class="intro__input intro__input--time"
         placeholder="How much time do you want to spend on it?"
       />
-      <label for="task-time" class="intro__label intro__label--time">
-        Task Time:
-      </label>
-      <button class="intro__start">Start</button>
+      <button class="button intro__start">Start</button>
     </section>
     <section class="timer">
       <h2 class="timer__heading visuallyhidden">Task Activation</h2>
@@ -36,10 +36,10 @@
         <p class="timer__time">01:12:49</p>
         <p class="timer__breaks">4 breaks</p>
       </div>
-      <button class="timer__button timer__button--play-pause timer__button--js-play-pause">
+      <button class="button timer__button timer__button--play-pause timer__button--js-play-pause">
         Play
       </button>
-      <button class="timer__button timer__button--stop timer__button--js-stop">
+      <button class="button timer__button timer__button--stop timer__button--js-stop">
         Stop
       </button>
     </section>
