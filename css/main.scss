@@ -2,6 +2,12 @@
 @import url('helpers.css');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext');
 
+@mixin flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -34,12 +40,14 @@ body {
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+  height: 100%;
 }
 
 .task,
 .time {
   align-items: center;
   display: grid;
+  flex-grow: 1;
   font-size: 1.6em;
   font-weight: 400;
   grid-template-columns: 1fr 2fr 1fr;
@@ -47,19 +55,11 @@ body {
   justify-items: center;
   width: 100%;
 
-  &__label {
+  &__heading {
+    margin: 0;
     font-size: 2em;
     font-weight: 400;
     grid-column: 1 / span 3;
-    margin-bottom: 3em;
-
-    &--time {
-
-    }
-
-    &--breaks {
-      display: none;
-    }
   }
     
   &__input {
@@ -77,6 +77,10 @@ body {
       grid-column: 2 / 3;
       text-align: left;
     }
+
+    &::placeholder {
+      color: #fff;
+    }
   }
 
   &__row {
@@ -84,6 +88,16 @@ body {
     display: grid;
     gap: 40px;
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__label {
+    align-self: start;
+    font-size: 0.7em;
+    margin-top: 1em;
+
+    &--name {
+      grid-column: 2 / 3;
+    }
   }
 
   &__button {

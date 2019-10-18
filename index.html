@@ -12,30 +12,32 @@
     <h1 class="app__heading visuallyhidden">Task Timer App</h1>
     <!-- TASK -->
     <section class="task">
-      <h2 class="task__heading visuallyhidden">Next Task Definition</h2>
-      <label for="task-name" class="task__label">
-        Write your task
-      </label>
+      <h2 class="task__heading">Write your task</h2>
       <input
-        id="task-name"
-        class="task__input task__input--name"
-        placeholder="What would be your next task?"
+      id="task-name"
+      class="task__input task__input--name"
+      placeholder="What would be your next task?"
       />
       <button class="button task__button task__button--right">
         <svg class="task__svg" viewBox="0 0 512 512">
           <use href="assets/svg/icons.svg#arrow-right"></use>
         </svg>
       </button>
+      <label for="task-name" class="task__label task__label--name">
+        Your task
+      </label>
     </section>
     <!-- TIME -->
     <section class="time">
       <h2 class="time__heading visuallyhidden">Task Time Estimation</h2>
-      <label for="task-time" class="time__label time__label--time">
-        Set time for task
-      </label>
-      <label for="task-breaks" class="time__label time__label--breaks">
-        Set time for task
-      </label>
+      <div class="time__label">
+        <label for="task-time" class="time__label time__label--time">
+          Set time for task
+        </label>
+        <label for="task-breaks" class="time__label time__label--breaks">
+          Set time for task
+        </label>
+      </div>
       <button class="button task__button task__button--left">
         <svg class="task__svg" viewBox="0 0 512 512">
           <use href="assets/svg/icons.svg#arrow-left"></use>
