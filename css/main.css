@@ -116,23 +116,23 @@ body {
 }
 
 .slideInLeft {
-  -webkit-animation: slideInLeft 0.5s;
-          animation: slideInLeft 0.5s;
+  -webkit-animation: slideInLeft 0.5s forwards;
+          animation: slideInLeft 0.5s forwards;
 }
 
 .slideInRight {
-  -webkit-animation: slideInRight 0.5s;
-          animation: slideInRight 0.5s;
+  -webkit-animation: slideInRight 0.5s forwards;
+          animation: slideInRight 0.5s forwards;
 }
 
 .slideOutLeft {
-  -webkit-animation: slideOutLeft 0.5s;
-          animation: slideOutLeft 0.5s;
+  -webkit-animation: slideOutLeft 0.5s forwards;
+          animation: slideOutLeft 0.5s forwards;
 }
 
 .slideOutRight {
-  -webkit-animation: slideOutRight 0.5s;
-          animation: slideOutRight 0.5s;
+  -webkit-animation: slideOutRight 0.5s forwards;
+          animation: slideOutRight 0.5s forwards;
 }
 
 .app {
@@ -323,6 +323,14 @@ body {
   position: fixed;
   top: 0;
   visibility: hidden;
+  -webkit-transition: visibility 0s 0.5s;
+  transition: visibility 0s 0.5s;
+}
+
+.timer--visible {
+  visibility: visible;
+  -webkit-transition: visibility 0s;
+  transition: visibility 0s;
 }
 
 .timer__container {
@@ -347,10 +355,6 @@ body {
   max-width: 1200px;
   row-gap: 100px;
   width: 100%;
-}
-
-.timer--visible {
-  visibility: visible;
 }
 
 .timer__display {

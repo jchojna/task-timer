@@ -30,10 +30,10 @@ body {
   padding: 0;
 }
 
-.slideInLeft { animation: slideInLeft $time-slide; }
-.slideInRight { animation: slideInRight $time-slide; }
-.slideOutLeft { animation: slideOutLeft $time-slide; }
-.slideOutRight { animation: slideOutRight $time-slide; }
+.slideInLeft { animation: slideInLeft $time-slide forwards; }
+.slideInRight { animation: slideInRight $time-slide forwards; }
+.slideOutLeft { animation: slideOutLeft $time-slide forwards; }
+.slideOutRight { animation: slideOutRight $time-slide forwards; }
 
 .app {
   @include flex-center;
@@ -150,6 +150,12 @@ body {
   position: fixed;
   top: 0;
   visibility: hidden;
+  transition: visibility 0s $time-slide;
+
+  &--visible {
+    visibility: visible;
+    transition: visibility 0s;
+  }
 
   &__container {
     align-items: center;
@@ -165,10 +171,6 @@ body {
     max-width: 1200px;
     row-gap: 100px;
     width: 100%;
-  }
-
-  &--visible {
-    visibility: visible;
   }
 
   &__heading {
