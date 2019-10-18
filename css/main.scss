@@ -116,6 +116,19 @@ body {
     }
   }
 
+  &__alert {
+    grid-column: 1 / 4;
+    opacity: 0;
+    transition: opacity $time-alert, visibility 0s $time-alert;
+    visibility: hidden;
+
+    &--visible {
+      opacity: 1;
+      transition: opacity $time-alert, visibility 0s;
+      visibility: visible;
+    }
+  }
+
   &__button {
     fill: none;
     stroke: #fff;

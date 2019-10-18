@@ -276,6 +276,25 @@ body {
   grid-column: 2 / 3;
 }
 
+.task__alert,
+.time__alert {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / 4;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s, visibility 0s 0.3s;
+  transition: opacity 0.3s, visibility 0s 0.3s;
+  visibility: hidden;
+}
+
+.task__alert--visible,
+.time__alert--visible {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s, visibility 0s;
+  transition: opacity 0.3s, visibility 0s;
+  visibility: visible;
+}
+
 .task__button,
 .time__button {
   fill: none;
