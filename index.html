@@ -5,8 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>TaskTimer App</title>
+  <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-  
+  <main class="app">
+    <h1 class="app__heading visuallyhidden">Task Timer App</h1>
+    <!-- TASK -->
+    <section class="task">
+      <h2 class="task__heading">Write your task</h2>
+      <input
+      id="task-name"
+      class="task__input task__input--name"
+      placeholder="What would be your next task?"
+      />
+      <button class="button task__button task__button--right">
+        <svg class="task__svg" viewBox="0 0 512 512">
+          <use href="assets/svg/icons.svg#arrow-right"></use>
+        </svg>
+      </button>
+      <label for="task-name" class="task__label task__label--name">
+        Your task
+      </label>
+    </section>
+    <!-- TIME -->
+    <section class="time">
+      <h2 class="time__heading">Task Time Estimation</h2>
+      <button class="button task__button task__button--left">
+        <svg class="task__svg" viewBox="0 0 512 512">
+          <use href="assets/svg/icons.svg#arrow-left"></use>
+        </svg>
+      </button>
+      <div class="time__row">
+        <input id="task-time" class="time__input" placeholder="min : sec" />
+        <input id="task-break" class="time__input" placeholder="min : sec" />
+        <button class="button time__start">Start</button>
+      </div>
+      <div class="time__row">
+        <label for="task-time" class="time__label time__label--task">
+          task time
+        </label>
+        <label for="task-break" class="time__label time__label--break">
+          total breaks time
+        </label>
+      </div>
+    </section>
+    <!-- TIMER -->
+    <section class="timer">
+      <h2 class="timer__heading">Work on your task</h2>
+      <div class="timer__buttons">
+        <button class="button timer__button timer__button--toggle timer__button--js-toggle">
+          <svg class="timer__svg" viewBox="0 0 512 512">
+            <use href="assets/svg/icons.svg#start"></use>
+          </svg>
+        </button>
+        <button class="button timer__button timer__button--stop timer__button--js-stop">
+          <svg class="timer__svg" viewBox="0 0 512 512">
+            <use href="assets/svg/icons.svg#pause"></use>
+          </svg>
+        </button>
+        <button class="button timer__button timer__button--switch timer__button--js-switch">
+          <svg class="timer__svg" viewBox="0 0 512 512">
+            <use href="assets/svg/icons.svg#stop"></use>
+          </svg>
+        </button>
+      </div>
+      <span class="timer__display">01 : 12 : 49</span>
+      <span class="timer__breaks">4 breaks</span>
+      <div class="progress">
+        <span class="progress__percent">21%</span>
+        <div class="progress__bar">
+          <div class="progress__part progress__part--loaded"></div>
+          <div class="progress__part progress__part--remaining"></div>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>

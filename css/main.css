@@ -1,0 +1,303 @@
+@import url("normalize.css");
+@import url("helpers.css");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext");
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+body {
+  color: #fff;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: medium;
+}
+
+.button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+}
+
+.app {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #B4CECF;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  padding: 150px 0;
+}
+
+.task,
+.time {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  font-size: 1.6em;
+  font-weight: 400;
+  -ms-grid-columns: 1fr 2fr 1fr;
+      grid-template-columns: 1fr 2fr 1fr;
+  -ms-grid-rows: 1fr 80px 1fr;
+      grid-template-rows: 1fr 80px 1fr;
+  justify-items: center;
+  width: 100%;
+}
+
+.task__heading, .timer__heading,
+.time__heading {
+  margin: 0;
+  font-size: 2em;
+  font-weight: 400;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+}
+
+.task__input,
+.time__input {
+  -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+  background: none;
+  border: 2px solid #fff;
+  border-radius: 100px;
+  color: #fff;
+  -ms-grid-column-align: stretch;
+      justify-self: stretch;
+  min-width: 50px;
+  padding: 0 1.3em;
+  text-align: center;
+}
+
+.task__input--name,
+.time__input--name {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2 / 3;
+  text-align: left;
+}
+
+.task__input::-webkit-input-placeholder,
+.time__input::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.task__input:-ms-input-placeholder,
+.time__input:-ms-input-placeholder {
+  color: #fff;
+}
+
+.task__input::-ms-input-placeholder,
+.time__input::-ms-input-placeholder {
+  color: #fff;
+}
+
+.task__input::placeholder,
+.time__input::placeholder {
+  color: #fff;
+}
+
+.task__row,
+.time__row {
+  -ms-grid-row-align: stretch;
+      align-self: stretch;
+  display: -ms-grid;
+  display: grid;
+  gap: 40px;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2 / 3;
+  justify-items: center;
+  width: 100%;
+}
+
+.task__label,
+.time__label {
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
+  font-size: 0.7em;
+  margin-top: 1em;
+}
+
+.task__label--name,
+.time__label--name {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2 / 3;
+}
+
+.task__button,
+.time__button {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 20;
+  width: 100px;
+}
+
+.task__button--right,
+.time__button--right {
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 1;
+  grid-column: 3 / 4;
+}
+
+.task__svg,
+.time__svg {
+  width: 100%;
+}
+
+.task__start,
+.time__start {
+  border: 2px solid #fff;
+  border-radius: 100px;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.timer {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  font-size: 1.6em;
+  font-weight: 600;
+  -ms-grid-columns: 200px 1fr 200px;
+      grid-template-columns: 200px 1fr 200px;
+  -ms-grid-rows: 1fr 80px 1fr;
+      grid-template-rows: 1fr 80px 1fr;
+  justify-items: center;
+  max-width: 1200px;
+  row-gap: 100px;
+  width: 100%;
+}
+
+.timer__display {
+  font-size: 2.5em;
+}
+
+.timer__breaks {
+  -ms-grid-column-align: right;
+      justify-self: right;
+}
+
+.timer__buttons {
+  display: -ms-grid;
+  display: grid;
+  gap: 20px;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-column-align: left;
+      justify-self: left;
+}
+
+.timer__button {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  fill: none;
+  height: 80px;
+  stroke: #fff;
+  stroke-width: 15;
+  width: 80px;
+}
+
+.timer__svg {
+  width: 100%;
+}
+
+.progress {
+  -ms-flex-item-align: start;
+      align-self: start;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.progress__percent {
+  margin-bottom: 10px;
+}
+
+.progress__bar {
+  height: 6px;
+  position: relative;
+  width: 100%;
+}
+
+.progress__part {
+  bottom: 0;
+  position: absolute;
+  top: 0;
+}
+
+.progress__part--loaded {
+  background-color: #C36565;
+  left: 0;
+  width: 40%;
+}
+
+.progress__part--remaining {
+  background-color: #fff;
+  right: 0;
+  width: 60%;
+}
+
+.task {
+  display: none;
+}
+
+.time {
+  display: none;
+}
+
+.timer {
+  /* display: none; */
+}
