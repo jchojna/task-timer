@@ -49,24 +49,27 @@
         </label>
       </div>
     </section>
-
-
     <!-- TIMER -->
     <section class="timer">
-      <h2 class="timer__heading visuallyhidden">Task Activation</h2>
-
-      <button class="button timer__button timer__button--start timer__button--js-start">
-        P
-      </button>
-      <div class="timer__display">
-        <p class="timer__time">01 : 12 : 49</p>
+      <h2 class="timer__heading">Work on your task</h2>
+      <div class="timer__buttons">
+        <button class="button timer__button timer__button--toggle timer__button--js-toggle">
+          P
+        </button>
+        <button class="button timer__button timer__button--stop timer__button--js-stop">
+          S
+        </button>
+        <button class="button timer__button timer__button--switch timer__button--js-switch">
+          S
+        </button>
       </div>
-      <button class="button timer__button timer__button--play timer__button--js-play">
-        S
-      </button>
+      <p class="timer__display">01 : 12 : 49</p>
+      <p class="timer__breaks">4 breaks</p>
+      <div class="progress-bar">
+        <div class="progress-bar__part progress-bar__part--loaded"></div>
+        <div class="progress-bar__part progress-bar__part--remaining"></div>
+      </div>
     </section>
-
-
   </main>
 </body>
 </html>

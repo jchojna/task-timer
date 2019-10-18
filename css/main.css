@@ -45,6 +45,7 @@ body {
           flex-direction: column;
   min-height: 100vh;
   height: 100%;
+  padding: 150px 0;
 }
 
 .task,
@@ -67,7 +68,7 @@ body {
   width: 100%;
 }
 
-.task__heading,
+.task__heading, .timer__heading,
 .time__heading {
   margin: 0;
   font-size: 2em;
@@ -184,42 +185,83 @@ body {
 }
 
 .timer {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   display: -ms-grid;
   display: grid;
-  font-size: 3em;
-  gap: 100px;
-  -ms-grid-columns: 1fr 2fr 1fr;
-      grid-template-columns: 1fr 2fr 1fr;
+  font-size: 1.6em;
+  justify-items: center;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  row-gap: 100px;
+  -ms-grid-columns: 200px 1fr 200px;
+      grid-template-columns: 200px 1fr 200px;
   -ms-grid-rows: 1fr 80px 1fr;
       grid-template-rows: 1fr 80px 1fr;
   font-weight: 600;
   max-width: 1200px;
+  width: 100%;
 }
 
 .timer__display {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  border: 4px solid #fff;
-  border-radius: 50%;
-  height: 400px;
-  width: 400px;
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.timer__breaks {
+  margin: 0;
+  -ms-grid-column-align: right;
+      justify-self: right;
+}
+
+.timer__buttons {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-column-align: left;
+      justify-self: left;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .timer__button {
   border: 2px solid #fff;
   border-radius: 50%;
-  height: 100px;
-  width: 100px;
+  width: 60px;
+}
+
+.progress-bar {
+  position: relative;
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
+  width: 100%;
+  height: 6px;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / span 3;
+}
+
+.progress-bar__part {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.progress-bar__part--loaded {
+  left: 0;
+  width: 40%;
+  background-color: #C36565;
+}
+
+.progress-bar__part--remaining {
+  right: 0;
+  width: 60%;
+  background-color: #fff;
 }
 
 .task {
