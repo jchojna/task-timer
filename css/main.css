@@ -1,6 +1,93 @@
 @import url("normalize.css");
 @import url("helpers.css");
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext");
+@-webkit-keyframes slideOutLeft {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+@keyframes slideOutLeft {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+
+@-webkit-keyframes slideOutRight {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+
+@keyframes slideOutRight {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+
+@-webkit-keyframes slideInLeft {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes slideInRight {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -26,6 +113,26 @@ body {
   color: #fff;
   cursor: pointer;
   padding: 0;
+}
+
+.slideInLeft {
+  -webkit-animation: slideInLeft 0.5s;
+          animation: slideInLeft 0.5s;
+}
+
+.slideInRight {
+  -webkit-animation: slideInRight 0.5s;
+          animation: slideInRight 0.5s;
+}
+
+.slideOutLeft {
+  -webkit-animation: slideOutLeft 0.5s;
+          animation: slideOutLeft 0.5s;
+}
+
+.slideOutRight {
+  -webkit-animation: slideOutRight 0.5s;
+          animation: slideOutRight 0.5s;
 }
 
 .app {
@@ -67,15 +174,19 @@ body {
       grid-template-rows: 1fr 80px 1fr;
   justify-items: center;
   left: 0;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
+  -webkit-transition: visibility 0s 0.5s;
+  transition: visibility 0s 0.5s;
   visibility: hidden;
   width: 100%;
 }
 
 .task--visible,
 .time--visible {
+  -webkit-transition: visibility 0s;
+  transition: visibility 0s;
   visibility: visible;
 }
 
@@ -197,11 +308,6 @@ body {
 }
 
 .timer {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: absolute;
-  top: 0;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -211,6 +317,12 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  top: 0;
+  visibility: hidden;
 }
 
 .timer__container {
@@ -234,7 +346,6 @@ body {
   justify-items: center;
   max-width: 1200px;
   row-gap: 100px;
-  visibility: hidden;
   width: 100%;
 }
 
