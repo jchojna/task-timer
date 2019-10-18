@@ -34,11 +34,9 @@ body {
 }
 
 .app {
-  align-items: center;
+  @include flex-center;
   background-color: #B4CECF;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
   min-height: 100vh;
   height: 100%;
 }
@@ -85,9 +83,12 @@ body {
 
   &__row {
     align-self: stretch;
+    justify-items: center;
     display: grid;
     gap: 40px;
     grid-template-columns: repeat(3, 1fr);
+    grid-column: 2 / 3;
+    width: 100%;
   }
 
   &__label {

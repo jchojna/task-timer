@@ -29,15 +29,7 @@
     </section>
     <!-- TIME -->
     <section class="time">
-      <h2 class="time__heading visuallyhidden">Task Time Estimation</h2>
-      <div class="time__label">
-        <label for="task-time" class="time__label time__label--time">
-          Set time for task
-        </label>
-        <label for="task-breaks" class="time__label time__label--breaks">
-          Set time for task
-        </label>
-      </div>
+      <h2 class="time__heading">Task Time Estimation</h2>
       <button class="button task__button task__button--left">
         <svg class="task__svg" viewBox="0 0 512 512">
           <use href="assets/svg/icons.svg#arrow-left"></use>
@@ -45,24 +37,36 @@
       </button>
       <div class="time__row">
         <input id="task-time" class="time__input" placeholder="min : sec" />
-        <input id="task-breaks" class="time__input" placeholder="min : sec" />
+        <input id="task-break" class="time__input" placeholder="min : sec" />
         <button class="button time__start">Start</button>
       </div>
+      <div class="time__row">
+        <label for="task-time" class="time__label time__label--task">
+          task time
+        </label>
+        <label for="task-break" class="time__label time__label--break">
+          total breaks time
+        </label>
+      </div>
     </section>
+
+
     <!-- TIMER -->
     <section class="timer">
       <h2 class="timer__heading visuallyhidden">Task Activation</h2>
-      <div class="timer__display">
-        <p class="timer__time">01:12:49</p>
-        <p class="timer__breaks">4 breaks</p>
-      </div>
-      <button class="button timer__button timer__button--play-pause timer__button--js-play-pause">
-        Play
+
+      <button class="button timer__button timer__button--start timer__button--js-start">
+        P
       </button>
-      <button class="button timer__button timer__button--stop timer__button--js-stop">
-        Stop
+      <div class="timer__display">
+        <p class="timer__time">01 : 12 : 49</p>
+      </div>
+      <button class="button timer__button timer__button--play timer__button--js-play">
+        S
       </button>
     </section>
+
+
   </main>
 </body>
 </html>
