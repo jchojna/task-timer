@@ -209,13 +209,11 @@ body {
 
 .timer__display {
   font-size: 2.5em;
-  margin: 0;
 }
 
 .timer__breaks {
   -ms-grid-column-align: right;
       justify-self: right;
-  margin: 0;
 }
 
 .timer__buttons {
@@ -242,31 +240,51 @@ body {
   width: 100%;
 }
 
-.progress-bar {
+.progress {
   -ms-flex-item-align: start;
-      -ms-grid-row-align: start;
       align-self: start;
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-column: 1 / span 3;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.progress__percent {
+  margin-bottom: 10px;
+}
+
+.progress__bar {
   height: 6px;
   position: relative;
   width: 100%;
 }
 
-.progress-bar__part {
+.progress__part {
   bottom: 0;
   position: absolute;
   top: 0;
 }
 
-.progress-bar__part--loaded {
+.progress__part--loaded {
   background-color: #C36565;
   left: 0;
   width: 40%;
 }
 
-.progress-bar__part--remaining {
+.progress__part--remaining {
   background-color: #fff;
   right: 0;
   width: 60%;
