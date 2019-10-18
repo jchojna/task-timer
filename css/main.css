@@ -171,6 +171,7 @@ body {
 
 .task__svg,
 .time__svg {
+  pointer-events: none;
   width: 100%;
 }
 
@@ -237,6 +238,7 @@ body {
 }
 
 .timer__svg {
+  pointer-events: none;
   width: 100%;
 }
 
@@ -288,16 +290,4 @@ body {
   background-color: #fff;
   right: 0;
   width: 60%;
-}
-
-.task {
-  display: none;
-}
-
-.time {
-  display: none;
-}
-
-.timer {
-  /* display: none; */
 }

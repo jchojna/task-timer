@@ -114,6 +114,7 @@ body {
   }
 
   &__svg {
+    pointer-events: none;
     width: 100%;
   }
 
@@ -171,6 +172,7 @@ body {
   }
 
   &__svg {
+    pointer-events: none;
     width: 100%;
   }
 }
@@ -212,10 +214,3 @@ body {
     }
   }
 }
-
-
-
-
-.task { display: none; }
-.time { display: none; }
-.timer { /* display: none; */ }
