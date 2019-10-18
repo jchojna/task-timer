@@ -53,6 +53,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  bottom: 0;
   display: -ms-grid;
   display: grid;
   -webkit-box-flex: 1;
@@ -65,7 +66,17 @@ body {
   -ms-grid-rows: 1fr 80px 1fr;
       grid-template-rows: 1fr 80px 1fr;
   justify-items: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  visibility: hidden;
   width: 100%;
+}
+
+.task--visible,
+.time--visible {
+  visibility: visible;
 }
 
 .task__heading, .timer__heading,
@@ -186,6 +197,23 @@ body {
 }
 
 .timer {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.timer__container {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -202,10 +230,16 @@ body {
       grid-template-columns: 200px 1fr 200px;
   -ms-grid-rows: 1fr 80px 1fr;
       grid-template-rows: 1fr 80px 1fr;
+  height: 100%;
   justify-items: center;
   max-width: 1200px;
   row-gap: 100px;
+  visibility: hidden;
   width: 100%;
+}
+
+.timer--visible {
+  visibility: visible;
 }
 
 .timer__display {
