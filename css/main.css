@@ -14,10 +14,10 @@ html {
 }
 
 body {
+  color: #fff;
   font-family: "Montserrat", Arial, sans-serif;
   font-size: 16px;
   font-weight: medium;
-  color: #fff;
 }
 
 .button {
@@ -43,8 +43,8 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  min-height: 100vh;
   height: 100%;
+  min-height: 100vh;
   padding: 150px 0;
 }
 
@@ -83,7 +83,6 @@ body {
   -ms-flex-item-align: stretch;
       -ms-grid-row-align: stretch;
       align-self: stretch;
-  text-align: center;
   background: none;
   border: 2px solid #fff;
   border-radius: 100px;
@@ -92,6 +91,7 @@ body {
       justify-self: stretch;
   min-width: 50px;
   padding: 0 1.3em;
+  text-align: center;
 }
 
 .task__input--name,
@@ -126,7 +126,6 @@ body {
 .time__row {
   -ms-grid-row-align: stretch;
       align-self: stretch;
-  justify-items: center;
   display: -ms-grid;
   display: grid;
   gap: 40px;
@@ -135,6 +134,7 @@ body {
   -ms-grid-column: 2;
   -ms-grid-column-span: 1;
   grid-column: 2 / 3;
+  justify-items: center;
   width: 100%;
 }
 
@@ -176,92 +176,100 @@ body {
 
 .task__start,
 .time__start {
-  font-size: 1.2em;
-  font-weight: 600;
   border: 2px solid #fff;
   border-radius: 100px;
+  font-size: 1.2em;
+  font-weight: 600;
   text-transform: uppercase;
   width: 100%;
 }
 
 .timer {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  display: -ms-grid;
-  display: grid;
-  font-size: 1.6em;
-  justify-items: center;
   -webkit-column-gap: 20px;
           column-gap: 20px;
-  row-gap: 100px;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  font-size: 1.6em;
+  font-weight: 600;
   -ms-grid-columns: 200px 1fr 200px;
       grid-template-columns: 200px 1fr 200px;
   -ms-grid-rows: 1fr 80px 1fr;
       grid-template-rows: 1fr 80px 1fr;
-  font-weight: 600;
+  justify-items: center;
   max-width: 1200px;
+  row-gap: 100px;
   width: 100%;
 }
 
 .timer__display {
-  margin: 0;
   font-size: 2.5em;
+  margin: 0;
 }
 
 .timer__breaks {
-  margin: 0;
   -ms-grid-column-align: right;
       justify-self: right;
+  margin: 0;
 }
 
 .timer__buttons {
   display: -ms-grid;
   display: grid;
-  -ms-grid-column-align: left;
-      justify-self: left;
+  gap: 20px;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  -ms-grid-column-align: left;
+      justify-self: left;
 }
 
 .timer__button {
   border: 2px solid #fff;
   border-radius: 50%;
-  width: 60px;
+  fill: none;
+  height: 80px;
+  stroke: #fff;
+  stroke-width: 15;
+  width: 80px;
+}
+
+.timer__svg {
+  width: 100%;
 }
 
 .progress-bar {
-  position: relative;
   -ms-flex-item-align: start;
       -ms-grid-row-align: start;
       align-self: start;
-  width: 100%;
-  height: 6px;
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-column: 1 / span 3;
+  height: 6px;
+  position: relative;
+  width: 100%;
 }
 
 .progress-bar__part {
+  bottom: 0;
   position: absolute;
   top: 0;
-  bottom: 0;
 }
 
 .progress-bar__part--loaded {
+  background-color: #C36565;
   left: 0;
   width: 40%;
-  background-color: #C36565;
 }
 
 .progress-bar__part--remaining {
+  background-color: #fff;
   right: 0;
   width: 60%;
-  background-color: #fff;
 }
 
 .task {
