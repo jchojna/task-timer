@@ -15,7 +15,7 @@
       <h2 class="task__heading">Write your task</h2>
       <input
       id="task-name"
-      class="task__input task__input--name"
+      class="task__input task__input--name task__input--js"
       placeholder="What would be your next task?"
       />
       <button class="button task__button task__button--right task__button--js-right">
@@ -37,8 +37,18 @@
         </svg>
       </button>
       <div class="time__row">
-        <input id="task-time" class="time__input" placeholder="min : sec" />
-        <input id="task-break" class="time__input" placeholder="min : sec" />
+        <input
+          id="task-time"
+          class="time__input time__input--js-time"
+          placeholder="min : sec"
+          maxlength="5"
+        />
+        <input
+          id="task-break"
+          class="time__input time__input--js-break-time"
+          placeholder="min : sec"
+          maxlength="5"
+        />
         <button class="button time__start time__start--js">Start</button>
       </div>
       <div class="time__row">
@@ -54,7 +64,7 @@
     <!-- TIMER -->
     <section class="timer timer--js">
       <div class="timer__container">
-        <h2 class="timer__heading">Work on your task</h2>
+        <h2 class="timer__heading timer__heading--js">Work on your task</h2>
         <div class="timer__buttons">
           <button class="button timer__button timer__button--toggle timer__button--js-toggle">
             <svg class="timer__svg" viewBox="0 0 512 512">
