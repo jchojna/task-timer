@@ -1,6 +1,93 @@
 @import url("normalize.css");
 @import url("helpers.css");
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext");
+@-webkit-keyframes slideOutLeft {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+@keyframes slideOutLeft {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+
+@-webkit-keyframes slideOutRight {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+
+@keyframes slideOutRight {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+}
+
+@-webkit-keyframes slideInLeft {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes slideInRight {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -28,6 +115,26 @@ body {
   padding: 0;
 }
 
+.slideInLeft {
+  -webkit-animation: slideInLeft 0.5s forwards;
+          animation: slideInLeft 0.5s forwards;
+}
+
+.slideInRight {
+  -webkit-animation: slideInRight 0.5s forwards;
+          animation: slideInRight 0.5s forwards;
+}
+
+.slideOutLeft {
+  -webkit-animation: slideOutLeft 0.5s forwards;
+          animation: slideOutLeft 0.5s forwards;
+}
+
+.slideOutRight {
+  -webkit-animation: slideOutRight 0.5s forwards;
+          animation: slideOutRight 0.5s forwards;
+}
+
 .app {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -53,6 +160,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  bottom: 0;
   display: -ms-grid;
   display: grid;
   -webkit-box-flex: 1;
@@ -65,7 +173,21 @@ body {
   -ms-grid-rows: 1fr 80px 1fr;
       grid-template-rows: 1fr 80px 1fr;
   justify-items: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  -webkit-transition: visibility 0s 0.5s;
+  transition: visibility 0s 0.5s;
+  visibility: hidden;
   width: 100%;
+}
+
+.task--visible,
+.time--visible {
+  -webkit-transition: visibility 0s;
+  transition: visibility 0s;
+  visibility: visible;
 }
 
 .task__heading, .timer__heading,
@@ -154,6 +276,25 @@ body {
   grid-column: 2 / 3;
 }
 
+.task__alert,
+.time__alert {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / 4;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s, visibility 0s 0.3s;
+  transition: opacity 0.3s, visibility 0s 0.3s;
+  visibility: hidden;
+}
+
+.task__alert--visible,
+.time__alert--visible {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s, visibility 0s;
+  transition: opacity 0.3s, visibility 0s;
+  visibility: visible;
+}
+
 .task__button,
 .time__button {
   fill: none;
@@ -171,6 +312,7 @@ body {
 
 .task__svg,
 .time__svg {
+  pointer-events: none;
   width: 100%;
 }
 
@@ -188,6 +330,32 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  top: 0;
+  visibility: hidden;
+  -webkit-transition: visibility 0s 0.5s;
+  transition: visibility 0s 0.5s;
+}
+
+.timer--visible {
+  visibility: visible;
+  -webkit-transition: visibility 0s;
+  transition: visibility 0s;
+}
+
+.timer__container {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-column-gap: 20px;
           column-gap: 20px;
   display: -ms-grid;
@@ -201,14 +369,11 @@ body {
       grid-template-columns: 200px 1fr 200px;
   -ms-grid-rows: 1fr 80px 1fr;
       grid-template-rows: 1fr 80px 1fr;
+  height: 100%;
   justify-items: center;
   max-width: 1200px;
   row-gap: 100px;
   width: 100%;
-}
-
-.timer__display {
-  font-size: 2.5em;
 }
 
 .timer__breaks {
@@ -237,7 +402,25 @@ body {
 }
 
 .timer__svg {
+  pointer-events: none;
   width: 100%;
+}
+
+.display {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 2.5em;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .progress {
@@ -288,16 +471,4 @@ body {
   background-color: #fff;
   right: 0;
   width: 60%;
-}
-
-.task {
-  display: none;
-}
-
-.time {
-  display: none;
-}
-
-.timer {
-  /* display: none; */
 }

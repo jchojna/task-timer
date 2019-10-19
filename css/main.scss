@@ -1,12 +1,9 @@
 @import url('normalize.css');
 @import url('helpers.css');
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '_animations.scss';
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext');
-
-@mixin flex-center {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
 
 html {
   box-sizing: border-box;
@@ -33,6 +30,11 @@ body {
   padding: 0;
 }
 
+.slideInLeft { animation: slideInLeft $time-slide forwards; }
+.slideInRight { animation: slideInRight $time-slide forwards; }
+.slideOutLeft { animation: slideOutLeft $time-slide forwards; }
+.slideOutRight { animation: slideOutRight $time-slide forwards; }
+
 .app {
   @include flex-center;
   background-color: #B4CECF;
@@ -45,6 +47,7 @@ body {
 .task,
 .time {
   align-items: center;
+  bottom: 0;
   display: grid;
   flex-grow: 1;
   font-size: 1.6em;
@@ -52,7 +55,18 @@ body {
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 1fr 80px 1fr;
   justify-items: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: visibility 0s $time-slide;
+  visibility: hidden;
   width: 100%;
+  
+  &--visible {
+    transition: visibility 0s;
+    visibility: visible;
+  }
 
   &__heading {
     margin: 0;
@@ -102,6 +116,19 @@ body {
     }
   }
 
+  &__alert {
+    grid-column: 1 / 4;
+    opacity: 0;
+    transition: opacity $time-alert, visibility 0s $time-alert;
+    visibility: hidden;
+
+    &--visible {
+      opacity: 1;
+      transition: opacity $time-alert, visibility 0s;
+      visibility: visible;
+    }
+  }
+
   &__button {
     fill: none;
     stroke: #fff;
@@ -114,6 +141,7 @@ body {
   }
 
   &__svg {
+    pointer-events: none;
     width: 100%;
   }
 
@@ -128,25 +156,38 @@ body {
 }
 
 .timer {
-  align-items: center;
-  column-gap: 20px;
-  display: grid;
-  flex-grow: 1;
-  font-size: 1.6em;
-  font-weight: 600;
-  grid-template-columns: 200px 1fr 200px;
-  grid-template-rows: 1fr 80px 1fr;
-  justify-items: center;
-  max-width: 1200px;
-  row-gap: 100px;
-  width: 100%;
+  @include flex-center;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  top: 0;
+  visibility: hidden;
+  transition: visibility 0s $time-slide;
+
+  &--visible {
+    visibility: visible;
+    transition: visibility 0s;
+  }
+
+  &__container {
+    align-items: center;
+    column-gap: 20px;
+    display: grid;
+    flex-grow: 1;
+    font-size: 1.6em;
+    font-weight: 600;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: 1fr 80px 1fr;
+    height: 100%;
+    justify-items: center;
+    max-width: 1200px;
+    row-gap: 100px;
+    width: 100%;
+  }
 
   &__heading {
     @extend .task__heading;
-  }
-  
-  &__display {
-    font-size: 2.5em;
   }
 
   &__breaks {
@@ -171,8 +212,15 @@ body {
   }
 
   &__svg {
+    pointer-events: none;
     width: 100%;
   }
+}
+  
+.display {
+  @include flex-center;
+  font-size: 2.5em;
+  flex-direction: column;
 }
 
 .progress {
@@ -212,10 +260,3 @@ body {
     }
   }
 }
-
-
-
-
-.task { display: none; }
-.time { display: none; }
-.timer { /* display: none; */ }
