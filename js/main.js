@@ -1,16 +1,24 @@
+const validateInput = (input, prop) => {
+  const alert = document.querySelector(`.${input}__alert--js`);
+
+  if (prop === 'name' ? !/\w/g.test(task[prop]) : !/\d/g.test(task[prop])) {
+    alert.classList.add(`${input}__alert--visible`);
+    return false;
+  } else {
+    alert.classList.remove(`${input}__alert--visible`);
+    return 1;
+  }
+}
+
 const slideSection = (e) => {
 
   switch(e.target) {
 
     case rightButton:
-      if (!/\w/g.test(task.name)) {
-        taskAlert.classList.add('task__alert--visible');
-        break;
-      } else {
-        taskAlert.classList.remove('task__alert--visible');
+      if (validateInput('task', 'name')) {
+        taskSection.className = 'task task--js slideOutLeft';
+        timeSection.className = 'time time--js time--visible slideInRight';
       }
-      taskSection.className = 'task task--js slideOutLeft';
-      timeSection.className = 'time time--js time--visible slideInRight';
       break;
 
     case leftButton:
@@ -19,14 +27,10 @@ const slideSection = (e) => {
       break;
 
     case startButton:
-      if (!/\d/g.test(task.time)) {
-        timeAlert.classList.add('time__alert--visible');
-        break;
-      } else {
-        timeAlert.classList.remove('time__alert--visible');
+      if (validateInput('time', 'time')) {
+        timeSection.className = 'time time--js slideOutLeft';
+        timerSection.className = 'timer timer--js timer--visible slideInRight';
       }
-      timeSection.className = 'time time--js slideOutLeft';
-      timerSection.className = 'timer timer--js timer--visible slideInRight';
       break;
 
     case timerStop:
@@ -41,7 +45,6 @@ const slideSection = (e) => {
 const handleTaskName = (e) => {
   task.name = e.target.value;
   timerHeading.textContent = `"${task.name}"`;
-  console.log('taskName', task.name);
 }
 
 const handleTaskTime = (e) => {
@@ -73,14 +76,12 @@ const task = {
 const taskSection = document.querySelector('.task--js');
 const rightButton = document.querySelector('.task__button--js-right');
 const taskInput = document.querySelector('.task__input--js');
-const taskAlert = document.querySelector('.task__alert--js');
 // TIME
 const timeSection = document.querySelector('.time--js');
 const leftButton = document.querySelector('.time__button--js-left');
 const startButton = document.querySelector('.time__start--js');
 const timeInput = document.querySelector('.time__input--js-time');
 const breakTimeInput = document.querySelector('.time__input--js-break-time');
-const timeAlert = document.querySelector('.time__alert--js');
 // TIMER
 const timerSection = document.querySelector('.timer--js');
 const timerStop = document.querySelector('.timer__button--js-stop');
