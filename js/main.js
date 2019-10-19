@@ -1,27 +1,27 @@
 class Task {
   constructor(time) {
     this.name = "",
-    this.time = time,
-    this.breakTime = time,
     this.timeElapsed = time,
-    this.timeRemaining = time
+    this.timeRemaining = time,
+    this.timeTotal = time,
+    this.breakTime = time
   }
 
-  get timeElapsed() {
-    return this._timeElapsed;
+  get timeElapsedArray() {
+    return this._timeElapsedArray;
   }
-  set timeElapsed(time) {
-    this._timeElapsed = [
+  set timeElapsedArray(time) {
+    this._timeElapsedArray = [
       makeTwoDigits(Math.floor(time / 6000)),
       makeTwoDigits(time % 6000 / 100),
       makeTwoDigits(time % 100),
     ];
   }
-  get timeRemaining() {
-    return this._timeRemaining;
+  get timeRemainingArray() {
+    return this._timeRemainingArray;
   }
-  set timeRemaining(time) {
-    this._timeRemaining = [
+  set timeRemainingArray(time) {
+    this._timeRemainingArray = [
       makeTwoDigits(Math.floor(time / 6000)),
       makeTwoDigits(time % 6000 / 100),
       makeTwoDigits(time % 100),
@@ -64,7 +64,7 @@ const slideSection = (e) => {
       break;
 
     case startButton:
-      if (validateInput('time', 'time')) {
+      if (validateInput('time', 'timeTotal')) {
         timeSection.className = 'time time--js slideOutLeft';
         timerSection.className = 'timer timer--js timer--visible slideInRight';
       }
@@ -82,7 +82,6 @@ const slideSection = (e) => {
 const handleTaskName = (e) => {
   task.name = e.target.value;
   timerHeading.textContent = `"${task.name}"`;
-  console.log(task);
 }
 
 const handleTaskTime = (e) => {
@@ -90,17 +89,28 @@ const handleTaskTime = (e) => {
   const time = target.value.split(/[\s:.]/).map(a => parseInt(a));
   const timeInCSeconds = time[0] * 6000 + (time[1] ? time[1] * 100 : 0);
   if (target === timeInput) {
-    task.time = timeInCSeconds;
     task.timeRemaining = timeInCSeconds;
-    const [min, sec, cSec] = task.timeRemaining;
+    task.timeRemainingArray = timeInCSeconds;
+    task.timeTotal = timeInCSeconds;
+
+    const [min, sec, cSec] = task.timeRemainingArray;
     remainingMin.textContent = min;
     remainingSec.textContent = sec;
     remainingCSec.textContent = cSec;
+
+    const percentLoaded = task.timeElapsed / task.timeTotal * 100;
+    const percentRemaining = task.timeRemaining / task.timeTotal * 100;
+
+    progressLoadedPercent.textContent = `${Math.round(percentLoaded)} %`;
+    progressRemainingPercent.textContent = `${Math.round(percentRemaining)} %`;
+    progressLoadedBar.style.width = `${percentLoaded}%`;
+    progressRemainingBar.style.width = `${percentRemaining}%`;
+
+
   } else {
     task.breakTime = timeInCSeconds;
   }
   console.log(task);
-
 }
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
@@ -121,12 +131,17 @@ const breakTimeInput = document.querySelector('.time__input--js-break-time');
 const timerSection = document.querySelector('.timer--js');
 const timerStop = document.querySelector('.timer__button--js-stop');
 const timerHeading = document.querySelector('.timer__heading--js');
+// DISPLAY
 const displayElapsed = document.querySelector('.display__elapsed--js');
 const displayRemaining = document.querySelector('.display__remaining--js');
-
 const remainingMin = document.querySelector('.display__remaining--js .display__time--js-min');
 const remainingSec = document.querySelector('.display__remaining--js .display__time--js-sec');
 const remainingCSec = document.querySelector('.display__remaining--js .display__time--js-cSec');
+// PROGRESS BAR
+const progressLoadedPercent = document.querySelector('.progress__percent--js-loaded');
+const progressRemainingPercent = document.querySelector('.progress__percent--js-remaining');
+const progressLoadedBar = document.querySelector('.progress__part--js-loaded');
+const progressRemainingBar = document.querySelector('.progress__part--js-remaining');
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
 

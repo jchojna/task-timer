@@ -11,7 +11,7 @@
   <main class="app">
     <h1 class="app__heading visuallyhidden">Task Timer App</h1>
     <!-- TASK -->
-    <section class="task task--js">
+    <section class="task task--visible task--js">
       <h2 class="task__heading">Write your task</h2>
       <input
       id="task-name"
@@ -34,7 +34,7 @@
     </section>
     <!-- END OF TASK -->
     <!-- TIME -->
-    <section class="time time--visible time--js">
+    <section class="time time--js">
       <h2 class="time__heading">Task Time Estimation</h2>
       <button class="button time__button time__button--left time__button--js-left">
         <svg class="task__svg" viewBox="0 0 512 512">
@@ -108,12 +108,13 @@
             <span class="display__time display__time--js-cSec">00</span>
           </div>
         </div>
-        <span class="timer__breaks">4 breaks</span>
+        <span class="timer__breaks">0 breaks</span>
         <div class="progress">
-          <span class="progress__percent">21%</span>
+          <span class="progress__percent progress__percent--js-loaded">0%</span>
+          <span class="progress__percent progress__percent--js-remaining">0%</span>
           <div class="progress__bar">
-            <div class="progress__part progress__part--loaded"></div>
-            <div class="progress__part progress__part--remaining"></div>
+            <div class="progress__part progress__part--loaded progress__part--js-loaded"></div>
+            <div class="progress__part progress__part--remaining progress__part--js-remaining"></div>
           </div>
         </div>
       </div>
