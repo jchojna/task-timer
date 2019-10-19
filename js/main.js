@@ -48,21 +48,11 @@ const handleTaskName = (e) => {
 }
 
 const handleTaskTime = (e) => {
-  task.time = e.target.value;
-  console.log('taskTime', task.time);
+  const {target} = e;
+  const time = target.value.split(/[\s:.]/).map(a => parseInt(a));
+  const timeInSeconds = time[0] * 60 + (time[1] ? time[1] : 0);
+  target === timeInput ? task.time = timeInSeconds : task.breakTime = timeInSeconds;
 }
-
-const handleTaskBreakTime = (e) => {
-  task.breakTime = e.target.value;
-  console.log('taskBreakTime', task.breakTime);
-}
-
-
-
-
-
-
-
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
@@ -96,4 +86,4 @@ timerStop.addEventListener('click', slideSection);
 
 taskInput.addEventListener('change', handleTaskName);
 timeInput.addEventListener('change', handleTaskTime);
-breakTimeInput.addEventListener('change', handleTaskBreakTime);
+breakTimeInput.addEventListener('change', handleTaskTime);

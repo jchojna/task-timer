@@ -11,7 +11,7 @@
   <main class="app">
     <h1 class="app__heading visuallyhidden">Task Timer App</h1>
     <!-- TASK -->
-    <section class="task task--visible task--js">
+    <section class="task task--js">
       <h2 class="task__heading">Write your task</h2>
       <input
       id="task-name"
@@ -34,7 +34,7 @@
     </section>
     <!-- END OF TASK -->
     <!-- TIME -->
-    <section class="time time--js">
+    <section class="time time--visible time--js">
       <h2 class="time__heading">Task Time Estimation</h2>
       <button class="button time__button time__button--left time__button--js-left">
         <svg class="task__svg" viewBox="0 0 512 512">
@@ -45,14 +45,16 @@
         <input
           id="task-time"
           class="time__input time__input--js-time"
-          placeholder="min : sec"
+          placeholder="min (: sec)"
           maxlength="5"
+          pattern="(\d?\d[\s:.])?\d?\d"
         />
         <input
           id="task-break"
           class="time__input time__input--js-break-time"
-          placeholder="min : sec"
+          placeholder="min (:sec)"
           maxlength="5"
+          pattern="(\d?\d[\s:.])?\d?\d"
         />
         <button class="button time__start time__start--js">Start</button>
       </div>
