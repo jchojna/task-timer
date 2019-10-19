@@ -39,9 +39,11 @@ const validateInput = (input, prop) => {
   if (prop === 'name' ? !/\w/g.test(task[prop]) : !/\d/g.test(task[prop])) {
     alert.classList.add(`${input}__alert--visible`);
     return false;
-  } else {
+  } else if (timeInput.validity.valid && breakTimeInput.validity.valid) {
     alert.classList.remove(`${input}__alert--visible`);
     return 1;
+  } else {
+    return false;
   }
 }
 
