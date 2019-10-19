@@ -376,10 +376,6 @@ body {
   width: 100%;
 }
 
-.timer__display {
-  font-size: 2.5em;
-}
-
 .timer__breaks {
   -ms-grid-column-align: right;
       justify-self: right;
@@ -408,6 +404,23 @@ body {
 .timer__svg {
   pointer-events: none;
   width: 100%;
+}
+
+.display {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 2.5em;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .progress {

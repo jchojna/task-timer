@@ -1,3 +1,38 @@
+class Task {
+  constructor(time) {
+    this.name = "",
+    this.time = time,
+    this.breakTime = time,
+    this.timeElapsed = time,
+    this.timeRemaining = time
+  }
+
+  get timeElapsed() {
+    return this._timeElapsed;
+  }
+  set timeElapsed(time) {
+    this._timeElapsed = [
+      makeTwoDigits(Math.floor(time / 6000)),
+      makeTwoDigits(time % 6000 / 100),
+      makeTwoDigits(time % 100),
+    ];
+  }
+  get timeRemaining() {
+    return this._timeRemaining;
+  }
+  set timeRemaining(time) {
+    this._timeRemaining = [
+      makeTwoDigits(Math.floor(time / 6000)),
+      makeTwoDigits(time % 6000 / 100),
+      makeTwoDigits(time % 100),
+    ];
+  }
+}
+
+const makeTwoDigits = (number) => {
+  return number < 10 ? `0${number}` : number;
+}
+
 const validateInput = (input, prop) => {
   const alert = document.querySelector(`.${input}__alert--js`);
 
@@ -45,22 +80,30 @@ const slideSection = (e) => {
 const handleTaskName = (e) => {
   task.name = e.target.value;
   timerHeading.textContent = `"${task.name}"`;
+  console.log(task);
 }
 
 const handleTaskTime = (e) => {
   const {target} = e;
   const time = target.value.split(/[\s:.]/).map(a => parseInt(a));
-  const timeInSeconds = time[0] * 60 + (time[1] ? time[1] : 0);
-  target === timeInput ? task.time = timeInSeconds : task.breakTime = timeInSeconds;
+  const timeInCSeconds = time[0] * 6000 + (time[1] ? time[1] * 100 : 0);
+  if (target === timeInput) {
+    task.time = timeInCSeconds;
+    task.timeRemaining = timeInCSeconds;
+    const [min, sec, cSec] = task.timeRemaining;
+    remainingMin.textContent = min;
+    remainingSec.textContent = sec;
+    remainingCSec.textContent = cSec;
+  } else {
+    task.breakTime = timeInCSeconds;
+  }
+  console.log(task);
+
 }
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
-const task = {
-  name: "",
-  time: "",
-  breakTime: ""
-};
+const task = new Task(0);
 
 // TASK
 const taskSection = document.querySelector('.task--js');
@@ -76,6 +119,12 @@ const breakTimeInput = document.querySelector('.time__input--js-break-time');
 const timerSection = document.querySelector('.timer--js');
 const timerStop = document.querySelector('.timer__button--js-stop');
 const timerHeading = document.querySelector('.timer__heading--js');
+const displayElapsed = document.querySelector('.display__elapsed--js');
+const displayRemaining = document.querySelector('.display__remaining--js');
+
+const remainingMin = document.querySelector('.display__remaining--js .display__time--js-min');
+const remainingSec = document.querySelector('.display__remaining--js .display__time--js-sec');
+const remainingCSec = document.querySelector('.display__remaining--js .display__time--js-cSec');
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
 

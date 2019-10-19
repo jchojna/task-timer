@@ -189,10 +189,6 @@ body {
   &__heading {
     @extend .task__heading;
   }
-  
-  &__display {
-    font-size: 2.5em;
-  }
 
   &__breaks {
     justify-self: right;
@@ -219,6 +215,12 @@ body {
     pointer-events: none;
     width: 100%;
   }
+}
+  
+.display {
+  @include flex-center;
+  font-size: 2.5em;
+  flex-direction: column;
 }
 
 .progress {
