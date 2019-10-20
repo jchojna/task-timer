@@ -83,23 +83,34 @@ const countdown = () => {
   }
 }
 
+const handleTaskTime = (e) => {
+  const {target} = e;
+  let timeArray = target.value.split(/[mM]/).map(a => parseInt(a) || 0);
+  timeArray = timeArray.length > 1 ? timeArray : [0, ...timeArray];
+  const [minutes, seconds] = timeArray;
+  const time = minutes * 60000 + seconds * 1000;
+  console.log('time', time);
 
+  if (target === timeInput) {
+    task.timeRemaining = time;
+    task.timeRemainingArray = time;
+    task.timeTotal = time;
 
-const makeTwoDigits = (number) => {
-  return number < 10 ? `0${number}` : number;
-}
+    const [min, sec, cSec] = task.timeRemainingArray;
+    remainingMin.textContent = min;
+    remainingSec.textContent = sec;
+    remainingCSec.textContent = cSec;
 
-const validateInput = (input, prop) => {
-  const alert = document.querySelector(`.${input}__alert--js`);
+    const percentLoaded = task.timeElapsed / task.timeTotal * 100;
+    const percentRemaining = task.timeRemaining / task.timeTotal * 100;
 
-  if (prop === 'name' ? !/\w/g.test(task[prop]) : !/\d/g.test(task[prop])) {
-    alert.classList.add(`${input}__alert--visible`);
-    return false;
-  } else if (timeInput.validity.valid && breakTimeInput.validity.valid) {
-    alert.classList.remove(`${input}__alert--visible`);
-    return 1;
+    progressLoadedPercent.textContent = `${Math.round(percentLoaded)} %`;
+    progressRemainingPercent.textContent = `${Math.round(percentRemaining)} %`;
+    progressLoadedBar.style.width = `${percentLoaded}%`;
+    progressRemainingBar.style.width = `${percentRemaining}%`;
+
   } else {
-    return false;
+    task.breakTime = time;
   }
 }
 
