@@ -1,7 +1,7 @@
 class Task {
   constructor(time) {
     this.name = "",
-    this.timeElapsed = time,
+    this.timeElapsed = 0,
     this.timeRemaining = time,
     this.previousTime = 0,
     this.breakTime = time,
@@ -39,12 +39,21 @@ const countdown = () => {
       timeTotal,
       previousTime
     } = task;
-
+    
+    if (timeElapsed >= timeTotal) {
+      task.timeElapsed, timeElapsed = timeTotal;
+      task.timeRemaining, timeRemaining = 0;
+      task.isRunning = false;
+      clearInterval(intervalId);
+      console.log(task);
+    }
+    
     const now = Date.now();
-    timeElapsed = now - previousTime;
+    task.timeElapsed = now - previousTime;
     task.timeRemaining = timeTotal - timeElapsed;
     task.timeElapsedArray = timeElapsed;
     task.timeRemainingArray = timeRemaining;
+
 
     const [eMin, eSec, eCSec] = task.timeElapsedArray;
     elapsedMin.textContent = eMin;
