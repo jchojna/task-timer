@@ -45,11 +45,12 @@ const countdown = () => {
       task.timeRemaining, timeRemaining = 0;
       task.isRunning = false;
       clearInterval(intervalId);
-      console.log(task);
+
+    } else {
+      const now = Date.now();
+      task.timeElapsed = now - previousTime;
     }
-    
-    const now = Date.now();
-    task.timeElapsed = now - previousTime;
+
     task.timeRemaining = timeTotal - timeElapsed;
     task.timeElapsedArray = timeElapsed;
     task.timeRemainingArray = timeRemaining;
@@ -83,35 +84,11 @@ const countdown = () => {
   }
 }
 
-const handleTaskTime = (e) => {
-  const {target} = e;
-  let timeArray = target.value.split(/[mM]/).map(a => parseInt(a) || 0);
-  timeArray = timeArray.length > 1 ? timeArray : [0, ...timeArray];
-  const [minutes, seconds] = timeArray;
-  const time = minutes * 60000 + seconds * 1000;
-  console.log('time', time);
-
-  if (target === timeInput) {
-    task.timeRemaining = time;
-    task.timeRemainingArray = time;
-    task.timeTotal = time;
-
-    const [min, sec, cSec] = task.timeRemainingArray;
-    remainingMin.textContent = min;
-    remainingSec.textContent = sec;
-    remainingCSec.textContent = cSec;
-
-    const percentLoaded = task.timeElapsed / task.timeTotal * 100;
-    const percentRemaining = task.timeRemaining / task.timeTotal * 100;
-
-    progressLoadedPercent.textContent = `${Math.round(percentLoaded)} %`;
-    progressRemainingPercent.textContent = `${Math.round(percentRemaining)} %`;
-    progressLoadedBar.style.width = `${percentLoaded}%`;
-    progressRemainingBar.style.width = `${percentRemaining}%`;
-
-  } else {
-    task.breakTime = time;
-  }
+const setTotalTime = () => {
+  let time = timeInput.value.split(/[mM]/).map(a => parseInt(a) || 0);
+  time = time.length > 1 ? time : [0, ...time];
+  const [minutes, seconds] = time;
+  return minutes * 60000 + seconds * 1000;
 }
 
 const slideSection = (e) => {
@@ -122,6 +99,8 @@ const slideSection = (e) => {
       if (validateInput('task', 'name')) {
         taskSection.className = 'task task--js slideOutLeft';
         timeSection.className = 'time time--js time--visible slideInRight';
+        task.name = taskInput.value;
+        timerHeading.textContent = `"${task.name}"`;
       }
       break;
 
@@ -136,7 +115,13 @@ const slideSection = (e) => {
         timerSection.className = 'timer timer--js timer--visible slideInRight'; */
         task.isRunning = true;
         task.previousTime = Date.now();
+        task.timeTotal = setTotalTime();
+        if (task.timeTotal <= 0) return;
+        task.timeElapsed = 0;
         intervalId = setInterval(() => countdown(), 10);
+        taskInput.value = "";
+        timeInput.value = "";
+        breakTimeInput.value = "";
       }
       break;
 
@@ -151,40 +136,23 @@ const slideSection = (e) => {
   }
 }
 
-const handleTaskName = (e) => {
-  task.name = e.target.value;
-  timerHeading.textContent = `"${task.name}"`;
+const makeTwoDigits = (number) => {
+  return number < 10 ? `0${number}` : number;
 }
 
-const handleTaskTime = (e) => {
-  const {target} = e;
-  const timeArray = target.value.split(/[\s:.]/).map(a => parseInt(a));
-  const time = timeArray[0] * 60000 + (timeArray[1] ? timeArray[1] * 1000 : 0);
+const validateInput = (input) => {
+  const alert = document.querySelector(`.${input}__alert--js`);
 
-  if (target === timeInput) {
-    task.timeRemaining = time;
-    task.timeRemainingArray = time;
-    task.timeTotal = time;
-
-    const [min, sec, cSec] = task.timeRemainingArray;
-    remainingMin.textContent = min;
-    remainingSec.textContent = sec;
-    remainingCSec.textContent = cSec;
-
-    const percentLoaded = task.timeElapsed / task.timeTotal * 100;
-    const percentRemaining = task.timeRemaining / task.timeTotal * 100;
-
-    progressLoadedPercent.textContent = `${Math.round(percentLoaded)} %`;
-    progressRemainingPercent.textContent = `${Math.round(percentRemaining)} %`;
-    progressLoadedBar.style.width = `${percentLoaded}%`;
-    progressRemainingBar.style.width = `${percentRemaining}%`;
-
+  if (input === 'task' ? !/\w/g.test(taskInput.value) : !/\d/g.test(timeInput.value)) {
+    alert.classList.add(`${input}__alert--visible`);
+    return false;
+  } else if (timeInput.validity.valid && breakTimeInput.validity.valid) {
+    alert.classList.remove(`${input}__alert--visible`);
+    return 1;
   } else {
-    task.breakTime = time;
+    return false;
   }
 }
-
-
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
@@ -226,7 +194,3 @@ rightButton.addEventListener('click', slideSection);
 leftButton.addEventListener('click', slideSection);
 startButton.addEventListener('click', slideSection);
 timerStop.addEventListener('click', slideSection);
-
-taskInput.addEventListener('change', handleTaskName);
-timeInput.addEventListener('change', handleTaskTime);
-breakTimeInput.addEventListener('change', handleTaskTime);
