@@ -213,7 +213,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   bottom: 0;
-  bottom: 400px;
   display: -ms-grid;
   display: grid;
   -webkit-box-flex: 1;
@@ -401,7 +400,6 @@ body {
   right: 0;
   position: fixed;
   top: 0;
-  top: 400px;
   visibility: hidden;
   -webkit-transition: visibility 0s 0.5s;
   transition: visibility 0s 0.5s;
@@ -508,7 +506,7 @@ body {
 }
 
 .display__container--visible {
-  visibility: visible;
+  visibility: inherit;
   -webkit-transition: visibility 0s;
   transition: visibility 0s;
 }
@@ -535,6 +533,14 @@ body {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+}
+
+.break__display {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1.6em 0.5em 1.6em 0.5em 1.6em;
+      grid-template-columns: 1.6em 0.5em 1.6em 0.5em 1.6em;
+  justify-items: end;
 }
 
 .progress {
@@ -589,7 +595,7 @@ body {
 }
 
 .progress__percent--visible {
-  visibility: visible;
+  visibility: inherit;
 }
 
 .progress__bar {

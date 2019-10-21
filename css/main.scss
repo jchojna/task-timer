@@ -248,7 +248,7 @@ body {
     transition: visibility 0s $time-display;
 
     &--visible {
-      visibility: visible;
+      visibility: inherit;
       transition: visibility 0s;
     }
 
@@ -267,6 +267,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  &__display {
+    display: grid;
+    grid-template-columns: 1.6em 0.5em 1.6em 0.5em 1.6em;
+    justify-items: end;
+  }
 }
 
 .progress {
@@ -297,7 +303,7 @@ body {
     margin: 0;
 
     &--visible {
-      visibility: visible;
+      visibility: inherit;
     }
   }
 
