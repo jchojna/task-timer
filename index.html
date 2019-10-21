@@ -45,16 +45,16 @@
         <input
           id="task-time"
           class="time__input time__input--js-time"
-          placeholder="min (: sec)"
-          maxlength="5"
-          pattern="(\d?\d[\s:.])?\d?\d"
+          placeholder="00m00s"
+          maxlength="6"
+          pattern="(\d?\d[Mm])?(\d?\d[Ss])?"
         />
         <input
           id="task-break"
           class="time__input time__input--js-break-time"
-          placeholder="min (:sec)"
-          maxlength="5"
-          pattern="(\d?\d[\s:.])?\d?\d"
+          placeholder="00m00s"
+          maxlength="6"
+          pattern="(\d?\d[Mm])?(\d?\d[Ss])?"
         />
         <button class="button time__start time__start--js">Start</button>
       </div>
@@ -76,9 +76,12 @@
       <div class="timer__container">
         <h2 class="timer__heading timer__heading--js">Work on your task</h2>
         <div class="timer__buttons">
-          <button class="button timer__button timer__button--toggle timer__button--js-toggle">
-            <svg class="timer__svg" viewBox="0 0 512 512">
-              <use href="assets/svg/icons.svg#start"></use>
+          <button class="button timer__button timer__button--playPause timer__button--js-playPause">
+            <svg class="timer__svg timer__svg--js-play" viewBox="0 0 512 512">
+              <use href="assets/svg/icons.svg#play"></use>
+            </svg>
+            <svg class="timer__svg timer__svg--js-pause timer__svg--hidden" viewBox="0 0 512 512">
+              <use href="assets/svg/icons.svg#pause"></use>
             </svg>
           </button>
           <button class="button timer__button timer__button--stop timer__button--js-stop">
@@ -86,21 +89,21 @@
               <use href="assets/svg/icons.svg#stop"></use>
             </svg>
           </button>
-          <button class="button timer__button timer__button--switch timer__button--js-switch">
+          <button class="button timer__button timer__button--toggle timer__button--js-toggle">
             <svg class="timer__svg" viewBox="0 0 512 512">
-              <use href="assets/svg/icons.svg#pause"></use>
+              <use href="assets/svg/icons.svg#toggle"></use>
             </svg>
           </button>
         </div>
-        <div class="display">
-          <div class="display__elapsed display__elapsed--js">
+        <div class="display display--js">
+          <div class="display__container display__container--elapsed display__container--visible display__container--js-elapsed">
             <span class="display__time display__time--js-min">00</span>
             <span class="display__time">:</span>
             <span class="display__time display__time--js-sec">00</span>
             <span class="display__time">:</span>
             <span class="display__time display__time--js-cSec">00</span>
           </div>
-          <div class="display__remaining display__remaining--js">
+          <div class="display__container display__container--remaining display__container--js-remaining">
             <span class="display__time display__time--js-min">00</span>
             <span class="display__time">:</span>
             <span class="display__time display__time--js-sec">00</span>
@@ -108,18 +111,45 @@
             <span class="display__time display__time--js-cSec">00</span>
           </div>
         </div>
-        <span class="timer__breaks">0 breaks</span>
+        <div class="break">
+          <span class="break__counter break__counter--js">0 breaks</span>
+          <div class="break__display">
+            <span class="break__time break__time--js-min">00</span>
+            <span class="break__time">:</span>
+            <span class="break__time break__time--js-sec">00</span>
+            <span class="break__time">:</span>
+            <span class="break__time break__time--js-cSec">00</span>
+          </div>
+        </div>
         <div class="progress">
-          <span class="progress__percent progress__percent--js-loaded">0%</span>
-          <span class="progress__percent progress__percent--js-remaining">0%</span>
-          <div class="progress__bar">
-            <div class="progress__part progress__part--loaded progress__part--js-loaded"></div>
-            <div class="progress__part progress__part--remaining progress__part--js-remaining"></div>
+          <header class="progress__header">
+            <h3 class="progress__percent progress__percent--visible progress__percent--js-elapsed">
+              0%
+            </h3>
+            <h3 class="progress__percent progress__percent--js-remaining">
+              0%
+            </h3>
+          </header>
+          <div class="progress__bar progress__bar--js">
+            <div class="progress__part progress__part--loading progress__part--js-elapsed"></div>
+            <div class="progress__part progress__part--unloading progress__part--js-remaining"></div>
           </div>
         </div>
       </div>
     </section>
     <!-- END OF TIMER -->
+    <!-- STOP -->
+    <section class="stop stop--js">
+      <div class="stop__container">
+        <h2 class="stop__heading">Are you sure you want to quit?</h2>
+        <button class="button stop__button stop__button--stop stop__button--js-stop">
+          Yes
+        </button>
+        <button class="button stop__button stop__button--cancel stop__button--js-cancel">
+          Cancel
+        </button>
+      </div>
+    </section>
   </main>
   <script src="js/main.js"></script>
 </body>

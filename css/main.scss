@@ -37,7 +37,7 @@ body {
 
 .app {
   @include flex-center;
-  background-color: #B4CECF;
+  background-color: $color-cyan;
   flex-direction: column;
   height: 100%;
   min-height: 100vh;
@@ -152,6 +152,12 @@ body {
     font-weight: 600;
     text-transform: uppercase;
     width: 100%;
+
+    &--disabled {
+      color: $color-disabled;
+      border-color: $color-disabled;
+      cursor: default;
+    }
   }
 }
 
@@ -177,7 +183,7 @@ body {
     flex-grow: 1;
     font-size: 1.6em;
     font-weight: 600;
-    grid-template-columns: 200px 1fr 200px;
+    grid-template-columns: 300px 1fr 300px;
     grid-template-rows: 1fr 80px 1fr;
     height: 100%;
     justify-items: center;
@@ -214,13 +220,59 @@ body {
   &__svg {
     pointer-events: none;
     width: 100%;
+
+    &--hidden {
+      display: none;
+    }
   }
 }
   
 .display {
-  @include flex-center;
   font-size: 2.5em;
   flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &__container {
+    @include flex-center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 80px 40px 80px 40px 80px;
+    justify-items: center;
+    visibility: hidden;
+    transition: visibility 0s $time-display;
+
+    &--visible {
+      visibility: inherit;
+      transition: visibility 0s;
+    }
+
+    &--showUp {
+      animation: showUp $time-display forwards;
+    }
+    
+    &--hideUp {
+      animation: hideUp $time-display forwards;
+    }
+  }
+}
+
+.break {
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  &__display {
+    display: grid;
+    grid-template-columns: 1.6em 0.5em 1.6em 0.5em 1.6em;
+    justify-items: end;
+  }
 }
 
 .progress {
@@ -232,8 +284,27 @@ body {
   justify-content: center;
   flex-direction: column;
 
+  &__header {
+    position: relative;
+    width: 100%;
+  }
+
   &__percent {
-    margin-bottom: 10px;
+    @include flex-center;
+    position: absolute;
+    top: -1.3em;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $color-tomato;
+    visibility: hidden;
+    transition: visibility 0s;
+    font-size: 1em;
+    font-weight: 600;
+    margin: 0;
+
+    &--visible {
+      visibility: inherit;
+    }
   }
 
   &__bar {
@@ -247,16 +318,57 @@ body {
     position: absolute;
     top: 0;
     
-    &--loaded {
-      background-color: #C36565;
+    &--loading {
+      background-color: $color-tomato;
       left: 0;
-      width: 40%;
+      width: 0;
     }
   
-    &--remaining {
+    &--unloading {
       background-color: #fff;
       right: 0;
-      width: 60%;
+      width: 100%;
+    }
+  }
+}
+
+.stop {
+  @include flex-center;
+  background-color: rgba($color: #000000, $alpha: 0.3);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  
+  &--visible {
+    visibility: visible;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background-color: $color-cyan;
+    border-radius: 10px;
+    padding: 2em;
+    gap: 1em;
+  }
+
+  &__heading {
+    margin: 0;
+    font-weight: 800;
+    grid-column: 1 / span 2;
+  }
+
+  &__button {
+    border: 2px solid #fff;
+    padding: 0.75em 2em;
+    border-radius: 5px;
+
+    &:hover {
+      border-color: $color-tomato;
+      background-color: $color-tomato;
     }
   }
 }
