@@ -278,8 +278,27 @@ body {
   justify-content: center;
   flex-direction: column;
 
+  &__header {
+    position: relative;
+    width: 100%;
+  }
+
   &__percent {
-    margin-bottom: 10px;
+    @include flex-center;
+    position: absolute;
+    top: -1.3em;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $color-tomato;
+    visibility: hidden;
+    transition: visibility 0s;
+    font-size: 1em;
+    font-weight: 600;
+    margin: 0;
+
+    &--visible {
+      visibility: visible;
+    }
   }
 
   &__bar {

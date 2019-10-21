@@ -559,8 +559,37 @@ body {
           flex-direction: column;
 }
 
+.progress__header {
+  position: relative;
+  width: 100%;
+}
+
 .progress__percent {
-  margin-bottom: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  top: -1.3em;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  color: #C36565;
+  visibility: hidden;
+  -webkit-transition: visibility 0s;
+  transition: visibility 0s;
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0;
+}
+
+.progress__percent--visible {
+  visibility: visible;
 }
 
 .progress__bar {
