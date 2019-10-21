@@ -40,6 +40,7 @@ const countdown = () => {
       previousTime
     } = task;
     
+    // when countdown finishes
     if (timeElapsed >= timeTotal) {
       task.timeElapsed, timeElapsed = timeTotal;
       task.timeRemaining, timeRemaining = 0;
@@ -48,6 +49,8 @@ const countdown = () => {
       startButton.classList.remove('time__start--disabled');
       togglePlayPauseButton();
       clearInterval(intervalId);
+      stopSection.removeEventListener('click', handleStopConfirm);
+      stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
 
     } else {
       const now = Date.now();
@@ -134,11 +137,8 @@ const handleButtons = (e) => {
     case timerStop:
       /* timerSection.className = 'timer timer--js slideOutLeft';
       taskSection.className = 'task task--js task--visible slideInRight'; */
-      task.isRunning = false;
-      startButton.disable = false;
-      startButton.classList.remove('time__start--disabled');
-      togglePlayPauseButton();
-      clearInterval(intervalId);
+      toggleStopConfirm();
+      stopSection.addEventListener('click', handleStopConfirm);
       break;
 
     case timerPlayPause:
@@ -186,6 +186,29 @@ const togglePlayPauseButton = () => {
   }))
 }
 
+const toggleStopConfirm = () => {
+  stopSection.classList.toggle('stop--visible');
+}
+
+const handleStopConfirm = (e) => {
+  switch (e.target) {
+
+    case confirmStopButton:
+      stopSection.removeEventListener('click', handleStopConfirm);
+      task.isRunning = false;
+      startButton.disable = false;
+      startButton.classList.remove('time__start--disabled');
+      togglePlayPauseButton();
+      toggleStopConfirm();
+      clearInterval(intervalId);
+      break;  
+
+    case cancelStopButton:
+      toggleStopConfirm();
+      break;
+  }
+}
+
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
 const task = new Task(0);
@@ -221,6 +244,10 @@ const progressLoadedPercent = document.querySelector('.progress__percent--js-loa
 const progressRemainingPercent = document.querySelector('.progress__percent--js-remaining');
 const progressLoadedBar = document.querySelector('.progress__part--js-loaded');
 const progressRemainingBar = document.querySelector('.progress__part--js-remaining');
+// STOP CONFIRMATION
+const stopSection = document.querySelector('.stop--js');
+const confirmStopButton = document.querySelector('.stop__button--js-stop');
+const cancelStopButton = document.querySelector('.stop__button--js-cancel');
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
 
