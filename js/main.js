@@ -44,11 +44,15 @@ const countdown = () => {
       task.timeElapsed, timeElapsed = timeTotal;
       task.timeRemaining, timeRemaining = 0;
       task.isRunning = false;
+      startButton.disable = false;
+      startButton.classList.remove('time__start--disabled');
+      togglePlayPauseButton();
       clearInterval(intervalId);
 
     } else {
       const now = Date.now();
-      task.timeElapsed = now - previousTime;
+      task.previousTime = now;
+      task.timeElapsed = timeElapsed + (now - previousTime);
     }
 
     task.timeRemaining = timeTotal - timeElapsed;
@@ -91,7 +95,7 @@ const setTotalTime = () => {
   return minutes * 60000 + seconds * 1000;
 }
 
-const slideSection = (e) => {
+const handleButtons = (e) => {
 
   switch(e.target) {
 
@@ -121,6 +125,7 @@ const slideSection = (e) => {
         intervalId = setInterval(() => countdown(), 10);
         startButton.disable = true;
         startButton.classList.add('time__start--disabled');
+        togglePlayPauseButton();
       }
       break;
 
@@ -130,8 +135,19 @@ const slideSection = (e) => {
       task.isRunning = false;
       startButton.disable = false;
       startButton.classList.remove('time__start--disabled');
+      togglePlayPauseButton();
       clearInterval(intervalId);
       break;
+
+    case timerPlayPause:
+      togglePlayPauseButton();
+      if (task.isRunning) {
+        task.isRunning = false;
+      } else {
+        task.isRunning = true;
+        task.previousTime = Date.now();
+      }
+
       
     default: false;
   }
@@ -155,6 +171,12 @@ const validateInput = (input) => {
   }
 }
 
+const togglePlayPauseButton = () => {
+  [...timerPlayPause.children].forEach((svg => {
+    svg.classList.toggle('timer__svg--hidden');
+  }))
+}
+
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
 const task = new Task(0);
@@ -172,6 +194,7 @@ const timeInput = document.querySelector('.time__input--js-time');
 const breakTimeInput = document.querySelector('.time__input--js-break-time');
 // TIMER
 const timerSection = document.querySelector('.timer--js');
+const timerPlayPause = document.querySelector('.timer__button--js-playPause');
 const timerStop = document.querySelector('.timer__button--js-stop');
 const timerHeading = document.querySelector('.timer__heading--js');
 // DISPLAY
@@ -191,7 +214,8 @@ const progressRemainingBar = document.querySelector('.progress__part--js-remaini
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
 
-rightButton.addEventListener('click', slideSection);
-leftButton.addEventListener('click', slideSection);
-startButton.addEventListener('click', slideSection);
-timerStop.addEventListener('click', slideSection);
+rightButton.addEventListener('click', handleButtons);
+leftButton.addEventListener('click', handleButtons);
+startButton.addEventListener('click', handleButtons);
+timerStop.addEventListener('click', handleButtons);
+timerPlayPause.addEventListener('click', handleButtons);
