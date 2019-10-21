@@ -125,7 +125,9 @@ const handleButtons = (e) => {
         intervalId = setInterval(() => countdown(), 10);
         startButton.disable = true;
         startButton.classList.add('time__start--disabled');
+        task.totalBreaks = 0;
         togglePlayPauseButton();
+        updateBreaksCounter();
       }
       break;
 
@@ -143,6 +145,8 @@ const handleButtons = (e) => {
       togglePlayPauseButton();
       if (task.isRunning) {
         task.isRunning = false;
+        task.totalBreaks = task.totalBreaks + 1;
+        updateBreaksCounter();
       } else {
         task.isRunning = true;
         task.previousTime = Date.now();
@@ -169,6 +173,11 @@ const validateInput = (input) => {
   } else {
     return false;
   }
+}
+
+const updateBreaksCounter = () => {
+  breaksCounter.textContent =
+  `${task.totalBreaks} ${task.totalBreaks === 1 ? `break` : `breaks`}`;
 }
 
 const togglePlayPauseButton = () => {
@@ -206,6 +215,7 @@ const remainingCSec = document.querySelector('.display__remaining--js .display__
 const elapsedMin = document.querySelector('.display__elapsed--js .display__time--js-min');
 const elapsedSec = document.querySelector('.display__elapsed--js .display__time--js-sec');
 const elapsedCSec = document.querySelector('.display__elapsed--js .display__time--js-cSec');
+const breaksCounter = document.querySelector('.timer__breaks--js');
 // PROGRESS BAR
 const progressLoadedPercent = document.querySelector('.progress__percent--js-loaded');
 const progressRemainingPercent = document.querySelector('.progress__percent--js-remaining');
