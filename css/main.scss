@@ -375,6 +375,7 @@ body {
 
 .outro {
   @include flex-center;
+  flex-direction: column;
   visibility: hidden;
   position: fixed;
   top: 0;
@@ -391,15 +392,35 @@ body {
   }
 
   &__container {
-    max-width: 1200px;
+    max-width: 1000px;
   }
 
   &__heading {
     font-size: 4em;
     font-weight: 600;
+    margin: 0.8em 0;
   }
 
   &__party {
     font-size: 2em;
+  }
+
+  &__message {
+    font-size: 1.5em;
+  }
+
+  &__retry {
+    align-self: flex-start;
+    fill: #fff;
+    width: 100px;
+    transition: $hover-icon;
+
+    &:hover {
+      fill: $color-tomato;
+    }
+  }
+
+  &__svg {
+    width: 100%;
   }
 }

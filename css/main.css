@@ -685,6 +685,10 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   visibility: hidden;
   position: fixed;
   top: 0;
@@ -703,14 +707,36 @@ body {
 }
 
 .outro__container {
-  max-width: 1200px;
+  max-width: 1000px;
 }
 
 .outro__heading {
   font-size: 4em;
   font-weight: 600;
+  margin: 0.8em 0;
 }
 
 .outro__party {
   font-size: 2em;
+}
+
+.outro__message {
+  font-size: 1.5em;
+}
+
+.outro__retry {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  fill: #fff;
+  width: 100px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.outro__retry:hover {
+  fill: #C36565;
+}
+
+.outro__svg {
+  width: 100%;
 }
