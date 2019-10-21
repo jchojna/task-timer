@@ -722,6 +722,12 @@ body {
 
 .outro__message {
   font-size: 1.5em;
+  line-height: 1.5;
+}
+
+.outro__message--bold {
+  color: #C36565;
+  font-weight: 800;
 }
 
 .outro__retry {

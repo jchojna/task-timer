@@ -296,23 +296,52 @@ const handleTimerToggle = () => {
 }
 
 const handleOutro = () => {
+  const {name, totalBreaks, overallTime, breakTimeElapsed} = task;
   const [minutes, seconds] = task.overallTimeArray;
+  let [breakMinutes, breakSeconds] = task.breakTimeElapsedArray;
+  breakMinutes = parseInt(breakMinutes);
+  breakSeconds = parseInt(breakSeconds);
   outroSection.classList.add('outro--visible');
+  // ! TO REFACTOR
   outroMessage.innerHTML = `
-  You have finished your task entitled "${task.name}" <br>
+  You have finished your task entitled <br>
+  <span class="outro__message--bold">"${name}"</span><br>
   in
-  ${minutes > 1 ? `${minutes} minutes` : minutes === 1 ? `${minutes} minute` : ``}
-  ${seconds != 0 ? `and` : ``}
-  ${seconds > 1 ? `${seconds} seconds` : seconds === 1 ? `${seconds} second` : ``}. <br>
-  fds
-  `
-
-
-
-
-
+  <span class="outro__message--bold">
+    ${minutes > 1 ? `${minutes} minutes` : minutes === 1 ? `${minutes} minute` : ``}
+  </span>
+  ${minutes > 0 && seconds != 0 ? `and` : ``}
+  <span class="outro__message--bold">
+    ${seconds > 1 ? `${seconds} seconds` : seconds === 1 ? `${seconds} second` : ``}
+  </span>
+  including break time. <br>
+  You had
+  <span class="outro__message--bold">
+    ${totalBreaks > 1
+    ? `${totalBreaks} breaks`
+    : totalBreaks === 1 ? `${totalBreaks} break` : `no brakes`}
+  </span>
+  during this task
+  ${totalBreaks
+    ? `<span class="outro__message--bold">
+        ${breakMinutes > 1
+        ? `${breakMinutes} minutes`
+        : breakMinutes === 1 ? `${breakMinutes} minute` : ``}
+      </span>
+      ${breakMinutes > 0 && breakTimeElapsed != 0 ? `and` : ``}
+      <span class="outro__message--bold">
+        ${breakSeconds > 1
+        ? `${breakSeconds} seconds`
+        : breakSeconds === 1 ? `${breakSeconds} second` : `split second`}
+      </span>
+      long, what makes it around
+      <span class="outro__message--bold">
+        ${Math.round(breakTimeElapsed / overallTime * 100)}
+      </span>
+      % of all time.`
+    : `.`
+  }`
 }
-
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
 const task = new Task(0);
