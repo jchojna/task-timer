@@ -293,13 +293,13 @@ body {
     position: absolute;
     top: 0;
     
-    &--loaded {
+    &--loading {
       background-color: $color-tomato;
       left: 0;
       width: 0;
     }
   
-    &--remaining {
+    &--unloading {
       background-color: #fff;
       right: 0;
       width: 100%;

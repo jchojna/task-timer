@@ -575,13 +575,13 @@ body {
   top: 0;
 }
 
-.progress__part--loaded {
+.progress__part--loading {
   background-color: #C36565;
   left: 0;
   width: 0;
 }
 
-.progress__part--remaining {
+.progress__part--unloading {
   background-color: #fff;
   right: 0;
   width: 100%;

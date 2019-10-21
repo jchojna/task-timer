@@ -233,6 +233,15 @@ const handleTimerToggle = () => {
       item.classList.add('display__container--hideUp');
     }
   });
+  [...progressBar.children].forEach(part => {
+    if (part.classList.contains('progress__part--loading')) {
+      part.classList.remove('progress__part--loading');
+      part.classList.add('progress__part--unloading');
+    } else {
+      part.classList.add('progress__part--loading');
+      part.classList.remove('progress__part--unloading');
+    }
+  })
 }
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
@@ -268,10 +277,11 @@ const elapsedSec = document.querySelector('.display__container--js-elapsed .disp
 const elapsedCSec = document.querySelector('.display__container--js-elapsed .display__time--js-cSec');
 const breaksCounter = document.querySelector('.break__counter--js');
 // PROGRESS BAR
+const progressBar = document.querySelector('.progress__bar--js')
 const progressLoadedPercent = document.querySelector('.progress__percent--js-loaded');
 const progressRemainingPercent = document.querySelector('.progress__percent--js-remaining');
-const progressLoadedBar = document.querySelector('.progress__part--js-loaded');
-const progressRemainingBar = document.querySelector('.progress__part--js-remaining');
+const progressBarElapsed = document.querySelector('.progress__part--js-elapsed');
+const progressBarRemaining = document.querySelector('.progress__part--js-remaining');
 // STOP CONFIRMATION
 const stopSection = document.querySelector('.stop--js');
 const confirmStopButton = document.querySelector('.stop__button--js-stop');
