@@ -47,10 +47,12 @@ const countdown = () => {
       task.isRunning = false;
       startButton.disable = false;
       startButton.classList.remove('time__start--disabled');
-      togglePlayPauseButton();
+      togglePlayPauseButton('play');
       clearInterval(intervalId);
       stopSection.removeEventListener('click', handleStopConfirm);
       stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
+      timerStop.removeEventListener('click', handleButtons);
+      timerPlayPause.removeEventListener('click', handleButtons);
 
     } else {
       const now = Date.now();
@@ -129,8 +131,10 @@ const handleButtons = (e) => {
         startButton.disable = true;
         startButton.classList.add('time__start--disabled');
         task.totalBreaks = 0;
-        togglePlayPauseButton();
+        togglePlayPauseButton('pause');
         updateBreaksCounter();
+        timerStop.addEventListener('click', handleButtons);
+        timerPlayPause.addEventListener('click', handleButtons);
       }
       break;
 
@@ -142,12 +146,13 @@ const handleButtons = (e) => {
       break;
 
     case timerPlayPause:
-      togglePlayPauseButton();
       if (task.isRunning) {
+        togglePlayPauseButton('play');
         task.isRunning = false;
         task.totalBreaks = task.totalBreaks + 1;
         updateBreaksCounter();
       } else {
+        togglePlayPauseButton('pause');
         task.isRunning = true;
         task.previousTime = Date.now();
       }
@@ -180,10 +185,13 @@ const updateBreaksCounter = () => {
   `${task.totalBreaks} ${task.totalBreaks === 1 ? `break` : `breaks`}`;
 }
 
-const togglePlayPauseButton = () => {
-  [...timerPlayPause.children].forEach((svg => {
-    svg.classList.toggle('timer__svg--hidden');
-  }))
+const togglePlayPauseButton = (action) => {
+  const opposite = action === 'play' ? 'pause' : 'play';
+  const visibleSvg = document.querySelector(`.timer__svg--js-${action}`);
+  const hiddenSvg = document.querySelector(`.timer__svg--js-${opposite}`);
+
+  visibleSvg.classList.remove('timer__svg--hidden');
+  hiddenSvg.classList.add('timer__svg--hidden');
 }
 
 const toggleStopConfirm = () => {
@@ -198,9 +206,11 @@ const handleStopConfirm = (e) => {
       task.isRunning = false;
       startButton.disable = false;
       startButton.classList.remove('time__start--disabled');
-      togglePlayPauseButton();
+      togglePlayPauseButton('play');
       toggleStopConfirm();
       clearInterval(intervalId);
+      timerStop.removeEventListener('click', handleButtons);
+      timerPlayPause.removeEventListener('click', handleButtons);
       break;  
 
     case cancelStopButton:
@@ -254,5 +264,3 @@ const cancelStopButton = document.querySelector('.stop__button--js-cancel');
 rightButton.addEventListener('click', handleButtons);
 leftButton.addEventListener('click', handleButtons);
 startButton.addEventListener('click', handleButtons);
-timerStop.addEventListener('click', handleButtons);
-timerPlayPause.addEventListener('click', handleButtons);
