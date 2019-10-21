@@ -535,6 +535,10 @@ body {
   justify-self: end;
 }
 
+.break__counter {
+  margin: 0;
+}
+
 .break__display {
   display: -ms-grid;
   display: grid;

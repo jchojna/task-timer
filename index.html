@@ -27,9 +27,9 @@
         <label for="task-name" class="task__label task__label--name">
           Your task
         </label>
-        <span class="task__alert task__alert--js">
+        <p class="task__alert task__alert--js">
           You have to enter your task first!
-        </span>
+        </p>
       </div>
     </section>
     <!-- END OF TASK -->
@@ -63,11 +63,11 @@
           task time
         </label>
         <label for="task-break" class="time__label time__label--break">
-          total breaks time
+          max break time
         </label>
-        <span class="time__alert time__alert--js">
+        <p class="time__alert time__alert--js">
           You have to specify time for the task
-        </span>
+        </p>
       </div>
     </section>
     <!-- END OF TIME -->
@@ -95,7 +95,8 @@
             </svg>
           </button>
         </div>
-        <div class="display display--js">
+        <section class="display display--js">
+          <h3 class="display__heading visuallyhidden">Display</h3>
           <div class="display__container display__container--elapsed display__container--visible display__container--js-elapsed">
             <span class="display__time display__time--js-min">00</span>
             <span class="display__time">:</span>
@@ -110,9 +111,9 @@
             <span class="display__time">:</span>
             <span class="display__time display__time--js-cSec">00</span>
           </div>
-        </div>
-        <div class="break">
-          <span class="break__counter break__counter--js">0 breaks</span>
+        </section>
+        <section class="break">
+          <h3 class="break__counter break__counter--js">0 breaks</h3>
           <div class="break__display">
             <span class="break__time break__time--js-min">00</span>
             <span class="break__time">:</span>
@@ -120,8 +121,8 @@
             <span class="break__time">:</span>
             <span class="break__time break__time--js-cSec">00</span>
           </div>
-        </div>
-        <div class="progress">
+        </section>
+        <section class="progress">
           <header class="progress__header">
             <h3 class="progress__percent progress__percent--visible progress__percent--js-elapsed">
               0%
@@ -134,7 +135,7 @@
             <div class="progress__part progress__part--loading progress__part--js-elapsed"></div>
             <div class="progress__part progress__part--unloading progress__part--js-remaining"></div>
           </div>
-        </div>
+        </section>
       </div>
     </section>
     <!-- END OF TIMER -->
