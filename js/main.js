@@ -96,7 +96,7 @@ const slideSection = (e) => {
   switch(e.target) {
 
     case rightButton:
-      if (validateInput('task', 'name')) {
+      if (validateInput('task')) {
         taskSection.className = 'task task--js slideOutLeft';
         timeSection.className = 'time time--js time--visible slideInRight';
         task.name = taskInput.value;
@@ -110,7 +110,7 @@ const slideSection = (e) => {
       break;
 
     case startButton:
-      if (validateInput('time', 'timeTotal')) {
+      if (validateInput('time') && !startButton.disable) {
         /* timeSection.className = 'time time--js slideOutLeft';
         timerSection.className = 'timer timer--js timer--visible slideInRight'; */
         task.isRunning = true;
@@ -119,9 +119,8 @@ const slideSection = (e) => {
         if (task.timeTotal <= 0) return;
         task.timeElapsed = 0;
         intervalId = setInterval(() => countdown(), 10);
-        taskInput.value = "";
-        timeInput.value = "";
-        breakTimeInput.value = "";
+        startButton.disable = true;
+        startButton.classList.add('time__start--disabled');
       }
       break;
 
@@ -129,6 +128,8 @@ const slideSection = (e) => {
       /* timerSection.className = 'timer timer--js slideOutLeft';
       taskSection.className = 'task task--js task--visible slideInRight'; */
       task.isRunning = false;
+      startButton.disable = false;
+      startButton.classList.remove('time__start--disabled');
       clearInterval(intervalId);
       break;
       
