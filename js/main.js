@@ -78,6 +78,7 @@ const countdown = () => {
       clearInterval(intervalWorkId);
       clearInterval(intervalBreakId);
       handleOutro();
+      outroRetryButton.addEventListener('click', handleRetry);
 
     } else {
       const now = Date.now();
@@ -342,6 +343,13 @@ const handleOutro = () => {
     : `.`
   }`
 }
+
+const handleRetry = () => {
+  outroSection.classList.remove('outro--visible');
+  timerSection.className = 'timer timer--js slideOutLeft';
+  taskSection.className = 'task task--js task--visible slideInRight';
+  outroRetryButton.removeEventListener('click', handleRetry);
+}
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
 const task = new Task(0);
@@ -392,11 +400,10 @@ const cancelStopButton = document.querySelector('.stop__button--js-cancel');
 // OUTRO
 const outroSection = document.querySelector('.outro--js');
 const outroMessage = document.querySelector('.outro__message--js');
+const outroRetryButton = document.querySelector('.outro__retry--js');
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
 
 rightButton.addEventListener('click', handleButtons);
 leftButton.addEventListener('click', handleButtons);
 startButton.addEventListener('click', handleButtons);
-
-/* handleOutro(); */
