@@ -53,6 +53,7 @@ const countdown = () => {
       stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
       timerStop.removeEventListener('click', handleButtons);
       timerPlayPause.removeEventListener('click', handleButtons);
+      timerToggle.removeEventListener('click', handleTimerToggle);
 
     } else {
       const now = Date.now();
@@ -135,6 +136,7 @@ const handleButtons = (e) => {
         updateBreaksCounter();
         timerStop.addEventListener('click', handleButtons);
         timerPlayPause.addEventListener('click', handleButtons);
+        timerToggle.addEventListener('click', handleTimerToggle);
       }
       break;
 
@@ -211,12 +213,26 @@ const handleStopConfirm = (e) => {
       clearInterval(intervalId);
       timerStop.removeEventListener('click', handleButtons);
       timerPlayPause.removeEventListener('click', handleButtons);
+      timerToggle.removeEventListener('click', handleTimerToggle);
       break;  
 
     case cancelStopButton:
       toggleStopConfirm();
       break;
   }
+}
+
+const handleTimerToggle = () => {
+  [...display.children].forEach(item => {
+    item.classList.toggle('display__container--visible');
+    if (item.classList.contains('display__container--visible')) {
+      item.classList.remove('display__container--hideUp')
+      item.classList.add('display__container--showUp')
+    } else {
+      item.classList.remove('display__container--showUp');
+      item.classList.add('display__container--hideUp');
+    }
+  });
 }
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
@@ -238,17 +254,19 @@ const breakTimeInput = document.querySelector('.time__input--js-break-time');
 const timerSection = document.querySelector('.timer--js');
 const timerPlayPause = document.querySelector('.timer__button--js-playPause');
 const timerStop = document.querySelector('.timer__button--js-stop');
+const timerToggle = document.querySelector('.timer__button--js-toggle');
 const timerHeading = document.querySelector('.timer__heading--js');
 // DISPLAY
-const displayElapsed = document.querySelector('.display__elapsed--js');
-const displayRemaining = document.querySelector('.display__remaining--js');
-const remainingMin = document.querySelector('.display__remaining--js .display__time--js-min');
-const remainingSec = document.querySelector('.display__remaining--js .display__time--js-sec');
-const remainingCSec = document.querySelector('.display__remaining--js .display__time--js-cSec');
-const elapsedMin = document.querySelector('.display__elapsed--js .display__time--js-min');
-const elapsedSec = document.querySelector('.display__elapsed--js .display__time--js-sec');
-const elapsedCSec = document.querySelector('.display__elapsed--js .display__time--js-cSec');
-const breaksCounter = document.querySelector('.timer__breaks--js');
+const display = document.querySelector('.display--js');
+const displayElapsed = document.querySelector('.display__container--js--elapsed');
+const displayRemaining = document.querySelector('.display__container--js-remaining');
+const remainingMin = document.querySelector('.display__container--js-remaining .display__time--js-min');
+const remainingSec = document.querySelector('.display__container--js-remaining .display__time--js-sec');
+const remainingCSec = document.querySelector('.display__container--js-remaining .display__time--js-cSec');
+const elapsedMin = document.querySelector('.display__container--js-elapsed .display__time--js-min');
+const elapsedSec = document.querySelector('.display__container--js-elapsed .display__time--js-sec');
+const elapsedCSec = document.querySelector('.display__container--js-elapsed .display__time--js-cSec');
+const breaksCounter = document.querySelector('.break__counter--js');
 // PROGRESS BAR
 const progressLoadedPercent = document.querySelector('.progress__percent--js-loaded');
 const progressRemainingPercent = document.querySelector('.progress__percent--js-remaining');
