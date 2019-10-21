@@ -1,9 +1,9 @@
-@import url('normalize.css');
-@import url('helpers.css');
-@import '_variables.scss';
-@import '_mixins.scss';
-@import '_animations.scss';
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext');
+@import url("normalize.css");
+@import url("helpers.css");
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext");
 
 html {
   box-sizing: border-box;
@@ -30,10 +30,18 @@ body {
   padding: 0;
 }
 
-.slideInLeft { animation: slideInLeft $time-slide forwards; }
-.slideInRight { animation: slideInRight $time-slide forwards; }
-.slideOutLeft { animation: slideOutLeft $time-slide forwards; }
-.slideOutRight { animation: slideOutRight $time-slide forwards; }
+.slideInLeft {
+  animation: slideInLeft $time-slide forwards;
+}
+.slideInRight {
+  animation: slideInRight $time-slide forwards;
+}
+.slideOutLeft {
+  animation: slideOutLeft $time-slide forwards;
+}
+.slideOutRight {
+  animation: slideOutRight $time-slide forwards;
+}
 
 .app {
   @include flex-center;
@@ -62,7 +70,7 @@ body {
   transition: visibility 0s $time-slide;
   visibility: hidden;
   width: 100%;
-  
+
   &--visible {
     transition: visibility 0s;
     visibility: visible;
@@ -74,7 +82,7 @@ body {
     font-weight: 400;
     grid-column: 1 / span 3;
   }
-    
+
   &__input {
     align-self: stretch;
     background: none;
@@ -154,8 +162,8 @@ body {
     width: 100%;
 
     &--disabled {
-      color: $color-disabled;
       border-color: $color-disabled;
+      color: $color-disabled;
       cursor: default;
     }
   }
@@ -165,15 +173,15 @@ body {
   @include flex-center;
   bottom: 0;
   left: 0;
-  right: 0;
   position: fixed;
+  right: 0;
   top: 0;
-  visibility: hidden;
   transition: visibility 0s $time-slide;
+  visibility: hidden;
 
   &--visible {
-    visibility: visible;
     transition: visibility 0s;
+    visibility: visible;
   }
 
   &__container {
@@ -206,7 +214,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     justify-self: left;
   }
-  
+
   &__button {
     border: 2px solid #fff;
     border-radius: 50%;
@@ -226,36 +234,36 @@ body {
     }
   }
 }
-  
+
 .display {
   font-size: 2.5em;
   flex-direction: column;
+  height: 100%;
   position: relative;
   width: 100%;
-  height: 100%;
 
   &__container {
     @include flex-center;
-    position: absolute;
-    top: 0;
-    left: 0;
     bottom: 0;
-    width: 100%;
     display: grid;
     grid-template-columns: 80px 40px 80px 40px 80px;
     justify-items: center;
-    visibility: hidden;
+    left: 0;
+    position: absolute;
+    top: 0;
     transition: visibility 0s $time-display;
+    visibility: hidden;
+    width: 100%;
 
     &--visible {
-      visibility: inherit;
       transition: visibility 0s;
+      visibility: inherit;
     }
 
     &--showUp {
       animation: showUp $time-display forwards;
     }
-    
+
     &--hideUp {
       animation: hideUp $time-display forwards;
     }
@@ -263,10 +271,14 @@ body {
 }
 
 .break {
-  justify-self: end;
+  align-items: flex-end;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  justify-self: end;
+
+  &__counter {
+    margin: 0;
+  }
 
   &__display {
     display: grid;
@@ -276,13 +288,13 @@ body {
 }
 
 .progress {
-  align-self: start;
-  grid-column: 1 / span 3;
-  width: 100%;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  align-self: start;
+  display: flex;
   flex-direction: column;
+  grid-column: 1 / span 3;
+  justify-content: center;
+  width: 100%;
 
   &__header {
     position: relative;
@@ -291,16 +303,16 @@ body {
 
   &__percent {
     @include flex-center;
-    position: absolute;
-    top: -1.3em;
-    left: 50%;
-    transform: translateX(-50%);
     color: $color-tomato;
-    visibility: hidden;
-    transition: visibility 0s;
     font-size: 1em;
     font-weight: 600;
+    left: 50%;
     margin: 0;
+    position: absolute;
+    top: -1.3em;
+    transform: translateX(-50%);
+    transition: visibility 0s;
+    visibility: hidden;
 
     &--visible {
       visibility: inherit;
@@ -317,13 +329,13 @@ body {
     bottom: 0;
     position: absolute;
     top: 0;
-    
+
     &--loading {
       background-color: $color-tomato;
       left: 0;
       width: 0;
     }
-  
+
     &--unloading {
       background-color: #fff;
       right: 0;
@@ -341,34 +353,92 @@ body {
   right: 0;
   top: 0;
   visibility: hidden;
-  
+
   &--visible {
     visibility: visible;
   }
 
   &__container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
     background-color: $color-cyan;
     border-radius: 10px;
-    padding: 2em;
+    display: grid;
     gap: 1em;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2em;
   }
 
   &__heading {
-    margin: 0;
     font-weight: 800;
     grid-column: 1 / span 2;
+    margin: 0;
   }
 
   &__button {
     border: 2px solid #fff;
-    padding: 0.75em 2em;
     border-radius: 5px;
+    padding: 0.75em 2em;
 
     &:hover {
-      border-color: $color-tomato;
       background-color: $color-tomato;
+      border-color: $color-tomato;
     }
+  }
+}
+
+.outro {
+  @include flex-center;
+  background-color: $color-cyan;
+  bottom: 0;
+  flex-direction: column;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: opacity 1s, visibility 0s;
+  visibility: hidden;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__container {
+    max-width: 1000px;
+  }
+
+  &__heading {
+    font-size: 4em;
+    font-weight: 600;
+    margin: 0.8em 0;
+  }
+
+  &__party {
+    font-size: 2em;
+  }
+
+  &__message {
+    font-size: 1.5em;
+    line-height: 1.5;
+
+    &--bold {
+      color: $color-tomato;
+      font-weight: 800;
+    }
+  }
+
+  &__retry {
+    align-self: flex-start;
+    fill: #fff;
+    transition: $hover-icon;
+    width: 100px;
+
+    &:hover {
+      fill: $color-tomato;
+    }
+  }
+
+  &__svg {
+    width: 100%;
   }
 }
