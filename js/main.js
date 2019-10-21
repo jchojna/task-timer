@@ -66,6 +66,7 @@ const countdown = () => {
       timerToggle.removeEventListener('click', handleTimerToggle);
       clearInterval(intervalWorkId);
       clearInterval(intervalBreakId);
+      handleOutro();
 
     } else {
       const now = Date.now();
@@ -283,6 +284,10 @@ const handleTimerToggle = () => {
   })
 }
 
+const handleOutro = () => {
+  outroSection.classList.add('outro--visible');
+}
+
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
 const task = new Task(0);
@@ -330,6 +335,8 @@ const progressBarRemaining = document.querySelector('.progress__part--js-remaini
 const stopSection = document.querySelector('.stop--js');
 const confirmStopButton = document.querySelector('.stop__button--js-stop');
 const cancelStopButton = document.querySelector('.stop__button--js-cancel');
+// OUTRO
+const outroSection = document.querySelector('.outro--js');
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
 

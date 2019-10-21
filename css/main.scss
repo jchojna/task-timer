@@ -372,3 +372,34 @@ body {
     }
   }
 }
+
+.outro {
+  @include flex-center;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  background-color: $color-cyan;
+  transition: opacity 1s, visibility 0s;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__container {
+    max-width: 1200px;
+  }
+
+  &__heading {
+    font-size: 4em;
+    font-weight: 600;
+  }
+
+  &__party {
+    font-size: 2em;
+  }
+}

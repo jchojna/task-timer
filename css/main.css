@@ -674,3 +674,43 @@ body {
   border-color: #C36565;
   background-color: #C36565;
 }
+
+.outro {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  background-color: #B4CECF;
+  -webkit-transition: opacity 1s, visibility 0s;
+  transition: opacity 1s, visibility 0s;
+}
+
+.outro--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.outro__container {
+  max-width: 1200px;
+}
+
+.outro__heading {
+  font-size: 4em;
+  font-weight: 600;
+}
+
+.outro__party {
+  font-size: 2em;
+}
