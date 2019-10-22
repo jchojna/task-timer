@@ -478,6 +478,11 @@ body {
   height: 100%;
   position: relative;
   width: 100%;
+  color: #C36565;
+}
+
+.display--inactive {
+  color: #fff;
 }
 
 .display__container {
@@ -533,6 +538,10 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   justify-self: end;
+}
+
+.break--active {
+  color: #C36565;
 }
 
 .break__counter {
