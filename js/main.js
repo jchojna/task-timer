@@ -488,6 +488,11 @@ const timeAlert = createDOMElement('p', {
 
 // F0 ////////////////////////////////////////////////////////////// APPENDING 
 
+leftButton.append(leftButtonSvg);
+timeRowInputs.append(timeInput, breakTimeInput, timeStartButton);
+timeRowLabels.append(timeLabel, breakTimeLabel, timeAlert);
+timeSection.append(timeHeading, leftButton, timeRowInputs, timeRowLabels);
+app.append(timeSection);
 
 //////////////////////////////////////////////////////////////// TIMER SECTION 
 // F0 /////////////////////////////////////////////////////////////// ELEMENTS 
