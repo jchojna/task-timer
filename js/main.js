@@ -359,18 +359,64 @@ const createDOMElement = (tag, attributes, content) => {
   DOMElement.textContent = content;
   return DOMElement;
 }
+////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
+/*
+const XXX = createDOMElement('XXX', {
+  XXX: 'XXX'
+}, 'XXX');
+*/
+///////////////////////////////////////////////////////////////// TASK SECTION 
 
-createDOMElements();
+const taskSection = createDOMElement('section', {
+  className: 'task task--visible'
+});
+
+const taskHeading = createDOMElement('h2', {
+  className: 'task__heading'
+}, 'Write your task');
+
+const taskNameInput = createDOMElement('input', {
+  className: 'task__input task__input--name',
+  id: 'task-name',
+  placeholder: "What would be your next task?"
+});
+
+const rightButton = createDOMElement('button', {
+  className: 'button task__button task__button--right'
+});
+
+const rightButtonSvg = createDOMElement('svg', {
+  className: 'task__svg',
+  viewBox: '0 0 512 512'
+});
+
+const rightButtonUse = createDOMElement('use', {
+  href: 'assets/svg/icons.svg#arrow-right'
+});
+
+const taskRow = createDOMElement('div', {
+  className: 'task__row'
+});
+
+const taskNameLabel = createDOMElement('label', {
+  className: 'task__label task__label--name',
+  for: 'task-name'
+}, 'Your task');
+
+const taskAlert = createDOMElement('p', {
+  className: 'task__alert task__alert--js'
+}, 'You have to enter your task first!');
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
-/* const task = new Task(0);
+/*
+const task = new Task(0);
 let intervalWorkId = "";
-let intervalBreakId = ""; */
+let intervalBreakId = "";
+*/
 
 // TASK
 /*
-const taskSection = document.querySelector('.task--js');
 const rightButton = document.querySelector('.task__button--js-right');
 const taskInput = document.querySelector('.task__input--js');
 */
