@@ -351,9 +351,13 @@
   taskSection.className = 'task task--js task--visible slideInRight';
   outroRetryButton.removeEventListener('click', handleRetry);
 } */
+// F0 ///////////////////////////////////////////////////// CREATE DOM ELEMENT 
 
-const createDOMElements = () => {
-
+const createDOMElement = (tag, attributes, content) => {
+  const DOMElement = document.createElement(tag);
+  Object.keys(attributes).forEach(key => DOMElement[key] = attributes[key]);
+  DOMElement.textContent = content;
+  return DOMElement;
 }
 
 createDOMElements();
