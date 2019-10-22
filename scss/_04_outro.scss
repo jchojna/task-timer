@@ -1,0 +1,57 @@
+.outro {
+  @include flex-center;
+  background-color: $color-cyan;
+  bottom: 0;
+  flex-direction: column;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: opacity 1s, visibility 0s;
+  visibility: hidden;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__container {
+    max-width: 1000px;
+  }
+
+  &__heading {
+    font-size: 4em;
+    font-weight: 600;
+    margin: 0.8em 0;
+  }
+
+  &__party {
+    font-size: 2em;
+  }
+
+  &__message {
+    font-size: 1.5em;
+    line-height: 1.5;
+
+    &--bold {
+      color: $color-tomato;
+      font-weight: 800;
+    }
+  }
+
+  &__retry {
+    align-self: flex-start;
+    fill: #fff;
+    transition: $hover-icon;
+    width: 100px;
+
+    &:hover {
+      fill: $color-tomato;
+    }
+  }
+
+  &__svg {
+    width: 100%;
+  }
+}
