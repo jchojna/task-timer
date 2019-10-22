@@ -580,7 +580,7 @@ const displayRemaining = createDOMElement('div', {
 
 
 //////////////////////////////////////////////////////////////// BREAK SECTION 
-
+// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
 const breakSection = createDOMElement('section', {
   className: 'break'
 });
@@ -593,16 +593,41 @@ const breakDisplay = createDOMElement('div', {
   className: 'break__display'
 });
 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
-
 // F0 ////////////////////////////////////////////////////////////// APPENDING 
+
+
+
 
 ///////////////////////////////////////////////////////////////// PROGRESS BAR 
 // F0 /////////////////////////////////////////////////////////////// ELEMENTS 
 
-/* const XXX = createDOMElement('XXX', {
-  XXX: 'XXX'
-}, 'XXX'); */
+const progressSection = createDOMElement('section', {
+  className: 'progress'
+});
+
+const progressHeader = createDOMElement('header', {
+  className: 'progress__header'
+});
+
+const progressPercentElapsed = createDOMElement('h3', {
+  className: 'progress__percent progress__percent--visible'
+}, '0%');
+
+const progressPercentRemaining = createDOMElement('h3', {
+  className: 'progress__percent'
+}, '0%');
+
+const progressBar = createDOMElement('div', {
+  className: 'progress__bar'
+});
+
+const progressBarElapsed = createDOMElement('div', {
+  className: 'progress__part progress__part--loading'
+});
+
+const progressBarRemaining = createDOMElement('div', {
+  className: 'progress__part progress__part--unloading'
+});
 
 // F0 ////////////////////////////////////////////////////////////// APPENDING 
 
