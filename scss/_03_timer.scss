@@ -65,12 +65,14 @@
 }
 
 .display {
+  color: $color-tomato;
+  font-family: 'Inconsolata';
   font-size: 2.5em;
+  font-weight: 700;
   flex-direction: column;
   height: 100%;
   position: relative;
   width: 100%;
-  color: $color-tomato;
 
   &--inactive {
     color: #fff;
@@ -79,9 +81,6 @@
   &__container {
     @include flex-center;
     bottom: 0;
-    display: grid;
-    grid-template-columns: 80px 40px 80px 40px 80px;
-    justify-items: center;
     left: 0;
     position: absolute;
     top: 0;
@@ -116,12 +115,13 @@
 
   &__counter {
     margin: 0;
+    font-size: 1em;
+    font-weight: 600;
   }
 
   &__display {
-    display: grid;
-    grid-template-columns: 1.6em 0.5em 1.6em 0.5em 1.6em;
-    justify-items: end;
+    font-family: 'Inconsolata';
+    font-weight: 400;
   }
 }
 

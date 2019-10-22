@@ -1,3 +1,5 @@
+const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
+
 class Task {
   constructor(time) {
     this.name = "",
@@ -223,10 +225,6 @@ const handleStopConfirm = (e) => {
   }
 }
 
-const makeTwoDigits = (number) => {
-  return number < 10 ? `0${number}` : number;
-}
-
 const isValid = (input) => {
   const alert = document.querySelector(`.${input}__alert--js`);
 
@@ -338,6 +336,15 @@ const handleRetry = () => {
   outroRetryButton.removeEventListener('click', handleRetry);
 }
 
+/*
+########   #######  ##     ##
+##     ## ##     ## ###   ###
+##     ## ##     ## #### ####
+##     ## ##     ## ## ### ##
+##     ## ##     ## ##     ##
+##     ## ##     ## ##     ##
+########   #######  ##     ##
+*/
 ////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
 
 const app = document.querySelector('#root');
@@ -360,7 +367,6 @@ const createSvgElement = (attributes, href) => {
   return svg;
 }
 
-////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
 // F0 /////////////////////////////////////////////////////////// TASK SECTION 
 
 const taskSection = createDOMElement('section', {
@@ -587,6 +593,15 @@ const outroRetryButtonSvg = createSvgElement({
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#retry');
 
+/*
+   ###    ########  ########  ######## ##    ## ########
+  ## ##   ##     ## ##     ## ##       ###   ## ##     ##
+ ##   ##  ##     ## ##     ## ##       ####  ## ##     ##
+##     ## ########  ########  ######   ## ## ## ##     ##
+######### ##        ##        ##       ##  #### ##     ##
+##     ## ##        ##        ##       ##   ### ##     ##
+##     ## ##        ##        ######## ##    ## ########
+*/
 //////////////////////////////////////////////////////////////////// APPENDING 
 
 rightButton.append(rightButtonSvg);
