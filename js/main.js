@@ -381,7 +381,8 @@ const XXX = createDOMElement('XXX', {
 // F0 /////////////////////////////////////////////////////////////// ELEMENTS 
 
 const taskSection = createDOMElement('section', {
-  className: 'task task--visible'
+  //className: 'task task--visible',
+  className: 'task'
 });
 
 const taskHeading = createDOMElement('h2', {
@@ -402,9 +403,6 @@ const rightButtonSvg = createSvgElement({
   class: 'task__svg',
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#arrow-right');
-
-const rightButtonUse = createDOMElement('use', {
-});
 
 const taskRow = createDOMElement('div', {
   className: 'task__row'
@@ -428,6 +426,65 @@ app.append(taskSection);
 
 ///////////////////////////////////////////////////////////////// TIME SECTION 
 // F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+
+const timeSection = createDOMElement('section', {
+  className: 'time time--visible'
+});
+
+const timeHeading = createDOMElement('h2', {
+  className: 'time__heading'
+}, 'Task Time Estimation');
+
+const leftButton = createDOMElement('button', {
+  className: 'button time__button time__button--left'
+});
+
+const leftButtonSvg = createSvgElement({
+  class: 'task__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#arrow-left');
+
+const timeRowInputs = createDOMElement('div', {
+  className: 'time__row'
+});
+
+const timeInput = createDOMElement('input', {
+  id: 'task-time',
+  className: 'time__input',
+  placeholder: '00m00s',
+  maxlength: 6,
+  pattern: '(\d?\d[Mm])?(\d?\d[Ss])?'
+});
+
+const breakTimeInput = createDOMElement('input', {
+  id: 'task-break',
+  className: 'time__input',
+  placeholder: '00m00s',
+  maxlength: 6,
+  pattern: '(\d?\d[Mm])?(\d?\d[Ss])?'
+});
+
+const timeStartButton = createDOMElement('button', {
+  className: 'button time__start'
+}, 'Start');
+
+const timeRowLabels = createDOMElement('div', {
+  className: 'time__row'
+});
+
+const timeLabel = createDOMElement('label', {
+  htmlFor: 'task-time',
+  className: 'time__label time__label--task'
+}, 'task time');
+
+const breakTimeLabel = createDOMElement('label', {
+  htmlFor: 'task-break',
+  className: 'time__label time__label--break'
+}, 'max break time');
+
+const timeAlert = createDOMElement('p', {
+  className: 'time__alert'
+}, 'You have to specify time for the task');
 
 // F0 ////////////////////////////////////////////////////////////// APPENDING 
 
