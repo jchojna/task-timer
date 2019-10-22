@@ -656,12 +656,18 @@ timerToggle.append(timerToggleSvg);
 timerButtons.append(timerPlayPause, timerStop, timerToggle);
 
 displaySection.append(displayHeading, displayElapsed, displayRemaining);
-
 breakSection.append(breaksCounter, breakDisplay);
-
 progressHeader.append(progressPercentElapsed, progressPercentRemaining);
 progressBar.append(progressBarElapsed, progressBarRemaining);
 progressSection.append(progressHeader, progressBar);
+
+stopContainer.append(stopHeading, confirmStopButton, cancelStopButton);
+stopSection.append(stopContainer);
+
+outroHeading.append(outroParty);
+outroRetryButton.append(outroRetryButtonSvg);
+outroContainer.append(outroHeading, outroMessage, outroRetryButton);
+outroSection.append(outroContainer);
 
 timerContainer.append(
   timerHeading,
@@ -676,7 +682,9 @@ timerSection.append(timerContainer);
 app.append(
   taskSection,
   timeSection,
-  timerSection
+  timerSection,
+  stopSection,
+  outroSection
 );
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
