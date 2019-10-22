@@ -377,8 +377,8 @@ const XXX = createDOMElement('XXX', {
   XXX: 'XXX'
 }, 'XXX');
 */
-///////////////////////////////////////////////////////////////// TASK SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+
+// F0 /////////////////////////////////////////////////////////// TASK SECTION 
 
 const taskSection = createDOMElement('section', {
   //className: 'task task--visible',
@@ -417,15 +417,7 @@ const taskAlert = createDOMElement('p', {
   className: 'task__alert task__alert--js'
 }, 'You have to enter your task first!');
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
-
-rightButton.append(rightButtonSvg);
-taskRow.append(taskNameLabel, taskAlert);
-taskSection.append(taskHeading, taskNameInput, rightButton, taskRow);
-app.append(taskSection);
-
-///////////////////////////////////////////////////////////////// TIME SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+// F0 /////////////////////////////////////////////////////////// TIME SECTION 
 
 const timeSection = createDOMElement('section', {
   className: 'time'
@@ -486,16 +478,7 @@ const timeAlert = createDOMElement('p', {
   className: 'time__alert'
 }, 'You have to specify time for the task');
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
-
-leftButton.append(leftButtonSvg);
-timeRowInputs.append(timeInput, breakTimeInput, timeStartButton);
-timeRowLabels.append(timeLabel, breakTimeLabel, timeAlert);
-timeSection.append(timeHeading, leftButton, timeRowInputs, timeRowLabels);
-app.append(timeSection);
-
-//////////////////////////////////////////////////////////////// TIMER SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+// F0 ////////////////////////////////////////////////////////// TIMER SECTION 
 
 const timerSection = createDOMElement('section', {
   className: 'timer timer--visible'
@@ -545,23 +528,9 @@ const timerToggleSvg = createSvgElement({
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#toggle');
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
+// F0 //////////////////////////////////////////////////////// DISPLAY SECTION 
 
-timerPlayPause.append(timerPlaySvg, timerPauseSvg);
-timerStop.append(timerStopSvg);
-timerToggle.append(timerToggleSvg);
-timerButtons.append(timerPlayPause, timerStop, timerToggle);
-
-timerContainer.append(timerHeading, timerButtons);
-timerSection.append(timerContainer);
-app.append(timerSection);
-
-////////////////////////////////////////////////////////////// DISPLAY SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
-
-const displaySection = createDOMElement('section', {
-  className: 'display'
-});
+const displaySection = createDOMElement('section', { className: 'display' });
 
 const displayHeading = createDOMElement('h3', {
   className: 'display__heading visuallyhidden'
@@ -569,21 +538,15 @@ const displayHeading = createDOMElement('h3', {
 
 const displayElapsed = createDOMElement('div', {
   className: 'display__container display__container--elapsed display__container--visible'
-});
+}, '00:00:00');
 
 const displayRemaining = createDOMElement('div', {
   className: 'display__container display__container--remaining'
 });
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
+// F0 ////////////////////////////////////////////////////////// BREAK SECTION 
 
-
-
-//////////////////////////////////////////////////////////////// BREAK SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
-const breakSection = createDOMElement('section', {
-  className: 'break'
-});
+const breakSection = createDOMElement('section', { className: 'break' });
 
 const breaksCounter = createDOMElement('h3', {
   className: 'break__counter'
@@ -593,13 +556,7 @@ const breakDisplay = createDOMElement('div', {
   className: 'break__display'
 });
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
-
-
-
-
-///////////////////////////////////////////////////////////////// PROGRESS BAR 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+// F0 /////////////////////////////////////////////////////////// PROGRESS BAR 
 
 const progressSection = createDOMElement('section', {
   className: 'progress'
@@ -629,27 +586,58 @@ const progressBarRemaining = createDOMElement('div', {
   className: 'progress__part progress__part--unloading'
 });
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
-
-///////////////////////////////////////////////////////////////// STOP SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+// F0 /////////////////////////////////////////////////////////// STOP SECTION 
 
 /* const XXX = createDOMElement('XXX', {
   XXX: 'XXX'
 }, 'XXX'); */
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
 
-
-//////////////////////////////////////////////////////////////// OUTRO SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+// F0 ////////////////////////////////////////////////////////// OUTRO SECTION 
 
 /* const XXX = createDOMElement('XXX', {
   XXX: 'XXX'
 }, 'XXX'); */
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
+//////////////////////////////////////////////////////////////////// APPENDING 
 
+rightButton.append(rightButtonSvg);
+taskRow.append(taskNameLabel, taskAlert);
+taskSection.append(taskHeading, taskNameInput, rightButton, taskRow);
+
+leftButton.append(leftButtonSvg);
+timeRowInputs.append(timeInput, breakTimeInput, timeStartButton);
+timeRowLabels.append(timeLabel, breakTimeLabel, timeAlert);
+timeSection.append(timeHeading, leftButton, timeRowInputs, timeRowLabels);
+
+timerPlayPause.append(timerPlaySvg, timerPauseSvg);
+timerStop.append(timerStopSvg);
+timerToggle.append(timerToggleSvg);
+timerButtons.append(timerPlayPause, timerStop, timerToggle);
+
+displaySection.append(displayHeading, displayElapsed, displayRemaining);
+
+breakSection.append(breaksCounter, breakDisplay);
+
+progressHeader.append(progressPercentElapsed, progressPercentRemaining);
+progressBar.append(progressBarElapsed, progressBarRemaining);
+progressSection.append(progressHeader, progressBar);
+
+timerContainer.append(
+  timerHeading,
+  timerButtons,
+  displaySection,
+  breakSection,
+  progressSection
+);
+
+timerSection.append(timerContainer);
+
+app.append(
+  taskSection,
+  timeSection,
+  timerSection
+);
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
