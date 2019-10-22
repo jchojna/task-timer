@@ -498,7 +498,7 @@ app.append(timeSection);
 // F0 /////////////////////////////////////////////////////////////// ELEMENTS 
 
 const timerSection = createDOMElement('section', {
-  className: 'timer'
+  className: 'timer timer--visible'
 });
 
 const timerContainer = createDOMElement('div', {
@@ -517,13 +517,13 @@ const timerPlayPause = createDOMElement('button', {
   className: 'button timer__button timer__button--playPause'
 });
 
-const timerPlaySvg = createDOMElement({
-  className: 'timer__svg',
+const timerPlaySvg = createSvgElement({
+  class: 'timer__svg',
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#play');
 
-const timerPauseSvg = createDOMElement({
-  className: 'timer__svg timer__svg--hidden',
+const timerPauseSvg = createSvgElement({
+  class: 'timer__svg timer__svg--hidden',
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#pause');
 
@@ -531,8 +531,8 @@ const timerStop = createDOMElement('button', {
   className: 'button timer__button timer__button--stop'
 });
 
-const timerStopSvg = createDOMElement({
-  className: 'timer__svg',
+const timerStopSvg = createSvgElement({
+  class: 'timer__svg',
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#stop');
 
@@ -540,13 +540,21 @@ const timerToggle = createDOMElement('button', {
   className: 'button timer__button timer__button--toggle'
 });
 
-const timerToggleSvg = createDOMElement({
-  className: 'timer__svg',
+const timerToggleSvg = createSvgElement({
+  class: 'timer__svg',
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#toggle');
 
 // F0 ////////////////////////////////////////////////////////////// APPENDING 
 
+timerPlayPause.append(timerPlaySvg, timerPauseSvg);
+timerStop.append(timerStopSvg);
+timerToggle.append(timerToggleSvg);
+timerButtons.append(timerPlayPause, timerStop, timerToggle);
+
+timerContainer.append(timerHeading, timerButtons);
+timerSection.append(timerContainer);
+app.append(timerSection);
 
 ///////////////////////////////////////////////////////////////// STOP SECTION 
 // F0 /////////////////////////////////////////////////////////////// ELEMENTS 
