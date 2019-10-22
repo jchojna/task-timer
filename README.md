@@ -11,14 +11,14 @@ to be developed ...
 to be developed ...
 
 ## Vanilla JS app
-#### [vanilla branch]
+[vanilla branch](https://github.com/jchojna/task-timer/tree/vanilla)
 #### created using document.createElement in pure JS
-to be developed ...
+work in progress ...
 
 ## Static Page
 [static-page branch](https://github.com/jchojna/task-timer/tree/static-page)
 #### created in html + scss + JS
-work in progress ...
+does not include media queries yet - not adjusted to mobile devices
 
 ## Figma Project
 [figma branch](https://github.com/jchojna/task-timer/tree/figma)
