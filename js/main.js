@@ -359,6 +359,17 @@ const createDOMElement = (tag, attributes, content) => {
   DOMElement.textContent = content;
   return DOMElement;
 }
+
+const createSvgElement = (attributes, href) => {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  Object.keys(attributes).forEach(key => {
+    svg.setAttributeNS(null, key, attributes[key]);
+  });
+  use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', href);
+  svg.append(use);
+  return svg;
+}
 ////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
 const app = document.querySelector('#root');
 /*
@@ -387,13 +398,12 @@ const rightButton = createDOMElement('button', {
   className: 'button task__button task__button--right'
 });
 
-const rightButtonSvg = createDOMElement('svg', {
-  className: 'task__svg',
+const rightButtonSvg = createSvgElement({
+  class: 'task__svg',
   viewBox: '0 0 512 512'
-});
+}, 'assets/svg/icons.svg#arrow-right');
 
 const rightButtonUse = createDOMElement('use', {
-  href: 'assets/svg/icons.svg#arrow-right'
 });
 
 const taskRow = createDOMElement('div', {
@@ -411,12 +421,10 @@ const taskAlert = createDOMElement('p', {
 
 // F0 ////////////////////////////////////////////////////////////// APPENDING 
 
-rightButtonSvg.append(rightButtonUse);
 rightButton.append(rightButtonSvg);
 taskRow.append(taskNameLabel, taskAlert);
 taskSection.append(taskHeading, taskNameInput, rightButton, taskRow);
 app.append(taskSection);
-
 
 ///////////////////////////////////////////////////////////////// TIME SECTION 
 // F0 /////////////////////////////////////////////////////////////// ELEMENTS 
