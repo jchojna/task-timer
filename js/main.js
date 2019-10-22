@@ -1,4 +1,4 @@
-/* class Task {
+class Task {
   constructor(time) {
     this.name = "",
     this.workTimeElapsed = 0,
@@ -48,9 +48,9 @@
       Math.floor(time / 1000 % 60)
     ];
   }
-} */
+}
 
-/* const countdown = () => {
+const countdown = () => {
   if (task.isWork) {
     let {
       workTimeElapsed,
@@ -64,8 +64,8 @@
       task.workTimeElapsed, workTimeElapsed = timeTotal;
       task.workTimeRemaining, workTimeRemaining = 0;
       task.isWork = false;
-      startButton.disable = false;
-      startButton.classList.remove('time__start--disabled');
+      timeStartButton.disable = false;
+      timeStartButton.classList.remove('time__start--disabled');
       togglePlayPauseButton('play');
       stopSection.removeEventListener('click', handleStopConfirm);
       stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
@@ -89,15 +89,8 @@
     task.workTimeElapsedArray = workTimeElapsed;
     task.workTimeRemainingArray = workTimeRemaining;
 
-    const [eMin, eSec, eCSec] = task.workTimeElapsedArray;                             // ! TO REFACTOR
-    elapsedMin.textContent = eMin;
-    elapsedSec.textContent = eSec;
-    elapsedCSec.textContent = eCSec;
-
-    const [rMin, rSec, rCSec] = task.workTimeRemainingArray;                           // ! TO REFACTOR
-    remainingMin.textContent = rMin;
-    remainingSec.textContent = rSec;
-    remainingCSec.textContent = rCSec;
+    displayElapsed.textContent = task.workTimeElapsedArray.join(':');
+    displayRemaining.textContent = task.workTimeRemainingArray.join(':');
 
     const percentElapsed = workTimeElapsed / timeTotal * 100;                           // ! TO REFACTOR
     progressPercentElapsed.textContent = `${Math.round(percentElapsed)} %`;
@@ -107,9 +100,9 @@
     progressPercentRemaining.textContent = `${Math.round(percentRemaining)} %`;
     progressBarRemaining.style.width = `${percentRemaining}%`;
   }
-} */
+}
 
-/* const breakTime = () => {
+const breakTime = () => {
   if (task.isBreak) {
     const {
       previousTime,
@@ -121,29 +114,26 @@
     task.breakTimeElapsed = breakTimeElapsed + (now - previousTime);
 
     task.breakTimeElapsedArray = task.breakTimeElapsed;
-    const [bMin, bSec, bCSec] = task.breakTimeElapsedArray;                           // ! TO REFACTOR
-    breakTimeElapsedMin.textContent = bMin;
-    breakTimeElapsedSec.textContent = bSec;
-    breakTimeElapsedCSec.textContent = bCSec;
+    breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
   }
-} */
+}
 
-/* const setTotalTime = () => {
+const setTotalTime = () => {
   let time = timeInput.value.split(/[mM]/).map(a => parseInt(a) || 0);
   time = time.length > 1 ? time : [0, ...time];
   const [minutes, seconds] = time;
   return minutes * 60000 + seconds * 1000;
-} */
+}
 
-/* const handleButtons = (e) => {
+const handleButtons = (e) => {
 
   switch(e.target) {
 
     case rightButton:
-      if (validateInput('task')) {
-        taskSection.className = 'task task--js slideOutLeft';
-        timeSection.className = 'time time--js time--visible slideInRight';
-        task.name = taskInput.value;
+      if (isValid('task')) {
+        taskSection.className = 'task slideOutLeft';
+        timeSection.className = 'time time--visible slideInRight';
+        task.name = taskNameInput.value;
         timerHeading.textContent = `"${task.name}"`;
       }
       break;
@@ -153,8 +143,8 @@
       taskSection.className = 'task task--js task--visible slideInLeft';
       break;
 
-    case startButton:
-      if (validateInput('time') && !startButton.disable) {
+    case timeStartButton:
+      if (isValid('time') && !timeStartButton.disable) {
         timeSection.className = 'time time--js slideOutLeft';
         timerSection.className = 'timer timer--js timer--visible slideInRight';
         task.isWork = true;
@@ -163,15 +153,12 @@
         if (task.timeTotal <= 0) return;
         task.workTimeElapsed = 0;
         intervalWorkId = setInterval(() => countdown(), 10);
-        startButton.disable = true;
-        startButton.classList.add('time__start--disabled');
+        timeStartButton.disable = true;
+        timeStartButton.classList.add('time__start--disabled');
         task.totalBreaks = 0;
         task.breakTimeElapsed = 0;
         task.breakTimeElapsedArray = task.breakTimeElapsed;
-        const [bMin, bSec, bCSec] = task.breakTimeElapsedArray;                           // ! TO REFACTOR
-        breakTimeElapsedMin.textContent = bMin;
-        breakTimeElapsedSec.textContent = bSec;
-        breakTimeElapsedCSec.textContent = bCSec;
+        breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
         togglePlayPauseButton('pause');
         updateBreaksCounter();
         timerStop.addEventListener('click', handleButtons);
@@ -194,7 +181,7 @@
         task.totalBreaks = task.totalBreaks + 1;
         updateBreaksCounter();
         intervalBreakId = setInterval(() => breakTime(), 10);
-        display.classList.add('display--inactive');
+        displaySection.classList.add('display--inactive');
         breakSection.classList.add('break--active');
       // turning break mode off
       } else {
@@ -203,22 +190,22 @@
         task.isWork = true;
         task.isBreak = false;
         task.previousTime = Date.now();
-        display.classList.remove('display--inactive');
+        displaySection.classList.remove('display--inactive');
         breakSection.classList.remove('break--active');
       }
       
     default: false;
   }
-} */
+}
 
-/* const handleStopConfirm = (e) => {
+const handleStopConfirm = (e) => {
   switch (e.target) {
 
     case confirmStopButton:
       stopSection.removeEventListener('click', handleStopConfirm);
       task.isWork = false;
-      startButton.disable = false;
-      startButton.classList.remove('time__start--disabled');
+      timeStartButton.disable = false;
+      timeStartButton.classList.remove('time__start--disabled');
       togglePlayPauseButton('play');
       toggleStopConfirm();
       clearInterval(intervalWorkId);
@@ -234,16 +221,16 @@
       toggleStopConfirm();
       break;
   }
-} */
+}
 
-/* const makeTwoDigits = (number) => {
+const makeTwoDigits = (number) => {
   return number < 10 ? `0${number}` : number;
-} */
+}
 
-/* const validateInput = (input) => {
+const isValid = (input) => {
   const alert = document.querySelector(`.${input}__alert--js`);
 
-  if (input === 'task' ? !/\w/g.test(taskInput.value) : !/\d/g.test(timeInput.value)) {
+  if (input === 'task' ? !/\w/g.test(taskNameInput.value) : !/\d/g.test(timeInput.value)) {
     alert.classList.add(`${input}__alert--visible`);
     return false;
   } else if (timeInput.validity.valid && breakTimeInput.validity.valid) {
@@ -252,28 +239,28 @@
   } else {
     return false;
   }
-} */
+}
 
-/* const updateBreaksCounter = () => {
+const updateBreaksCounter = () => {
   breaksCounter.textContent =
   `${task.totalBreaks} ${task.totalBreaks === 1 ? `break` : `breaks`}`;
-} */
+}
 
-/* const togglePlayPauseButton = (action) => {
+const togglePlayPauseButton = (action) => {
   const opposite = action === 'play' ? 'pause' : 'play';
   const visibleSvg = document.querySelector(`.timer__svg--js-${action}`);
   const hiddenSvg = document.querySelector(`.timer__svg--js-${opposite}`);
 
   visibleSvg.classList.remove('timer__svg--hidden');
   hiddenSvg.classList.add('timer__svg--hidden');
-} */
+}
 
-/* const toggleStopConfirm = () => {
+const toggleStopConfirm = () => {
   stopSection.classList.toggle('stop--visible');
-} */
+}
 
-/* const handleTimerToggle = () => {
-  [...display.children].forEach(item => {
+const handleTimerToggle = () => {
+  [...displaySection.children].forEach(item => {
     item.classList.toggle('display__container--visible');
     if (item.classList.contains('display__container--visible')) {
       item.classList.remove('display__container--hideUp')
@@ -283,9 +270,8 @@
       item.classList.add('display__container--hideUp');
     }
   });
-  [...progressPercents].forEach(percent => {
-    percent.classList.toggle('progress__percent--visible');
-  });
+  progressPercentElapsed.classList.toggle('progress__percent--visible');
+  progressPercentRemaining.classList.toggle('progress__percent--visible');
   [...progressBar.children].forEach(part => {
     if (part.classList.contains('progress__part--loading')) {
       part.classList.remove('progress__part--loading');
@@ -295,9 +281,9 @@
       part.classList.remove('progress__part--unloading');
     }
   })
-} */
+}
 
-/* const handleOutro = () => {
+const handleOutro = () => {
   const {name, totalBreaks, overallTime, breakTimeElapsed} = task;
   const [minutes, seconds] = task.overallTimeArray;
   let [breakMinutes, breakSeconds] = task.breakTimeElapsedArray;
@@ -343,15 +329,18 @@
       % of all time.`
     : `.`
   }`
-} */
+}
 
-/* const handleRetry = () => {
+const handleRetry = () => {
   outroSection.classList.remove('outro--visible');
   timerSection.className = 'timer timer--js slideOutLeft';
   taskSection.className = 'task task--js task--visible slideInRight';
   outroRetryButton.removeEventListener('click', handleRetry);
-} */
-// F0 ///////////////////////////////////////////////////// CREATE DOM ELEMENT 
+}
+
+////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
+
+const app = document.querySelector('#root');
 
 const createDOMElement = (tag, attributes, content) => {
   const DOMElement = document.createElement(tag);
@@ -370,19 +359,12 @@ const createSvgElement = (attributes, href) => {
   svg.append(use);
   return svg;
 }
-////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
-const app = document.querySelector('#root');
-/*
-const XXX = createDOMElement('XXX', {
-  XXX: 'XXX'
-}, 'XXX');
-*/
 
+////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
 // F0 /////////////////////////////////////////////////////////// TASK SECTION 
 
 const taskSection = createDOMElement('section', {
-  //className: 'task task--visible',
-  className: 'task'
+  className: 'task task--visible'
 });
 
 const taskHeading = createDOMElement('h2', {
@@ -404,9 +386,7 @@ const rightButtonSvg = createSvgElement({
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#arrow-right');
 
-const taskRow = createDOMElement('div', {
-  className: 'task__row'
-});
+const taskRow = createDOMElement('div', { className: 'task__row' });
 
 const taskNameLabel = createDOMElement('label', {
   className: 'task__label task__label--name',
@@ -419,9 +399,7 @@ const taskAlert = createDOMElement('p', {
 
 // F0 /////////////////////////////////////////////////////////// TIME SECTION 
 
-const timeSection = createDOMElement('section', {
-  className: 'time'
-});
+const timeSection = createDOMElement('section', { className: 'time' });
 
 const timeHeading = createDOMElement('h2', {
   className: 'time__heading'
@@ -436,33 +414,29 @@ const leftButtonSvg = createSvgElement({
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#arrow-left');
 
-const timeRowInputs = createDOMElement('div', {
-  className: 'time__row'
-});
+const timeRowInputs = createDOMElement('div', { className: 'time__row' });
 
 const timeInput = createDOMElement('input', {
   id: 'task-time',
   className: 'time__input',
   placeholder: '00m00s',
-  maxlength: 6,
-  pattern: '(\d?\d[Mm])?(\d?\d[Ss])?'
+  maxLength: 6,
+  pattern: '(\\d?\\d[Mm])?(\\d?\\d[Ss])?'
 });
 
 const breakTimeInput = createDOMElement('input', {
   id: 'task-break',
   className: 'time__input',
   placeholder: '00m00s',
-  maxlength: 6,
-  pattern: '(\d?\d[Mm])?(\d?\d[Ss])?'
+  maxLength: 6,
+  pattern: '(\\d?\\d[Mm])?(\\d?\\d[Ss])?'
 });
 
 const timeStartButton = createDOMElement('button', {
   className: 'button time__start'
 }, 'Start');
 
-const timeRowLabels = createDOMElement('div', {
-  className: 'time__row'
-});
+const timeRowLabels = createDOMElement('div', { className: 'time__row' });
 
 const timeLabel = createDOMElement('label', {
   htmlFor: 'task-time',
@@ -475,38 +449,32 @@ const breakTimeLabel = createDOMElement('label', {
 }, 'max break time');
 
 const timeAlert = createDOMElement('p', {
-  className: 'time__alert'
+  className: 'time__alert time__alert--js'
 }, 'You have to specify time for the task');
 
 // F0 ////////////////////////////////////////////////////////// TIMER SECTION 
 
-const timerSection = createDOMElement('section', {
-  className: 'timer timer--visible'
-});
+const timerSection = createDOMElement('section', { className: 'timer' });
 
-const timerContainer = createDOMElement('div', {
-  className: 'timer__container'
-});
+const timerContainer = createDOMElement('div', { className: 'timer__container' });
 
 const timerHeading = createDOMElement('h2', {
   className: 'timer__heading'
 }, 'Work on your task');
 
-const timerButtons = createDOMElement('div', {
-  className: 'timer__buttons'
-});
+const timerButtons = createDOMElement('div', { className: 'timer__buttons' });
 
 const timerPlayPause = createDOMElement('button', {
   className: 'button timer__button timer__button--playPause'
 });
 
 const timerPlaySvg = createSvgElement({
-  class: 'timer__svg',
+  class: 'timer__svg timer__svg--js-play',
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#play');
 
 const timerPauseSvg = createSvgElement({
-  class: 'timer__svg timer__svg--hidden',
+  class: 'timer__svg timer__svg--js-pause',
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#pause');
 
@@ -552,19 +520,13 @@ const breaksCounter = createDOMElement('h3', {
   className: 'break__counter'
 }, '0 breaks');
 
-const breakDisplay = createDOMElement('div', {
-  className: 'break__display'
-});
+const breakDisplay = createDOMElement('div', { className: 'break__display' });
 
 // F0 /////////////////////////////////////////////////////////// PROGRESS BAR 
 
-const progressSection = createDOMElement('section', {
-  className: 'progress'
-});
+const progressSection = createDOMElement('section', { className: 'progress' });
 
-const progressHeader = createDOMElement('header', {
-  className: 'progress__header'
-});
+const progressHeader = createDOMElement('header', { className: 'progress__header' });
 
 const progressPercentElapsed = createDOMElement('h3', {
   className: 'progress__percent progress__percent--visible'
@@ -574,9 +536,7 @@ const progressPercentRemaining = createDOMElement('h3', {
   className: 'progress__percent'
 }, '0%');
 
-const progressBar = createDOMElement('div', {
-  className: 'progress__bar'
-});
+const progressBar = createDOMElement('div', { className: 'progress__bar' });
 
 const progressBarElapsed = createDOMElement('div', {
   className: 'progress__part progress__part--loading'
@@ -588,13 +548,9 @@ const progressBarRemaining = createDOMElement('div', {
 
 // F0 /////////////////////////////////////////////////////////// STOP SECTION 
 
-const stopSection = createDOMElement('section', {
-  className: 'stop'
-});
+const stopSection = createDOMElement('section', { className: 'stop' });
 
-const stopContainer = createDOMElement('div', {
-  className: 'stop__container'
-});
+const stopContainer = createDOMElement('div', { className: 'stop__container' });
 
 const stopHeading = createDOMElement('h2', {
   className: 'stop__heading'
@@ -610,25 +566,17 @@ const cancelStopButton = createDOMElement('button', {
 
 // F0 ////////////////////////////////////////////////////////// OUTRO SECTION 
 
-const outroSection = createDOMElement('section', {
-  className: 'outro'
-});
+const outroSection = createDOMElement('section', { className: 'outro' });
 
-const outroContainer = createDOMElement('div', {
-  className: 'outro__container'
-});
+const outroContainer = createDOMElement('div', { className: 'outro__container' });
 
 const outroHeading = createDOMElement('h2', {
   className: 'outro__heading'
 }, 'Congratulations!');
 
-const outroParty = createDOMElement('span', {
-  className: 'outro__party'
-}, '🎉');
+const outroParty = createDOMElement('span', { className: 'outro__party' }, '🎉');
 
-const outroMessage = createDOMElement('p', {
-  className: 'outro__message'
-});
+const outroMessage = createDOMElement('p', { className: 'outro__message' });
 
 const outroRetryButton = createDOMElement('button', {
   className: 'button outro__retry'
@@ -689,16 +637,12 @@ app.append(
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
-/*
 const task = new Task(0);
 let intervalWorkId = "";
 let intervalBreakId = "";
-*/
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
 
-/*
 rightButton.addEventListener('click', handleButtons);
 leftButton.addEventListener('click', handleButtons);
-startButton.addEventListener('click', handleButtons);
-*/
+timeStartButton.addEventListener('click', handleButtons);
