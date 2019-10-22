@@ -428,7 +428,7 @@ app.append(taskSection);
 // F0 /////////////////////////////////////////////////////////////// ELEMENTS 
 
 const timeSection = createDOMElement('section', {
-  className: 'time time--visible'
+  className: 'time'
 });
 
 const timeHeading = createDOMElement('h2', {
@@ -497,6 +497,54 @@ app.append(timeSection);
 //////////////////////////////////////////////////////////////// TIMER SECTION 
 // F0 /////////////////////////////////////////////////////////////// ELEMENTS 
 
+const timerSection = createDOMElement('section', {
+  className: 'timer'
+});
+
+const timerContainer = createDOMElement('div', {
+  className: 'timer__container'
+});
+
+const timerHeading = createDOMElement('h2', {
+  className: 'timer__heading'
+}, 'Work on your task');
+
+const timerButtons = createDOMElement('div', {
+  className: 'timer__buttons'
+});
+
+const timerPlayPause = createDOMElement('button', {
+  className: 'button timer__button timer__button--playPause'
+});
+
+const timerPlaySvg = createDOMElement({
+  className: 'timer__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#play');
+
+const timerPauseSvg = createDOMElement({
+  className: 'timer__svg timer__svg--hidden',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#pause');
+
+const timerStop = createDOMElement('button', {
+  className: 'button timer__button timer__button--stop'
+});
+
+const timerStopSvg = createDOMElement({
+  className: 'timer__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#stop');
+
+const timerToggle = createDOMElement('button', {
+  className: 'button timer__button timer__button--toggle'
+});
+
+const timerToggleSvg = createDOMElement({
+  className: 'timer__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#toggle');
+
 // F0 ////////////////////////////////////////////////////////////// APPENDING 
 
 
@@ -520,55 +568,6 @@ let intervalWorkId = "";
 let intervalBreakId = "";
 */
 
-// TASK
-/*
-const rightButton = document.querySelector('.task__button--js-right');
-const taskInput = document.querySelector('.task__input--js');
-*/
-// TIME
-/*
-const timeSection = document.querySelector('.time--js');
-const leftButton = document.querySelector('.time__button--js-left');
-const startButton = document.querySelector('.time__start--js');
-const timeInput = document.querySelector('.time__input--js-time');
-const breakTimeInput = document.querySelector('.time__input--js-break-time');
-*/
-// TIMER
-/*
-const timerSection = document.querySelector('.timer--js');
-const timerPlayPause = document.querySelector('.timer__button--js-playPause');
-const timerStop = document.querySelector('.timer__button--js-stop');
-const timerToggle = document.querySelector('.timer__button--js-toggle');
-const timerHeading = document.querySelector('.timer__heading--js');
-*/
-// DISPLAY
-/*
-const display = document.querySelector('.display--js');
-const displayElapsed = document.querySelector('.display__container--js--elapsed');
-const displayRemaining = document.querySelector('.display__container--js-remaining');
-const remainingMin = document.querySelector('.display__container--js-remaining .display__time--js-min');
-const remainingSec = document.querySelector('.display__container--js-remaining .display__time--js-sec');
-const remainingCSec = document.querySelector('.display__container--js-remaining .display__time--js-cSec');
-const elapsedMin = document.querySelector('.display__container--js-elapsed .display__time--js-min');
-const elapsedSec = document.querySelector('.display__container--js-elapsed .display__time--js-sec');
-const elapsedCSec = document.querySelector('.display__container--js-elapsed .display__time--js-cSec'); */
-// BREAK
-/*
-const breakSection = document.querySelector('.break--js');
-const breakTimeElapsedMin = document.querySelector('.break__time--js-min');
-const breakTimeElapsedSec = document.querySelector('.break__time--js-sec');
-const breakTimeElapsedCSec = document.querySelector('.break__time--js-cSec');
-const breaksCounter = document.querySelector('.break__counter--js');
-*/
-// PROGRESS BAR
-/*
-const progressBar = document.querySelector('.progress__bar--js');
-const progressPercents = document.querySelectorAll('[class*="progress__percent--js"]');
-const progressPercentElapsed = document.querySelector('.progress__percent--js-elapsed');
-const progressPercentRemaining = document.querySelector('.progress__percent--js-remaining');
-const progressBarElapsed = document.querySelector('.progress__part--js-elapsed');
-const progressBarRemaining = document.querySelector('.progress__part--js-remaining');
-*/
 // STOP CONFIRMATION
 /*
 const stopSection = document.querySelector('.stop--js');
