@@ -377,11 +377,12 @@ const XXX = createDOMElement('XXX', {
   XXX: 'XXX'
 }, 'XXX');
 */
-///////////////////////////////////////////////////////////////// TASK SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+
+// F0 /////////////////////////////////////////////////////////// TASK SECTION 
 
 const taskSection = createDOMElement('section', {
-  className: 'task task--visible'
+  //className: 'task task--visible',
+  className: 'task'
 });
 
 const taskHeading = createDOMElement('h2', {
@@ -403,9 +404,6 @@ const rightButtonSvg = createSvgElement({
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#arrow-right');
 
-const rightButtonUse = createDOMElement('use', {
-});
-
 const taskRow = createDOMElement('div', {
   className: 'task__row'
 });
@@ -419,36 +417,227 @@ const taskAlert = createDOMElement('p', {
   className: 'task__alert task__alert--js'
 }, 'You have to enter your task first!');
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
+// F0 /////////////////////////////////////////////////////////// TIME SECTION 
+
+const timeSection = createDOMElement('section', {
+  className: 'time'
+});
+
+const timeHeading = createDOMElement('h2', {
+  className: 'time__heading'
+}, 'Task Time Estimation');
+
+const leftButton = createDOMElement('button', {
+  className: 'button time__button time__button--left'
+});
+
+const leftButtonSvg = createSvgElement({
+  class: 'task__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#arrow-left');
+
+const timeRowInputs = createDOMElement('div', {
+  className: 'time__row'
+});
+
+const timeInput = createDOMElement('input', {
+  id: 'task-time',
+  className: 'time__input',
+  placeholder: '00m00s',
+  maxlength: 6,
+  pattern: '(\d?\d[Mm])?(\d?\d[Ss])?'
+});
+
+const breakTimeInput = createDOMElement('input', {
+  id: 'task-break',
+  className: 'time__input',
+  placeholder: '00m00s',
+  maxlength: 6,
+  pattern: '(\d?\d[Mm])?(\d?\d[Ss])?'
+});
+
+const timeStartButton = createDOMElement('button', {
+  className: 'button time__start'
+}, 'Start');
+
+const timeRowLabels = createDOMElement('div', {
+  className: 'time__row'
+});
+
+const timeLabel = createDOMElement('label', {
+  htmlFor: 'task-time',
+  className: 'time__label time__label--task'
+}, 'task time');
+
+const breakTimeLabel = createDOMElement('label', {
+  htmlFor: 'task-break',
+  className: 'time__label time__label--break'
+}, 'max break time');
+
+const timeAlert = createDOMElement('p', {
+  className: 'time__alert'
+}, 'You have to specify time for the task');
+
+// F0 ////////////////////////////////////////////////////////// TIMER SECTION 
+
+const timerSection = createDOMElement('section', {
+  className: 'timer timer--visible'
+});
+
+const timerContainer = createDOMElement('div', {
+  className: 'timer__container'
+});
+
+const timerHeading = createDOMElement('h2', {
+  className: 'timer__heading'
+}, 'Work on your task');
+
+const timerButtons = createDOMElement('div', {
+  className: 'timer__buttons'
+});
+
+const timerPlayPause = createDOMElement('button', {
+  className: 'button timer__button timer__button--playPause'
+});
+
+const timerPlaySvg = createSvgElement({
+  class: 'timer__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#play');
+
+const timerPauseSvg = createSvgElement({
+  class: 'timer__svg timer__svg--hidden',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#pause');
+
+const timerStop = createDOMElement('button', {
+  className: 'button timer__button timer__button--stop'
+});
+
+const timerStopSvg = createSvgElement({
+  class: 'timer__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#stop');
+
+const timerToggle = createDOMElement('button', {
+  className: 'button timer__button timer__button--toggle'
+});
+
+const timerToggleSvg = createSvgElement({
+  class: 'timer__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#toggle');
+
+// F0 //////////////////////////////////////////////////////// DISPLAY SECTION 
+
+const displaySection = createDOMElement('section', { className: 'display' });
+
+const displayHeading = createDOMElement('h3', {
+  className: 'display__heading visuallyhidden'
+}, 'Display');
+
+const displayElapsed = createDOMElement('div', {
+  className: 'display__container display__container--elapsed display__container--visible'
+}, '00:00:00');
+
+const displayRemaining = createDOMElement('div', {
+  className: 'display__container display__container--remaining'
+});
+
+// F0 ////////////////////////////////////////////////////////// BREAK SECTION 
+
+const breakSection = createDOMElement('section', { className: 'break' });
+
+const breaksCounter = createDOMElement('h3', {
+  className: 'break__counter'
+}, '0 breaks');
+
+const breakDisplay = createDOMElement('div', {
+  className: 'break__display'
+});
+
+// F0 /////////////////////////////////////////////////////////// PROGRESS BAR 
+
+const progressSection = createDOMElement('section', {
+  className: 'progress'
+});
+
+const progressHeader = createDOMElement('header', {
+  className: 'progress__header'
+});
+
+const progressPercentElapsed = createDOMElement('h3', {
+  className: 'progress__percent progress__percent--visible'
+}, '0%');
+
+const progressPercentRemaining = createDOMElement('h3', {
+  className: 'progress__percent'
+}, '0%');
+
+const progressBar = createDOMElement('div', {
+  className: 'progress__bar'
+});
+
+const progressBarElapsed = createDOMElement('div', {
+  className: 'progress__part progress__part--loading'
+});
+
+const progressBarRemaining = createDOMElement('div', {
+  className: 'progress__part progress__part--unloading'
+});
+
+// F0 /////////////////////////////////////////////////////////// STOP SECTION 
+
+/* const XXX = createDOMElement('XXX', {
+  XXX: 'XXX'
+}, 'XXX'); */
+
+
+// F0 ////////////////////////////////////////////////////////// OUTRO SECTION 
+
+/* const XXX = createDOMElement('XXX', {
+  XXX: 'XXX'
+}, 'XXX'); */
+
+//////////////////////////////////////////////////////////////////// APPENDING 
 
 rightButton.append(rightButtonSvg);
 taskRow.append(taskNameLabel, taskAlert);
 taskSection.append(taskHeading, taskNameInput, rightButton, taskRow);
-app.append(taskSection);
 
-///////////////////////////////////////////////////////////////// TIME SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+leftButton.append(leftButtonSvg);
+timeRowInputs.append(timeInput, breakTimeInput, timeStartButton);
+timeRowLabels.append(timeLabel, breakTimeLabel, timeAlert);
+timeSection.append(timeHeading, leftButton, timeRowInputs, timeRowLabels);
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
+timerPlayPause.append(timerPlaySvg, timerPauseSvg);
+timerStop.append(timerStopSvg);
+timerToggle.append(timerToggleSvg);
+timerButtons.append(timerPlayPause, timerStop, timerToggle);
 
+displaySection.append(displayHeading, displayElapsed, displayRemaining);
 
-//////////////////////////////////////////////////////////////// TIMER SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+breakSection.append(breaksCounter, breakDisplay);
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
+progressHeader.append(progressPercentElapsed, progressPercentRemaining);
+progressBar.append(progressBarElapsed, progressBarRemaining);
+progressSection.append(progressHeader, progressBar);
 
+timerContainer.append(
+  timerHeading,
+  timerButtons,
+  displaySection,
+  breakSection,
+  progressSection
+);
 
-///////////////////////////////////////////////////////////////// STOP SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+timerSection.append(timerContainer);
 
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
-
-
-//////////////////////////////////////////////////////////////// OUTRO SECTION 
-// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
-
-// F0 ////////////////////////////////////////////////////////////// APPENDING 
-
+app.append(
+  taskSection,
+  timeSection,
+  timerSection
+);
 
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
@@ -458,55 +647,6 @@ let intervalWorkId = "";
 let intervalBreakId = "";
 */
 
-// TASK
-/*
-const rightButton = document.querySelector('.task__button--js-right');
-const taskInput = document.querySelector('.task__input--js');
-*/
-// TIME
-/*
-const timeSection = document.querySelector('.time--js');
-const leftButton = document.querySelector('.time__button--js-left');
-const startButton = document.querySelector('.time__start--js');
-const timeInput = document.querySelector('.time__input--js-time');
-const breakTimeInput = document.querySelector('.time__input--js-break-time');
-*/
-// TIMER
-/*
-const timerSection = document.querySelector('.timer--js');
-const timerPlayPause = document.querySelector('.timer__button--js-playPause');
-const timerStop = document.querySelector('.timer__button--js-stop');
-const timerToggle = document.querySelector('.timer__button--js-toggle');
-const timerHeading = document.querySelector('.timer__heading--js');
-*/
-// DISPLAY
-/*
-const display = document.querySelector('.display--js');
-const displayElapsed = document.querySelector('.display__container--js--elapsed');
-const displayRemaining = document.querySelector('.display__container--js-remaining');
-const remainingMin = document.querySelector('.display__container--js-remaining .display__time--js-min');
-const remainingSec = document.querySelector('.display__container--js-remaining .display__time--js-sec');
-const remainingCSec = document.querySelector('.display__container--js-remaining .display__time--js-cSec');
-const elapsedMin = document.querySelector('.display__container--js-elapsed .display__time--js-min');
-const elapsedSec = document.querySelector('.display__container--js-elapsed .display__time--js-sec');
-const elapsedCSec = document.querySelector('.display__container--js-elapsed .display__time--js-cSec'); */
-// BREAK
-/*
-const breakSection = document.querySelector('.break--js');
-const breakTimeElapsedMin = document.querySelector('.break__time--js-min');
-const breakTimeElapsedSec = document.querySelector('.break__time--js-sec');
-const breakTimeElapsedCSec = document.querySelector('.break__time--js-cSec');
-const breaksCounter = document.querySelector('.break__counter--js');
-*/
-// PROGRESS BAR
-/*
-const progressBar = document.querySelector('.progress__bar--js');
-const progressPercents = document.querySelectorAll('[class*="progress__percent--js"]');
-const progressPercentElapsed = document.querySelector('.progress__percent--js-elapsed');
-const progressPercentRemaining = document.querySelector('.progress__percent--js-remaining');
-const progressBarElapsed = document.querySelector('.progress__part--js-elapsed');
-const progressBarRemaining = document.querySelector('.progress__part--js-remaining');
-*/
 // STOP CONFIRMATION
 /*
 const stopSection = document.querySelector('.stop--js');
