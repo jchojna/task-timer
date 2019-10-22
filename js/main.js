@@ -588,16 +588,56 @@ const progressBarRemaining = createDOMElement('div', {
 
 // F0 /////////////////////////////////////////////////////////// STOP SECTION 
 
-/* const XXX = createDOMElement('XXX', {
-  XXX: 'XXX'
-}, 'XXX'); */
+const stopSection = createDOMElement('section', {
+  className: 'stop'
+});
 
+const stopContainer = createDOMElement('div', {
+  className: 'stop__container'
+});
+
+const stopHeading = createDOMElement('h2', {
+  className: 'stop__heading'
+}, 'Are you sure you want to quit?');
+
+const confirmStopButton = createDOMElement('button', {
+  className: 'button stop__button stop__button--stop'
+}, 'Yes');
+
+const cancelStopButton = createDOMElement('button', {
+  className: 'button stop__button stop__button--cancel'
+}, 'Cancel');
 
 // F0 ////////////////////////////////////////////////////////// OUTRO SECTION 
 
-/* const XXX = createDOMElement('XXX', {
-  XXX: 'XXX'
-}, 'XXX'); */
+const outroSection = createDOMElement('section', {
+  className: 'outro'
+});
+
+const outroContainer = createDOMElement('div', {
+  className: 'outro__container'
+});
+
+const outroHeading = createDOMElement('h2', {
+  className: 'outro__heading'
+}, 'Congratulations!');
+
+const outroParty = createDOMElement('span', {
+  className: 'outro__party'
+}, '🎉');
+
+const outroMessage = createDOMElement('p', {
+  className: 'outro__message'
+});
+
+const outroRetryButton = createDOMElement('button', {
+  className: 'button outro__retry'
+});
+
+const outroRetryButtonSvg = createSvgElement({
+  class: 'outro__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#retry');
 
 //////////////////////////////////////////////////////////////////// APPENDING 
 
@@ -645,19 +685,6 @@ app.append(
 const task = new Task(0);
 let intervalWorkId = "";
 let intervalBreakId = "";
-*/
-
-// STOP CONFIRMATION
-/*
-const stopSection = document.querySelector('.stop--js');
-const confirmStopButton = document.querySelector('.stop__button--js-stop');
-const cancelStopButton = document.querySelector('.stop__button--js-cancel');
-*/
-// OUTRO
-/*
-const outroSection = document.querySelector('.outro--js');
-const outroMessage = document.querySelector('.outro__message--js');
-const outroRetryButton = document.querySelector('.outro__retry--js');
 */
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
