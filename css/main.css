@@ -1,6 +1,6 @@
-@import url("normalize.css");
-@import url("helpers.css");
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap&subset=latin-ext");
+@import url("../css/normalize.css");
+@import url("../css/helpers.css");
 @-webkit-keyframes slideOutLeft {
   0% {
     -webkit-transform: translateX(0);
@@ -155,7 +155,7 @@ html {
 body {
   color: #fff;
   font-family: "Montserrat", Arial, sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: medium;
 }
 
@@ -478,6 +478,11 @@ body {
   height: 100%;
   position: relative;
   width: 100%;
+  color: #C36565;
+}
+
+.display--inactive {
+  color: #fff;
 }
 
 .display__container {
@@ -533,6 +538,10 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   justify-self: end;
+}
+
+.break--active {
+  color: #C36565;
 }
 
 .break__counter {

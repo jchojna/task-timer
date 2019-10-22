@@ -196,6 +196,8 @@ const handleButtons = (e) => {
         task.totalBreaks = task.totalBreaks + 1;
         updateBreaksCounter();
         intervalBreakId = setInterval(() => breakTime(), 10);
+        display.classList.add('display--inactive');
+        breakSection.classList.add('break--active');
       // turning break mode off
       } else {
         togglePlayPauseButton('pause');
@@ -203,8 +205,9 @@ const handleButtons = (e) => {
         task.isWork = true;
         task.isBreak = false;
         task.previousTime = Date.now();
+        display.classList.remove('display--inactive');
+        breakSection.classList.remove('break--active');
       }
-
       
     default: false;
   }
@@ -382,6 +385,8 @@ const remainingCSec = document.querySelector('.display__container--js-remaining 
 const elapsedMin = document.querySelector('.display__container--js-elapsed .display__time--js-min');
 const elapsedSec = document.querySelector('.display__container--js-elapsed .display__time--js-sec');
 const elapsedCSec = document.querySelector('.display__container--js-elapsed .display__time--js-cSec');
+// BREAK
+const breakSection = document.querySelector('.break--js');
 const breakTimeElapsedMin = document.querySelector('.break__time--js-min');
 const breakTimeElapsedSec = document.querySelector('.break__time--js-sec');
 const breakTimeElapsedCSec = document.querySelector('.break__time--js-cSec');
