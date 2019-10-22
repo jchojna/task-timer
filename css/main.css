@@ -349,6 +349,15 @@ body {
 
 .task__button,
 .time__button {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   fill: none;
   stroke: #fff;
   stroke-width: 20;

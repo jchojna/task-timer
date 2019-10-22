@@ -1,4 +1,4 @@
-class Task {
+/* class Task {
   constructor(time) {
     this.name = "",
     this.workTimeElapsed = 0,
@@ -48,10 +48,9 @@ class Task {
       Math.floor(time / 1000 % 60)
     ];
   }
-}
-// F0 ////////////////////////////////////////////////////////////// COUNTDOWN 
+} */
 
-const countdown = () => {
+/* const countdown = () => {
   if (task.isWork) {
     let {
       workTimeElapsed,
@@ -108,9 +107,9 @@ const countdown = () => {
     progressPercentRemaining.textContent = `${Math.round(percentRemaining)} %`;
     progressBarRemaining.style.width = `${percentRemaining}%`;
   }
-}
+} */
 
-const breakTime = () => {
+/* const breakTime = () => {
   if (task.isBreak) {
     const {
       previousTime,
@@ -127,17 +126,16 @@ const breakTime = () => {
     breakTimeElapsedSec.textContent = bSec;
     breakTimeElapsedCSec.textContent = bCSec;
   }
-}
-// F0 /////////////////////////////////////////////////////// HANDLE TASK TIME 
+} */
 
-const setTotalTime = () => {
+/* const setTotalTime = () => {
   let time = timeInput.value.split(/[mM]/).map(a => parseInt(a) || 0);
   time = time.length > 1 ? time : [0, ...time];
   const [minutes, seconds] = time;
   return minutes * 60000 + seconds * 1000;
-}
+} */
 
-const handleButtons = (e) => {
+/* const handleButtons = (e) => {
 
   switch(e.target) {
 
@@ -211,9 +209,9 @@ const handleButtons = (e) => {
       
     default: false;
   }
-}
+} */
 
-const handleStopConfirm = (e) => {
+/* const handleStopConfirm = (e) => {
   switch (e.target) {
 
     case confirmStopButton:
@@ -236,13 +234,13 @@ const handleStopConfirm = (e) => {
       toggleStopConfirm();
       break;
   }
-}
+} */
 
-const makeTwoDigits = (number) => {
+/* const makeTwoDigits = (number) => {
   return number < 10 ? `0${number}` : number;
-}
+} */
 
-const validateInput = (input) => {
+/* const validateInput = (input) => {
   const alert = document.querySelector(`.${input}__alert--js`);
 
   if (input === 'task' ? !/\w/g.test(taskInput.value) : !/\d/g.test(timeInput.value)) {
@@ -254,27 +252,27 @@ const validateInput = (input) => {
   } else {
     return false;
   }
-}
+} */
 
-const updateBreaksCounter = () => {
+/* const updateBreaksCounter = () => {
   breaksCounter.textContent =
   `${task.totalBreaks} ${task.totalBreaks === 1 ? `break` : `breaks`}`;
-}
+} */
 
-const togglePlayPauseButton = (action) => {
+/* const togglePlayPauseButton = (action) => {
   const opposite = action === 'play' ? 'pause' : 'play';
   const visibleSvg = document.querySelector(`.timer__svg--js-${action}`);
   const hiddenSvg = document.querySelector(`.timer__svg--js-${opposite}`);
 
   visibleSvg.classList.remove('timer__svg--hidden');
   hiddenSvg.classList.add('timer__svg--hidden');
-}
+} */
 
-const toggleStopConfirm = () => {
+/* const toggleStopConfirm = () => {
   stopSection.classList.toggle('stop--visible');
-}
+} */
 
-const handleTimerToggle = () => {
+/* const handleTimerToggle = () => {
   [...display.children].forEach(item => {
     item.classList.toggle('display__container--visible');
     if (item.classList.contains('display__container--visible')) {
@@ -297,9 +295,9 @@ const handleTimerToggle = () => {
       part.classList.remove('progress__part--unloading');
     }
   })
-}
+} */
 
-const handleOutro = () => {
+/* const handleOutro = () => {
   const {name, totalBreaks, overallTime, breakTimeElapsed} = task;
   const [minutes, seconds] = task.overallTimeArray;
   let [breakMinutes, breakSeconds] = task.breakTimeElapsedArray;
@@ -345,37 +343,144 @@ const handleOutro = () => {
       % of all time.`
     : `.`
   }`
-}
+} */
 
-const handleRetry = () => {
+/* const handleRetry = () => {
   outroSection.classList.remove('outro--visible');
   timerSection.className = 'timer timer--js slideOutLeft';
   taskSection.className = 'task task--js task--visible slideInRight';
   outroRetryButton.removeEventListener('click', handleRetry);
+} */
+// F0 ///////////////////////////////////////////////////// CREATE DOM ELEMENT 
+
+const createDOMElement = (tag, attributes, content) => {
+  const DOMElement = document.createElement(tag);
+  Object.keys(attributes).forEach(key => DOMElement[key] = attributes[key]);
+  DOMElement.textContent = content;
+  return DOMElement;
 }
+
+const createSvgElement = (attributes, href) => {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  Object.keys(attributes).forEach(key => {
+    svg.setAttributeNS(null, key, attributes[key]);
+  });
+  use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', href);
+  svg.append(use);
+  return svg;
+}
+////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
+const app = document.querySelector('#root');
+/*
+const XXX = createDOMElement('XXX', {
+  XXX: 'XXX'
+}, 'XXX');
+*/
+///////////////////////////////////////////////////////////////// TASK SECTION 
+// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+
+const taskSection = createDOMElement('section', {
+  className: 'task task--visible'
+});
+
+const taskHeading = createDOMElement('h2', {
+  className: 'task__heading'
+}, 'Write your task');
+
+const taskNameInput = createDOMElement('input', {
+  className: 'task__input task__input--name',
+  id: 'task-name',
+  placeholder: "What would be your next task?"
+});
+
+const rightButton = createDOMElement('button', {
+  className: 'button task__button task__button--right'
+});
+
+const rightButtonSvg = createSvgElement({
+  class: 'task__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#arrow-right');
+
+const rightButtonUse = createDOMElement('use', {
+});
+
+const taskRow = createDOMElement('div', {
+  className: 'task__row'
+});
+
+const taskNameLabel = createDOMElement('label', {
+  className: 'task__label task__label--name',
+  htmlFor: 'task-name'
+}, 'Your task');
+
+const taskAlert = createDOMElement('p', {
+  className: 'task__alert task__alert--js'
+}, 'You have to enter your task first!');
+
+// F0 ////////////////////////////////////////////////////////////// APPENDING 
+
+rightButton.append(rightButtonSvg);
+taskRow.append(taskNameLabel, taskAlert);
+taskSection.append(taskHeading, taskNameInput, rightButton, taskRow);
+app.append(taskSection);
+
+///////////////////////////////////////////////////////////////// TIME SECTION 
+// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+
+// F0 ////////////////////////////////////////////////////////////// APPENDING 
+
+
+//////////////////////////////////////////////////////////////// TIMER SECTION 
+// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+
+// F0 ////////////////////////////////////////////////////////////// APPENDING 
+
+
+///////////////////////////////////////////////////////////////// STOP SECTION 
+// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+
+// F0 ////////////////////////////////////////////////////////////// APPENDING 
+
+
+//////////////////////////////////////////////////////////////// OUTRO SECTION 
+// F0 /////////////////////////////////////////////////////////////// ELEMENTS 
+
+// F0 ////////////////////////////////////////////////////////////// APPENDING 
+
+
 //////////////////////////////////////////////////////////////////// VARIABLES 
 
+/*
 const task = new Task(0);
 let intervalWorkId = "";
 let intervalBreakId = "";
+*/
 
 // TASK
-const taskSection = document.querySelector('.task--js');
+/*
 const rightButton = document.querySelector('.task__button--js-right');
 const taskInput = document.querySelector('.task__input--js');
+*/
 // TIME
+/*
 const timeSection = document.querySelector('.time--js');
 const leftButton = document.querySelector('.time__button--js-left');
 const startButton = document.querySelector('.time__start--js');
 const timeInput = document.querySelector('.time__input--js-time');
 const breakTimeInput = document.querySelector('.time__input--js-break-time');
+*/
 // TIMER
+/*
 const timerSection = document.querySelector('.timer--js');
 const timerPlayPause = document.querySelector('.timer__button--js-playPause');
 const timerStop = document.querySelector('.timer__button--js-stop');
 const timerToggle = document.querySelector('.timer__button--js-toggle');
 const timerHeading = document.querySelector('.timer__heading--js');
+*/
 // DISPLAY
+/*
 const display = document.querySelector('.display--js');
 const displayElapsed = document.querySelector('.display__container--js--elapsed');
 const displayRemaining = document.querySelector('.display__container--js-remaining');
@@ -384,31 +489,41 @@ const remainingSec = document.querySelector('.display__container--js-remaining .
 const remainingCSec = document.querySelector('.display__container--js-remaining .display__time--js-cSec');
 const elapsedMin = document.querySelector('.display__container--js-elapsed .display__time--js-min');
 const elapsedSec = document.querySelector('.display__container--js-elapsed .display__time--js-sec');
-const elapsedCSec = document.querySelector('.display__container--js-elapsed .display__time--js-cSec');
+const elapsedCSec = document.querySelector('.display__container--js-elapsed .display__time--js-cSec'); */
 // BREAK
+/*
 const breakSection = document.querySelector('.break--js');
 const breakTimeElapsedMin = document.querySelector('.break__time--js-min');
 const breakTimeElapsedSec = document.querySelector('.break__time--js-sec');
 const breakTimeElapsedCSec = document.querySelector('.break__time--js-cSec');
 const breaksCounter = document.querySelector('.break__counter--js');
+*/
 // PROGRESS BAR
+/*
 const progressBar = document.querySelector('.progress__bar--js');
 const progressPercents = document.querySelectorAll('[class*="progress__percent--js"]');
 const progressPercentElapsed = document.querySelector('.progress__percent--js-elapsed');
 const progressPercentRemaining = document.querySelector('.progress__percent--js-remaining');
 const progressBarElapsed = document.querySelector('.progress__part--js-elapsed');
 const progressBarRemaining = document.querySelector('.progress__part--js-remaining');
+*/
 // STOP CONFIRMATION
+/*
 const stopSection = document.querySelector('.stop--js');
 const confirmStopButton = document.querySelector('.stop__button--js-stop');
 const cancelStopButton = document.querySelector('.stop__button--js-cancel');
+*/
 // OUTRO
+/*
 const outroSection = document.querySelector('.outro--js');
 const outroMessage = document.querySelector('.outro__message--js');
 const outroRetryButton = document.querySelector('.outro__retry--js');
+*/
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
 
+/*
 rightButton.addEventListener('click', handleButtons);
 leftButton.addEventListener('click', handleButtons);
 startButton.addEventListener('click', handleButtons);
+*/
