@@ -1,10 +1,13 @@
 const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
 
+const toggleStopConfirm = () => stopSection.classList.toggle('stop--visible');
+
 const makeTimeArray = (time) => [
-    makeTwoDigits(Math.floor(time / 60000)),
-    makeTwoDigits(Math.floor(time / 1000 % 60)),
-    makeTwoDigits(Math.floor(time / 10 % 100))
-  ];
+  makeTwoDigits(Math.floor(time / 60000)),
+  makeTwoDigits(Math.floor(time / 1000 % 60)),
+  makeTwoDigits(Math.floor(time / 10 % 100))
+];
+// F0 ///////////////////////////////////////////////////////////// TASK CLASS 
 
 class Task {
   constructor(time) {
@@ -42,8 +45,179 @@ class Task {
     this._overallTimeArray = makeTimeArray(time)
   }
 }
+// F0 ////////////////////////////////////////////////////// INPUTS VALIDATION 
 
-const countdown = () => {
+const isValid = (input) => {
+  const alert = document.querySelector(`.${input}__alert--js`);
+
+  if (input === 'task' ? !/\w/g.test(taskNameInput.value) : !/\d/g.test(timeInput.value)) {
+    alert.classList.add(`${input}__alert--visible`);
+    return false;
+  } else if (timeInput.validity.valid && breakTimeInput.validity.valid) {
+    alert.classList.remove(`${input}__alert--visible`);
+    return 1;
+  } else {
+    return false;
+  }
+}
+// F0 //////////////////////////////////////////////////// HANDLE MAIN BUTTONS 
+
+const handleMainButtons = (e) => {
+
+  switch(e.target) {
+
+    case rightButton:
+      if (isValid('task')) {
+        taskSection.className = 'task slideOutLeft';
+        timeSection.className = 'time time--visible slideInRight';
+        task.name = taskNameInput.value;
+        timerHeading.textContent = `"${task.name}"`;
+      } break;
+
+    case leftButton:
+      timeSection.className = 'time time--js slideOutRight';
+      taskSection.className = 'task task--js task--visible slideInLeft';
+      break;
+
+    case timeStartButton:
+      if (isValid('time') && !timeStartButton.disable) {
+        timeSection.className = 'time time--js slideOutLeft';
+        timerSection.className = 'timer timer--js timer--visible slideInRight';
+        task.isWork = true;
+        task.previousTime = Date.now();
+        task.timeTotal = setTotalTime();
+        if (task.timeTotal <= 0) return;
+        task.workTimeElapsed = 0;
+        intervalWorkId = setInterval(() => workTime(), 10);
+        timeStartButton.disable = true;
+        timeStartButton.classList.add('time__start--disabled');
+        task.totalBreaks = 0;
+        task.breakTimeElapsed = 0;
+        task.breakTimeElapsedArray = task.breakTimeElapsed;
+        breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
+        togglePlayPauseButton('pause');
+        updateBreaksCounter();
+        timerStop.addEventListener('click', handleTimerButtons);
+        timerPlayPause.addEventListener('click', handleTimerButtons);
+        timerToggle.addEventListener('click', handleTimerButtons);
+      } break;
+      
+    default: false;
+  }
+}
+// F0 ///////////////////////////////////////////////////////// SET TOTAL TIME 
+
+const setTotalTime = () => {
+  let time = timeInput.value.split(/[mM]/).map(a => parseInt(a) || 0);
+  time = time.length > 1 ? time : [0, ...time];
+  const [minutes, seconds] = time;
+  return minutes * 60000 + seconds * 1000;
+}
+// F0 ////////////////////////////////////////////////// UPDATE BREAKS COUNTER 
+
+const updateBreaksCounter = () => {
+  breaksCounter.textContent =
+  `${task.totalBreaks} ${task.totalBreaks === 1 ? `break` : `breaks`}`;
+}
+// F0 /////////////////////////////////////////////////// HANDLE TIMER BUTTONS 
+
+const handleTimerButtons = (e) => {
+
+  switch(e.target) {
+
+    case timerPlayPause:
+      // enabling break mode
+      if (task.isWork) {
+        togglePlayPauseButton('play');
+        task.isWork = false;
+        task.isBreak = true;
+        task.totalBreaks = task.totalBreaks + 1;
+        updateBreaksCounter();
+        intervalBreakId = setInterval(() => breakTime(), 10);
+        displaySection.classList.add('display--inactive');
+        breakSection.classList.add('break--active');
+      // turning break mode off
+      } else {
+        togglePlayPauseButton('pause');
+        clearInterval(intervalBreakId);
+        task.isWork = true;
+        task.isBreak = false;
+        task.previousTime = Date.now();
+        displaySection.classList.remove('display--inactive');
+        breakSection.classList.remove('break--active');
+      } break;
+
+    case timerStop:
+      toggleStopConfirm();
+      stopSection.addEventListener('click', handleStopConfirm);
+      break;
+
+    case timerToggle:
+      [...displaySection.children].forEach(item => {
+        item.classList.toggle('display__container--visible');
+        if (item.classList.contains('display__container--visible')) {
+          item.classList.remove('display__container--hideUp')
+          item.classList.add('display__container--showUp')
+        } else {
+          item.classList.remove('display__container--showUp');
+          item.classList.add('display__container--hideUp');
+        }
+      });
+      progressPercentElapsed.classList.toggle('progress__percent--visible');
+      progressPercentRemaining.classList.toggle('progress__percent--visible');
+      [...progressBar.children].forEach(part => {
+        if (part.classList.contains('progress__part--loading')) {
+          part.classList.remove('progress__part--loading');
+          part.classList.add('progress__part--unloading');
+        } else {
+          part.classList.add('progress__part--loading');
+          part.classList.remove('progress__part--unloading');
+        }
+      });
+      break;
+
+    default: false;
+  }
+}
+// F0 ////////////////////////////////// TOGGLE PLAY / PAUSE BUTTON APPEARANCE 
+
+const togglePlayPauseButton = (action) => {
+  const opposite = action === 'play' ? 'pause' : 'play';
+  const visibleSvg = document.querySelector(`.timer__svg--js-${action}`);
+  const hiddenSvg = document.querySelector(`.timer__svg--js-${opposite}`);
+
+  visibleSvg.classList.remove('timer__svg--hidden');
+  hiddenSvg.classList.add('timer__svg--hidden');
+}
+// F0 /////////////////////////////////////////////// HANDLE STOP CONFIRMATION 
+
+const handleStopConfirm = (e) => {
+  switch (e.target) {
+
+    case confirmStopButton:
+      stopSection.removeEventListener('click', handleStopConfirm);
+      task.isWork = false;
+      timeStartButton.disable = false;
+      timeStartButton.classList.remove('time__start--disabled');
+      togglePlayPauseButton('play');
+      toggleStopConfirm();
+      clearInterval(intervalWorkId);
+      clearInterval(intervalBreakId);
+      timerStop.removeEventListener('click', handleTimerButtons);
+      timerPlayPause.removeEventListener('click', handleTimerButtons);
+      timerToggle.removeEventListener('click', handleTimerButtons);
+      timerSection.className = 'timer timer--js slideOutLeft';
+      taskSection.className = 'task task--js task--visible slideInRight';
+      break;  
+
+    case cancelStopButton:
+      toggleStopConfirm();
+      break;
+  }
+}
+// F0 ////////////////////////////////////////////////////////////// WORK TIME 
+
+const workTime = () => {
   if (task.isWork) {
     let {
       workTimeElapsed,
@@ -62,9 +236,9 @@ const countdown = () => {
       togglePlayPauseButton('play');
       stopSection.removeEventListener('click', handleStopConfirm);
       stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
-      timerStop.removeEventListener('click', handleButtons);
-      timerPlayPause.removeEventListener('click', handleButtons);
-      timerToggle.removeEventListener('click', handleTimerToggle);
+      timerStop.removeEventListener('click', handleTimerButtons);
+      timerPlayPause.removeEventListener('click', handleTimerButtons);
+      timerToggle.removeEventListener('click', handleTimerButtons);
       task.overallTime = task.workTimeElapsed + task.breakTimeElapsed;
       task.overallTimeArray = task.overallTime;
       clearInterval(intervalWorkId);
@@ -94,6 +268,7 @@ const countdown = () => {
     progressBarRemaining.style.width = `${percentRemaining}%`;
   }
 }
+// F0 ///////////////////////////////////////////////////////////// BREAK TIME 
 
 const breakTime = () => {
   if (task.isBreak) {
@@ -110,167 +285,7 @@ const breakTime = () => {
     breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
   }
 }
-
-const setTotalTime = () => {
-  let time = timeInput.value.split(/[mM]/).map(a => parseInt(a) || 0);
-  time = time.length > 1 ? time : [0, ...time];
-  const [minutes, seconds] = time;
-  return minutes * 60000 + seconds * 1000;
-}
-
-const handleButtons = (e) => {
-
-  switch(e.target) {
-
-    case rightButton:
-      if (isValid('task')) {
-        taskSection.className = 'task slideOutLeft';
-        timeSection.className = 'time time--visible slideInRight';
-        task.name = taskNameInput.value;
-        timerHeading.textContent = `"${task.name}"`;
-      }
-      break;
-
-    case leftButton:
-      timeSection.className = 'time time--js slideOutRight';
-      taskSection.className = 'task task--js task--visible slideInLeft';
-      break;
-
-    case timeStartButton:
-      if (isValid('time') && !timeStartButton.disable) {
-        timeSection.className = 'time time--js slideOutLeft';
-        timerSection.className = 'timer timer--js timer--visible slideInRight';
-        task.isWork = true;
-        task.previousTime = Date.now();
-        task.timeTotal = setTotalTime();
-        if (task.timeTotal <= 0) return;
-        task.workTimeElapsed = 0;
-        intervalWorkId = setInterval(() => countdown(), 10);
-        timeStartButton.disable = true;
-        timeStartButton.classList.add('time__start--disabled');
-        task.totalBreaks = 0;
-        task.breakTimeElapsed = 0;
-        task.breakTimeElapsedArray = task.breakTimeElapsed;
-        breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
-        togglePlayPauseButton('pause');
-        updateBreaksCounter();
-        timerStop.addEventListener('click', handleButtons);
-        timerPlayPause.addEventListener('click', handleButtons);
-        timerToggle.addEventListener('click', handleTimerToggle);
-      }
-      break;
-
-    case timerStop:
-      toggleStopConfirm();
-      stopSection.addEventListener('click', handleStopConfirm);
-      break;
-
-    case timerPlayPause:
-      // enabling break mode
-      if (task.isWork) {
-        togglePlayPauseButton('play');
-        task.isWork = false;
-        task.isBreak = true;
-        task.totalBreaks = task.totalBreaks + 1;
-        updateBreaksCounter();
-        intervalBreakId = setInterval(() => breakTime(), 10);
-        displaySection.classList.add('display--inactive');
-        breakSection.classList.add('break--active');
-      // turning break mode off
-      } else {
-        togglePlayPauseButton('pause');
-        clearInterval(intervalBreakId);
-        task.isWork = true;
-        task.isBreak = false;
-        task.previousTime = Date.now();
-        displaySection.classList.remove('display--inactive');
-        breakSection.classList.remove('break--active');
-      }
-      
-    default: false;
-  }
-}
-
-const handleStopConfirm = (e) => {
-  switch (e.target) {
-
-    case confirmStopButton:
-      stopSection.removeEventListener('click', handleStopConfirm);
-      task.isWork = false;
-      timeStartButton.disable = false;
-      timeStartButton.classList.remove('time__start--disabled');
-      togglePlayPauseButton('play');
-      toggleStopConfirm();
-      clearInterval(intervalWorkId);
-      clearInterval(intervalBreakId);
-      timerStop.removeEventListener('click', handleButtons);
-      timerPlayPause.removeEventListener('click', handleButtons);
-      timerToggle.removeEventListener('click', handleTimerToggle);
-      timerSection.className = 'timer timer--js slideOutLeft';
-      taskSection.className = 'task task--js task--visible slideInRight';
-      break;  
-
-    case cancelStopButton:
-      toggleStopConfirm();
-      break;
-  }
-}
-
-const isValid = (input) => {
-  const alert = document.querySelector(`.${input}__alert--js`);
-
-  if (input === 'task' ? !/\w/g.test(taskNameInput.value) : !/\d/g.test(timeInput.value)) {
-    alert.classList.add(`${input}__alert--visible`);
-    return false;
-  } else if (timeInput.validity.valid && breakTimeInput.validity.valid) {
-    alert.classList.remove(`${input}__alert--visible`);
-    return 1;
-  } else {
-    return false;
-  }
-}
-
-const updateBreaksCounter = () => {
-  breaksCounter.textContent =
-  `${task.totalBreaks} ${task.totalBreaks === 1 ? `break` : `breaks`}`;
-}
-
-const togglePlayPauseButton = (action) => {
-  const opposite = action === 'play' ? 'pause' : 'play';
-  const visibleSvg = document.querySelector(`.timer__svg--js-${action}`);
-  const hiddenSvg = document.querySelector(`.timer__svg--js-${opposite}`);
-
-  visibleSvg.classList.remove('timer__svg--hidden');
-  hiddenSvg.classList.add('timer__svg--hidden');
-}
-
-const toggleStopConfirm = () => {
-  stopSection.classList.toggle('stop--visible');
-}
-
-const handleTimerToggle = () => {
-  [...displaySection.children].forEach(item => {
-    item.classList.toggle('display__container--visible');
-    if (item.classList.contains('display__container--visible')) {
-      item.classList.remove('display__container--hideUp')
-      item.classList.add('display__container--showUp')
-    } else {
-      item.classList.remove('display__container--showUp');
-      item.classList.add('display__container--hideUp');
-    }
-  });
-  progressPercentElapsed.classList.toggle('progress__percent--visible');
-  progressPercentRemaining.classList.toggle('progress__percent--visible');
-  [...progressBar.children].forEach(part => {
-    if (part.classList.contains('progress__part--loading')) {
-      part.classList.remove('progress__part--loading');
-      part.classList.add('progress__part--unloading');
-    } else {
-      part.classList.add('progress__part--loading');
-      part.classList.remove('progress__part--unloading');
-    }
-  })
-}
+// F0 /////////////////////////////////////////////////////////// HANDLE OUTRO 
 
 const handleOutro = () => {
   const {name, totalBreaks, overallTime, breakTimeElapsed} = task;
@@ -319,6 +334,7 @@ const handleOutro = () => {
     : `.`
   }`
 }
+// F0 //////////////////////////////////////////////////// HANDLE RETRY BUTTON 
 
 const handleRetry = () => {
   outroSection.classList.remove('outro--visible');
@@ -594,30 +610,30 @@ const outroRetryButtonSvg = createSvgElement({
 ##     ## ##        ##        ######## ##    ## ########
 */
 //////////////////////////////////////////////////////////////////// APPENDING 
-
+// TASK
 rightButton.append(rightButtonSvg);
 taskRow.append(taskNameLabel, taskAlert);
 taskSection.append(taskHeading, taskNameInput, rightButton, taskRow);
-
+// TIME
 leftButton.append(leftButtonSvg);
 timeRowInputs.append(timeInput, breakTimeInput, timeStartButton);
 timeRowLabels.append(timeLabel, breakTimeLabel, timeAlert);
 timeSection.append(timeHeading, leftButton, timeRowInputs, timeRowLabels);
-
+// TIMER
 timerPlayPause.append(timerPlaySvg, timerPauseSvg);
 timerStop.append(timerStopSvg);
 timerToggle.append(timerToggleSvg);
 timerButtons.append(timerPlayPause, timerStop, timerToggle);
-
+// DISPLAY, BREAK, PROGRESS
 displaySection.append(displayHeading, displayElapsed, displayRemaining);
 breakSection.append(breaksCounter, breakDisplay);
 progressHeader.append(progressPercentElapsed, progressPercentRemaining);
 progressBar.append(progressBarElapsed, progressBarRemaining);
 progressSection.append(progressHeader, progressBar);
-
+// STOP
 stopContainer.append(stopHeading, confirmStopButton, cancelStopButton);
 stopSection.append(stopContainer);
-
+// OUTRO
 outroHeading.append(outroParty);
 outroRetryButton.append(outroRetryButtonSvg);
 outroContainer.append(outroHeading, outroMessage, outroRetryButton);
@@ -649,6 +665,6 @@ let intervalBreakId = "";
 
 /////////////////////////////////////////////////////////////////////// EVENTS 
 
-rightButton.addEventListener('click', handleButtons);
-leftButton.addEventListener('click', handleButtons);
-timeStartButton.addEventListener('click', handleButtons);
+rightButton.addEventListener('click', handleMainButtons);
+leftButton.addEventListener('click', handleMainButtons);
+timeStartButton.addEventListener('click', handleMainButtons);
