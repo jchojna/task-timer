@@ -296,7 +296,8 @@ const handleOutro = () => {
   outroMessage.innerHTML = `
   You have finished your task entitled <br>
   <span class="outro__message--bold">"${name}"</span><br>
-  in ${timeResult(minutes, seconds)} including break time. <br>
+  in ${timeResult(minutes, seconds)}
+  ${breakTimeElapsed > 0 ? `including break time.` : `.`} <br>
   You had
   <span class="outro__message--bold">
     ${totalBreaks > 1
