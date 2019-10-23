@@ -65,23 +65,22 @@
 }
 
 .display {
+  color: $color-tomato;
+  font-family: 'Inconsolata';
   font-size: 2.5em;
+  font-weight: 700;
   flex-direction: column;
   height: 100%;
   position: relative;
   width: 100%;
-  color: $color-tomato;
 
   &--inactive {
     color: #fff;
   }
 
-  &__container {
+  &__time {
     @include flex-center;
     bottom: 0;
-    display: grid;
-    grid-template-columns: 80px 40px 80px 40px 80px;
-    justify-items: center;
     left: 0;
     position: absolute;
     top: 0;
@@ -108,6 +107,7 @@
   align-items: flex-end;
   display: flex;
   flex-direction: column;
+  font-size: 1.2em;
   justify-self: end;
 
   &--active {
@@ -116,12 +116,12 @@
 
   &__counter {
     margin: 0;
+    font-weight: 600;
   }
 
   &__display {
-    display: grid;
-    grid-template-columns: 1.6em 0.5em 1.6em 0.5em 1.6em;
-    justify-items: end;
+    font-family: 'Inconsolata';
+    font-weight: 400;
   }
 }
 
@@ -142,7 +142,8 @@
   &__percent {
     @include flex-center;
     color: $color-tomato;
-    font-size: 1em;
+    font-family: 'Inconsolata';
+    font-size: 1.2em;
     font-weight: 600;
     left: 50%;
     margin: 0;
