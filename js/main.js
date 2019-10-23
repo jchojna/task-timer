@@ -326,80 +326,68 @@ const handleRetry = () => {
 
 const app = document.querySelector('#root');
 
-const createDOMElement = (tag, attributes, content) => {
-  const DOMElement = document.createElement(tag);
-  Object.keys(attributes).forEach(key => DOMElement[key] = attributes[key]);
-  DOMElement.textContent = content;
-  return DOMElement;
-}
-
-const createSvgElement = (attributes, href) => {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  Object.keys(attributes).forEach(key => {
-    svg.setAttributeNS(null, key, attributes[key]);
-  });
-  use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', href);
-  svg.append(use);
-  return svg;
-}
-
 // F0 /////////////////////////////////////////////////////////// TASK SECTION 
 
-const taskSection = createDOMElement('section', {
-  className: 'task task--visible'
-});
-
-const taskHeading = createDOMElement('h2', {
+const taskHeading = React.createElement('h2', {
   className: 'task__heading'
 }, 'Write your task');
 
-const taskNameInput = createDOMElement('input', {
+const taskNameInput = React.createElement('input', {
   className: 'task__input task__input--name',
   id: 'task-name',
   placeholder: "What would be your next task?"
 });
 
-const rightButton = createDOMElement('button', {
-  className: 'button task__button task__button--right'
+const rightButtonUse = React.createElement('use', {
+  href: 'assets/svg/icons.svg#arrow-right'
 });
 
-const rightButtonSvg = createSvgElement({
-  class: 'task__svg',
+const rightButtonSvg = React.createElement('svg', {
+  className: 'task__svg',
   viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#arrow-right');
+}, rightButtonUse);
 
-const taskRow = createDOMElement('div', { className: 'task__row' });
+const rightButton = React.createElement('button', {
+  className: 'button task__button task__button--right'
+}, rightButtonSvg);
 
-const taskNameLabel = createDOMElement('label', {
+const taskNameLabel = React.createElement('label', {
   className: 'task__label task__label--name',
   htmlFor: 'task-name'
 }, 'Your task');
 
-const taskAlert = createDOMElement('p', {
+const taskAlert = React.createElement('p', {
   className: 'task__alert task__alert--js'
 }, 'You have to enter your task first!');
 
+const taskRow = React.createElement('div', {
+  className: 'task__row'
+}, taskNameLabel, taskAlert);
+
+const taskSection = React.createElement('section', {
+  className: 'task task--visible'
+}, taskHeading, taskNameInput, rightButton, taskRow);
+
 // F0 /////////////////////////////////////////////////////////// TIME SECTION 
 
-const timeSection = createDOMElement('section', { className: 'time' });
+/* const timeSection = React.createElement('section', { className: 'time' });
 
-const timeHeading = createDOMElement('h2', {
+const timeHeading = React.createElement('h2', {
   className: 'time__heading'
 }, 'Task Time Estimation');
 
-const leftButton = createDOMElement('button', {
+const leftButton = React.createElement('button', {
   className: 'button time__button time__button--left'
 });
 
-const leftButtonSvg = createSvgElement({
+const leftButtonSvg = React.createElement({
   class: 'task__svg',
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#arrow-left');
 
-const timeRowInputs = createDOMElement('div', { className: 'time__row' });
+const timeRowInputs = React.createElement('div', { className: 'time__row' });
 
-const timeInput = createDOMElement('input', {
+const timeInput = React.createElement('input', {
   id: 'task-time',
   className: 'time__input',
   placeholder: '00m00s',
@@ -407,7 +395,7 @@ const timeInput = createDOMElement('input', {
   pattern: '(\\d?\\d[Mm])?(\\d?\\d[Ss])?'
 });
 
-const breakTimeInput = createDOMElement('input', {
+const breakTimeInput = React.createElement('input', {
   id: 'task-break',
   className: 'time__input',
   placeholder: '00m00s',
@@ -415,39 +403,39 @@ const breakTimeInput = createDOMElement('input', {
   pattern: '(\\d?\\d[Mm])?(\\d?\\d[Ss])?'
 });
 
-const timeStartButton = createDOMElement('button', {
+const timeStartButton = React.createElement('button', {
   className: 'button time__start'
 }, 'Start');
 
-const timeRowLabels = createDOMElement('div', { className: 'time__row' });
+const timeRowLabels = React.createElement('div', { className: 'time__row' });
 
-const timeLabel = createDOMElement('label', {
+const timeLabel = React.createElement('label', {
   htmlFor: 'task-time',
   className: 'time__label time__label--task'
 }, 'task time');
 
-const breakTimeLabel = createDOMElement('label', {
+const breakTimeLabel = React.createElement('label', {
   htmlFor: 'task-break',
   className: 'time__label time__label--break'
 }, 'max break time');
 
-const timeAlert = createDOMElement('p', {
+const timeAlert = React.createElement('p', {
   className: 'time__alert time__alert--js'
 }, 'You have to specify time for the task');
 
 // F0 ////////////////////////////////////////////////////////// TIMER SECTION 
 
-const timerSection = createDOMElement('section', { className: 'timer' });
+const timerSection = React.createElement('section', { className: 'timer' });
 
-const timerContainer = createDOMElement('div', { className: 'timer__container' });
+const timerContainer = React.createElement('div', { className: 'timer__container' });
 
-const timerHeading = createDOMElement('h2', {
+const timerHeading = React.createElement('h2', {
   className: 'timer__heading'
 }, 'Work on your task');
 
-const timerButtons = createDOMElement('div', { className: 'timer__buttons' });
+const timerButtons = React.createElement('div', { className: 'timer__buttons' });
 
-const timerPlayPause = createDOMElement('button', {
+const timerPlayPause = React.createElement('button', {
   className: 'button timer__button timer__button--playPause'
 });
 
@@ -461,7 +449,7 @@ const timerPauseSvg = createSvgElement({
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#pause');
 
-const timerStop = createDOMElement('button', {
+const timerStop = React.createElement('button', {
   className: 'button timer__button timer__button--stop'
 });
 
@@ -470,7 +458,7 @@ const timerStopSvg = createSvgElement({
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#stop');
 
-const timerToggle = createDOMElement('button', {
+const timerToggle = React.createElement('button', {
   className: 'button timer__button timer__button--toggle'
 });
 
@@ -481,100 +469,98 @@ const timerToggleSvg = createSvgElement({
 
 // F0 //////////////////////////////////////////////////////// DISPLAY SECTION 
 
-const displaySection = createDOMElement('section', { className: 'display' });
+const displaySection = React.createElement('section', { className: 'display' });
 
-const displayHeading = createDOMElement('h3', {
+const displayHeading = React.createElement('h3', {
   className: 'display__heading visuallyhidden'
 }, 'Display');
 
-const displayElapsed = createDOMElement('div', {
+const displayElapsed = React.createElement('div', {
   className: 'display__time display__time--elapsed display__time--visible'
 }, '00:00:00');
 
-const displayRemaining = createDOMElement('div', {
+const displayRemaining = React.createElement('div', {
   className: 'display__time display__time--remaining'
 });
 
 // F0 ////////////////////////////////////////////////////////// BREAK SECTION 
 
-const breakSection = createDOMElement('section', { className: 'break' });
+const breakSection = React.createElement('section', { className: 'break' });
 
-const breaksCounter = createDOMElement('h3', {
+const breaksCounter = React.createElement('h3', {
   className: 'break__counter'
 }, '0 breaks');
 
-const breakDisplay = createDOMElement('div', { className: 'break__display' });
+const breakDisplay = React.createElement('div', { className: 'break__display' });
 
 // F0 /////////////////////////////////////////////////////////// PROGRESS BAR 
 
-const progressSection = createDOMElement('section', { className: 'progress' });
+const progressSection = React.createElement('section', { className: 'progress' });
 
-const progressHeader = createDOMElement('header', { className: 'progress__header' });
+const progressHeader = React.createElement('header', { className: 'progress__header' });
 
-const progressPercentElapsed = createDOMElement('h3', {
+const progressPercentElapsed = React.createElement('h3', {
   className: 'progress__percent progress__percent--visible'
 }, '0%');
 
-const progressPercentRemaining = createDOMElement('h3', {
+const progressPercentRemaining = React.createElement('h3', {
   className: 'progress__percent'
 }, '0%');
 
-const progressBar = createDOMElement('div', { className: 'progress__bar' });
+const progressBar = React.createElement('div', { className: 'progress__bar' });
 
-const progressBarElapsed = createDOMElement('div', {
+const progressBarElapsed = React.createElement('div', {
   className: 'progress__part progress__part--loading'
 });
 
-const progressBarRemaining = createDOMElement('div', {
+const progressBarRemaining = React.createElement('div', {
   className: 'progress__part progress__part--unloading'
 });
 
 // F0 /////////////////////////////////////////////////////////// STOP SECTION 
 
-const stopSection = createDOMElement('section', { className: 'stop' });
+const stopSection = React.createElement('section', { className: 'stop' });
 
-const stopContainer = createDOMElement('div', { className: 'stop__container' });
+const stopContainer = React.createElement('div', { className: 'stop__container' });
 
-const stopHeading = createDOMElement('h2', {
+const stopHeading = React.createElement('h2', {
   className: 'stop__heading'
 }, 'Are you sure you want to quit?');
 
-const confirmStopButton = createDOMElement('button', {
+const confirmStopButton = React.createElement('button', {
   className: 'button stop__button stop__button--stop'
 }, 'Yes');
 
-const cancelStopButton = createDOMElement('button', {
+const cancelStopButton = React.createElement('button', {
   className: 'button stop__button stop__button--cancel'
 }, 'Cancel');
 
 // F0 ////////////////////////////////////////////////////////// OUTRO SECTION 
 
-const outroSection = createDOMElement('section', { className: 'outro' });
+const outroSection = React.createElement('section', { className: 'outro' });
 
-const outroContainer = createDOMElement('div', { className: 'outro__container' });
+const outroContainer = React.createElement('div', { className: 'outro__container' });
 
-const outroHeading = createDOMElement('h2', {
+const outroHeading = React.createElement('h2', {
   className: 'outro__heading'
 }, 'Congratulations!');
 
-const outroParty = createDOMElement('span', { className: 'outro__party' }, '🎉');
+const outroParty = React.createElement('span', { className: 'outro__party' }, '🎉');
 
-const outroMessage = createDOMElement('p', { className: 'outro__message' });
+const outroMessage = React.createElement('p', { className: 'outro__message' });
 
-const outroRetryButton = createDOMElement('button', {
+const outroRetryButton = React.createElement('button', {
   className: 'button outro__retry'
 });
 
 const outroRetryButtonSvg = createSvgElement({
   class: 'outro__svg',
   viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#retry');
+}, 'assets/svg/icons.svg#retry'); */
 
 /////////////////////////////////////////////////////////// APPENDING ELEMENTS 
-// TASK
-rightButton.append(rightButtonSvg);
-taskRow.append(taskNameLabel, taskAlert);
-taskSection.append(taskHeading, taskNameInput, rightButton, taskRow);
+/*
+
 // TIME
 leftButton.append(leftButtonSvg);
 timeRowInputs.append(timeInput, breakTimeInput, timeStartButton);
@@ -616,12 +602,14 @@ app.append(
   timerSection,
   stopSection,
   outroSection
-);
+); */
+
+ReactDOM.render(taskSection, app);
 
 const task = new Task(0);
 let intervalWorkId = "";
 let intervalBreakId = "";
 
-rightButton.addEventListener('click', handleMainButtons);
+/* rightButton.addEventListener('click', handleMainButtons);
 leftButton.addEventListener('click', handleMainButtons);
-timeStartButton.addEventListener('click', handleMainButtons);
+timeStartButton.addEventListener('click', handleMainButtons); */
