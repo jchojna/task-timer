@@ -493,14 +493,6 @@ const timerButtons = React.createElement('div', {
 
 // F0 //////////////////////////////////////////////////////// DISPLAY SECTION 
 
-/* displaySection.append(displayHeading, displayElapsed, displayRemaining);
-breakSection.append(breaksCounter, breakDisplay);
-progressHeader.append(progressPercentElapsed, progressPercentRemaining);
-progressBar.append(progressBarElapsed, progressBarRemaining);
-progressSection.append(progressHeader, progressBar); */
-
-/* const displaySection = React.createElement('section', { className: 'display' });
-
 const displayHeading = React.createElement('h3', {
   className: 'display__heading visuallyhidden'
 }, 'Display');
@@ -511,23 +503,25 @@ const displayElapsed = React.createElement('div', {
 
 const displayRemaining = React.createElement('div', {
   className: 'display__time display__time--remaining'
-}); */
+});
+
+const displaySection = React.createElement('section', {
+  className: 'display'
+}, displayHeading, displayElapsed, displayRemaining);
 
 // F0 ////////////////////////////////////////////////////////// BREAK SECTION 
-
-/* const breakSection = React.createElement('section', { className: 'break' });
 
 const breaksCounter = React.createElement('h3', {
   className: 'break__counter'
 }, '0 breaks');
 
-const breakDisplay = React.createElement('div', { className: 'break__display' }); */
+const breakDisplay = React.createElement('div', { className: 'break__display' });
+
+const breakSection = React.createElement('section', {
+  className: 'break'
+}, breaksCounter, breakDisplay);
 
 // F0 /////////////////////////////////////////////////////////// PROGRESS BAR 
-
-/* const progressSection = React.createElement('section', { className: 'progress' });
-
-const progressHeader = React.createElement('header', { className: 'progress__header' });
 
 const progressPercentElapsed = React.createElement('h3', {
   className: 'progress__percent progress__percent--visible'
@@ -537,7 +531,9 @@ const progressPercentRemaining = React.createElement('h3', {
   className: 'progress__percent'
 }, '0%');
 
-const progressBar = React.createElement('div', { className: 'progress__bar' });
+const progressHeader = React.createElement('header', {
+  className: 'progress__header'
+}, progressPercentElapsed, progressPercentRemaining);
 
 const progressBarElapsed = React.createElement('div', {
   className: 'progress__part progress__part--loading'
@@ -545,15 +541,23 @@ const progressBarElapsed = React.createElement('div', {
 
 const progressBarRemaining = React.createElement('div', {
   className: 'progress__part progress__part--unloading'
-}); */
+});
+
+const progressBar = React.createElement('div', {
+  className: 'progress__bar'
+}, progressBarElapsed, progressBarRemaining);
+
+const progressSection = React.createElement('section', {
+  className: 'progress'
+}, progressHeader, progressBar);
 
 const timerContainer = React.createElement('div',
   { className: 'timer__container' },
   timerHeading,
-  timerButtons/* ,
+  timerButtons,
   displaySection,
   breakSection,
-  progressSection */
+  progressSection
   );
 
 const timerSection = React.createElement('section', {
