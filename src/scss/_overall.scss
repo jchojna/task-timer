@@ -9,12 +9,13 @@ html {
 }
 
 body {
+  background-color: $color-cyan;
   color: #fff;
   font-family: "Montserrat", Arial, sans-serif;
   font-size: 17px;
   font-weight: medium;
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 .button {

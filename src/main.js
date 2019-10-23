@@ -322,51 +322,6 @@ const handleRetry = () => {
   taskSection.className = 'task task--js task--visible slideInRight';
   outroRetryButton.removeEventListener('click', handleRetry);
 }
-////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
-
-const app = document.querySelector('#root');
-
-// F0 /////////////////////////////////////////////////////////// TASK SECTION 
-
-const taskHeading = React.createElement('h2', {
-  className: 'task__heading'
-}, 'Write your task');
-
-const taskNameInput = React.createElement('input', {
-  className: 'task__input task__input--name',
-  id: 'task-name',
-  placeholder: "What would be your next task?"
-});
-
-const rightButtonUse = React.createElement('use', {
-  href: 'assets/svg/icons.svg#arrow-right'
-});
-
-const rightButtonSvg = React.createElement('svg', {
-  className: 'task__svg',
-  viewBox: '0 0 512 512'
-}, rightButtonUse);
-
-const rightButton = React.createElement('button', {
-  className: 'button task__button task__button--right'
-}, rightButtonSvg);
-
-const taskNameLabel = React.createElement('label', {
-  className: 'task__label task__label--name',
-  htmlFor: 'task-name'
-}, 'Your task');
-
-const taskAlert = React.createElement('p', {
-  className: 'task__alert task__alert--js'
-}, 'You have to enter your task first!');
-
-const taskRow = React.createElement('div', {
-  className: 'task__row'
-}, taskNameLabel, taskAlert);
-
-const taskSection = React.createElement('section', {
-  className: 'task'
-}, taskHeading, taskNameInput, rightButton, taskRow);
 
 // F0 /////////////////////////////////////////////////////////// TIME SECTION 
 

@@ -1,0 +1,13 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+@import "_overall";
+
+.App {
+  @include flex-center;
+  background-color: $color-cyan;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  padding: 150px 0;
+}
