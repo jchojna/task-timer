@@ -3,12 +3,12 @@
 ## Main app
 [master branch](https://github.com/jchojna/task-timer/tree/master)
 #### created using create-react-app
-to be developed ...
+work in progress ...
 
 ## Vanilla to React app
 [react-no-jsx branch](https://github.com/jchojna/task-timer/tree/react-no-jsx)
 #### created using React.createElement with no use of JSX
-work in progress ...
+functions not implemented yet
 
 ## Vanilla JS app
 [vanilla branch](https://github.com/jchojna/task-timer/tree/vanilla)
