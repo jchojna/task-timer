@@ -370,8 +370,6 @@ const taskSection = React.createElement('section', {
 
 // F0 /////////////////////////////////////////////////////////// TIME SECTION 
 
-/* const timeSection = React.createElement('section', { className: 'time' });
-
 const timeHeading = React.createElement('h2', {
   className: 'time__heading'
 }, 'Task Time Estimation');
@@ -380,12 +378,14 @@ const leftButton = React.createElement('button', {
   className: 'button time__button time__button--left'
 });
 
-const leftButtonSvg = React.createElement({
-  class: 'task__svg',
+const leftButtonSvg = React.createElement('svg', {
+  className: 'task__svg',
   viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#arrow-left');
+});
 
-const timeRowInputs = React.createElement('div', { className: 'time__row' });
+const leftButtonUse = React.createElement('use', {
+  href: 'assets/svg/icons.svg#arrow-left'
+});
 
 const timeInput = React.createElement('input', {
   id: 'task-time',
@@ -407,7 +407,9 @@ const timeStartButton = React.createElement('button', {
   className: 'button time__start'
 }, 'Start');
 
-const timeRowLabels = React.createElement('div', { className: 'time__row' });
+const timeRowInputs = React.createElement('div', {
+  className: 'time__row'
+}, timeInput, breakTimeInput, timeStartButton);
 
 const timeLabel = React.createElement('label', {
   htmlFor: 'task-time',
@@ -423,9 +425,22 @@ const timeAlert = React.createElement('p', {
   className: 'time__alert time__alert--js'
 }, 'You have to specify time for the task');
 
+const timeRowLabels = React.createElement('div', {
+  className: 'time__row'
+}, timeLabel, breakTimeLabel, timeAlert);
+
+const timeSection = React.createElement('section', {
+  className: 'time'
+}, timeHeading, leftButton, timeRowInputs, timeRowLabels);
+
 // F0 ////////////////////////////////////////////////////////// TIMER SECTION 
 
-const timerSection = React.createElement('section', { className: 'timer' });
+/* timerPlayPause.append(timerPlaySvg, timerPauseSvg);
+timerStop.append(timerStopSvg);
+timerToggle.append(timerToggleSvg);
+timerButtons.append(timerPlayPause, timerStop, timerToggle); */
+
+/* const timerSection = React.createElement('section', { className: 'timer' });
 
 const timerContainer = React.createElement('div', { className: 'timer__container' });
 
@@ -465,11 +480,17 @@ const timerToggle = React.createElement('button', {
 const timerToggleSvg = createSvgElement({
   class: 'timer__svg',
   viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#toggle');
+}, 'assets/svg/icons.svg#toggle'); */
 
 // F0 //////////////////////////////////////////////////////// DISPLAY SECTION 
 
-const displaySection = React.createElement('section', { className: 'display' });
+/* displaySection.append(displayHeading, displayElapsed, displayRemaining);
+breakSection.append(breaksCounter, breakDisplay);
+progressHeader.append(progressPercentElapsed, progressPercentRemaining);
+progressBar.append(progressBarElapsed, progressBarRemaining);
+progressSection.append(progressHeader, progressBar); */
+
+/* const displaySection = React.createElement('section', { className: 'display' });
 
 const displayHeading = React.createElement('h3', {
   className: 'display__heading visuallyhidden'
@@ -481,21 +502,21 @@ const displayElapsed = React.createElement('div', {
 
 const displayRemaining = React.createElement('div', {
   className: 'display__time display__time--remaining'
-});
+}); */
 
 // F0 ////////////////////////////////////////////////////////// BREAK SECTION 
 
-const breakSection = React.createElement('section', { className: 'break' });
+/* const breakSection = React.createElement('section', { className: 'break' });
 
 const breaksCounter = React.createElement('h3', {
   className: 'break__counter'
 }, '0 breaks');
 
-const breakDisplay = React.createElement('div', { className: 'break__display' });
+const breakDisplay = React.createElement('div', { className: 'break__display' }); */
 
 // F0 /////////////////////////////////////////////////////////// PROGRESS BAR 
 
-const progressSection = React.createElement('section', { className: 'progress' });
+/* const progressSection = React.createElement('section', { className: 'progress' });
 
 const progressHeader = React.createElement('header', { className: 'progress__header' });
 
@@ -515,11 +536,14 @@ const progressBarElapsed = React.createElement('div', {
 
 const progressBarRemaining = React.createElement('div', {
   className: 'progress__part progress__part--unloading'
-});
+}); */
 
 // F0 /////////////////////////////////////////////////////////// STOP SECTION 
 
-const stopSection = React.createElement('section', { className: 'stop' });
+/* stopContainer.append(stopHeading, confirmStopButton, cancelStopButton);
+stopSection.append(stopContainer); */
+
+/* const stopSection = React.createElement('section', { className: 'stop' });
 
 const stopContainer = React.createElement('div', { className: 'stop__container' });
 
@@ -533,11 +557,16 @@ const confirmStopButton = React.createElement('button', {
 
 const cancelStopButton = React.createElement('button', {
   className: 'button stop__button stop__button--cancel'
-}, 'Cancel');
+}, 'Cancel'); */
 
 // F0 ////////////////////////////////////////////////////////// OUTRO SECTION 
 
-const outroSection = React.createElement('section', { className: 'outro' });
+/* outroHeading.append(outroParty);
+outroRetryButton.append(outroRetryButtonSvg);
+outroContainer.append(outroHeading, outroMessage, outroRetryButton);
+outroSection.append(outroContainer); */
+
+/* const outroSection = React.createElement('section', { className: 'outro' });
 
 const outroContainer = React.createElement('div', { className: 'outro__container' });
 
@@ -561,31 +590,6 @@ const outroRetryButtonSvg = createSvgElement({
 /////////////////////////////////////////////////////////// APPENDING ELEMENTS 
 /*
 
-// TIME
-leftButton.append(leftButtonSvg);
-timeRowInputs.append(timeInput, breakTimeInput, timeStartButton);
-timeRowLabels.append(timeLabel, breakTimeLabel, timeAlert);
-timeSection.append(timeHeading, leftButton, timeRowInputs, timeRowLabels);
-// TIMER
-timerPlayPause.append(timerPlaySvg, timerPauseSvg);
-timerStop.append(timerStopSvg);
-timerToggle.append(timerToggleSvg);
-timerButtons.append(timerPlayPause, timerStop, timerToggle);
-// DISPLAY, BREAK, PROGRESS
-displaySection.append(displayHeading, displayElapsed, displayRemaining);
-breakSection.append(breaksCounter, breakDisplay);
-progressHeader.append(progressPercentElapsed, progressPercentRemaining);
-progressBar.append(progressBarElapsed, progressBarRemaining);
-progressSection.append(progressHeader, progressBar);
-// STOP
-stopContainer.append(stopHeading, confirmStopButton, cancelStopButton);
-stopSection.append(stopContainer);
-// OUTRO
-outroHeading.append(outroParty);
-outroRetryButton.append(outroRetryButtonSvg);
-outroContainer.append(outroHeading, outroMessage, outroRetryButton);
-outroSection.append(outroContainer);
-
 timerContainer.append(
   timerHeading,
   timerButtons,
@@ -604,7 +608,11 @@ app.append(
   outroSection
 ); */
 
-ReactDOM.render(taskSection, app);
+const appContainer = React.createElement('div', {
+  className: 'app__container'
+}, taskSection, timeSection);
+
+ReactDOM.render(appContainer, app);
 
 const task = new Task(0);
 let intervalWorkId = "";
