@@ -1,10 +1,10 @@
 import React from 'react';
 import icons from '../assets/svg/icons.svg';
-import '../scss/Task.scss';
+import '../scss/Task_Time.scss';
 
 const Task = () => {
   return (
-    <section className="Task Task--visible">
+    <section className="Task">
       <h2 className="Task__heading">Write your task</h2>
       <input
         className="Task__input Task__input--name"
