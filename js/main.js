@@ -269,7 +269,6 @@ const breakTime = () => {
     const now = Date.now();
     task.previousTime = now;
     task.breakTimeElapsed = breakTimeElapsed + (now - previousTime);
-
     task.breakTimeElapsedArray = task.breakTimeElapsed;
     breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
   }
@@ -283,19 +282,21 @@ const handleOutro = () => {
   breakMinutes = parseInt(breakMinutes);
   breakSeconds = parseInt(breakSeconds);
   outroSection.classList.add('outro--visible');
-  // ! TO REFACTOR
+
+  const timeResult = (min, sec) => `
+    <span class="outro__message--bold">
+      ${min > 1 ? `${min} minutes` : min === 1 ? `${min} minute` : ``}
+    </span>
+      ${min > 0 && (sec === breakSeconds ? task.breakTimeElapsed != 0 : sec != 0)
+      ? `and` : ``}
+    <span class="outro__message--bold">
+      ${sec > 1 ? `${sec} seconds` : sec === 1 ? `${sec} second` : `a split second`}
+    </span>`;
+  
   outroMessage.innerHTML = `
   You have finished your task entitled <br>
   <span class="outro__message--bold">"${name}"</span><br>
-  in
-  <span class="outro__message--bold">
-    ${minutes > 1 ? `${minutes} minutes` : minutes === 1 ? `${minutes} minute` : ``}
-  </span>
-  ${minutes > 0 && seconds != 0 ? `and` : ``}
-  <span class="outro__message--bold">
-    ${seconds > 1 ? `${seconds} seconds` : seconds === 1 ? `${seconds} second` : ``}
-  </span>
-  including break time. <br>
+  in ${timeResult(minutes, seconds)} including break time. <br>
   You had
   <span class="outro__message--bold">
     ${totalBreaks > 1
@@ -304,18 +305,7 @@ const handleOutro = () => {
   </span>
   during this task
   ${totalBreaks
-    ? `<span class="outro__message--bold">
-        ${breakMinutes > 1
-        ? `${breakMinutes} minutes`
-        : breakMinutes === 1 ? `${breakMinutes} minute` : ``}
-      </span>
-      ${breakMinutes > 0 && breakTimeElapsed != 0 ? `and` : ``}
-      <span class="outro__message--bold">
-        ${breakSeconds > 1
-        ? `${breakSeconds} seconds`
-        : breakSeconds === 1 ? `${breakSeconds} second` : `split second`}
-      </span>
-      long, what makes it around
+    ? `${timeResult(breakMinutes, breakSeconds)} long, what makes it around
       <span class="outro__message--bold">
         ${Math.round(breakTimeElapsed / overallTime * 100)}%
       </span>
@@ -331,16 +321,6 @@ const handleRetry = () => {
   taskSection.className = 'task task--js task--visible slideInRight';
   outroRetryButton.removeEventListener('click', handleRetry);
 }
-
-/*
-########   #######  ##     ##
-##     ## ##     ## ###   ###
-##     ## ##     ## #### ####
-##     ## ##     ## ## ### ##
-##     ## ##     ## ##     ##
-##     ## ##     ## ##     ##
-########   #######  ##     ##
-*/
 ////////////////////////////////////////////////////////// CREATE DOM ELEMENTS 
 
 const app = document.querySelector('#root');
@@ -589,16 +569,7 @@ const outroRetryButtonSvg = createSvgElement({
   viewBox: '0 0 512 512'
 }, 'assets/svg/icons.svg#retry');
 
-/*
-   ###    ########  ########  ######## ##    ## ########
-  ## ##   ##     ## ##     ## ##       ###   ## ##     ##
- ##   ##  ##     ## ##     ## ##       ####  ## ##     ##
-##     ## ########  ########  ######   ## ## ## ##     ##
-######### ##        ##        ##       ##  #### ##     ##
-##     ## ##        ##        ##       ##   ### ##     ##
-##     ## ##        ##        ######## ##    ## ########
-*/
-//////////////////////////////////////////////////////////////////// APPENDING 
+/////////////////////////////////////////////////////////// APPENDING ELEMENTS 
 // TASK
 rightButton.append(rightButtonSvg);
 taskRow.append(taskNameLabel, taskAlert);
@@ -646,13 +617,9 @@ app.append(
   outroSection
 );
 
-//////////////////////////////////////////////////////////////////// VARIABLES 
-
 const task = new Task(0);
 let intervalWorkId = "";
 let intervalBreakId = "";
-
-/////////////////////////////////////////////////////////////////////// EVENTS 
 
 rightButton.addEventListener('click', handleMainButtons);
 leftButton.addEventListener('click', handleMainButtons);
