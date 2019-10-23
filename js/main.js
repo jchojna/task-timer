@@ -184,25 +184,15 @@ const togglePlayPauseButton = (action) => {
   visibleSvg.classList.remove('timer__svg--hidden');
   hiddenSvg.classList.add('timer__svg--hidden');
 }
-// F0 /////////////////////////////////////////////// HANDLE STOP CONFIRMATION 
 
 const handleStopConfirm = (e) => {
   switch (e.target) {
 
     case confirmStopButton:
-      task.isWork = false;
-      clearInterval(intervalWorkId);
-      clearInterval(intervalBreakId);
-      togglePlayPauseButton('play');
       toggleStopConfirm();
-      timeStartButton.disable = false;
-      timeStartButton.classList.remove('time__start--disabled');
+      stopWorktime();
       timerSection.className = 'timer timer--js slideOutLeft';
       taskSection.className = 'task task--js task--visible slideInRight';
-      stopSection.removeEventListener('click', handleStopConfirm);
-      timerStop.removeEventListener('click', handleTimerButtons);
-      timerPlayPause.removeEventListener('click', handleTimerButtons);
-      timerToggle.removeEventListener('click', handleTimerButtons);
       break;  
 
     case cancelStopButton:
@@ -225,19 +215,10 @@ const workTime = () => {
     if (workTimeElapsed >= timeTotal) {
       task.workTimeElapsed, workTimeElapsed = timeTotal;
       task.workTimeRemaining, workTimeRemaining = 0;
-      task.isWork = false;
-      timeStartButton.disable = false;
-      timeStartButton.classList.remove('time__start--disabled');
-      togglePlayPauseButton('play');
-      stopSection.removeEventListener('click', handleStopConfirm);
-      stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
-      timerStop.removeEventListener('click', handleTimerButtons);
-      timerPlayPause.removeEventListener('click', handleTimerButtons);
-      timerToggle.removeEventListener('click', handleTimerButtons);
       task.overallTime = task.workTimeElapsed + task.breakTimeElapsed;
       task.overallTimeArray = task.overallTime;
-      clearInterval(intervalWorkId);
-      clearInterval(intervalBreakId);
+      stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
+      stopWorktime();
       handleOutro();
       outroRetryButton.addEventListener('click', handleRetry);
 
@@ -246,22 +227,35 @@ const workTime = () => {
       task.previousTime = now;
       task.workTimeElapsed = workTimeElapsed + (now - previousTime);
     }
-
     task.workTimeRemaining = timeTotal - workTimeElapsed;
     task.workTimeElapsedArray = workTimeElapsed;
     task.workTimeRemainingArray = workTimeRemaining;
-
     displayElapsed.textContent = task.workTimeElapsedArray.join(':');
     displayRemaining.textContent = task.workTimeRemainingArray.join(':');
-
-    const percentElapsed = workTimeElapsed / timeTotal * 100;                           // ! TO REFACTOR
-    progressPercentElapsed.textContent = `${Math.round(percentElapsed)} %`;
-    progressBarElapsed.style.width = `${percentElapsed}%`;
-    
-    const percentRemaining = task.workTimeRemaining / task.timeTotal * 100;            // ! TO REFACTOR
-    progressPercentRemaining.textContent = `${Math.round(percentRemaining)} %`;
-    progressBarRemaining.style.width = `${percentRemaining}%`;
+    handlePercentSection(workTimeElapsed, progressPercentElapsed, progressBarElapsed);
+    handlePercentSection(workTimeRemaining, progressPercentRemaining, progressBarRemaining);
   }
+}
+// F0 ///////////////////////////////////////////////// HANDLE PERCENT SECTION 
+
+const handlePercentSection = (workTime, progressPercent, progressBar) => {
+  const percent = workTime / task.timeTotal * 100;
+  progressPercent.textContent = `${Math.round(percent)} %`;
+  progressBar.style.width = `${percent}%`;
+}
+// F0 ////////////////////////////////////////////////////////// STOP WORKTIME 
+
+const stopWorktime = () => {
+  task.isWork = false;
+  togglePlayPauseButton('play');
+  clearInterval(intervalWorkId);
+  clearInterval(intervalBreakId);
+  timeStartButton.disable = false;
+  timeStartButton.classList.remove('time__start--disabled');
+  stopSection.removeEventListener('click', handleStopConfirm);
+  timerStop.removeEventListener('click', handleTimerButtons);
+  timerPlayPause.removeEventListener('click', handleTimerButtons);
+  timerToggle.removeEventListener('click', handleTimerButtons);
 }
 // F0 ///////////////////////////////////////////////////////////// BREAK TIME 
 
@@ -323,9 +317,9 @@ const handleOutro = () => {
       </span>
       long, what makes it around
       <span class="outro__message--bold">
-        ${Math.round(breakTimeElapsed / overallTime * 100)}
+        ${Math.round(breakTimeElapsed / overallTime * 100)}%
       </span>
-      % of all time.`
+      of all time.`
     : `.`
   }`
 }
