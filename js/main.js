@@ -75,28 +75,28 @@ const handleMainButtons = (e) => {
       } break;
 
     case leftButton:
-      timeSection.className = 'time time--js slideOutRight';
-      taskSection.className = 'task task--js task--visible slideInLeft';
+      timeSection.className = 'time slideOutRight';
+      taskSection.className = 'task task--visible slideInLeft';
       break;
 
     case timeStartButton:
       if (isValid('time') && !timeStartButton.disable) {
-        timeSection.className = 'time time--js slideOutLeft';
-        timerSection.className = 'timer timer--js timer--visible slideInRight';
         task.isWork = true;
         task.previousTime = Date.now();
         task.timeTotal = setTotalTime();
         if (task.timeTotal <= 0) return;
         task.workTimeElapsed = 0;
-        intervalWorkId = setInterval(() => workTime(), 10);
-        timeStartButton.disable = true;
-        timeStartButton.classList.add('time__start--disabled');
         task.totalBreaks = 0;
         task.breakTimeElapsed = 0;
         task.breakTimeElapsedArray = task.breakTimeElapsed;
         breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
         togglePlayPauseButton('pause');
         updateBreaksCounter();
+        intervalWorkId = setInterval(() => workTime(), 10);
+        timeSection.className = 'time slideOutLeft';
+        timerSection.className = 'timer timer--visible slideInRight';
+        timeStartButton.disable = true;
+        timeStartButton.classList.add('time__start--disabled');
         timerStop.addEventListener('click', handleTimerButtons);
         timerPlayPause.addEventListener('click', handleTimerButtons);
         timerToggle.addEventListener('click', handleTimerButtons);
@@ -115,10 +115,9 @@ const setTotalTime = () => {
 }
 // F0 ////////////////////////////////////////////////// UPDATE BREAKS COUNTER 
 
-const updateBreaksCounter = () => {
-  breaksCounter.textContent =
+const updateBreaksCounter = () => breaksCounter.textContent =
   `${task.totalBreaks} ${task.totalBreaks === 1 ? `break` : `breaks`}`;
-}
+
 // F0 /////////////////////////////////////////////////// HANDLE TIMER BUTTONS 
 
 const handleTimerButtons = (e) => {
@@ -128,21 +127,21 @@ const handleTimerButtons = (e) => {
     case timerPlayPause:
       // enabling break mode
       if (task.isWork) {
-        togglePlayPauseButton('play');
         task.isWork = false;
         task.isBreak = true;
         task.totalBreaks = task.totalBreaks + 1;
+        togglePlayPauseButton('play');
         updateBreaksCounter();
         intervalBreakId = setInterval(() => breakTime(), 10);
         displaySection.classList.add('display--inactive');
         breakSection.classList.add('break--active');
       // turning break mode off
       } else {
-        togglePlayPauseButton('pause');
-        clearInterval(intervalBreakId);
         task.isWork = true;
         task.isBreak = false;
         task.previousTime = Date.now();
+        togglePlayPauseButton('pause');
+        clearInterval(intervalBreakId);
         displaySection.classList.remove('display--inactive');
         breakSection.classList.remove('break--active');
       } break;
@@ -153,31 +152,27 @@ const handleTimerButtons = (e) => {
       break;
 
     case timerToggle:
-      [...displaySection.children].forEach(item => {
-        item.classList.toggle('display__container--visible');
-        if (item.classList.contains('display__container--visible')) {
-          item.classList.remove('display__container--hideUp')
-          item.classList.add('display__container--showUp')
-        } else {
-          item.classList.remove('display__container--showUp');
-          item.classList.add('display__container--hideUp');
-        }
-      });
+      toggleTimeDisplay('display__time', 'visible', 'showUp', 'hideUp');
+      toggleTimeDisplay('progress__part', 'loading', 'unloading', 'loading');
       progressPercentElapsed.classList.toggle('progress__percent--visible');
       progressPercentRemaining.classList.toggle('progress__percent--visible');
-      [...progressBar.children].forEach(part => {
-        if (part.classList.contains('progress__part--loading')) {
-          part.classList.remove('progress__part--loading');
-          part.classList.add('progress__part--unloading');
-        } else {
-          part.classList.add('progress__part--loading');
-          part.classList.remove('progress__part--unloading');
-        }
-      });
       break;
 
     default: false;
   }
+}
+// F0 //////////////////////////////////////////////////// TOGGLE TIME DISPLAY 
+
+const toggleTimeDisplay = (blockElement, modActive, modB, modC) => {
+  const nodes = document.querySelectorAll(`[class*="${blockElement}"]`);
+  const blockName = blockElement.split('__')[0];
+
+  [...nodes].forEach(item => {
+  blockName === 'display' ? item.classList.toggle(`${blockElement}--${modActive}`): false;
+  const ifActive = item.classList.contains(`${blockElement}--${modActive}`);
+  item.classList.remove(`${blockElement}--${ifActive ? modC : modB}`);
+  item.classList.add(`${blockElement}--${ifActive ? modB : modC}`);
+  });
 }
 // F0 ////////////////////////////////// TOGGLE PLAY / PAUSE BUTTON APPEARANCE 
 
@@ -195,19 +190,19 @@ const handleStopConfirm = (e) => {
   switch (e.target) {
 
     case confirmStopButton:
-      stopSection.removeEventListener('click', handleStopConfirm);
       task.isWork = false;
-      timeStartButton.disable = false;
-      timeStartButton.classList.remove('time__start--disabled');
-      togglePlayPauseButton('play');
-      toggleStopConfirm();
       clearInterval(intervalWorkId);
       clearInterval(intervalBreakId);
+      togglePlayPauseButton('play');
+      toggleStopConfirm();
+      timeStartButton.disable = false;
+      timeStartButton.classList.remove('time__start--disabled');
+      timerSection.className = 'timer timer--js slideOutLeft';
+      taskSection.className = 'task task--js task--visible slideInRight';
+      stopSection.removeEventListener('click', handleStopConfirm);
       timerStop.removeEventListener('click', handleTimerButtons);
       timerPlayPause.removeEventListener('click', handleTimerButtons);
       timerToggle.removeEventListener('click', handleTimerButtons);
-      timerSection.className = 'timer timer--js slideOutLeft';
-      taskSection.className = 'task task--js task--visible slideInRight';
       break;  
 
     case cancelStopButton:
@@ -518,11 +513,11 @@ const displayHeading = createDOMElement('h3', {
 }, 'Display');
 
 const displayElapsed = createDOMElement('div', {
-  className: 'display__container display__container--elapsed display__container--visible'
+  className: 'display__time display__time--elapsed display__time--visible'
 }, '00:00:00');
 
 const displayRemaining = createDOMElement('div', {
-  className: 'display__container display__container--remaining'
+  className: 'display__time display__time--remaining'
 });
 
 // F0 ////////////////////////////////////////////////////////// BREAK SECTION 

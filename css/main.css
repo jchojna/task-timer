@@ -497,7 +497,7 @@ body {
   color: #fff;
 }
 
-.display__container {
+.display__time {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -517,18 +517,18 @@ body {
   width: 100%;
 }
 
-.display__container--visible {
+.display__time--visible {
   -webkit-transition: visibility 0s;
   transition: visibility 0s;
   visibility: inherit;
 }
 
-.display__container--showUp {
+.display__time--showUp {
   -webkit-animation: showUp 0.5s forwards;
           animation: showUp 0.5s forwards;
 }
 
-.display__container--hideUp {
+.display__time--hideUp {
   -webkit-animation: hideUp 0.5s forwards;
           animation: hideUp 0.5s forwards;
 }
