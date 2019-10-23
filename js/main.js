@@ -1,54 +1,45 @@
 const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
 
+const makeTimeArray = (time) => [
+    makeTwoDigits(Math.floor(time / 60000)),
+    makeTwoDigits(Math.floor(time / 1000 % 60)),
+    makeTwoDigits(Math.floor(time / 10 % 100))
+  ];
+
 class Task {
   constructor(time) {
-    this.name = "",
-    this.workTimeElapsed = 0,
-    this.workTimeRemaining = time,
-    this.previousTime = 0,
     this.breakTimeElapsed = 0,
     this.isWork = false,
-    this.isBreak = false
+    this.isBreak = false,
+    this.name = "",
+    this.previousTime = 0,
+    this.workTimeElapsed = 0,
+    this.workTimeRemaining = time
   }
 
   get workTimeElapsedArray() {
     return this._workTimeElapsedArray;
   }
-  set workTimeElapsedArray(time) {                                 // ! TO REFACTOR
-    this._workTimeElapsedArray = [
-      makeTwoDigits(Math.floor(time / 60000)),
-      makeTwoDigits(Math.floor(time / 1000 % 60)),
-      makeTwoDigits(Math.floor(time / 10 % 100))
-    ];
+  set workTimeElapsedArray(time) {
+    this._workTimeElapsedArray = makeTimeArray(time);
   }
   get workTimeRemainingArray() {
     return this._workTimeRemainingArray;
   }
-  set workTimeRemainingArray(time) {                               // ! TO REFACTOR
-    this._workTimeRemainingArray = [
-      makeTwoDigits(Math.floor(time / 60000)),
-      makeTwoDigits(Math.floor(time / 1000 % 60)),
-      makeTwoDigits(Math.floor(time / 10 % 100))
-    ];
+  set workTimeRemainingArray(time) {
+    this._workTimeRemainingArray = makeTimeArray(time)
   }
   get breakTimeElapsedArray() {
     return this._breakTimeElapsedArray;
   }
-  set breakTimeElapsedArray(time) {                                 // ! TO REFACTOR
-    this._breakTimeElapsedArray = [
-      makeTwoDigits(Math.floor(time / 60000)),
-      makeTwoDigits(Math.floor(time / 1000 % 60)),
-      makeTwoDigits(Math.floor(time / 10 % 100))
-    ];
+  set breakTimeElapsedArray(time) {
+    this._breakTimeElapsedArray = makeTimeArray(time)
   }
   get overallTimeArray() {
     return this._overallTimeArray;
   }
-  set overallTimeArray(time) {                                 // ! TO REFACTOR
-    this._overallTimeArray = [
-      Math.floor(time / 60000),
-      Math.floor(time / 1000 % 60)
-    ];
+  set overallTimeArray(time) {
+    this._overallTimeArray = makeTimeArray(time)
   }
 }
 
