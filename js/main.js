@@ -566,13 +566,6 @@ const timerSection = React.createElement('section', {
 
 // F0 /////////////////////////////////////////////////////////// STOP SECTION 
 
-/* stopContainer.append(stopHeading, confirmStopButton, cancelStopButton);
-stopSection.append(stopContainer); */
-
-/* const stopSection = React.createElement('section', { className: 'stop' });
-
-const stopContainer = React.createElement('div', { className: 'stop__container' });
-
 const stopHeading = React.createElement('h2', {
   className: 'stop__heading'
 }, 'Are you sure you want to quit?');
@@ -583,49 +576,54 @@ const confirmStopButton = React.createElement('button', {
 
 const cancelStopButton = React.createElement('button', {
   className: 'button stop__button stop__button--cancel'
-}, 'Cancel'); */
+}, 'Cancel');
+
+const stopContainer = React.createElement('div', {
+  className: 'stop__container'
+}, stopHeading, confirmStopButton, cancelStopButton);
+
+const stopSection = React.createElement('section', {
+  className: 'stop'
+}, stopContainer);
 
 // F0 ////////////////////////////////////////////////////////// OUTRO SECTION 
 
-/* outroHeading.append(outroParty);
-outroRetryButton.append(outroRetryButtonSvg);
-outroContainer.append(outroHeading, outroMessage, outroRetryButton);
-outroSection.append(outroContainer); */
-
-/* const outroSection = React.createElement('section', { className: 'outro' });
-
-const outroContainer = React.createElement('div', { className: 'outro__container' });
+const outroParty = React.createElement('span', {
+  className: 'outro__party' }, '🎉');
 
 const outroHeading = React.createElement('h2', {
   className: 'outro__heading'
-}, 'Congratulations!');
-
-const outroParty = React.createElement('span', { className: 'outro__party' }, '🎉');
+}, 'Congratulations!', outroParty);
 
 const outroMessage = React.createElement('p', { className: 'outro__message' });
 
+const outroRetryButtonUse = React.createElement('use', {
+  className: 'outro__svg',
+  viewBox: '0 0 512 512'
+}, 'assets/svg/icons.svg#retry');
+
+const outroRetryButtonSvg = React.createElement('svg', {
+  className: 'outro__svg',
+  viewBox: '0 0 512 512'
+}, outroRetryButtonUse);
+
 const outroRetryButton = React.createElement('button', {
   className: 'button outro__retry'
-});
+}, outroRetryButtonSvg);
 
-const outroRetryButtonSvg = createSvgElement({
-  class: 'outro__svg',
-  viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#retry'); */
+const outroContainer = React.createElement('div', {
+  className: 'outro__container'
+}, outroHeading, outroMessage, outroRetryButton);
+
+const outroSection = React.createElement('section', {
+  className: 'outro'
+}, outroContainer);
 
 /////////////////////////////////////////////////////////// APPENDING ELEMENTS 
-/*
-
-
-app.append(
-  timerSection,
-  stopSection,
-  outroSection
-); */
 
 const appContainer = React.createElement('div', {
   className: 'app__container'
-}, taskSection, timeSection, timerSection);
+}, taskSection, timeSection, timerSection, stopSection, outroSection);
 
 ReactDOM.render(appContainer, app);
 
