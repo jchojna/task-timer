@@ -107,6 +107,7 @@
   align-items: flex-end;
   display: flex;
   flex-direction: column;
+  font-size: 1.2em;
   justify-self: end;
 
   &--active {
@@ -115,7 +116,6 @@
 
   &__counter {
     margin: 0;
-    font-size: 1em;
     font-weight: 600;
   }
 
@@ -142,7 +142,8 @@
   &__percent {
     @include flex-center;
     color: $color-tomato;
-    font-size: 1em;
+    font-family: 'Inconsolata';
+    font-size: 1.2em;
     font-weight: 600;
     left: 50%;
     margin: 0;

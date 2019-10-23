@@ -240,7 +240,7 @@ const workTime = () => {
 
 const handlePercentSection = (workTime, progressPercent, progressBar) => {
   const percent = workTime / task.timeTotal * 100;
-  progressPercent.textContent = `${Math.round(percent)} %`;
+  progressPercent.textContent = `${Math.round(percent)}%`;
   progressBar.style.width = `${percent}%`;
 }
 // F0 ////////////////////////////////////////////////////////// STOP WORKTIME 

@@ -544,6 +544,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  font-size: 1.2em;
   justify-self: end;
 }
 
@@ -553,7 +554,6 @@ body {
 
 .break__counter {
   margin: 0;
-  font-size: 1em;
   font-weight: 600;
 }
 
@@ -600,7 +600,8 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   color: #C36565;
-  font-size: 1em;
+  font-family: 'Inconsolata';
+  font-size: 1.2em;
   font-weight: 600;
   left: 50%;
   margin: 0;
