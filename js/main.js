@@ -365,7 +365,7 @@ const taskRow = React.createElement('div', {
 }, taskNameLabel, taskAlert);
 
 const taskSection = React.createElement('section', {
-  className: 'task task--visible'
+  className: 'task'
 }, taskHeading, taskNameInput, rightButton, taskRow);
 
 // F0 /////////////////////////////////////////////////////////// TIME SECTION 
@@ -435,52 +435,61 @@ const timeSection = React.createElement('section', {
 
 // F0 ////////////////////////////////////////////////////////// TIMER SECTION 
 
-/* timerPlayPause.append(timerPlaySvg, timerPauseSvg);
-timerStop.append(timerStopSvg);
-timerToggle.append(timerToggleSvg);
-timerButtons.append(timerPlayPause, timerStop, timerToggle); */
-
-/* const timerSection = React.createElement('section', { className: 'timer' });
-
-const timerContainer = React.createElement('div', { className: 'timer__container' });
-
 const timerHeading = React.createElement('h2', {
   className: 'timer__heading'
 }, 'Work on your task');
 
-const timerButtons = React.createElement('div', { className: 'timer__buttons' });
+const timerPlayUse = React.createElement('use', {
+  href: 'assets/svg/icons.svg#play'
+})
+
+const timerPlaySvg = React.createElement('svg', {
+  className: 'timer__svg timer__svg--js-play',
+  viewBox: '0 0 512 512'
+}, timerPlayUse);
+
+const timerPauseUse = React.createElement('svg', {
+  href: 'assets/svg/icons.svg#pause'
+})
+
+const timerPauseSvg = React.createElement('svg', {
+  className: 'timer__svg timer__svg--js-pause',
+  viewBox: '0 0 512 512'
+}, timerPauseUse);
 
 const timerPlayPause = React.createElement('button', {
   className: 'button timer__button timer__button--playPause'
+}, timerPlaySvg, timerPauseSvg);
+
+const timerStopUse = React.createElement('use', {
+  href: 'assets/svg/icons.svg#stop'
 });
 
-const timerPlaySvg = createSvgElement({
-  class: 'timer__svg timer__svg--js-play',
+const timerStopSvg = React.createElement('svg', {
+  className: 'timer__svg',
   viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#play');
-
-const timerPauseSvg = createSvgElement({
-  class: 'timer__svg timer__svg--js-pause',
-  viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#pause');
+}, timerStopUse);
 
 const timerStop = React.createElement('button', {
   className: 'button timer__button timer__button--stop'
+}, timerStopSvg);
+
+const timerToggleUse = React.createElement('use', {
+  href: 'assets/svg/icons.svg#toggle'
 });
 
-const timerStopSvg = createSvgElement({
-  class: 'timer__svg',
+const timerToggleSvg = React.createElement('svg', {
+  className: 'timer__svg',
   viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#stop');
+}, timerToggleUse);
 
 const timerToggle = React.createElement('button', {
   className: 'button timer__button timer__button--toggle'
-});
+}, timerToggleSvg);
 
-const timerToggleSvg = createSvgElement({
-  class: 'timer__svg',
-  viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#toggle'); */
+const timerButtons = React.createElement('div', {
+  className: 'timer__buttons'
+}, timerPlayPause, timerStop, timerToggle);
 
 // F0 //////////////////////////////////////////////////////// DISPLAY SECTION 
 
@@ -538,6 +547,19 @@ const progressBarRemaining = React.createElement('div', {
   className: 'progress__part progress__part--unloading'
 }); */
 
+const timerContainer = React.createElement('div',
+  { className: 'timer__container' },
+  timerHeading,
+  timerButtons/* ,
+  displaySection,
+  breakSection,
+  progressSection */
+  );
+
+const timerSection = React.createElement('section', {
+  className: 'timer timer--visible'
+}, timerContainer);
+
 // F0 /////////////////////////////////////////////////////////// STOP SECTION 
 
 /* stopContainer.append(stopHeading, confirmStopButton, cancelStopButton);
@@ -590,19 +612,8 @@ const outroRetryButtonSvg = createSvgElement({
 /////////////////////////////////////////////////////////// APPENDING ELEMENTS 
 /*
 
-timerContainer.append(
-  timerHeading,
-  timerButtons,
-  displaySection,
-  breakSection,
-  progressSection
-);
-
-timerSection.append(timerContainer);
 
 app.append(
-  taskSection,
-  timeSection,
   timerSection,
   stopSection,
   outroSection
@@ -610,7 +621,7 @@ app.append(
 
 const appContainer = React.createElement('div', {
   className: 'app__container'
-}, taskSection, timeSection);
+}, taskSection, timeSection, timerSection);
 
 ReactDOM.render(appContainer, app);
 
