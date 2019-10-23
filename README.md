@@ -6,14 +6,14 @@
 to be developed ...
 
 ## Vanilla to React app
-#### [react-no-jsx branch]
+[react-no-jsx branch](https://github.com/jchojna/task-timer/tree/react-no-jsx)
 #### created using React.createElement with no use of JSX
-to be developed ...
+work in progress ...
 
 ## Vanilla JS app
 [vanilla branch](https://github.com/jchojna/task-timer/tree/vanilla)
 #### created using document.createElement in pure JS
-work in progress ...
+JS code refactored
 
 ## Static Page
 [static-page branch](https://github.com/jchojna/task-timer/tree/static-page)
