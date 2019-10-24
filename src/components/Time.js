@@ -2,9 +2,9 @@ import React from 'react';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task_Time.scss';
 
-const Time = () => {
+const Time = (props) => {
   return (
-    <section className="Time">
+    <section className={`Time ${props.className}`}>
       <h2 className="Time__heading">Task Time Estimation</h2>
       <button className="Time__button Time__button--left">
         <svg className="Time__svg" viewBox="0 0 512 512">
