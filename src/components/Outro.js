@@ -8,7 +8,11 @@ const Outro = () => {
       <div className="Outro__container">
         <h2 className="Outro__heading">
         Congratulations!
-        <span className="Outro__party"> 🎉</span>
+        <span
+          className="Outro__party"
+          role="img"
+          aria-label="party"
+        > 🎉</span>
         </h2>
         <p className="Outro__message">Test</p>
         <button className="Outro__retry">
