@@ -323,64 +323,6 @@ const handleRetry = () => {
   outroRetryButton.removeEventListener('click', handleRetry);
 }
 
-// F0 ////////////////////////////////////////////////////////// TIMER SECTION 
-
-const timerHeading = React.createElement('h2', {
-  className: 'timer__heading'
-}, 'Work on your task');
-
-const timerPlayUse = React.createElement('use', {
-  href: 'assets/svg/icons.svg#play'
-})
-
-const timerPlaySvg = React.createElement('svg', {
-  className: 'timer__svg timer__svg--js-play',
-  viewBox: '0 0 512 512'
-}, timerPlayUse);
-
-const timerPauseUse = React.createElement('svg', {
-  href: 'assets/svg/icons.svg#pause'
-})
-
-const timerPauseSvg = React.createElement('svg', {
-  className: 'timer__svg timer__svg--js-pause',
-  viewBox: '0 0 512 512'
-}, timerPauseUse);
-
-const timerPlayPause = React.createElement('button', {
-  className: 'button timer__button timer__button--playPause'
-}, timerPlaySvg, timerPauseSvg);
-
-const timerStopUse = React.createElement('use', {
-  href: 'assets/svg/icons.svg#stop'
-});
-
-const timerStopSvg = React.createElement('svg', {
-  className: 'timer__svg',
-  viewBox: '0 0 512 512'
-}, timerStopUse);
-
-const timerStop = React.createElement('button', {
-  className: 'button timer__button timer__button--stop'
-}, timerStopSvg);
-
-const timerToggleUse = React.createElement('use', {
-  href: 'assets/svg/icons.svg#toggle'
-});
-
-const timerToggleSvg = React.createElement('svg', {
-  className: 'timer__svg',
-  viewBox: '0 0 512 512'
-}, timerToggleUse);
-
-const timerToggle = React.createElement('button', {
-  className: 'button timer__button timer__button--toggle'
-}, timerToggleSvg);
-
-const timerButtons = React.createElement('div', {
-  className: 'timer__buttons'
-}, timerPlayPause, timerStop, timerToggle);
-
 // F0 //////////////////////////////////////////////////////// DISPLAY SECTION 
 
 const displayHeading = React.createElement('h3', {
@@ -449,10 +391,6 @@ const timerContainer = React.createElement('div',
   breakSection,
   progressSection
   );
-
-const timerSection = React.createElement('section', {
-  className: 'timer timer--visible'
-}, timerContainer);
 
 // F0 /////////////////////////////////////////////////////////// STOP SECTION 
 

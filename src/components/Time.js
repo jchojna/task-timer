@@ -4,7 +4,7 @@ import '../scss/Task_Time.scss';
 
 const Time = () => {
   return (
-    <section className="Time Time--visible">
+    <section className="Time">
       <h2 className="Time__heading">Task Time Estimation</h2>
       <button className="button Time__button Time__button--left">
         <svg className="Time__svg" viewBox="0 0 512 512">
