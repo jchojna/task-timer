@@ -34,11 +34,16 @@ class App extends Component {
       <div className="App">
         <h1 className="App__heading visuallyhidden">Task Timer App</h1>
         <Task
-          className={isTaskVisible ? "Task--visible" : "slideOutLeft"}
+          className={isTaskVisible
+            ? "Task--visible slideInLeft"
+            : "slideOutLeft"}
           isVisible={this.handleCompVisibility}
         />
         <Time
-          className={isTimeVisible ? "Time--visible slideInRight" : ""}
+          className={isTimeVisible
+            ? "Time--visible slideInRight"
+            : "slideOutRight"}
+          isVisible={this.handleCompVisibility}
         />
         <Timer />
         <StopTask />
