@@ -47,8 +47,8 @@ const Time = (props) => {
         <label className="Time__label Time__label--break" htmlFor="task-break">
           max break time
         </label>
-        <p className="Time__alert">
-          You have to specify time for the task!
+        <p className={`Time__alert ${props.alertClassName}`}>
+          You have to specify time in the following format: 0m0s
         </p>
       </div>
     </section>

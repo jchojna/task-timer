@@ -75,9 +75,11 @@ class App extends Component {
         <Time
           compClassName={isTimeVisible
             ? "Time--visible slideInRight"
-            : isTimerVisible
-              ? "slideOutLeft"
-              : "slideOutRight"}
+            : isTimerVisible ? "slideOutLeft" : "slideOutRight"}
+          alertClassName={!isTaskTimePlannedValid && taskTimePlanned != null
+            ? "Time__alert--visible"
+            : ""}
+
           isVisible={this.handleCompVisibility}
           taskTimePlanned={this.handleTaskTimePlanned}
           taskTimePlannedValidity={isTaskTimePlannedValid}
