@@ -341,35 +341,6 @@ const displayRemaining = React.createElement('div', {
 
 
 
-
-
-
-// F0 /////////////////////////////////////////////////////////// PROGRESS BAR 
-
-const progressPercentElapsed = React.createElement('h3', {
-  className: 'progress__percent progress__percent--visible'
-}, '0%');
-
-const progressPercentRemaining = React.createElement('h3', {
-  className: 'progress__percent'
-}, '0%');
-
-const progressHeader = React.createElement('header', {
-  className: 'progress__header'
-}, progressPercentElapsed, progressPercentRemaining);
-
-const progressBarElapsed = React.createElement('div', {
-  className: 'progress__part progress__part--loading'
-});
-
-const progressBarRemaining = React.createElement('div', {
-  className: 'progress__part progress__part--unloading'
-});
-
-const progressBar = React.createElement('div', {
-  className: 'progress__bar'
-}, progressBarElapsed, progressBarRemaining);
-
 // F0 /////////////////////////////////////////////////////////// STOP SECTION 
 
 const stopHeading = React.createElement('h2', {

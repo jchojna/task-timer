@@ -1,4 +1,6 @@
 import React from 'react';
+import Percentage from './Percentage';
+import ProgressBar from './ProgressBar';
 import '../scss/Progress.scss';
 
 const Progress = () => {
