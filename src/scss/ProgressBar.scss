@@ -1,0 +1,27 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.ProgressBar {
+  height: 6px;
+  position: relative;
+  width: 100%;
+
+  &__part {
+    bottom: 0;
+    position: absolute;
+    top: 0;
+
+    &--loading {
+      background-color: $color-tomato;
+      left: 0;
+      width: 0;
+    }
+
+    &--unloading {
+      background-color: #fff;
+      right: 0;
+      width: 100%;
+    }
+  }
+}

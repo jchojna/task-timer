@@ -1,0 +1,45 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.StopTask {
+  @include flex-center;
+  background-color: rgba($color: #000000, $alpha: 0.3);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+
+  &--visible {
+    visibility: visible;
+  }
+
+  &__container {
+    background-color: $color-cyan;
+    border-radius: 10px;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2em;
+  }
+
+  &__heading {
+    font-weight: 800;
+    grid-column: 1 / span 2;
+    margin: 0;
+  }
+
+  &__button {
+    @include button;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    padding: 0.75em 2em;
+
+    &:hover {
+      background-color: $color-tomato;
+      border-color: $color-tomato;
+    }
+  }
+}

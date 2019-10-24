@@ -1,0 +1,30 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.Controls {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  justify-self: left;
+
+  &__button {
+    @include button;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    fill: none;
+    height: 80px;
+    stroke: #fff;
+    stroke-width: 15;
+    width: 80px;
+  }
+
+  &__svg {
+    pointer-events: none;
+    width: 100%;
+
+    &--hidden {
+      display: none;
+    }
+  }
+}

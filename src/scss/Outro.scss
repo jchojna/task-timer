@@ -1,4 +1,8 @@
-.outro {
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.Outro {
   @include flex-center;
   background-color: $color-cyan;
   bottom: 0;
@@ -41,6 +45,7 @@
   }
 
   &__retry {
+    @include button;
     align-self: flex-start;
     fill: #fff;
     transition: $hover-icon;
