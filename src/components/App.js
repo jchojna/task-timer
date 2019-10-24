@@ -14,12 +14,20 @@ class App extends Component {
       isTimeVisible: false,
       isTimerVisible: false,
       isStopTaskVisible: false,
-      isOutroVisible: false
+      isOutroVisible: false,
+      taskName: null,
+      isTaskNameValid: false
     }
   }
 
   handleCompVisibility = (object) => this.setState(object);
 
+  handleTaskName = (name) => {
+    this.setState({
+      taskName: name,
+      isTaskNameValid: name.length > 0 ? true : false 
+    });
+  }
 
   render() {
     const {
@@ -27,20 +35,27 @@ class App extends Component {
       isTimeVisible,
       isTimerVisible,
       isStopTaskVisible,
-      isOutroVisible
+      isOutroVisible,
+      taskName,
+      isTaskNameValid
     } = this.state;
 
     return (
       <div className="App">
         <h1 className="App__heading visuallyhidden">Task Timer App</h1>
         <Task
-          className={isTaskVisible
+          compClassName={isTaskVisible
             ? "Task--visible slideInLeft"
             : "slideOutLeft"}
+          alertClassName={taskName === ""
+            ? "Task__alert--visible"
+            : ""}
           isVisible={this.handleCompVisibility}
+          changeTaskName={this.handleTaskName}
+          taskNameValidity={isTaskNameValid}
         />
         <Time
-          className={isTimeVisible
+          compClassName={isTimeVisible
             ? "Time--visible slideInRight"
             : "slideOutRight"}
           isVisible={this.handleCompVisibility}

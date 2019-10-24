@@ -4,7 +4,7 @@ import '../scss/Task_Time.scss';
 
 const Time = (props) => {
   return (
-    <section className={`Time ${props.className}`}>
+    <section className={`Time ${props.compClassName}`}>
       <h2 className="Time__heading">Task Time Estimation</h2>
       <button
         className="Time__button Time__button--left"
