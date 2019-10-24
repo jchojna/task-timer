@@ -339,30 +339,6 @@ const displayRemaining = React.createElement('div', {
 
 
 
-
-
-// F0 /////////////////////////////////////////////////////////// STOP SECTION 
-
-const stopHeading = React.createElement('h2', {
-  className: 'stop__heading'
-}, 'Are you sure you want to quit?');
-
-const confirmStopButton = React.createElement('button', {
-  className: 'button stop__button stop__button--stop'
-}, 'Yes');
-
-const cancelStopButton = React.createElement('button', {
-  className: 'button stop__button stop__button--cancel'
-}, 'Cancel');
-
-const stopContainer = React.createElement('div', {
-  className: 'stop__container'
-}, stopHeading, confirmStopButton, cancelStopButton);
-
-const stopSection = React.createElement('section', {
-  className: 'stop'
-}, stopContainer);
-
 // F0 ////////////////////////////////////////////////////////// OUTRO SECTION 
 
 const outroParty = React.createElement('span', {

@@ -2,6 +2,7 @@ import React from 'react';
 import Task from './Task';
 import Time from './Time';
 import Timer from './Timer';
+import StopTask from './StopTask';
 import '../scss/App.scss';
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
       <Task />
       <Time />
       <Timer />
+      <StopTask />
     </div>
   );
 }

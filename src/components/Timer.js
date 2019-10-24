@@ -7,7 +7,7 @@ import '../scss/Timer.scss';
 
 const Timer = () => {
   return (
-    <section className="Timer Timer--visible">
+    <section className="Timer">
       <div className="Timer__container">
         <h2 className="Timer__heading">Work on your task</h2>
         <Controls />

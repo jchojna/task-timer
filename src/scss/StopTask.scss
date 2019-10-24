@@ -1,4 +1,8 @@
-.stop {
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.StopTask {
   @include flex-center;
   background-color: rgba($color: #000000, $alpha: 0.3);
   bottom: 0;
@@ -28,6 +32,7 @@
   }
 
   &__button {
+    @include button;
     border: 2px solid #fff;
     border-radius: 5px;
     padding: 0.75em 2em;
