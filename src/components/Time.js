@@ -6,7 +6,7 @@ const Time = () => {
   return (
     <section className="Time">
       <h2 className="Time__heading">Task Time Estimation</h2>
-      <button className="button Time__button Time__button--left">
+      <button className="Time__button Time__button--left">
         <svg className="Time__svg" viewBox="0 0 512 512">
           <use href={`${icons}#arrow-left`} />
         </svg>
@@ -26,7 +26,7 @@ const Time = () => {
           maxLength="6"
           pattern="(\d?\d[Mm])?(\d?\d[Ss])?"
         />
-        <button className="button Time__start">
+        <button className="Time__start">
           Start
         </button>
       </div>

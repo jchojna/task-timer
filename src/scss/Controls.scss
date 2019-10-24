@@ -1,5 +1,6 @@
 @import "_variables.scss";
-@import "_overall";
+@import "_mixins.scss";
+@import "_animations.scss";
 
 .Controls {
   display: grid;
@@ -8,6 +9,7 @@
   justify-self: left;
 
   &__button {
+    @include button;
     border: 2px solid #fff;
     border-radius: 50%;
     fill: none;
