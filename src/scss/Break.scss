@@ -1,0 +1,25 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.Break {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+  justify-self: end;
+
+  &--active {
+    color: $color-tomato;
+  }
+
+  &__counter {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  &__display {
+    font-family: 'Inconsolata';
+    font-weight: 400;
+  }
+}
