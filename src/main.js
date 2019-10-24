@@ -325,10 +325,6 @@ const handleRetry = () => {
 
 // F0 //////////////////////////////////////////////////////// DISPLAY SECTION 
 
-const displayHeading = React.createElement('h3', {
-  className: 'display__heading visuallyhidden'
-}, 'Display');
-
 const displayElapsed = React.createElement('div', {
   className: 'display__time display__time--elapsed display__time--visible'
 }, '00:00:00');
@@ -337,21 +333,16 @@ const displayRemaining = React.createElement('div', {
   className: 'display__time display__time--remaining'
 });
 
-const displaySection = React.createElement('section', {
-  className: 'display'
-}, displayHeading, displayElapsed, displayRemaining);
 
-// F0 ////////////////////////////////////////////////////////// BREAK SECTION 
 
-const breaksCounter = React.createElement('h3', {
-  className: 'break__counter'
-}, '0 breaks');
 
-const breakDisplay = React.createElement('div', { className: 'break__display' });
 
-const breakSection = React.createElement('section', {
-  className: 'break'
-}, breaksCounter, breakDisplay);
+
+
+
+
+
+
 
 // F0 /////////////////////////////////////////////////////////// PROGRESS BAR 
 
