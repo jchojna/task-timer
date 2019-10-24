@@ -23,16 +23,20 @@ const Time = (props) => {
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
-          pattern="(\d?\d[Mm])?(\d?\d[Ss])?"
+          onChange={(e) => props.taskTimePlanned(e.target.value)}
         />
         <input
           id="task-break"
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
-          pattern="(\d?\d[Mm])?(\d?\d[Ss])?"
         />
-        <button className="Time__start">
+        <button
+          className="Time__start"
+          onClick={props.taskTimePlannedValidity
+          ? props.handleStartButton
+          : undefined}
+        >
           Start
         </button>
       </div>

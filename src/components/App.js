@@ -16,7 +16,9 @@ class App extends Component {
       isStopTaskVisible: false,
       isOutroVisible: false,
       taskName: null,
-      isTaskNameValid: false
+      isTaskNameValid: false,
+      taskTimePlanned: null,
+      isTaskTimePlannedValid: false
     }
   }
 
@@ -29,6 +31,17 @@ class App extends Component {
     });
   }
 
+  handleTaskTimePlanned = (time) => {
+    this.setState({
+      taskTimePlanned: time,
+      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time)
+    })
+  }
+
+  handleStartButton = () => {
+    console.log('test');
+  }
+
   render() {
     const {
       isTaskVisible,
@@ -37,7 +50,9 @@ class App extends Component {
       isStopTaskVisible,
       isOutroVisible,
       taskName,
-      isTaskNameValid
+      isTaskNameValid,
+      taskTimePlanned,
+      isTaskTimePlannedValid
     } = this.state;
 
     return (
@@ -59,6 +74,9 @@ class App extends Component {
             ? "Time--visible slideInRight"
             : "slideOutRight"}
           isVisible={this.handleCompVisibility}
+          taskTimePlanned={this.handleTaskTimePlanned}
+          taskTimePlannedValidity={isTaskTimePlannedValid}
+          handleStartButton={this.handleStartButton}
         />
         <Timer />
         <StopTask />
