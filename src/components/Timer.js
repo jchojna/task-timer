@@ -5,9 +5,9 @@ import Break from './Break';
 import Progress from './Progress';
 import '../scss/Timer.scss';
 
-const Timer = () => {
+const Timer = (props) => {
   return (
-    <section className="Timer">
+    <section className={`Timer ${props.compClassName}`}>
       <div className="Timer__container">
         <h2 className="Timer__heading">Work on your task</h2>
         <Controls />

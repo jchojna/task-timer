@@ -39,7 +39,10 @@ class App extends Component {
   }
 
   handleStartButton = () => {
-    console.log('test');
+    this.setState({
+      isTimeVisible: false,
+      isTimerVisible: true
+    })
   }
 
   render() {
@@ -72,13 +75,20 @@ class App extends Component {
         <Time
           compClassName={isTimeVisible
             ? "Time--visible slideInRight"
-            : "slideOutRight"}
+            : isTimerVisible
+              ? "slideOutLeft"
+              : "slideOutRight"}
           isVisible={this.handleCompVisibility}
           taskTimePlanned={this.handleTaskTimePlanned}
           taskTimePlannedValidity={isTaskTimePlannedValid}
           handleStartButton={this.handleStartButton}
         />
-        <Timer />
+        <Timer
+          compClassName={isTimerVisible
+            ? "Timer--visible slideInRight"
+            : ""
+          }
+        />
         <StopTask />
         <Outro />
       </div>
