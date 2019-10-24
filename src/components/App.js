@@ -1,8 +1,9 @@
 import React from 'react';
-import Task from './Task';
-import Time from './Time';
-import Timer from './Timer';
-import StopTask from './StopTask';
+import Task from './Task.js';
+import Time from './Time.js';
+import Timer from './Timer.js';
+import StopTask from './StopTask.js';
+import Outro from './Outro.js';
 import '../scss/App.scss';
 
 const App = () => {
@@ -13,8 +14,8 @@ const App = () => {
       <Time />
       <Timer />
       <StopTask />
+      <Outro />
     </div>
   );
 }
-
 export default App;

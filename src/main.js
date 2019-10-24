@@ -323,63 +323,6 @@ const handleRetry = () => {
   outroRetryButton.removeEventListener('click', handleRetry);
 }
 
-// F0 //////////////////////////////////////////////////////// DISPLAY SECTION 
-
-const displayElapsed = React.createElement('div', {
-  className: 'display__time display__time--elapsed display__time--visible'
-}, '00:00:00');
-
-const displayRemaining = React.createElement('div', {
-  className: 'display__time display__time--remaining'
-});
-
-
-
-
-
-
-
-// F0 ////////////////////////////////////////////////////////// OUTRO SECTION 
-
-const outroParty = React.createElement('span', {
-  className: 'outro__party' }, '🎉');
-
-const outroHeading = React.createElement('h2', {
-  className: 'outro__heading'
-}, 'Congratulations!', outroParty);
-
-const outroMessage = React.createElement('p', { className: 'outro__message' });
-
-const outroRetryButtonUse = React.createElement('use', {
-  className: 'outro__svg',
-  viewBox: '0 0 512 512'
-}, 'assets/svg/icons.svg#retry');
-
-const outroRetryButtonSvg = React.createElement('svg', {
-  className: 'outro__svg',
-  viewBox: '0 0 512 512'
-}, outroRetryButtonUse);
-
-const outroRetryButton = React.createElement('button', {
-  className: 'button outro__retry'
-}, outroRetryButtonSvg);
-
-const outroContainer = React.createElement('div', {
-  className: 'outro__container'
-}, outroHeading, outroMessage, outroRetryButton);
-
-const outroSection = React.createElement('section', {
-  className: 'outro'
-}, outroContainer);
-
-/////////////////////////////////////////////////////////// APPENDING ELEMENTS 
-
-const appContainer = React.createElement('div', {
-  className: 'app__container'
-}, taskSection, timeSection, timerSection, stopSection, outroSection);
-
-ReactDOM.render(appContainer, app);
-
 const task = new Task(0);
 let intervalWorkId = "";
 let intervalBreakId = "";
