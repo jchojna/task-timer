@@ -2,11 +2,17 @@ import React from 'react';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task_Time.scss';
 
-const Time = () => {
+const Time = (props) => {
   return (
-    <section className="Time">
+    <section className={`Time ${props.compClassName}`}>
       <h2 className="Time__heading">Task Time Estimation</h2>
-      <button className="Time__button Time__button--left">
+      <button
+        className="Time__button Time__button--left"
+        onClick={() => props.isVisible({
+          isTaskVisible: true,
+          isTimeVisible: false
+        })}
+      >
         <svg className="Time__svg" viewBox="0 0 512 512">
           <use href={`${icons}#arrow-left`} />
         </svg>

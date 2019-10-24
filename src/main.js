@@ -68,16 +68,16 @@ const handleMainButtons = (e) => {
 
     case rightButton:
       if (isValid('task')) {
-        taskSection.className = 'task slideOutLeft';
-        timeSection.className = 'time time--visible slideInRight';
+        /* taskSection.className = 'task slideOutLeft';
+        timeSection.className = 'time time--visible slideInRight'; */
         task.name = taskNameInput.value;
         timerHeading.textContent = `"${task.name}"`;
       } break;
 
-    case leftButton:
+    /* case leftButton:
       timeSection.className = 'time slideOutRight';
       taskSection.className = 'task task--visible slideInLeft';
-      break;
+      break; */
 
     case timeStartButton:
       if (isValid('time') && !timeStartButton.disable) {
