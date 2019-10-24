@@ -2,6 +2,7 @@ import React from 'react';
 import Controls from './Controls';
 import Display from './Display';
 import Break from './Break';
+import Progress from './Progress';
 import '../scss/Timer.scss';
 
 const Timer = () => {
@@ -15,6 +16,7 @@ const Timer = () => {
           <Display />
         </div>
         <Break />
+        <Progress />
       </div>
     </section>
   );

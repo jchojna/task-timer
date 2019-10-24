@@ -370,19 +370,6 @@ const progressBar = React.createElement('div', {
   className: 'progress__bar'
 }, progressBarElapsed, progressBarRemaining);
 
-const progressSection = React.createElement('section', {
-  className: 'progress'
-}, progressHeader, progressBar);
-
-const timerContainer = React.createElement('div',
-  { className: 'timer__container' },
-  timerHeading,
-  timerButtons,
-  displaySection,
-  breakSection,
-  progressSection
-  );
-
 // F0 /////////////////////////////////////////////////////////// STOP SECTION 
 
 const stopHeading = React.createElement('h2', {
