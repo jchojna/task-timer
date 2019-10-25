@@ -51,9 +51,12 @@ class App extends Component {
   }
 
   handleTaskTimePlanned = (time) => {
+    const taskTimeTotal = this.handleTotalTime(time);
     this.setState({
       taskTimePlanned: time,
-      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time)
+      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time),
+      taskTimeTotal: taskTimeTotal,
+      taskTimeRemaining: taskTimeTotal
     })
   }
   
@@ -64,44 +67,12 @@ class App extends Component {
     })
   }
 
-  handleTotalTime = () => {
-    const {taskTimePlanned} = this.state;
-    let time = taskTimePlanned.split(/[mM]/).map(a => parseInt(a) || 0);
+  handleTotalTime = (time) => {
+    let totalTime = time.split(/[mM]/).map(a => parseInt(a) || 0);
     // if time format 00m is acceptable
-    time = time.length > 1 ? time : [0, ...time];
-    const [minutes, seconds] = time;
+    totalTime = totalTime.length > 1 ? totalTime : [0, ...totalTime];
+    const [minutes, seconds] = totalTime;
     return minutes * 60000 + seconds * 1000;
-  }
-
-  handleTimeArray = (time) => {
-    const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
-    return [
-      makeTwoDigits(Math.floor(time / 60000)),
-      makeTwoDigits(Math.floor(time / 1000 % 60)),
-      makeTwoDigits(Math.floor(time / 10 % 100))
-    ]
-  }
-
-  handleStartButton = () => {
-    const taskTimeTotal = this.handleTotalTime();
-    const taskTimeElapsedArray = this.handleTimeArray(this.state.taskTimeElapsed);
-    const taskTimeRemainingArray = this.handleTimeArray(this.state.taskTimeRemaining);
-    const breakTimeElapsedArray = this.handleTimeArray(this.state.breakTimeElapsed);
-
-    this.setState({
-      isTimeVisible: false,
-      isTimerVisible: true,
-      isTaskTimeActive: true,
-      previousTime: Date.now(),
-      taskTimeTotal: taskTimeTotal,
-      taskTimeElapsed: 0,
-      taskTimeRemaining: taskTimeTotal,
-      breaksTotal: 0,
-      breakTimeElapsed: 0,
-      taskTimeElapsedArray: taskTimeElapsedArray,
-      taskTimeRemainingArray: taskTimeRemainingArray,
-      breakTimeElapsedArray: breakTimeElapsedArray
-    })
   }
 
   handleStateChange = (object) => this.setState(object);
@@ -175,6 +146,7 @@ class App extends Component {
           breakTimePlannedValidity={isBreakTimePlannedValid}
           handleStartButton={this.handleStartButton}
           isTimerActive={isTaskTimeActive}
+          changeState={this.handleStateChange}
         />
 
         <Timer

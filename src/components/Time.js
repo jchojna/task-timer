@@ -39,7 +39,15 @@ const Time = (props) => {
             ? "Time__start--disabled"
             : ""}`}
           onClick={props.taskTimePlannedValidity && props.breakTimePlannedValidity
-          ? props.handleStartButton
+          ? () => props.changeState({
+            isTimeVisible: false,
+            isTimerVisible: true,
+            isTaskTimeActive: true,
+            previousTime: Date.now(),
+            taskTimeElapsed: 0,
+            breaksTotal: 0,
+            breakTimeElapsed: 0
+          })
           : undefined}
           disabled = {props.isTimerActive}
         >

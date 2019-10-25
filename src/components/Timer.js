@@ -39,19 +39,19 @@ class Timer extends Component {
       } = this.props.state;
       
       const taskTimeElapsedResult = this.handleTimeArray(taskTimeElapsed);
+      const taskTimeRemainingResult = this.handleTimeArray(taskTimeRemaining);
 
       // when countdown finishes
       if (taskTimeElapsed >= taskTimeTotal) {
-        console.log('stop');
 
         this.props.changeState({
-          isTaskActive: false,
+          isTaskTimeActive: false,
           taskTimeElapsed: taskTimeTotal,
           taskTimeRemaining: 0,
-          overallTime: taskTimeElapsed + breakTimeElapsed
+          overallTime: taskTimeElapsed + breakTimeElapsed,
+          taskTimeElapsedArray: taskTimeElapsedResult,
+          taskTimeRemainingArray: taskTimeRemainingResult
         });
-
-        clearInterval(this.taskIntervalId);
 
         /*
         task.overallTimeArray = task.overallTime;
@@ -64,11 +64,12 @@ class Timer extends Component {
         this.props.changeState({
           previousTime: now,
           taskTimeElapsed: taskTimeElapsed + (now - previousTime),
-          taskTimeElapsedArray: taskTimeElapsedResult
+          taskTimeElapsedArray: taskTimeElapsedResult,
+          taskTimeRemaining: taskTimeTotal - taskTimeElapsed,
+          taskTimeRemainingArray: taskTimeRemainingResult
         });
       }
-      /* task.workTimeRemaining = timeTotal - workTimeElapsed;
-      task.workTimeElapsedArray = workTimeElapsed;
+      /*
       task.workTimeRemainingArray = workTimeRemaining;
       displayElapsed.textContent = task.workTimeElapsedArray.join(':');
       displayRemaining.textContent = task.workTimeRemainingArray.join(':');
