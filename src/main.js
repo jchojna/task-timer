@@ -1,91 +1,6 @@
-const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
+/* if (isValid('time') && !timeStartButton.disable) {
+  if (task.timeTotal <= 0) return; */
 
-const toggleStopConfirm = () => stopSection.classList.toggle('stop--visible');
-
-const makeTimeArray = (time) => [
-  makeTwoDigits(Math.floor(time / 60000)),
-  makeTwoDigits(Math.floor(time / 1000 % 60)),
-  makeTwoDigits(Math.floor(time / 10 % 100))
-];
-// F0 ///////////////////////////////////////////////////////////// TASK CLASS 
-
-class Task {
-  constructor(time) {
-    this.breakTimeElapsed = 0,
-    this.isWork = false,
-    this.isBreak = false,
-    this.name = "",
-    this.previousTime = 0,
-    this.workTimeElapsed = 0,
-    this.workTimeRemaining = time
-  }
-
-  get workTimeElapsedArray() {
-    return this._workTimeElapsedArray;
-  }
-  set workTimeElapsedArray(time) {
-    this._workTimeElapsedArray = makeTimeArray(time);
-  }
-  get workTimeRemainingArray() {
-    return this._workTimeRemainingArray;
-  }
-  set workTimeRemainingArray(time) {
-    this._workTimeRemainingArray = makeTimeArray(time)
-  }
-  get breakTimeElapsedArray() {
-    return this._breakTimeElapsedArray;
-  }
-  set breakTimeElapsedArray(time) {
-    this._breakTimeElapsedArray = makeTimeArray(time)
-  }
-  get overallTimeArray() {
-    return this._overallTimeArray;
-  }
-  set overallTimeArray(time) {
-    this._overallTimeArray = makeTimeArray(time)
-  }
-}
-
-// F0 //////////////////////////////////////////////////// HANDLE MAIN BUTTONS 
-
-const handleMainButtons = (e) => {
-
-  switch(e.target) {
-
-    case timeStartButton:
-      if (isValid('time') && !timeStartButton.disable) {
-        task.isWork = true;
-        task.previousTime = Date.now();
-        task.timeTotal = setTotalTime();
-        if (task.timeTotal <= 0) return;
-        task.workTimeElapsed = 0;
-        task.totalBreaks = 0;
-        task.breakTimeElapsed = 0;
-        task.breakTimeElapsedArray = task.breakTimeElapsed;
-        breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
-        togglePlayPauseButton('pause');
-        updateBreaksCounter();
-        intervalWorkId = setInterval(() => workTime(), 10);
-        timeSection.className = 'time slideOutLeft';
-        timerSection.className = 'timer timer--visible slideInRight';
-        timeStartButton.disable = true;
-        timeStartButton.classList.add('time__start--disabled');
-        timerStop.addEventListener('click', handleTimerButtons);
-        timerPlayPause.addEventListener('click', handleTimerButtons);
-        timerToggle.addEventListener('click', handleTimerButtons);
-      } break;
-      
-    default: false;
-  }
-}
-// F0 ///////////////////////////////////////////////////////// SET TOTAL TIME 
-
-const setTotalTime = () => {
-  let time = timeInput.value.split(/[mM]/).map(a => parseInt(a) || 0);
-  time = time.length > 1 ? time : [0, ...time];
-  const [minutes, seconds] = time;
-  return minutes * 60000 + seconds * 1000;
-}
 // F0 ////////////////////////////////////////////////// UPDATE BREAKS COUNTER 
 
 const updateBreaksCounter = () => breaksCounter.textContent =
@@ -125,37 +40,12 @@ const handleTimerButtons = (e) => {
       break;
 
     case timerToggle:
-      toggleTimeDisplay('display__time', 'visible', 'showUp', 'hideUp');
-      toggleTimeDisplay('progress__part', 'loading', 'unloading', 'loading');
       progressPercentElapsed.classList.toggle('progress__percent--visible');
       progressPercentRemaining.classList.toggle('progress__percent--visible');
       break;
 
     default: false;
   }
-}
-// F0 //////////////////////////////////////////////////// TOGGLE TIME DISPLAY 
-
-const toggleTimeDisplay = (blockElement, modActive, modB, modC) => {
-  const nodes = document.querySelectorAll(`[class*="${blockElement}"]`);
-  const blockName = blockElement.split('__')[0];
-
-  [...nodes].forEach(item => {
-  blockName === 'display' ? item.classList.toggle(`${blockElement}--${modActive}`): false;
-  const ifActive = item.classList.contains(`${blockElement}--${modActive}`);
-  item.classList.remove(`${blockElement}--${ifActive ? modC : modB}`);
-  item.classList.add(`${blockElement}--${ifActive ? modB : modC}`);
-  });
-}
-// F0 ////////////////////////////////// TOGGLE PLAY / PAUSE BUTTON APPEARANCE 
-
-const togglePlayPauseButton = (action) => {
-  const opposite = action === 'play' ? 'pause' : 'play';
-  const visibleSvg = document.querySelector(`.timer__svg--js-${action}`);
-  const hiddenSvg = document.querySelector(`.timer__svg--js-${opposite}`);
-
-  visibleSvg.classList.remove('timer__svg--hidden');
-  hiddenSvg.classList.add('timer__svg--hidden');
 }
 
 const handleStopConfirm = (e) => {
@@ -173,42 +63,7 @@ const handleStopConfirm = (e) => {
       break;
   }
 }
-// F0 ////////////////////////////////////////////////////////////// WORK TIME 
 
-const workTime = () => {
-  if (task.isWork) {
-    let {
-      workTimeElapsed,
-      workTimeRemaining,
-      timeTotal,
-      previousTime
-    } = task;
-    
-    // when countdown finishes
-    if (workTimeElapsed >= timeTotal) {
-      task.workTimeElapsed, workTimeElapsed = timeTotal;
-      task.workTimeRemaining, workTimeRemaining = 0;
-      task.overallTime = task.workTimeElapsed + task.breakTimeElapsed;
-      task.overallTimeArray = task.overallTime;
-      stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
-      stopWorktime();
-      handleOutro();
-      outroRetryButton.addEventListener('click', handleRetry);
-
-    } else {
-      const now = Date.now();
-      task.previousTime = now;
-      task.workTimeElapsed = workTimeElapsed + (now - previousTime);
-    }
-    task.workTimeRemaining = timeTotal - workTimeElapsed;
-    task.workTimeElapsedArray = workTimeElapsed;
-    task.workTimeRemainingArray = workTimeRemaining;
-    displayElapsed.textContent = task.workTimeElapsedArray.join(':');
-    displayRemaining.textContent = task.workTimeRemainingArray.join(':');
-    handlePercentSection(workTimeElapsed, progressPercentElapsed, progressBarElapsed);
-    handlePercentSection(workTimeRemaining, progressPercentRemaining, progressBarRemaining);
-  }
-}
 // F0 ///////////////////////////////////////////////// HANDLE PERCENT SECTION 
 
 const handlePercentSection = (workTime, progressPercent, progressBar) => {
@@ -219,7 +74,6 @@ const handlePercentSection = (workTime, progressPercent, progressBar) => {
 // F0 ////////////////////////////////////////////////////////// STOP WORKTIME 
 
 const stopWorktime = () => {
-  task.isWork = false;
   togglePlayPauseButton('play');
   clearInterval(intervalWorkId);
   clearInterval(intervalBreakId);
@@ -295,7 +149,3 @@ const handleRetry = () => {
   taskSection.className = 'task task--js task--visible slideInRight';
   outroRetryButton.removeEventListener('click', handleRetry);
 }
-
-const task = new Task(0);
-let intervalWorkId = "";
-let intervalBreakId = "";

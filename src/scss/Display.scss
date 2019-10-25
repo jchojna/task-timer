@@ -3,40 +3,27 @@
 @import "_animations.scss";
 
 .Display {
-  color: $color-tomato;
-  font-family: 'Inconsolata';
-  font-size: 2.5em;
-  font-weight: 700;
-  flex-direction: column;
+  @include flex-center;
+  bottom: 0;
+  left: 0;
   height: 100%;
-  position: relative;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  transition: visibility 0s $time-display;
+  visibility: hidden;
   width: 100%;
 
-  &--inactive {
-    color: #fff;
+  &--visible {
+    transition: visibility 0s;
+    visibility: inherit;
   }
 
-  &__time {
-    @include flex-center;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transition: visibility 0s $time-display;
-    visibility: hidden;
-    width: 100%;
+  &--showUp {
+    animation: showUp $time-display forwards;
+  }
 
-    &--visible {
-      transition: visibility 0s;
-      visibility: inherit;
-    }
-
-    &--showUp {
-      animation: showUp $time-display forwards;
-    }
-
-    &--hideUp {
-      animation: hideUp $time-display forwards;
-    }
+  &--hideUp {
+    animation: hideUp $time-display forwards;
   }
 }

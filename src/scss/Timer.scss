@@ -41,7 +41,18 @@
     grid-column: 1 / span 3;
   }
 
-  &__breaks {
-    justify-self: right;
+  &__display {
+    color: $color-tomato;
+    font-family: 'Inconsolata';
+    font-size: 3em;
+    font-weight: 700;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    width: 100%;
+
+    &--inactive {
+      color: #fff;
+    }
   }
 }

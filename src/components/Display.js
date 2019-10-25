@@ -1,9 +1,13 @@
 import React from 'react';
 import '../scss/Display.scss';
 
-const Display = () => {
+const Display = (props) => {
+  const taskTimeResult = props.taskTimeArray.join(':');
+
   return (
-    <p className="Display">00:00:00</p>
+    <p className={props.compClassName}>
+      {taskTimeResult}
+    </p>
   );
 }
 export default Display;

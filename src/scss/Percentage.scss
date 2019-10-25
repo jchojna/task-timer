@@ -14,7 +14,7 @@
   top: -1.3em;
   transform: translateX(-50%);
   transition: visibility 0s;
-  //visibility: hidden;
+  visibility: hidden;
 
   &--visible {
     visibility: inherit;
