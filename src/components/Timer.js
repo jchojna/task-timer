@@ -10,22 +10,31 @@ const Timer = (props) => {
     <section className={`Timer ${props.compClassName}`}>
       <div className="Timer__container">
         <h2 className="Timer__heading">Work on your task</h2>
+
+        {/* CONTROL BUTTONS */}
         <Controls
           isActive={props.isActive}
+          changeDisplayMode={props.changeDisplayMode}
         />
+
+        {/* TIMER DISPLAY */}
         <div className="Timer__display">
           <Display
             compClassName={props.isElapsedMode
-              ? "Display--visible"
-              : ""}
+              ? "Display--visible Display--showUp"
+              : "Display--hideUp"}
           />
           <Display
             compClassName={props.isElapsedMode
-              ? ""
-              : "Display--visible"}
+              ? "Display--hideUp"
+              : "Display--visible Display--showUp"}
           />
         </div>
+
+        {/* BREAK */}
         <Break />
+
+        {/* PROGRESS */}
         <Progress />
       </div>
     </section>

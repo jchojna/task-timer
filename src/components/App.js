@@ -76,6 +76,10 @@ class App extends Component {
     })
   }
 
+  handleDisplayMode = () => this.setState(prevState => ({
+    isElapsedMode: !prevState.isElapsedMode
+  }));
+
   render() {
     const {
       // visibility
@@ -141,6 +145,7 @@ class App extends Component {
             : ""}
           isActive={isTaskTimeActive}
           isElapsedMode={isElapsedMode}
+          changeDisplayMode={this.handleDisplayMode}
         />
 
         <StopTask />
