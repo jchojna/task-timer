@@ -10,13 +10,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isTaskVisible: true,
-      isTimeVisible: false,
-      isTimerVisible: false,
+      isTaskVisible: false,
+      isTimeVisible: true,
+      isTimerVisible: true,
       isStopTaskVisible: false,
       isOutroVisible: false,
+      isWorkTimeActive: false,
+      isBreakTimeActive: false,
       taskName: null,
-      isTaskNameValid: false
+      isTaskNameValid: false,
+      taskTimePlanned: null,
+      breakTimePlanned: null,
+      isTaskTimePlannedValid: false,
+      isBreakTimePlannedValid: true
     }
   }
 
@@ -29,6 +35,28 @@ class App extends Component {
     });
   }
 
+  handleTaskTimePlanned = (time) => {
+    this.setState({
+      taskTimePlanned: time,
+      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time)
+    })
+  }
+  
+  handleBreakTimePlanned = (time) => {
+    this.setState({
+      breakTimePlanned: time,
+      isBreakTimePlannedValid: /^((\d?\d[Mm])?\d?\d[Ss]|)$/.test(time)
+    })
+  }
+
+  handleStartButton = () => {
+    this.setState({
+      isTimeVisible: false,
+      isTimerVisible: true,
+      isWorkTimeActive: true
+    })
+  }
+
   render() {
     const {
       isTaskVisible,
@@ -36,13 +64,20 @@ class App extends Component {
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
+      isWorkTimeActive,
+      isBreakTimeActive,
       taskName,
-      isTaskNameValid
+      isTaskNameValid,
+      taskTimePlanned,
+      breakTimePlanned,
+      isTaskTimePlannedValid,
+      isBreakTimePlannedValid
     } = this.state;
 
     return (
       <div className="App">
         <h1 className="App__heading visuallyhidden">Task Timer App</h1>
+
         <Task
           compClassName={isTaskVisible
             ? "Task--visible slideInLeft"
@@ -54,13 +89,30 @@ class App extends Component {
           changeTaskName={this.handleTaskName}
           taskNameValidity={isTaskNameValid}
         />
+
         <Time
           compClassName={isTimeVisible
             ? "Time--visible slideInRight"
-            : "slideOutRight"}
+            : isTimerVisible ? "slideOutLeft" : "slideOutRight"}
+          alertClassName={
+            (!isTaskTimePlannedValid && taskTimePlanned != null)
+            || (!isBreakTimePlannedValid && breakTimePlanned != null)
+            ? "Time__alert--visible"
+            : ""}
           isVisible={this.handleCompVisibility}
+          taskTimePlanned={this.handleTaskTimePlanned}
+          breakTimePlanned={this.handleBreakTimePlanned}
+          taskTimePlannedValidity={isTaskTimePlannedValid}
+          breakTimePlannedValidity={isBreakTimePlannedValid}
+          handleStartButton={this.handleStartButton}
         />
-        <Timer />
+
+        <Timer
+          compClassName={isTimerVisible
+            ? "Timer--visible slideInRight"
+            : ""}
+          isActive={isWorkTimeActive}
+        />
         <StopTask />
         <Outro />
       </div>

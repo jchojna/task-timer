@@ -45,39 +45,12 @@ class Task {
     this._overallTimeArray = makeTimeArray(time)
   }
 }
-// F0 ////////////////////////////////////////////////////// INPUTS VALIDATION 
 
-const isValid = (input) => {
-  const alert = document.querySelector(`.${input}__alert--js`);
-
-  if (input === 'task' ? !/\w/g.test(taskNameInput.value) : !/\d/g.test(timeInput.value)) {
-    alert.classList.add(`${input}__alert--visible`);
-    return false;
-  } else if (timeInput.validity.valid && breakTimeInput.validity.valid) {
-    alert.classList.remove(`${input}__alert--visible`);
-    return 1;
-  } else {
-    return false;
-  }
-}
 // F0 //////////////////////////////////////////////////// HANDLE MAIN BUTTONS 
 
 const handleMainButtons = (e) => {
 
   switch(e.target) {
-
-    case rightButton:
-      if (isValid('task')) {
-        /* taskSection.className = 'task slideOutLeft';
-        timeSection.className = 'time time--visible slideInRight'; */
-        task.name = taskNameInput.value;
-        timerHeading.textContent = `"${task.name}"`;
-      } break;
-
-    /* case leftButton:
-      timeSection.className = 'time slideOutRight';
-      taskSection.className = 'task task--visible slideInLeft';
-      break; */
 
     case timeStartButton:
       if (isValid('time') && !timeStartButton.disable) {
@@ -326,7 +299,3 @@ const handleRetry = () => {
 const task = new Task(0);
 let intervalWorkId = "";
 let intervalBreakId = "";
-
-/* rightButton.addEventListener('click', handleMainButtons);
-leftButton.addEventListener('click', handleMainButtons);
-timeStartButton.addEventListener('click', handleMainButtons); */

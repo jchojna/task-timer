@@ -6,6 +6,7 @@ const Time = (props) => {
   return (
     <section className={`Time ${props.compClassName}`}>
       <h2 className="Time__heading">Task Time Estimation</h2>
+
       <button
         className="Time__button Time__button--left"
         onClick={() => props.isVisible({
@@ -17,25 +18,32 @@ const Time = (props) => {
           <use href={`${icons}#arrow-left`} />
         </svg>
       </button>
+
       <div className="Time__row">
         <input
           id="task-time"
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
-          pattern="(\d?\d[Mm])?(\d?\d[Ss])?"
+          onChange={(e) => props.taskTimePlanned(e.target.value)}
         />
         <input
           id="task-break"
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
-          pattern="(\d?\d[Mm])?(\d?\d[Ss])?"
+          onChange={(e) => props.breakTimePlanned(e.target.value)}
         />
-        <button className="Time__start">
+        <button
+          className="Time__start"
+          onClick={props.taskTimePlannedValidity && props.breakTimePlannedValidity
+          ? props.handleStartButton
+          : undefined}
+        >
           Start
         </button>
       </div>
+
       <div className="Time__row">
         <label className="Time__label Time__label--task" htmlFor="task-time">
           task time
@@ -43,8 +51,8 @@ const Time = (props) => {
         <label className="Time__label Time__label--break" htmlFor="task-break">
           max break time
         </label>
-        <p className="Time__alert">
-          You have to specify time for the task!
+        <p className={`Time__alert ${props.alertClassName}`}>
+          You have to specify time in the following format: 0m0s
         </p>
       </div>
     </section>
