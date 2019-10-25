@@ -23,7 +23,7 @@ class App extends Component {
       taskTimePlanned: null,
       isTaskTimePlannedValid: false,
       taskTimeTotal: 0,
-      taskTimeElapsed: 5375,
+      taskTimeElapsed: 0,
       taskTimeElapsedArray: ['00','00','00'],
       taskTimeRemaining: 0,
       taskTimeRemainingArray: ['00','00','00'],
@@ -33,6 +33,7 @@ class App extends Component {
       isBreakTimeActive: false,
       breaksTotal: 0,
       breakTimeElapsed: 0,
+      breakTimeElapsedArray: ['00','00','00'],
       //timer
       previousTime: 0,
       isTaskTimeActive: false
@@ -132,6 +133,7 @@ class App extends Component {
       isBreakTimeActive,
       breaksTotal,
       breakTimeElapsed,
+      breakTimeElapsedArray,
       // timer
       previousTime,
       isTaskTimeActive,
@@ -176,11 +178,12 @@ class App extends Component {
           compClassName={isTimerVisible
             ? "Timer--visible slideInRight"
             : ""}
-          isActive={isTaskTimeActive}
+          isTaskActive={isTaskTimeActive}
           isElapsedMode={isElapsedMode}
           changeDisplayMode={this.handleDisplayMode}
           taskTimeElapsedArray={taskTimeElapsedArray}
           taskTimeRemainingArray={taskTimeRemainingArray}
+          breakTimeElapsedArray={breakTimeElapsedArray}
         />
 
         <StopTask />

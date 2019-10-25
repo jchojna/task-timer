@@ -16,7 +16,7 @@ class Timer extends Component {
   }
 
   taskTimeTick = () => {
-    if (this.props.isActive) {
+    if (this.props.isTaskActive) {
 
     }
   }
@@ -29,7 +29,7 @@ class Timer extends Component {
   
           {/* CONTROL BUTTONS */}
           <Controls
-            isActive={this.props.isActive}
+            isTaskActive={this.props.isTaskActive}
             changeDisplayMode={this.props.changeDisplayMode}
           />
   
@@ -37,21 +37,26 @@ class Timer extends Component {
           <div className="Timer__display">
             <Display
               compClassName={this.props.isElapsedMode
-                ? "Display--visible Display--showUp"
-                : "Display--hideUp"}
+                ? "Display Display--visible Display--showUp"
+                : "Display Display--hideUp"}
               taskTimeArray={this.props.taskTimeElapsedArray}
             />
             <Display
               compClassName={this.props.isElapsedMode
-                ? "Display--hideUp"
-                : "Display--visible Display--showUp"}
+                ? "Display Display--hideUp"
+                : "Display Display--visible Display--showUp"}
               taskTimeArray={this.props.taskTimeRemainingArray}
             />
           </div>
   
           {/* BREAK */}
-          <Break />
-  
+          <Break
+            compClassName={this.props.isTaskActive
+              ? "Break"
+              : "Break Break--active"}
+            breakTimeElapsedArray={this.props.breakTimeElapsedArray}
+          />
+
           {/* PROGRESS */}
           <Progress />
         </div>

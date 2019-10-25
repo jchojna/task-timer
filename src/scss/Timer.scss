@@ -44,7 +44,7 @@
   &__display {
     color: $color-tomato;
     font-family: 'Inconsolata';
-    font-size: 2em;
+    font-size: 3em;
     font-weight: 700;
     flex-direction: column;
     height: 100%;
@@ -54,9 +54,5 @@
     &--inactive {
       color: #fff;
     }
-  }
-
-  &__breaks {
-    justify-self: right;
   }
 }

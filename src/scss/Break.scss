@@ -6,7 +6,7 @@
   align-items: flex-end;
   display: flex;
   flex-direction: column;
-  font-size: 0.6em;
+  font-size: 1.2em;
   justify-self: end;
 
   &--active {
@@ -16,11 +16,12 @@
   &__counter {
     margin: 0;
     font-weight: 600;
-    font-size: 1.6em;
+    font-size: 1em;
   }
 
   &__display {
     font-family: 'Inconsolata';
     font-weight: 400;
+    margin: 0;
   }
 }

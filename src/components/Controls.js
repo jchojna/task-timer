@@ -10,14 +10,14 @@ const Controls = (props) => {
         className="Controls__button Controls__button--playPause"
       >
         <svg
-          className={`Controls__svg ${props.isActive
+          className={`Controls__svg ${props.isTaskActive
             ? "Controls__svg--hidden" : ""}`}
           viewBox="0 0 512 512"
         >
           <use href={`${icons}#play`} />
         </svg>
         <svg
-          className={`Controls__svg ${props.isActive
+          className={`Controls__svg ${props.isTaskActive
             ? "" : "Controls__svg--hidden"}`}
           viewBox="0 0 512 512"
         >
