@@ -115,7 +115,8 @@ class App extends Component {
         <Time
           compClassName={isTimeVisible
             ? "Time--visible slideInRight"
-            : isTimerVisible ? "slideOutLeft" : "slideOutRight"}
+            //: isTimerVisible ? "slideOutLeft" : "slideOutRight"} // ! FOR TESTS
+            : "Time--visible"}
           alertClassName={
             (!isTaskTimePlannedValid && taskTimePlanned != null)
             || (!isBreakTimePlannedValid && breakTimePlanned != null)
@@ -127,6 +128,7 @@ class App extends Component {
           taskTimePlannedValidity={isTaskTimePlannedValid}
           breakTimePlannedValidity={isBreakTimePlannedValid}
           handleStartButton={this.handleStartButton}
+          isTimerActive={isTaskTimeActive}
         />
 
         <Timer
