@@ -4,7 +4,7 @@ import '../scss/Percentage.scss';
 const Percentage = (props) => {
   return (
     <p className={props.compClassName}>
-      {props.percent}
+      {`${Math.round(props.percent)}%`}
     </p>
   );
 }

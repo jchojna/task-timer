@@ -18,7 +18,11 @@ const Progress = (props) => {
           percent={props.percentRemaining}
         />
       </header>
-      <ProgressBar />
+      <ProgressBar
+        percentElapsed={props.percentElapsed}
+        percentRemaining={props.percentRemaining}
+        isElapsedMode={props.isElapsedMode}
+      />
     </section>
   );
 }

@@ -29,8 +29,8 @@ class Timer extends Component {
       
       const taskTimeElapsedResult = this.props.handleTimeArray(taskTimeElapsed);
       const taskTimeRemainingResult = this.props.handleTimeArray(taskTimeRemaining);
-      const percentElapsed = `${Math.round(taskTimeElapsed / taskTimeTotal * 100)}%`;
-      const percentRemaining = `${Math.round(taskTimeRemaining / taskTimeTotal * 100)}%`;
+      const percentElapsed = taskTimeElapsed / taskTimeTotal * 100;
+      const percentRemaining = taskTimeRemaining / taskTimeTotal * 100;
 
       // when countdown finishes
       if (taskTimeElapsed >= taskTimeTotal) {
@@ -41,7 +41,9 @@ class Timer extends Component {
           taskTimeRemaining: 0,
           overallTime: taskTimeElapsed + breakTimeElapsed,
           taskTimeElapsedArray: taskTimeElapsedResult,
-          taskTimeRemainingArray: taskTimeRemainingResult
+          taskTimeRemainingArray: taskTimeRemainingResult,
+          percentElapsed: percentElapsed,
+          percentRemaining: percentRemaining
         });
 
         /*

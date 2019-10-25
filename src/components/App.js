@@ -39,8 +39,8 @@ class App extends Component {
       breakTimeElapsed: 0,
       breakTimeElapsedArray: ['00','00','00'],
       // progress
-      percentElapsed: "0%",
-      percentRemaining: "100%"
+      percentElapsed: 0,
+      percentRemaining: 100
     }
   }
 
