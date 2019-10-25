@@ -16,18 +16,20 @@ class App extends Component {
       isTimerVisible: true,
       isStopTaskVisible: false,
       isOutroVisible: false,
+      isElapsedMode: true,
       // task
       taskName: null,
       isTaskNameValid: false,
       taskTimePlanned: null,
       isTaskTimePlannedValid: false,
       taskTimeTotal: 0,
-      isTaskTimeActive: false,
       // break
       breakTimePlanned: null,
       isBreakTimePlannedValid: true,
       isBreakTimeActive: false,
-      previousTime: 0
+      previousTime: 0,
+      //timer
+      isTaskTimeActive: false
     }
   }
 
@@ -82,18 +84,20 @@ class App extends Component {
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
+      isElapsedMode,
       // task
       taskName,
       isTaskNameValid,
       taskTimePlanned,
       isTaskTimePlannedValid,
       taskTimeTotal,
-      isTaskTimeActive,
       // break
       breakTimePlanned,
       isBreakTimePlannedValid,
       isBreakTimeActive,
-      previousTime
+      previousTime,
+      // timer
+      isTaskTimeActive,
     } = this.state;
 
     return (
@@ -136,6 +140,7 @@ class App extends Component {
             ? "Timer--visible slideInRight"
             : ""}
           isActive={isTaskTimeActive}
+          isElapsedMode={isElapsedMode}
         />
 
         <StopTask />

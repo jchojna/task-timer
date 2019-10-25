@@ -14,8 +14,16 @@ const Timer = (props) => {
           isActive={props.isActive}
         />
         <div className="Timer__display">
-          <Display />
-          <Display />
+          <Display
+            compClassName={props.isElapsedMode
+              ? "Display--visible"
+              : ""}
+          />
+          <Display
+            compClassName={props.isElapsedMode
+              ? ""
+              : "Display--visible"}
+          />
         </div>
         <Break />
         <Progress />

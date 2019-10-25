@@ -6,7 +6,7 @@
   align-items: flex-end;
   display: flex;
   flex-direction: column;
-  font-size: 1.2em;
+  font-size: 0.6em;
   justify-self: end;
 
   &--active {
@@ -16,6 +16,7 @@
   &__counter {
     margin: 0;
     font-weight: 600;
+    font-size: 1.6em;
   }
 
   &__display {

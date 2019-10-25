@@ -57,16 +57,8 @@ const handleMainButtons = (e) => {
     task.breakTimeElapsed = 0;
     task.breakTimeElapsedArray = task.breakTimeElapsed;
     breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
-    togglePlayPauseButton('pause');
     updateBreaksCounter();
     intervalWorkId = setInterval(() => workTime(), 10);
-    timeSection.className = 'time slideOutLeft';
-    timerSection.className = 'timer timer--visible slideInRight';
-    timeStartButton.disable = true;
-    timeStartButton.classList.add('time__start--disabled');
-    timerStop.addEventListener('click', handleTimerButtons);
-    timerPlayPause.addEventListener('click', handleTimerButtons);
-    timerToggle.addEventListener('click', handleTimerButtons);
   }
 }
 
@@ -130,16 +122,6 @@ const toggleTimeDisplay = (blockElement, modActive, modB, modC) => {
   item.classList.remove(`${blockElement}--${ifActive ? modC : modB}`);
   item.classList.add(`${blockElement}--${ifActive ? modB : modC}`);
   });
-}
-// F0 ////////////////////////////////// TOGGLE PLAY / PAUSE BUTTON APPEARANCE 
-
-const togglePlayPauseButton = (action) => {
-  const opposite = action === 'play' ? 'pause' : 'play';
-  const visibleSvg = document.querySelector(`.timer__svg--js-${action}`);
-  const hiddenSvg = document.querySelector(`.timer__svg--js-${opposite}`);
-
-  visibleSvg.classList.remove('timer__svg--hidden');
-  hiddenSvg.classList.add('timer__svg--hidden');
 }
 
 const handleStopConfirm = (e) => {
