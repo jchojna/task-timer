@@ -10,7 +10,9 @@ const Timer = (props) => {
     <section className={`Timer ${props.compClassName}`}>
       <div className="Timer__container">
         <h2 className="Timer__heading">Work on your task</h2>
-        <Controls />
+        <Controls
+          isActive={props.isActive}
+        />
         <div className="Timer__display">
           <Display />
           <Display />

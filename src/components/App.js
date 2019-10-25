@@ -15,6 +15,8 @@ class App extends Component {
       isTimerVisible: true,
       isStopTaskVisible: false,
       isOutroVisible: false,
+      isWorkTimeActive: false,
+      isBreakTimeActive: false,
       taskName: null,
       isTaskNameValid: false,
       taskTimePlanned: null,
@@ -50,7 +52,8 @@ class App extends Component {
   handleStartButton = () => {
     this.setState({
       isTimeVisible: false,
-      isTimerVisible: true
+      isTimerVisible: true,
+      isWorkTimeActive: true
     })
   }
 
@@ -61,6 +64,8 @@ class App extends Component {
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
+      isWorkTimeActive,
+      isBreakTimeActive,
       taskName,
       isTaskNameValid,
       taskTimePlanned,
@@ -105,8 +110,8 @@ class App extends Component {
         <Timer
           compClassName={isTimerVisible
             ? "Timer--visible slideInRight"
-            : ""
-          }
+            : ""}
+          isActive={isWorkTimeActive}
         />
         <StopTask />
         <Outro />
