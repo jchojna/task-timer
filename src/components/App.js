@@ -18,7 +18,9 @@ class App extends Component {
       taskName: null,
       isTaskNameValid: false,
       taskTimePlanned: null,
-      isTaskTimePlannedValid: false
+      breakTimePlanned: null,
+      isTaskTimePlannedValid: false,
+      isBreakTimePlannedValid: true
     }
   }
 
@@ -35,6 +37,13 @@ class App extends Component {
     this.setState({
       taskTimePlanned: time,
       isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time)
+    })
+  }
+  
+  handleBreakTimePlanned = (time) => {
+    this.setState({
+      breakTimePlanned: time,
+      isBreakTimePlannedValid: /^((\d?\d[Mm])?\d?\d[Ss]|)$/.test(time)
     })
   }
 
@@ -55,12 +64,15 @@ class App extends Component {
       taskName,
       isTaskNameValid,
       taskTimePlanned,
-      isTaskTimePlannedValid
+      breakTimePlanned,
+      isTaskTimePlannedValid,
+      isBreakTimePlannedValid
     } = this.state;
 
     return (
       <div className="App">
         <h1 className="App__heading visuallyhidden">Task Timer App</h1>
+
         <Task
           compClassName={isTaskVisible
             ? "Task--visible slideInLeft"
@@ -72,19 +84,24 @@ class App extends Component {
           changeTaskName={this.handleTaskName}
           taskNameValidity={isTaskNameValid}
         />
+
         <Time
           compClassName={isTimeVisible
             ? "Time--visible slideInRight"
             : isTimerVisible ? "slideOutLeft" : "slideOutRight"}
-          alertClassName={!isTaskTimePlannedValid && taskTimePlanned != null
+          alertClassName={
+            (!isTaskTimePlannedValid && taskTimePlanned != null)
+            || (!isBreakTimePlannedValid && breakTimePlanned != null)
             ? "Time__alert--visible"
             : ""}
-
           isVisible={this.handleCompVisibility}
           taskTimePlanned={this.handleTaskTimePlanned}
+          breakTimePlanned={this.handleBreakTimePlanned}
           taskTimePlannedValidity={isTaskTimePlannedValid}
+          breakTimePlannedValidity={isBreakTimePlannedValid}
           handleStartButton={this.handleStartButton}
         />
+
         <Timer
           compClassName={isTimerVisible
             ? "Timer--visible slideInRight"

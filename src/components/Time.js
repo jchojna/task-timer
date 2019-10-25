@@ -6,6 +6,7 @@ const Time = (props) => {
   return (
     <section className={`Time ${props.compClassName}`}>
       <h2 className="Time__heading">Task Time Estimation</h2>
+
       <button
         className="Time__button Time__button--left"
         onClick={() => props.isVisible({
@@ -17,6 +18,7 @@ const Time = (props) => {
           <use href={`${icons}#arrow-left`} />
         </svg>
       </button>
+
       <div className="Time__row">
         <input
           id="task-time"
@@ -30,16 +32,18 @@ const Time = (props) => {
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
+          onChange={(e) => props.breakTimePlanned(e.target.value)}
         />
         <button
           className="Time__start"
-          onClick={props.taskTimePlannedValidity
+          onClick={props.taskTimePlannedValidity && props.breakTimePlannedValidity
           ? props.handleStartButton
           : undefined}
         >
           Start
         </button>
       </div>
+
       <div className="Time__row">
         <label className="Time__label Time__label--task" htmlFor="task-time">
           task time
