@@ -98,18 +98,14 @@ class App extends Component {
       isTaskVisible,
       isTimeVisible,
       isTimerVisible,
-      isElapsedMode,
       // task
       taskName,
       isTaskNameValid,
       taskTimePlanned,
       isTaskTimePlannedValid,
-      taskTimeElapsedArray,
-      taskTimeRemainingArray,
       // break
       breakTimePlanned,
       isBreakTimePlannedValid,
-      breakTimeElapsedArray,
       // timer
       isTaskTimeActive
     } = this.state;
@@ -125,7 +121,7 @@ class App extends Component {
           alertClassName={taskName === ""
             ? "Task__alert--visible"
             : ""}
-          isVisible={this.handleCompVisibility}
+          changeState={this.handleStateChange}
           changeTaskName={this.handleTaskName}
           taskNameValidity={isTaskNameValid}
         />
@@ -140,25 +136,23 @@ class App extends Component {
             || (!isBreakTimePlannedValid && breakTimePlanned != null)
             ? "Time__alert--visible"
             : ""}
-          isVisible={this.handleCompVisibility}
-          taskTimePlanned={this.handleTaskTimePlanned}
           breakTimePlanned={this.handleBreakTimePlanned}
-          taskTimePlannedValidity={isTaskTimePlannedValid}
           breakTimePlannedValidity={isBreakTimePlannedValid}
+          changeState={this.handleStateChange}
           handleStartButton={this.handleStartButton}
           isTimerActive={isTaskTimeActive}
-          changeState={this.handleStateChange}
+          taskTimePlanned={this.handleTaskTimePlanned}
+          taskTimePlannedValidity={isTaskTimePlannedValid}
         />
 
         <Timer
           compClassName={isTimerVisible
             ? "Timer--visible slideInRight"
             : ""}
-          isElapsedMode={isElapsedMode}
           changeDisplayMode={this.handleDisplayMode}
+          changeState={this.handleStateChange}
           handleTimeArray={this.handleTimeArray}
           state={this.state}
-          changeState={this.handleStateChange}
         />
 
         <StopTask />

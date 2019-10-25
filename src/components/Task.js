@@ -16,7 +16,7 @@ const Task = (props) => {
       <button 
         className="button Task__button Task__button--right"
         onClick={props.taskNameValidity
-          ? () => props.isVisible({isTaskVisible: false, isTimeVisible: true})
+          ? () => props.changeState({isTaskVisible: false, isTimeVisible: true})
           : () => props.changeTaskName("")}
       >
         <svg className="Task__svg" viewBox="0 0 512 512">

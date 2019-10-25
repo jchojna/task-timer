@@ -9,7 +9,7 @@ const Time = (props) => {
       {/* LEFT BUTTON */}
       <button
         className="Time__button Time__button--left"
-        onClick={() => props.isVisible({
+        onClick={() => props.changeState({
           isTaskVisible: true,
           isTimeVisible: false
         })}
