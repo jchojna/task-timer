@@ -29,6 +29,8 @@ class Timer extends Component {
       
       const taskTimeElapsedResult = this.props.handleTimeArray(taskTimeElapsed);
       const taskTimeRemainingResult = this.props.handleTimeArray(taskTimeRemaining);
+      const percentElapsed = `${Math.round(taskTimeElapsed / taskTimeTotal * 100)}%`;
+      const percentRemaining = `${Math.round(taskTimeRemaining / taskTimeTotal * 100)}%`;
 
       // when countdown finishes
       if (taskTimeElapsed >= taskTimeTotal) {
@@ -55,15 +57,11 @@ class Timer extends Component {
           taskTimeElapsed: taskTimeElapsed + (now - previousTime),
           taskTimeElapsedArray: taskTimeElapsedResult,
           taskTimeRemaining: taskTimeTotal - taskTimeElapsed,
-          taskTimeRemainingArray: taskTimeRemainingResult
+          taskTimeRemainingArray: taskTimeRemainingResult,
+          percentElapsed: percentElapsed,
+          percentRemaining: percentRemaining
         });
       }
-      /*
-      task.workTimeRemainingArray = workTimeRemaining;
-      displayElapsed.textContent = task.workTimeElapsedArray.join(':');
-      displayRemaining.textContent = task.workTimeRemainingArray.join(':');
-      handlePercentSection(workTimeElapsed, progressPercentElapsed, progressBarElapsed);
-      handlePercentSection(workTimeRemaining, progressPercentRemaining, progressBarRemaining); */
     }
   }
 
@@ -73,7 +71,9 @@ class Timer extends Component {
       isElapsedMode,
       taskTimeElapsedArray,
       taskTimeRemainingArray,
-      breakTimeElapsedArray
+      breakTimeElapsedArray,
+      percentElapsed,
+      percentRemaining
     } = this.props.state;
 
     return (
@@ -112,7 +112,11 @@ class Timer extends Component {
           />
 
           {/* PROGRESS */}
-          <Progress />
+          <Progress
+            isElapsedMode={isElapsedMode}
+            percentElapsed={percentElapsed}
+            percentRemaining={percentRemaining}
+          />
         </div>
       </section>
     );

@@ -1,9 +1,11 @@
 import React from 'react';
 import '../scss/Percentage.scss';
 
-const Percentage = () => {
+const Percentage = (props) => {
   return (
-    <p className="Percentage">0%</p>
+    <p className={props.compClassName}>
+      {props.percent}
+    </p>
   );
 }
 export default Percentage;

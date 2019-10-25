@@ -27,6 +27,10 @@ class App extends Component {
       taskTimeElapsedArray: ['00','00','00'],
       taskTimeRemaining: 0,
       taskTimeRemainingArray: ['00','00','00'],
+      //timer
+      previousTime: 0,
+      isTaskTimeActive: false,
+      overallTime: 0,
       // break
       breakTimePlanned: null,
       isBreakTimePlannedValid: true,
@@ -34,10 +38,9 @@ class App extends Component {
       breaksTotal: 0,
       breakTimeElapsed: 0,
       breakTimeElapsedArray: ['00','00','00'],
-      //timer
-      previousTime: 0,
-      isTaskTimeActive: false,
-      overallTime: 0
+      // progress
+      percentElapsed: "0%",
+      percentRemaining: "100%"
     }
   }
 
@@ -49,8 +52,6 @@ class App extends Component {
       makeTwoDigits(Math.floor(time / 10 % 100))
     ]
   }
-
-  handleCompVisibility = (object) => this.setState(object);
 
   handleTaskName = (name) => {
     this.setState({
