@@ -10,19 +10,24 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // visibility
       isTaskVisible: false,
       isTimeVisible: true,
       isTimerVisible: true,
       isStopTaskVisible: false,
       isOutroVisible: false,
-      isWorkTimeActive: false,
-      isBreakTimeActive: false,
+      // task
       taskName: null,
       isTaskNameValid: false,
       taskTimePlanned: null,
-      breakTimePlanned: null,
       isTaskTimePlannedValid: false,
-      isBreakTimePlannedValid: true
+      taskTimeTotal: 0,
+      isTaskTimeActive: false,
+      // break
+      breakTimePlanned: null,
+      isBreakTimePlannedValid: true,
+      isBreakTimeActive: false,
+      previousTime: 0
     }
   }
 
@@ -49,29 +54,46 @@ class App extends Component {
     })
   }
 
+  handleTotalTime = () => {
+    const {taskTimePlanned} = this.state;
+    let time = taskTimePlanned.split(/[mM]/).map(a => parseInt(a) || 0);
+    // if time format 00m is acceptable
+    time = time.length > 1 ? time : [0, ...time];
+    const [minutes, seconds] = time;
+    return minutes * 60000 + seconds * 1000;
+  }
+
   handleStartButton = () => {
+    const taskTimeTotal = this.handleTotalTime();
     this.setState({
       isTimeVisible: false,
       isTimerVisible: true,
-      isWorkTimeActive: true
+      isTaskTimeActive: true,
+      previousTime: Date.now(),
+      taskTimeTotal: taskTimeTotal
     })
   }
 
   render() {
     const {
+      // visibility
       isTaskVisible,
       isTimeVisible,
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
-      isWorkTimeActive,
-      isBreakTimeActive,
+      // task
       taskName,
       isTaskNameValid,
       taskTimePlanned,
-      breakTimePlanned,
       isTaskTimePlannedValid,
-      isBreakTimePlannedValid
+      taskTimeTotal,
+      isTaskTimeActive,
+      // break
+      breakTimePlanned,
+      isBreakTimePlannedValid,
+      isBreakTimeActive,
+      previousTime
     } = this.state;
 
     return (
@@ -111,9 +133,11 @@ class App extends Component {
           compClassName={isTimerVisible
             ? "Timer--visible slideInRight"
             : ""}
-          isActive={isWorkTimeActive}
+          isActive={isTaskTimeActive}
         />
+
         <StopTask />
+
         <Outro />
       </div>
     );

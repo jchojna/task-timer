@@ -50,42 +50,26 @@ class Task {
 
 const handleMainButtons = (e) => {
 
-  switch(e.target) {
-
-    case timeStartButton:
-      if (isValid('time') && !timeStartButton.disable) {
-        task.isWork = true;
-        task.previousTime = Date.now();
-        task.timeTotal = setTotalTime();
-        if (task.timeTotal <= 0) return;
-        task.workTimeElapsed = 0;
-        task.totalBreaks = 0;
-        task.breakTimeElapsed = 0;
-        task.breakTimeElapsedArray = task.breakTimeElapsed;
-        breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
-        togglePlayPauseButton('pause');
-        updateBreaksCounter();
-        intervalWorkId = setInterval(() => workTime(), 10);
-        timeSection.className = 'time slideOutLeft';
-        timerSection.className = 'timer timer--visible slideInRight';
-        timeStartButton.disable = true;
-        timeStartButton.classList.add('time__start--disabled');
-        timerStop.addEventListener('click', handleTimerButtons);
-        timerPlayPause.addEventListener('click', handleTimerButtons);
-        timerToggle.addEventListener('click', handleTimerButtons);
-      } break;
-      
-    default: false;
+  if (isValid('time') && !timeStartButton.disable) {
+    if (task.timeTotal <= 0) return;
+    task.workTimeElapsed = 0;
+    task.totalBreaks = 0;
+    task.breakTimeElapsed = 0;
+    task.breakTimeElapsedArray = task.breakTimeElapsed;
+    breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
+    togglePlayPauseButton('pause');
+    updateBreaksCounter();
+    intervalWorkId = setInterval(() => workTime(), 10);
+    timeSection.className = 'time slideOutLeft';
+    timerSection.className = 'timer timer--visible slideInRight';
+    timeStartButton.disable = true;
+    timeStartButton.classList.add('time__start--disabled');
+    timerStop.addEventListener('click', handleTimerButtons);
+    timerPlayPause.addEventListener('click', handleTimerButtons);
+    timerToggle.addEventListener('click', handleTimerButtons);
   }
 }
-// F0 ///////////////////////////////////////////////////////// SET TOTAL TIME 
 
-const setTotalTime = () => {
-  let time = timeInput.value.split(/[mM]/).map(a => parseInt(a) || 0);
-  time = time.length > 1 ? time : [0, ...time];
-  const [minutes, seconds] = time;
-  return minutes * 60000 + seconds * 1000;
-}
 // F0 ////////////////////////////////////////////////// UPDATE BREAKS COUNTER 
 
 const updateBreaksCounter = () => breaksCounter.textContent =
