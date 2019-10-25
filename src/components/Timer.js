@@ -15,9 +15,65 @@ class Timer extends Component {
     clearInterval(this.taskIntervalId);
   }
 
+  handleTimeArray = (time) => {
+    const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
+    return [
+      makeTwoDigits(Math.floor(time / 60000)),
+      makeTwoDigits(Math.floor(time / 1000 % 60)),
+      makeTwoDigits(Math.floor(time / 10 % 100))
+    ]
+  }
+
   taskTimeTick = () => {
     if (this.props.isTaskActive) {
 
+      const now = Date.now();
+      const {
+        taskTimeElapsed,
+        taskTimeRemaining,
+        taskTimeElapsedArray,
+        previousTime,
+        taskTimeTotal,
+        breakTimeElapsed,
+        overallTime
+      } = this.props.state;
+      
+      const taskTimeElapsedResult = this.handleTimeArray(taskTimeElapsed);
+
+      // when countdown finishes
+      if (taskTimeElapsed >= taskTimeTotal) {
+        console.log('stop');
+
+        this.props.changeState({
+          isTaskActive: false,
+          taskTimeElapsed: taskTimeTotal,
+          taskTimeRemaining: 0,
+          overallTime: taskTimeElapsed + breakTimeElapsed
+        });
+
+        clearInterval(this.taskIntervalId);
+
+        /*
+        task.overallTimeArray = task.overallTime;
+        stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
+        stopWorktime();
+        handleOutro();
+        outroRetryButton.addEventListener('click', handleRetry); */
+
+      } else {
+        this.props.changeState({
+          previousTime: now,
+          taskTimeElapsed: taskTimeElapsed + (now - previousTime),
+          taskTimeElapsedArray: taskTimeElapsedResult
+        });
+      }
+      /* task.workTimeRemaining = timeTotal - workTimeElapsed;
+      task.workTimeElapsedArray = workTimeElapsed;
+      task.workTimeRemainingArray = workTimeRemaining;
+      displayElapsed.textContent = task.workTimeElapsedArray.join(':');
+      displayRemaining.textContent = task.workTimeRemainingArray.join(':');
+      handlePercentSection(workTimeElapsed, progressPercentElapsed, progressBarElapsed);
+      handlePercentSection(workTimeRemaining, progressPercentRemaining, progressBarRemaining); */
     }
   }
 

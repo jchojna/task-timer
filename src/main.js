@@ -1,42 +1,5 @@
-
-get workTimeElapsedArray() {
-  return this._workTimeElapsedArray;
-}
-set workTimeElapsedArray(time) {
-  this._workTimeElapsedArray = makeTimeArray(time);
-}
-get workTimeRemainingArray() {
-  return this._workTimeRemainingArray;
-}
-set workTimeRemainingArray(time) {
-  this._workTimeRemainingArray = makeTimeArray(time)
-}
-get breakTimeElapsedArray() {
-  return this._breakTimeElapsedArray;
-}
-set breakTimeElapsedArray(time) {
-  this._breakTimeElapsedArray = makeTimeArray(time)
-}
-get overallTimeArray() {
-  return this._overallTimeArray;
-}
-set overallTimeArray(time) {
-  this._overallTimeArray = makeTimeArray(time)
-}
-
-// F0 //////////////////////////////////////////////////// HANDLE MAIN BUTTONS 
-
-const handleMainButtons = (e) => {
-
-  if (isValid('time') && !timeStartButton.disable) {
-    if (task.timeTotal <= 0) return;
-    
-    task.breakTimeElapsedArray = task.breakTimeElapsed;
-    breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
-    updateBreaksCounter();
-    intervalWorkId = setInterval(() => workTime(), 10);
-  }
-}
+/* if (isValid('time') && !timeStartButton.disable) {
+  if (task.timeTotal <= 0) return; */
 
 // F0 ////////////////////////////////////////////////// UPDATE BREAKS COUNTER 
 
@@ -100,42 +63,7 @@ const handleStopConfirm = (e) => {
       break;
   }
 }
-// F0 ////////////////////////////////////////////////////////////// WORK TIME 
 
-const workTime = () => {
-  if (task.isWork) {
-    let {
-      workTimeElapsed,
-      workTimeRemaining,
-      timeTotal,
-      previousTime
-    } = task;
-    
-    // when countdown finishes
-    if (workTimeElapsed >= timeTotal) {
-      task.workTimeElapsed, workTimeElapsed = timeTotal;
-      task.workTimeRemaining, workTimeRemaining = 0;
-      task.overallTime = task.workTimeElapsed + task.breakTimeElapsed;
-      task.overallTimeArray = task.overallTime;
-      stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
-      stopWorktime();
-      handleOutro();
-      outroRetryButton.addEventListener('click', handleRetry);
-
-    } else {
-      const now = Date.now();
-      task.previousTime = now;
-      task.workTimeElapsed = workTimeElapsed + (now - previousTime);
-    }
-    task.workTimeRemaining = timeTotal - workTimeElapsed;
-    task.workTimeElapsedArray = workTimeElapsed;
-    task.workTimeRemainingArray = workTimeRemaining;
-    displayElapsed.textContent = task.workTimeElapsedArray.join(':');
-    displayRemaining.textContent = task.workTimeRemainingArray.join(':');
-    handlePercentSection(workTimeElapsed, progressPercentElapsed, progressBarElapsed);
-    handlePercentSection(workTimeRemaining, progressPercentRemaining, progressBarRemaining);
-  }
-}
 // F0 ///////////////////////////////////////////////// HANDLE PERCENT SECTION 
 
 const handlePercentSection = (workTime, progressPercent, progressBar) => {
@@ -146,7 +74,6 @@ const handlePercentSection = (workTime, progressPercent, progressBar) => {
 // F0 ////////////////////////////////////////////////////////// STOP WORKTIME 
 
 const stopWorktime = () => {
-  task.isWork = false;
   togglePlayPauseButton('play');
   clearInterval(intervalWorkId);
   clearInterval(intervalBreakId);

@@ -36,7 +36,8 @@ class App extends Component {
       breakTimeElapsedArray: ['00','00','00'],
       //timer
       previousTime: 0,
-      isTaskTimeActive: false
+      isTaskTimeActive: false,
+      overallTime: 0
     }
   }
 
@@ -100,9 +101,10 @@ class App extends Component {
       taskTimeElapsedArray: taskTimeElapsedArray,
       taskTimeRemainingArray: taskTimeRemainingArray,
       breakTimeElapsedArray: breakTimeElapsedArray
-
     })
   }
+
+  handleStateChange = (object) => this.setState(object);
 
   handleDisplayMode = () => this.setState(prevState => ({
     isElapsedMode: !prevState.isElapsedMode
@@ -137,6 +139,7 @@ class App extends Component {
       // timer
       previousTime,
       isTaskTimeActive,
+      overallTime
     } = this.state;
 
     return (
@@ -184,6 +187,8 @@ class App extends Component {
           taskTimeElapsedArray={taskTimeElapsedArray}
           taskTimeRemainingArray={taskTimeRemainingArray}
           breakTimeElapsedArray={breakTimeElapsedArray}
+          state={this.state}
+          changeState={this.handleStateChange}
         />
 
         <StopTask />
