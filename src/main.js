@@ -1,49 +1,27 @@
-const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
 
-const toggleStopConfirm = () => stopSection.classList.toggle('stop--visible');
-
-const makeTimeArray = (time) => [
-  makeTwoDigits(Math.floor(time / 60000)),
-  makeTwoDigits(Math.floor(time / 1000 % 60)),
-  makeTwoDigits(Math.floor(time / 10 % 100))
-];
-// F0 ///////////////////////////////////////////////////////////// TASK CLASS 
-
-class Task {
-  constructor(time) {
-    this.breakTimeElapsed = 0,
-    this.isWork = false,
-    this.isBreak = false,
-    this.name = "",
-    this.previousTime = 0,
-    this.workTimeElapsed = 0,
-    this.workTimeRemaining = time
-  }
-
-  get workTimeElapsedArray() {
-    return this._workTimeElapsedArray;
-  }
-  set workTimeElapsedArray(time) {
-    this._workTimeElapsedArray = makeTimeArray(time);
-  }
-  get workTimeRemainingArray() {
-    return this._workTimeRemainingArray;
-  }
-  set workTimeRemainingArray(time) {
-    this._workTimeRemainingArray = makeTimeArray(time)
-  }
-  get breakTimeElapsedArray() {
-    return this._breakTimeElapsedArray;
-  }
-  set breakTimeElapsedArray(time) {
-    this._breakTimeElapsedArray = makeTimeArray(time)
-  }
-  get overallTimeArray() {
-    return this._overallTimeArray;
-  }
-  set overallTimeArray(time) {
-    this._overallTimeArray = makeTimeArray(time)
-  }
+get workTimeElapsedArray() {
+  return this._workTimeElapsedArray;
+}
+set workTimeElapsedArray(time) {
+  this._workTimeElapsedArray = makeTimeArray(time);
+}
+get workTimeRemainingArray() {
+  return this._workTimeRemainingArray;
+}
+set workTimeRemainingArray(time) {
+  this._workTimeRemainingArray = makeTimeArray(time)
+}
+get breakTimeElapsedArray() {
+  return this._breakTimeElapsedArray;
+}
+set breakTimeElapsedArray(time) {
+  this._breakTimeElapsedArray = makeTimeArray(time)
+}
+get overallTimeArray() {
+  return this._overallTimeArray;
+}
+set overallTimeArray(time) {
+  this._overallTimeArray = makeTimeArray(time)
 }
 
 // F0 //////////////////////////////////////////////////// HANDLE MAIN BUTTONS 
@@ -52,9 +30,7 @@ const handleMainButtons = (e) => {
 
   if (isValid('time') && !timeStartButton.disable) {
     if (task.timeTotal <= 0) return;
-    task.workTimeElapsed = 0;
-    task.totalBreaks = 0;
-    task.breakTimeElapsed = 0;
+    
     task.breakTimeElapsedArray = task.breakTimeElapsed;
     breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
     updateBreaksCounter();
@@ -101,27 +77,12 @@ const handleTimerButtons = (e) => {
       break;
 
     case timerToggle:
-      toggleTimeDisplay('display__time', 'visible', 'showUp', 'hideUp');
-      toggleTimeDisplay('progress__part', 'loading', 'unloading', 'loading');
       progressPercentElapsed.classList.toggle('progress__percent--visible');
       progressPercentRemaining.classList.toggle('progress__percent--visible');
       break;
 
     default: false;
   }
-}
-// F0 //////////////////////////////////////////////////// TOGGLE TIME DISPLAY 
-
-const toggleTimeDisplay = (blockElement, modActive, modB, modC) => {
-  const nodes = document.querySelectorAll(`[class*="${blockElement}"]`);
-  const blockName = blockElement.split('__')[0];
-
-  [...nodes].forEach(item => {
-  blockName === 'display' ? item.classList.toggle(`${blockElement}--${modActive}`): false;
-  const ifActive = item.classList.contains(`${blockElement}--${modActive}`);
-  item.classList.remove(`${blockElement}--${ifActive ? modC : modB}`);
-  item.classList.add(`${blockElement}--${ifActive ? modB : modC}`);
-  });
 }
 
 const handleStopConfirm = (e) => {
@@ -261,7 +222,3 @@ const handleRetry = () => {
   taskSection.className = 'task task--js task--visible slideInRight';
   outroRetryButton.removeEventListener('click', handleRetry);
 }
-
-const task = new Task(0);
-let intervalWorkId = "";
-let intervalBreakId = "";

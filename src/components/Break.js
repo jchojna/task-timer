@@ -6,7 +6,7 @@ const Break = () => {
   return (
     <div className="Break">
       <h3 className="Break__counter">0 breaks</h3>
-      <Display />
+      {/* <Display /> */}
     </div>
   );
 }

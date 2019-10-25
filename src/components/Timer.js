@@ -6,6 +6,21 @@ import Progress from './Progress';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
+
+  componentDidMount() {
+    this.taskIntervalId = setInterval(() => this.taskTimeTick(), 10)
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.taskIntervalId);
+  }
+
+  taskTimeTick = () => {
+    if (this.props.isActive) {
+
+    }
+  }
+
   render() {
     return (
       <section className={`Timer ${this.props.compClassName}`}>
@@ -24,11 +39,13 @@ class Timer extends Component {
               compClassName={this.props.isElapsedMode
                 ? "Display--visible Display--showUp"
                 : "Display--hideUp"}
+              taskTimeArray={this.props.taskTimeElapsedArray}
             />
             <Display
               compClassName={this.props.isElapsedMode
                 ? "Display--hideUp"
                 : "Display--visible Display--showUp"}
+              taskTimeArray={this.props.taskTimeRemainingArray}
             />
           </div>
   
