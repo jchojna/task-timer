@@ -41,6 +41,15 @@ class App extends Component {
     }
   }
 
+  handleTimeArray = (time) => {
+    const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
+    return [
+      makeTwoDigits(Math.floor(time / 60000)),
+      makeTwoDigits(Math.floor(time / 1000 % 60)),
+      makeTwoDigits(Math.floor(time / 10 % 100))
+    ]
+  }
+
   handleCompVisibility = (object) => this.setState(object);
 
   handleTaskName = (name) => {
@@ -52,11 +61,13 @@ class App extends Component {
 
   handleTaskTimePlanned = (time) => {
     const taskTimeTotal = this.handleTotalTime(time);
+    const taskTimeRemainingArray = this.handleTimeArray(taskTimeTotal);
     this.setState({
       taskTimePlanned: time,
       isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time),
       taskTimeTotal: taskTimeTotal,
-      taskTimeRemaining: taskTimeTotal
+      taskTimeRemaining: taskTimeTotal,
+      taskTimeRemainingArray: taskTimeRemainingArray
     })
   }
   
@@ -87,30 +98,20 @@ class App extends Component {
       isTaskVisible,
       isTimeVisible,
       isTimerVisible,
-      isStopTaskVisible,
-      isOutroVisible,
       isElapsedMode,
       // task
       taskName,
       isTaskNameValid,
       taskTimePlanned,
       isTaskTimePlannedValid,
-      taskTimeTotal,
-      taskTimeElapsed,
       taskTimeElapsedArray,
-      taskTimeRemaining,
       taskTimeRemainingArray,
       // break
       breakTimePlanned,
       isBreakTimePlannedValid,
-      isBreakTimeActive,
-      breaksTotal,
-      breakTimeElapsed,
       breakTimeElapsedArray,
       // timer
-      previousTime,
-      isTaskTimeActive,
-      overallTime
+      isTaskTimeActive
     } = this.state;
 
     return (
@@ -153,12 +154,9 @@ class App extends Component {
           compClassName={isTimerVisible
             ? "Timer--visible slideInRight"
             : ""}
-          isTaskActive={isTaskTimeActive}
           isElapsedMode={isElapsedMode}
           changeDisplayMode={this.handleDisplayMode}
-          taskTimeElapsedArray={taskTimeElapsedArray}
-          taskTimeRemainingArray={taskTimeRemainingArray}
-          breakTimeElapsedArray={breakTimeElapsedArray}
+          handleTimeArray={this.handleTimeArray}
           state={this.state}
           changeState={this.handleStateChange}
         />

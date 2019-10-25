@@ -15,31 +15,20 @@ class Timer extends Component {
     clearInterval(this.taskIntervalId);
   }
 
-  handleTimeArray = (time) => {
-    const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
-    return [
-      makeTwoDigits(Math.floor(time / 60000)),
-      makeTwoDigits(Math.floor(time / 1000 % 60)),
-      makeTwoDigits(Math.floor(time / 10 % 100))
-    ]
-  }
-
   taskTimeTick = () => {
-    if (this.props.isTaskActive) {
+    if (this.props.state.isTaskTimeActive) {
 
       const now = Date.now();
       const {
         taskTimeElapsed,
         taskTimeRemaining,
-        taskTimeElapsedArray,
         previousTime,
         taskTimeTotal,
-        breakTimeElapsed,
-        overallTime
+        breakTimeElapsed
       } = this.props.state;
       
-      const taskTimeElapsedResult = this.handleTimeArray(taskTimeElapsed);
-      const taskTimeRemainingResult = this.handleTimeArray(taskTimeRemaining);
+      const taskTimeElapsedResult = this.props.handleTimeArray(taskTimeElapsed);
+      const taskTimeRemainingResult = this.props.handleTimeArray(taskTimeRemaining);
 
       // when countdown finishes
       if (taskTimeElapsed >= taskTimeTotal) {
@@ -79,6 +68,14 @@ class Timer extends Component {
   }
 
   render() {
+    const {
+      isTaskTimeActive,
+      isElapsedMode,
+      taskTimeElapsedArray,
+      taskTimeRemainingArray,
+      breakTimeElapsedArray
+    } = this.props.state;
+
     return (
       <section className={`Timer ${this.props.compClassName}`}>
         <div className="Timer__container">
@@ -86,32 +83,32 @@ class Timer extends Component {
   
           {/* CONTROL BUTTONS */}
           <Controls
-            isTaskActive={this.props.isTaskActive}
+            isTaskActive={isTaskTimeActive}
             changeDisplayMode={this.props.changeDisplayMode}
           />
   
           {/* TIMER DISPLAY */}
           <div className="Timer__display">
             <Display
-              compClassName={this.props.isElapsedMode
+              compClassName={isElapsedMode
                 ? "Display Display--visible Display--showUp"
                 : "Display Display--hideUp"}
-              taskTimeArray={this.props.taskTimeElapsedArray}
+              taskTimeArray={taskTimeElapsedArray}
             />
             <Display
-              compClassName={this.props.isElapsedMode
+              compClassName={isElapsedMode
                 ? "Display Display--hideUp"
                 : "Display Display--visible Display--showUp"}
-              taskTimeArray={this.props.taskTimeRemainingArray}
+              taskTimeArray={taskTimeRemainingArray}
             />
           </div>
   
           {/* BREAK */}
           <Break
-            compClassName={this.props.isTaskActive
+            compClassName={isTaskTimeActive
               ? "Break"
               : "Break Break--active"}
-            breakTimeElapsedArray={this.props.breakTimeElapsedArray}
+            breakTimeElapsedArray={breakTimeElapsedArray}
           />
 
           {/* PROGRESS */}
