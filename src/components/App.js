@@ -10,9 +10,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isTaskVisible: true,
-      isTimeVisible: false,
-      isTimerVisible: false,
+      isTaskVisible: false,
+      isTimeVisible: true,
+      isTimerVisible: true,
       isStopTaskVisible: false,
       isOutroVisible: false,
       taskName: null,
