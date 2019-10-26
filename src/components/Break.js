@@ -3,15 +3,21 @@ import Display from './Display';
 import '../scss/Break.scss';
 
 const Break = (props) => {
+  const {
+    compClassName,
+    breaksTotal,
+    breakTimeElapsedArray
+  } = props;
+  
   return (
-    <div className={props.compClassName}>
+    <div className={compClassName}>
       <h3 className="Break__counter">
-        {`${props.breaksTotal} ${props.breaksTotal === 1
+        {`${props.breaksTotal} ${breaksTotal === 1
         ? "break" : "breaks"}`}
       </h3>
       <Display
         compClassName="Break__display"
-        taskTimeArray={props.breakTimeElapsedArray}
+        taskTimeArray={breakTimeElapsedArray}
       />
     </div>
   );
