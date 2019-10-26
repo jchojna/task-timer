@@ -13,6 +13,7 @@ const Controls = (props) => {
         className="Controls__button Controls__button--playPause"
         onClick={() => props.changeState({
           isTaskTimeActive: !props.isTaskTimeActive,
+          isBreakTimeActive: !props.isBreakTimeActive,
           breaksTotal: incBreaksTotal,
           previousTime: Date.now()
         })}

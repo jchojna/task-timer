@@ -1,48 +1,6 @@
 /* if (isValid('time') && !timeStartButton.disable) {
   if (task.timeTotal <= 0) return; */
 
-// F0 /////////////////////////////////////////////////// HANDLE TIMER BUTTONS 
-
-const handleTimerButtons = (e) => {
-
-  switch(e.target) {
-
-    case timerPlayPause:
-      // enabling break mode
-      if (task.isWork) {
-        task.isWork = false;
-        task.isBreak = true;
-        task.totalBreaks = task.totalBreaks + 1;
-        togglePlayPauseButton('play');
-        updateBreaksCounter();
-        intervalBreakId = setInterval(() => breakTime(), 10);
-        displaySection.classList.add('display--inactive');
-        breakSection.classList.add('break--active');
-      // turning break mode off
-      } else {
-        task.isWork = true;
-        task.isBreak = false;
-        task.previousTime = Date.now();
-        togglePlayPauseButton('pause');
-        clearInterval(intervalBreakId);
-        displaySection.classList.remove('display--inactive');
-        breakSection.classList.remove('break--active');
-      } break;
-
-    case timerStop:
-      toggleStopConfirm();
-      stopSection.addEventListener('click', handleStopConfirm);
-      break;
-
-    case timerToggle:
-      progressPercentElapsed.classList.toggle('progress__percent--visible');
-      progressPercentRemaining.classList.toggle('progress__percent--visible');
-      break;
-
-    default: false;
-  }
-}
-
 const handleStopConfirm = (e) => {
   switch (e.target) {
 

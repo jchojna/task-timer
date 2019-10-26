@@ -8,11 +8,13 @@ import '../scss/Timer.scss';
 class Timer extends Component {
 
   componentDidMount() {
-    this.taskIntervalId = setInterval(() => this.taskTimeTick(), 10)
+    this.taskIntervalId = setInterval(() => this.taskTimeTick(), 10);
+    this.breakIntervalId = setInterval(() => this.breakTimeTick(), 10);
   }
   
   componentWillUnmount() {
     clearInterval(this.taskIntervalId);
+    clearInterval(this.breakIntervalId);
   }
 
   taskTimeTick = () => {
@@ -67,9 +69,29 @@ class Timer extends Component {
     }
   }
 
+  breakTimeTick = () => {
+    if (this.props.state.isBreakTimeActive) {
+
+      const now = Date.now();
+      const {
+        breakTimeElapsed,
+        previousTime
+      } = this.props.state;
+      
+      const breakTimeElapsedResult = this.props.handleTimeArray(breakTimeElapsed);
+
+      this.props.changeState({
+        breakTimeElapsed: breakTimeElapsed + (now - previousTime),
+        breakTimeElapsedArray: breakTimeElapsedResult,
+        previousTime: now
+      });
+    }
+  }
+
   render() {
     const {
       isTaskTimeActive,
+      isBreakTimeActive,
       isElapsedMode,
       breaksTotal,
       taskTimeElapsedArray,
@@ -87,6 +109,7 @@ class Timer extends Component {
           {/* CONTROL BUTTONS */}
           <Controls
             isTaskTimeActive={isTaskTimeActive}
+            isBreakTimeActive={isBreakTimeActive}
             breaksTotal={breaksTotal}
             changeDisplayMode={this.props.changeDisplayMode}
             changeState={this.props.changeState}
