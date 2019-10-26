@@ -30,22 +30,7 @@ const stopWorktime = () => {
   timerPlayPause.removeEventListener('click', handleTimerButtons);
   timerToggle.removeEventListener('click', handleTimerButtons);
 }
-// F0 ///////////////////////////////////////////////////////////// BREAK TIME 
 
-const breakTime = () => {
-  if (task.isBreak) {
-    const {
-      previousTime,
-      breakTimeElapsed
-    } = task;
-
-    const now = Date.now();
-    task.previousTime = now;
-    task.breakTimeElapsed = breakTimeElapsed + (now - previousTime);
-    task.breakTimeElapsedArray = task.breakTimeElapsed;
-    breakDisplay.textContent = task.breakTimeElapsedArray.join(':');
-  }
-}
 // F0 /////////////////////////////////////////////////////////// HANDLE OUTRO 
 
 const handleOutro = () => {

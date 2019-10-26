@@ -1,9 +1,9 @@
 import React from 'react';
 import '../scss/StopTask.scss';
 
-const StopTask = () => {
+const StopTask = (props) => {
   return (
-    <section className="StopTask">
+    <section className={props.compClassName}>
       <div className="StopTask__container">
         <h2 className="StopTask__heading">
           Are you sure you want to quit?

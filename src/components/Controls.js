@@ -35,7 +35,12 @@ const Controls = (props) => {
       </button>
 
       {/* STOP BUTTON */}
-      <button className="Controls__button Controls__button--stop">
+      <button
+        className="Controls__button Controls__button--stop"
+        onClick={() => props.changeState({
+          isStopTaskVisible: true
+        })}
+      >
         <svg className="Controls__svg" viewBox="0 0 512 512">
           <use href={`${icons}#stop`} />
         </svg>

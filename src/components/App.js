@@ -99,6 +99,7 @@ class App extends Component {
       isTaskVisible,
       isTimeVisible,
       isTimerVisible,
+      isStopTaskVisible,
       // task
       taskName,
       isTaskNameValid,
@@ -156,7 +157,10 @@ class App extends Component {
           state={this.state}
         />
 
-        <StopTask />
+        <StopTask
+          compClassName={`StopTask ${isStopTaskVisible
+          ? "StopTask--visible" : ""}`}
+        />
 
         <Outro />
       </div>
