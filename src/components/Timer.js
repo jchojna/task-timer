@@ -87,6 +87,7 @@ class Timer extends Component {
           <Controls
             isTaskActive={isTaskTimeActive}
             changeDisplayMode={this.props.changeDisplayMode}
+            changeState={this.props.changeState}
           />
   
           {/* TIMER DISPLAY */}

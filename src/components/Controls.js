@@ -8,6 +8,9 @@ const Controls = (props) => {
       {/* PLAY / PAUSE BUTTON */}
       <button
         className="Controls__button Controls__button--playPause"
+        onClick={() => props.changeState({
+          isTaskTimeActive: false
+        })}
       >
         <svg
           className={`Controls__svg ${props.isTaskActive
