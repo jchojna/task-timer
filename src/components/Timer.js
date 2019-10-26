@@ -71,6 +71,7 @@ class Timer extends Component {
     const {
       isTaskTimeActive,
       isElapsedMode,
+      breaksTotal,
       taskTimeElapsedArray,
       taskTimeRemainingArray,
       breakTimeElapsedArray,
@@ -86,6 +87,7 @@ class Timer extends Component {
           {/* CONTROL BUTTONS */}
           <Controls
             isTaskTimeActive={isTaskTimeActive}
+            breaksTotal={breaksTotal}
             changeDisplayMode={this.props.changeDisplayMode}
             changeState={this.props.changeState}
           />
@@ -109,8 +111,8 @@ class Timer extends Component {
           {/* BREAK */}
           <Break
             compClassName={isTaskTimeActive
-              ? "Break"
-              : "Break Break--active"}
+            ? "Break" : "Break Break--active"}
+            breaksTotal={breaksTotal}
             breakTimeElapsedArray={breakTimeElapsedArray}
           />
 

@@ -3,6 +3,9 @@ import icons from '../assets/svg/icons.svg';
 import '../scss/Controls.scss';
 
 const Controls = (props) => {
+  const incBreaksTotal = props.isTaskTimeActive
+  ? props.breaksTotal + 1 : props.breaksTotal;
+
   return (
     <div className="Controls">
       {/* PLAY / PAUSE BUTTON */}
@@ -10,6 +13,7 @@ const Controls = (props) => {
         className="Controls__button Controls__button--playPause"
         onClick={() => props.changeState({
           isTaskTimeActive: !props.isTaskTimeActive,
+          breaksTotal: incBreaksTotal,
           previousTime: Date.now()
         })}
       >

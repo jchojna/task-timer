@@ -1,11 +1,6 @@
 /* if (isValid('time') && !timeStartButton.disable) {
   if (task.timeTotal <= 0) return; */
 
-// F0 ////////////////////////////////////////////////// UPDATE BREAKS COUNTER 
-
-const updateBreaksCounter = () => breaksCounter.textContent =
-  `${task.totalBreaks} ${task.totalBreaks === 1 ? `break` : `breaks`}`;
-
 // F0 /////////////////////////////////////////////////// HANDLE TIMER BUTTONS 
 
 const handleTimerButtons = (e) => {
