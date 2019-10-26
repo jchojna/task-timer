@@ -85,7 +85,7 @@ class Timer extends Component {
   
           {/* CONTROL BUTTONS */}
           <Controls
-            isTaskActive={isTaskTimeActive}
+            isTaskTimeActive={isTaskTimeActive}
             changeDisplayMode={this.props.changeDisplayMode}
             changeState={this.props.changeState}
           />

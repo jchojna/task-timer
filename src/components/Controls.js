@@ -9,18 +9,19 @@ const Controls = (props) => {
       <button
         className="Controls__button Controls__button--playPause"
         onClick={() => props.changeState({
-          isTaskTimeActive: false
+          isTaskTimeActive: !props.isTaskTimeActive,
+          previousTime: Date.now()
         })}
       >
         <svg
-          className={`Controls__svg ${props.isTaskActive
+          className={`Controls__svg ${props.isTaskTimeActive
             ? "Controls__svg--hidden" : ""}`}
           viewBox="0 0 512 512"
         >
           <use href={`${icons}#play`} />
         </svg>
         <svg
-          className={`Controls__svg ${props.isTaskActive
+          className={`Controls__svg ${props.isTaskTimeActive
             ? "" : "Controls__svg--hidden"}`}
           viewBox="0 0 512 512"
         >
