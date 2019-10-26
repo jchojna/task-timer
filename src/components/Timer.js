@@ -116,7 +116,8 @@ class Timer extends Component {
           />
   
           {/* TIMER DISPLAY */}
-          <div className="Timer__display">
+          <div className={`Timer__display ${isTaskTimeActive
+          ? "" : "Timer__display--inactive"}`}>
             <Display
               compClassName={isElapsedMode
                 ? "Display Display--visible Display--showUp"
@@ -133,8 +134,8 @@ class Timer extends Component {
   
           {/* BREAK */}
           <Break
-            compClassName={isTaskTimeActive
-            ? "Break" : "Break Break--active"}
+            compClassName={`Break ${isBreakTimeActive
+            ? "Break--active" : ""}`}
             breaksTotal={breaksTotal}
             breakTimeElapsedArray={breakTimeElapsedArray}
           />
