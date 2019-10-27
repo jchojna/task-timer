@@ -160,6 +160,7 @@ class App extends Component {
         <StopTask
           compClassName={`StopTask ${isStopTaskVisible
           ? "StopTask--visible" : ""}`}
+          changeState={this.handleStateChange}
         />
 
         <Outro />

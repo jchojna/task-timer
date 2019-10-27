@@ -11,7 +11,12 @@ const StopTask = (props) => {
         <button className="StopTask__button StopTask__button--stop">
           Yes
         </button>
-        <button className="StopTask__button StopTask__button--cancel">
+        <button
+          className="StopTask__button StopTask__button--cancel"
+          onClick={() => props.changeState({
+            isStopTaskVisible: false
+          })}
+        >
           Cancel
         </button>
       </div>
