@@ -1,38 +1,6 @@
 /* if (isValid('time') && !timeStartButton.disable) {
   if (task.timeTotal <= 0) return; */
 
-const handleStopConfirm = (e) => {
-  switch (e.target) {
-
-    case confirmStopButton:
-      toggleStopConfirm();
-      stopWorktime();
-      timerSection.className = 'timer timer--js slideOutLeft';
-      taskSection.className = 'task task--js task--visible slideInRight';
-      break;  
-
-    case cancelStopButton:
-      toggleStopConfirm();
-      break;
-  }
-}
-
-// F0 ////////////////////////////////////////////////////////// STOP WORKTIME 
-
-const stopWorktime = () => {
-  togglePlayPauseButton('play');
-  clearInterval(intervalWorkId);
-  clearInterval(intervalBreakId);
-  timeStartButton.disable = false;
-  timeStartButton.classList.remove('time__start--disabled');
-  stopSection.removeEventListener('click', handleStopConfirm);
-  timerStop.removeEventListener('click', handleTimerButtons);
-  timerPlayPause.removeEventListener('click', handleTimerButtons);
-  timerToggle.removeEventListener('click', handleTimerButtons);
-}
-
-// F0 /////////////////////////////////////////////////////////// HANDLE OUTRO 
-
 const handleOutro = () => {
   const {name, totalBreaks, overallTime, breakTimeElapsed} = task;
   const [minutes, seconds] = task.overallTimeArray;
@@ -72,7 +40,6 @@ const handleOutro = () => {
     : `.`
   }`
 }
-// F0 //////////////////////////////////////////////////// HANDLE RETRY BUTTON 
 
 const handleRetry = () => {
   outroSection.classList.remove('outro--visible');

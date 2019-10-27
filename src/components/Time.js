@@ -3,6 +3,9 @@ import icons from '../assets/svg/icons.svg';
 import '../scss/Task_Time.scss';
 
 const Time = (props) => {
+
+  const breakTimeElapsedResult = props.handleTimeArray(0);
+
   return (
     <section className={`Time ${props.compClassName}`}>
       <h2 className="Time__heading">Task Time Estimation</h2>
@@ -46,7 +49,8 @@ const Time = (props) => {
             previousTime: Date.now(),
             taskTimeElapsed: 0,
             breaksTotal: 0,
-            breakTimeElapsed: 0
+            breakTimeElapsed: 0,
+            breakTimeElapsedArray: breakTimeElapsedResult
           })
           : undefined}
           disabled = {props.isTimerActive}

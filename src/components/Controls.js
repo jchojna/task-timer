@@ -45,7 +45,7 @@ const Controls = (props) => {
       {/* STOP BUTTON */}
       <button
         className="Controls__button Controls__button--stop"
-        onClick={isTaskTimeActive
+        onClick={isTaskTimeActive || isBreakTimeActive
           ? () => changeState({ isStopTaskVisible: true })
           : false }
       >

@@ -100,6 +100,7 @@ class App extends Component {
       isTimeVisible,
       isTimerVisible,
       isStopTaskVisible,
+      isOutroVisible,
       // task
       taskName,
       isTaskNameValid,
@@ -145,6 +146,7 @@ class App extends Component {
           isTimerActive={isTaskTimeActive}
           taskTimePlanned={this.handleTaskTimePlanned}
           taskTimePlannedValidity={isTaskTimePlannedValid}
+          handleTimeArray={this.handleTimeArray}
         />
 
         <Timer
@@ -163,7 +165,10 @@ class App extends Component {
           changeState={this.handleStateChange}
         />
 
-        <Outro />
+        <Outro
+          compClassName={`Outro ${isOutroVisible
+          ? "Outro--visible" : ""}`}
+        />
       </div>
     );
   }

@@ -2,9 +2,11 @@ import React from 'react';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Outro.scss';
 
-const Outro = () => {
+const Outro = (props) => {
+  const {compClassName} = props;
+
   return (
-    <section className="Outro">
+    <section className={compClassName}>
       <div className="Outro__container">
         <h2 className="Outro__heading">
         Congratulations!
