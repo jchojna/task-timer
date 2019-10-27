@@ -3,13 +3,28 @@ import icons from '../assets/svg/icons.svg';
 import '../scss/Task_Time.scss';
 
 const Time = (props) => {
+
+  const {
+    compClassName,
+    alertClassName,
+    changeState,
+    handleTimeArray,
+    taskTimePlanned,
+    taskTimePlannedValidity,
+    breakTimePlanned,
+    breakTimePlannedValidity,
+    isTimerActive
+  } = props;
+
+  const breakTimeElapsedResult = handleTimeArray(0);
+
   return (
-    <section className={`Time ${props.compClassName}`}>
+    <section className={`Time ${compClassName}`}>
       <h2 className="Time__heading">Task Time Estimation</h2>
       {/* LEFT BUTTON */}
       <button
         className="Time__button Time__button--left"
-        onClick={() => props.changeState({
+        onClick={() => changeState({
           isTaskVisible: true,
           isTimeVisible: false
         })}
@@ -25,31 +40,32 @@ const Time = (props) => {
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
-          onChange={(e) => props.taskTimePlanned(e.target.value)}
+          onChange={(e) => taskTimePlanned(e.target.value)}
         />
         <input
           id="task-break"
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
-          onChange={(e) => props.breakTimePlanned(e.target.value)}
+          onChange={(e) => breakTimePlanned(e.target.value)}
         />
         <button
-          className={`Time__start ${props.isTimerActive
+          className={`Time__start ${isTimerActive
             ? "Time__start--disabled"
             : ""}`}
-          onClick={props.taskTimePlannedValidity && props.breakTimePlannedValidity
-          ? () => props.changeState({
+          onClick={taskTimePlannedValidity && breakTimePlannedValidity
+          ? () => changeState({
             isTimeVisible: false,
             isTimerVisible: true,
             isTaskTimeActive: true,
             previousTime: Date.now(),
             taskTimeElapsed: 0,
             breaksTotal: 0,
-            breakTimeElapsed: 0
+            breakTimeElapsed: 0,
+            breakTimeElapsedArray: breakTimeElapsedResult
           })
           : undefined}
-          disabled = {props.isTimerActive}
+          disabled = {isTimerActive}
         >
           Start
         </button>
@@ -62,7 +78,7 @@ const Time = (props) => {
         <label className="Time__label Time__label--break" htmlFor="task-break">
           max break time
         </label>
-        <p className={`Time__alert ${props.alertClassName}`}>
+        <p className={`Time__alert ${alertClassName}`}>
           You have to specify time in the following format: 0m0s
         </p>
       </div>
