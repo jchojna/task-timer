@@ -31,6 +31,7 @@ class Timer extends Component {
       
       const taskTimeElapsedResult = this.props.handleTimeArray(taskTimeElapsed);
       const taskTimeRemainingResult = this.props.handleTimeArray(taskTimeRemaining);
+      const overallTimeResult = this.props.handleTimeArray(taskTimeElapsed + breakTimeElapsed);
       const percentElapsed = taskTimeElapsed / taskTimeTotal * 100;
       const percentRemaining = taskTimeRemaining / taskTimeTotal * 100;
 
@@ -42,11 +43,13 @@ class Timer extends Component {
           isTaskTimeActive: false,
           taskTimeElapsed: taskTimeTotal,
           taskTimeRemaining: 0,
-          overallTime: taskTimeElapsed + breakTimeElapsed,
           taskTimeElapsedArray: taskTimeElapsedResult,
           taskTimeRemainingArray: taskTimeRemainingResult,
           percentElapsed: percentElapsed,
-          percentRemaining: percentRemaining
+          percentRemaining: percentRemaining,
+          isOutroVisible: true,
+          overallTime: taskTimeElapsed + breakTimeElapsed,
+          overallTimeArray: overallTimeResult
         });
 
         /*

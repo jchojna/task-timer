@@ -30,7 +30,6 @@ class App extends Component {
       //timer
       previousTime: 0,
       isTaskTimeActive: false,
-      overallTime: 0,
       // break
       breakTimePlanned: null,
       isBreakTimePlannedValid: true,
@@ -40,7 +39,10 @@ class App extends Component {
       breakTimeElapsedArray: ['00','00','00'],
       // progress
       percentElapsed: 0,
-      percentRemaining: 100
+      percentRemaining: 100,
+      // outro
+      overallTime: 0,
+      overallTimeArray: ['00','00','00']
     }
   }
 
@@ -168,6 +170,7 @@ class App extends Component {
         <Outro
           compClassName={`Outro ${isOutroVisible
           ? "Outro--visible" : ""}`}
+          state={this.state}
         />
       </div>
     );

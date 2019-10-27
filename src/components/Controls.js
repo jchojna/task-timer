@@ -18,13 +18,13 @@ const Controls = (props) => {
       {/* PLAY / PAUSE BUTTON */}
       <button
         className="Controls__button Controls__button--playPause"
-        onClick={isTaskTimeActive || isBreakTimeActive
+        onClick={(isTaskTimeActive || isBreakTimeActive)
           ? () => changeState({
           isTaskTimeActive: !isTaskTimeActive,
           isBreakTimeActive: !isBreakTimeActive,
           breaksTotal: incBreaksTotal,
           previousTime: Date.now() })
-          : false }
+          : () => false }
       >
         <svg
           className={`Controls__svg ${isTaskTimeActive
@@ -45,9 +45,9 @@ const Controls = (props) => {
       {/* STOP BUTTON */}
       <button
         className="Controls__button Controls__button--stop"
-        onClick={isTaskTimeActive || isBreakTimeActive
+        onClick={(isTaskTimeActive || isBreakTimeActive)
           ? () => changeState({ isStopTaskVisible: true })
-          : false }
+          : () => false }
       >
         <svg className="Controls__svg" viewBox="0 0 512 512">
           <use href={`${icons}#stop`} />
