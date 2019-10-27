@@ -38,6 +38,7 @@ class Timer extends Component {
       if (taskTimeElapsed >= taskTimeTotal) {
 
         this.props.changeState({
+          isStopTaskVisible: false,
           isTaskTimeActive: false,
           taskTimeElapsed: taskTimeTotal,
           taskTimeRemaining: 0,
