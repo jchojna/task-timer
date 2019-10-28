@@ -63,7 +63,10 @@ const Outro = (props) => {
           </span>
           {breaksTotal ? " of all time." : "."}
         </p>
-        <button className="Outro__retry">
+        <button
+          className="Outro__retry"
+          
+        >
           <svg className="Outro__svg" viewBox="0 0 512 512">
             <use href={`${icons}#retry`}/>
           </svg>

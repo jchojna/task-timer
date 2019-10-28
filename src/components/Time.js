@@ -26,7 +26,8 @@ const Time = (props) => {
         className="Time__button Time__button--left"
         onClick={() => changeState({
           isTaskVisible: true,
-          isTimeVisible: false
+          isTimeVisible: false,
+          isTaskNameChangeActive: true
         })}
       >
         <svg className="Time__svg" viewBox="0 0 512 512">

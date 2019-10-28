@@ -15,8 +15,10 @@ const StopTask = (props) => {
           onClick={() => changeState({
             isTaskVisible: true,
             isStopTaskVisible: false,
+            isTimerVisible: false,
             isTaskTimeActive: false,
-            isBreakTimeActive: false
+            isBreakTimeActive: false,
+            taskName: null
           })}
         >
           Yes

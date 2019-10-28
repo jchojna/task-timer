@@ -11,12 +11,13 @@ class App extends Component {
     super(props);
     this.state = {
       // visibility
-      isTaskVisible: false,
-      isTimeVisible: true,
-      isTimerVisible: true,
+      isTaskVisible: true,
+      isTimeVisible: false,
+      isTimerVisible: false,
       isStopTaskVisible: false,
       isOutroVisible: false,
       isElapsedMode: true,
+      isTaskNameChangeActive: false,
       // task
       taskName: null,
       isTaskNameValid: false,
@@ -105,6 +106,7 @@ class App extends Component {
       isOutroVisible,
       // task
       taskName,
+      isTaskNameChangeActive,
       isTaskNameValid,
       taskTimePlanned,
       isTaskTimePlannedValid,
@@ -121,7 +123,9 @@ class App extends Component {
 
         <Task
           compClassName={isTaskVisible
-            ? "Task--visible slideInLeft"
+            ? `Task--visible ${isTaskNameChangeActive
+              ? "slideInLeft"
+              : "slideInRight"}`
             : "slideOutLeft"}
           alertClassName={taskName === ""
             ? "Task__alert--visible"
@@ -134,8 +138,7 @@ class App extends Component {
         <Time
           compClassName={isTimeVisible
             ? "Time--visible slideInRight"
-            //: isTimerVisible ? "slideOutLeft" : "slideOutRight"} // ! FOR TESTS
-            : "Time--visible"}
+            : isTimerVisible ? "slideOutLeft" : "slideOutRight"}
           alertClassName={
             (!isTaskTimePlannedValid && taskTimePlanned != null)
             || (!isBreakTimePlannedValid && breakTimePlanned != null)
@@ -154,7 +157,7 @@ class App extends Component {
         <Timer
           compClassName={isTimerVisible
             ? "Timer--visible slideInRight"
-            : ""}
+            : "slideOutLeft"}
           changeDisplayMode={this.handleDisplayMode}
           changeState={this.handleStateChange}
           handleTimeArray={this.handleTimeArray}
