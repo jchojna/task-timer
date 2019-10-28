@@ -21,7 +21,7 @@ const Time = (props) => {
 
   return (
     <section className={`Time ${compClassName}`}>
-      <h2 className="Time__heading">Task Time Estimation</h2>
+      <h2 className="Time__heading">Estimate a time</h2>
       {/* LEFT BUTTON */}
       <button
         className="Time__button Time__button--left"
