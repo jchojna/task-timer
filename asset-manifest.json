@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/task-timer/static/css/main.32bab239.chunk.css",
+    "main.js": "/task-timer/static/js/main.541c3ee0.chunk.js",
+    "main.js.map": "/task-timer/static/js/main.541c3ee0.chunk.js.map",
+    "runtime-main.js": "/task-timer/static/js/runtime-main.4070a8e8.js",
+    "runtime-main.js.map": "/task-timer/static/js/runtime-main.4070a8e8.js.map",
+    "static/js/2.093921e3.chunk.js": "/task-timer/static/js/2.093921e3.chunk.js",
+    "static/js/2.093921e3.chunk.js.map": "/task-timer/static/js/2.093921e3.chunk.js.map",
+    "index.html": "/task-timer/index.html",
+    "precache-manifest.58bad48052db8acee17d235180b6c9c1.js": "/task-timer/precache-manifest.58bad48052db8acee17d235180b6c9c1.js",
+    "service-worker.js": "/task-timer/service-worker.js",
+    "static/css/main.32bab239.chunk.css.map": "/task-timer/static/css/main.32bab239.chunk.css.map",
+    "static/media/icons.svg": "/task-timer/static/media/icons.92f0e3b1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4070a8e8.js",
+    "static/js/2.093921e3.chunk.js",
+    "static/css/main.32bab239.chunk.css",
+    "static/js/main.541c3ee0.chunk.js"
+  ]
+}
