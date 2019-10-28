@@ -33,7 +33,7 @@ const Task = (props) => {
         </svg>
       </button>
       <div className="Task__row">
-        <label className="Task__label Task__label--name" htmlFor="task-name">
+        <label className="Task__label Task__label--name visuallyhidden" htmlFor="task-name">
           Your task
         </label>
         <p className={`Task__alert ${props.alertClassName}`}>
