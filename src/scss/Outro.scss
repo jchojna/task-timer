@@ -8,15 +8,14 @@
   bottom: 0;
   flex-direction: column;
   left: 0;
-  opacity: 0;
   position: fixed;
   right: 0;
   top: 0;
-  transition: opacity 1s, visibility 0s;
+  transition: visibility 0s $time-slide;
   visibility: hidden;
 
   &--visible {
-    opacity: 1;
+    transition: visibility 0s;
     visibility: visible;
   }
 
@@ -37,13 +36,8 @@
   &__message {
     font-size: 1.5em;
     line-height: 1.5;
-
-    &--bold {
-      color: $color-tomato;
-      font-weight: 800;
-    }
   }
-
+  
   &__retry {
     @include button;
     align-self: flex-start;

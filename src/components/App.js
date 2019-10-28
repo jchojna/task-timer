@@ -11,16 +11,18 @@ class App extends Component {
     super(props);
     this.state = {
       // visibility
-      isTaskVisible: false,
-      isTimeVisible: true,
-      isTimerVisible: true,
+      isTaskVisible: true,
+      isTimeVisible: false,
+      isTimerVisible: false,
       isStopTaskVisible: false,
       isOutroVisible: false,
       isElapsedMode: true,
+      isTaskNameChangeActive: false,
+      alertFlag: false,
       // task
-      taskName: null,
+      taskName: "",
       isTaskNameValid: false,
-      taskTimePlanned: null,
+      taskTimePlanned: "",
       isTaskTimePlannedValid: false,
       taskTimeTotal: 0,
       taskTimeElapsed: 0,
@@ -30,9 +32,8 @@ class App extends Component {
       //timer
       previousTime: 0,
       isTaskTimeActive: false,
-      overallTime: 0,
       // break
-      breakTimePlanned: null,
+      breakTimePlanned: "",
       isBreakTimePlannedValid: true,
       isBreakTimeActive: false,
       breaksTotal: 0,
@@ -40,7 +41,10 @@ class App extends Component {
       breakTimeElapsedArray: ['00','00','00'],
       // progress
       percentElapsed: 0,
-      percentRemaining: 100
+      percentRemaining: 100,
+      // outro
+      overallTime: 0,
+      overallTimeArray: ['00','00','00']
     }
   }
 
@@ -65,7 +69,7 @@ class App extends Component {
     const taskTimeRemainingArray = this.handleTimeArray(taskTimeTotal);
     this.setState({
       taskTimePlanned: time,
-      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time),
+      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && taskTimeTotal > 0,
       taskTimeTotal: taskTimeTotal,
       taskTimeRemaining: taskTimeTotal,
       taskTimeRemainingArray: taskTimeRemainingArray
@@ -101,13 +105,14 @@ class App extends Component {
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
+      alertFlag,
       // task
       taskName,
+      isTaskNameChangeActive,
       isTaskNameValid,
       taskTimePlanned,
       isTaskTimePlannedValid,
       // break
-      breakTimePlanned,
       isBreakTimePlannedValid,
       // timer
       isTaskTimeActive
@@ -119,24 +124,25 @@ class App extends Component {
 
         <Task
           compClassName={isTaskVisible
-            ? "Task--visible slideInLeft"
+            ? `Task--visible ${isTaskNameChangeActive
+              ? "slideInLeft"
+              : "slideInRight"}`
             : "slideOutLeft"}
-          alertClassName={taskName === ""
+          alertClassName={alertFlag && !isTaskNameValid
             ? "Task__alert--visible"
             : ""}
           changeState={this.handleStateChange}
           changeTaskName={this.handleTaskName}
           taskNameValidity={isTaskNameValid}
+          taskName={taskName}
         />
 
         <Time
           compClassName={isTimeVisible
             ? "Time--visible slideInRight"
-            //: isTimerVisible ? "slideOutLeft" : "slideOutRight"} // ! FOR TESTS
-            : "Time--visible"}
-          alertClassName={
-            (!isTaskTimePlannedValid && taskTimePlanned != null)
-            || (!isBreakTimePlannedValid && breakTimePlanned != null)
+            : isTimerVisible ? "slideOutLeft" : "slideOutRight"}
+          alertClassName={(alertFlag && !isTaskTimePlannedValid)
+            || (alertFlag && !isBreakTimePlannedValid)
             ? "Time__alert--visible"
             : ""}
           breakTimePlanned={this.handleBreakTimePlanned}
@@ -144,15 +150,16 @@ class App extends Component {
           changeState={this.handleStateChange}
           handleStartButton={this.handleStartButton}
           isTimerActive={isTaskTimeActive}
-          taskTimePlanned={this.handleTaskTimePlanned}
+          changeTaskTimePlanned={this.handleTaskTimePlanned}
           taskTimePlannedValidity={isTaskTimePlannedValid}
           handleTimeArray={this.handleTimeArray}
+          taskTimePlanned={taskTimePlanned}
         />
 
         <Timer
           compClassName={isTimerVisible
             ? "Timer--visible slideInRight"
-            : ""}
+            : "slideOutLeft"}
           changeDisplayMode={this.handleDisplayMode}
           changeState={this.handleStateChange}
           handleTimeArray={this.handleTimeArray}
@@ -167,7 +174,10 @@ class App extends Component {
 
         <Outro
           compClassName={`Outro ${isOutroVisible
-          ? "Outro--visible" : ""}`}
+          ? "Outro--visible slideInRight"
+          : "slideOutLeft"}`}
+          state={this.state}
+          changeState={this.handleStateChange}
         />
       </div>
     );

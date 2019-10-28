@@ -9,8 +9,9 @@ const Time = (props) => {
     alertClassName,
     changeState,
     handleTimeArray,
-    taskTimePlanned,
+    changeTaskTimePlanned,
     taskTimePlannedValidity,
+    taskTimePlanned,
     breakTimePlanned,
     breakTimePlannedValidity,
     isTimerActive
@@ -26,7 +27,8 @@ const Time = (props) => {
         className="Time__button Time__button--left"
         onClick={() => changeState({
           isTaskVisible: true,
-          isTimeVisible: false
+          isTimeVisible: false,
+          isTaskNameChangeActive: true
         })}
       >
         <svg className="Time__svg" viewBox="0 0 512 512">
@@ -40,7 +42,11 @@ const Time = (props) => {
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
-          onChange={(e) => taskTimePlanned(e.target.value)}
+          onChange={(e) => {
+            changeTaskTimePlanned(e.target.value);
+            changeState({ alertFlag: true })
+          }}
+          value={taskTimePlanned}
         />
         <input
           id="task-break"
@@ -62,7 +68,8 @@ const Time = (props) => {
             taskTimeElapsed: 0,
             breaksTotal: 0,
             breakTimeElapsed: 0,
-            breakTimeElapsedArray: breakTimeElapsedResult
+            breakTimeElapsedArray: breakTimeElapsedResult,
+            alertFlag: false
           })
           : undefined}
           disabled = {isTimerActive}
