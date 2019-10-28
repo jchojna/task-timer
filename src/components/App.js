@@ -172,7 +172,8 @@ class App extends Component {
 
         <Outro
           compClassName={`Outro ${isOutroVisible
-          ? "Outro--visible" : ""}`}
+          ? "Outro--visible slideInRight"
+          : "slideOutLeft"}`}
           state={this.state}
         />
       </div>
