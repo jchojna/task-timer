@@ -6,7 +6,7 @@ const TimeResult = (props) => {
 
   return (
     <span className="TimeResult">
-      <span className="TimeResult__message--bold">
+      <span>
         { minutes > 1
           ? ` ${minutes} minutes` : minutes === 1
           ? ` ${minutes} minute` : ""}
@@ -15,7 +15,7 @@ const TimeResult = (props) => {
       {minutes > 0 && (breakFlag ? breakTimeElapsed !== 0 : seconds !== 0)
       ? "and" : ""}
 
-      <span className="TimeResult__message--bold">
+      <span>
         { seconds > 1
           ? ` ${seconds} seconds` : seconds === 1
           ? ` ${seconds} second` : breakFlag && breakTimeElapsed !== 0

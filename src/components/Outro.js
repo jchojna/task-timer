@@ -29,7 +29,7 @@ const Outro = (props) => {
         </h2>
         <p className="Outro__message">
           You have finished your task entitled <br />
-          <span className="outro__message--bold">
+          <span className="TimeResult">
             {`"${taskName}"`}
           </span><br />
           in
@@ -41,7 +41,7 @@ const Outro = (props) => {
           {`${breakTimeElapsed > 0 ? " including break time." : "."}`}
           <br />
           You had
-          <span className="outro__message--bold">
+          <span className="TimeResult">
             {`
             ${breaksTotal > 1
             ? `${breaksTotal} breaks`
@@ -56,7 +56,7 @@ const Outro = (props) => {
             breakFlag={true}
           />
           {breaksTotal ? " long, what makes it around" : ""}
-          <span className="outro__message--bold">
+          <span className="TimeResult">
             { breaksTotal
               ? ` ${Math.round(breakTimeElapsed / overallTime * 100)}%`
               : ""}

@@ -3,11 +3,6 @@
 @import "_animations.scss";
 
 .TimeResult {
-  font-size: 1.5em;
-  line-height: 1.5;
-
-  &--bold {
-    color: $color-tomato;
-    font-weight: 800;
-  }
+  color: $color-tomato;
+  font-weight: 800;
 }
