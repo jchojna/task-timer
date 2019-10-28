@@ -1,12 +1,13 @@
 import React from 'react';
+import TimeResult from './TimeResult';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Outro.scss';
 
 const Outro = (props) => {
   const {
     taskName,
-    breakTimeElapsed,
     breaksTotal,
+    breakTimeElapsed,
     breakTimeElapsedArray,
     overallTime,
     overallTimeArray
@@ -14,16 +15,6 @@ const Outro = (props) => {
 
   const [minutes, seconds] = overallTimeArray;
   const [breakMinutes, breakSeconds] = breakTimeElapsedArray;
-
-  const timeResult = (min, sec) => `
-    <span className="outro__message--bold">
-      ${min > 1 ? `${min} minutes` : min === 1 ? `${min} minute` : ``}
-    </span>
-      ${min > 0 && (sec === breakSeconds ? breakTimeElapsed !== 0 : sec !== 0)
-      ? `and` : ``}
-    <span className="outro__message--bold">
-      ${sec > 1 ? `${sec} seconds` : sec === 1 ? `${sec} second` : `a split second`}
-    </span>`;
 
   return (
     <section className={props.compClassName}>
@@ -41,10 +32,13 @@ const Outro = (props) => {
           <span className="outro__message--bold">
             {`"${taskName}"`}
           </span><br />
-          {`
-          in ${timeResult(minutes, seconds)}
-          ${breakTimeElapsed > 0 ? "including break time." : "."}
-          `}
+          in
+          <TimeResult
+            minutes={parseInt(minutes)}
+            seconds={parseInt(seconds)}
+            breakTimeElapsed={breakTimeElapsed}
+          />
+          {`${breakTimeElapsed > 0 ? " including break time." : "."}`}
           <br />
           You had
           <span className="outro__message--bold">
@@ -55,15 +49,19 @@ const Outro = (props) => {
             `}
           </span>
           during this task
-          {`
-          ${breaksTotal
-            ? `${timeResult(breakMinutes, breakSeconds)} long, what makes it around
-              <span className="outro__message--bold">
-                ${Math.round(breakTimeElapsed / overallTime * 100)}%
-              </span>
-              of all time.`
-            : `.`}
-          `}
+          <TimeResult
+            minutes={parseInt(breakMinutes)}
+            seconds={parseInt(breakSeconds)}
+            breakTimeElapsed={breakTimeElapsed}
+            breakFlag={true}
+          />
+          {breaksTotal ? " long, what makes it around" : ""}
+          <span className="outro__message--bold">
+            { breaksTotal
+              ? ` ${Math.round(breakTimeElapsed / overallTime * 100)}%`
+              : ""}
+          </span>
+          {breaksTotal ? " of all time." : "."}
         </p>
         <button className="Outro__retry">
           <svg className="Outro__svg" viewBox="0 0 512 512">
