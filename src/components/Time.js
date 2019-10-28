@@ -42,7 +42,10 @@ const Time = (props) => {
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
-          onChange={(e) => changeTaskTimePlanned(e.target.value)}
+          onChange={(e) => {
+            changeTaskTimePlanned(e.target.value);
+            changeState({ alertFlag: true })
+          }}
           value={taskTimePlanned}
         />
         <input
@@ -65,7 +68,8 @@ const Time = (props) => {
             taskTimeElapsed: 0,
             breaksTotal: 0,
             breakTimeElapsed: 0,
-            breakTimeElapsedArray: breakTimeElapsedResult
+            breakTimeElapsedArray: breakTimeElapsedResult,
+            alertFlag: false
           })
           : undefined}
           disabled = {isTimerActive}

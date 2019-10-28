@@ -11,11 +11,10 @@ const Task = (props) => {
         className="Task__input Task__input--name"
         id="task-name"
         placeholder="What would be your next task?"
-        onChange={(e) => props.changeState({
-          taskName: e.target.value,
-          isTaskNameValid: e.target.value.length > 0 ? true : false,
-          alertFlag: true
-        })}
+        onChange={(e) => {
+          props.changeTaskName(e.target.value);
+          props.changeState({ alertFlag: true })
+        }}
         value={props.taskName}
       />
       <button 
@@ -24,7 +23,8 @@ const Task = (props) => {
           ? () => props.changeState({
             isTaskVisible: false,
             isTimeVisible: true,
-            isTaskNameChangeActive: false
+            isTaskNameChangeActive: false,
+            alertFlag: false
           })
           : () => props.changeTaskName("")}
       >

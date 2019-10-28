@@ -69,7 +69,9 @@ const Outro = (props) => {
             isOutroVisible: false,
             isTaskVisible: true,
             taskName: "",
-            taskTimePlanned: ""
+            isTaskNameValid: false,
+            taskTimePlanned: "",
+            isTaskTimePlannedValid: false
           })}
         >
           <svg className="Outro__svg" viewBox="0 0 512 512">

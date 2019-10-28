@@ -18,6 +18,7 @@ class App extends Component {
       isOutroVisible: false,
       isElapsedMode: true,
       isTaskNameChangeActive: false,
+      alertFlag: false,
       // task
       taskName: "",
       isTaskNameValid: false,
@@ -104,6 +105,7 @@ class App extends Component {
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
+      alertFlag,
       // task
       taskName,
       isTaskNameChangeActive,
@@ -111,7 +113,6 @@ class App extends Component {
       taskTimePlanned,
       isTaskTimePlannedValid,
       // break
-      breakTimePlanned,
       isBreakTimePlannedValid,
       // timer
       isTaskTimeActive
@@ -127,7 +128,7 @@ class App extends Component {
               ? "slideInLeft"
               : "slideInRight"}`
             : "slideOutLeft"}
-          alertClassName={taskName === ""
+          alertClassName={alertFlag && !isTaskNameValid
             ? "Task__alert--visible"
             : ""}
           changeState={this.handleStateChange}
@@ -140,9 +141,8 @@ class App extends Component {
           compClassName={isTimeVisible
             ? "Time--visible slideInRight"
             : isTimerVisible ? "slideOutLeft" : "slideOutRight"}
-          alertClassName={
-            (!isTaskTimePlannedValid && taskTimePlanned != null)
-            || (!isBreakTimePlannedValid && breakTimePlanned != null)
+          alertClassName={(alertFlag && !isTaskTimePlannedValid)
+            || (alertFlag && !isBreakTimePlannedValid)
             ? "Time__alert--visible"
             : ""}
           breakTimePlanned={this.handleBreakTimePlanned}
