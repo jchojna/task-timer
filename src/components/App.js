@@ -69,7 +69,7 @@ class App extends Component {
     const taskTimeRemainingArray = this.handleTimeArray(taskTimeTotal);
     this.setState({
       taskTimePlanned: time,
-      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time),
+      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && taskTimeTotal > 0,
       taskTimeTotal: taskTimeTotal,
       taskTimeRemaining: taskTimeTotal,
       taskTimeRemainingArray: taskTimeRemainingArray
