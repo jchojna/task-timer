@@ -9,8 +9,9 @@ const Time = (props) => {
     alertClassName,
     changeState,
     handleTimeArray,
-    taskTimePlanned,
+    changeTaskTimePlanned,
     taskTimePlannedValidity,
+    taskTimePlanned,
     breakTimePlanned,
     breakTimePlannedValidity,
     isTimerActive
@@ -41,7 +42,8 @@ const Time = (props) => {
           className="Time__input"
           placeholder="00m00s"
           maxLength="6"
-          onChange={(e) => taskTimePlanned(e.target.value)}
+          onChange={(e) => changeTaskTimePlanned(e.target.value)}
+          value={taskTimePlanned}
         />
         <input
           id="task-break"

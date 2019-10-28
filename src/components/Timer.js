@@ -40,6 +40,7 @@ class Timer extends Component {
 
         this.props.changeState({
           isStopTaskVisible: false,
+          isTimerVisible: false,
           isTaskTimeActive: false,
           taskTimeElapsed: taskTimeTotal,
           taskTimeRemaining: 0,

@@ -19,9 +19,9 @@ class App extends Component {
       isElapsedMode: true,
       isTaskNameChangeActive: false,
       // task
-      taskName: null,
+      taskName: "",
       isTaskNameValid: false,
-      taskTimePlanned: null,
+      taskTimePlanned: "",
       isTaskTimePlannedValid: false,
       taskTimeTotal: 0,
       taskTimeElapsed: 0,
@@ -32,7 +32,7 @@ class App extends Component {
       previousTime: 0,
       isTaskTimeActive: false,
       // break
-      breakTimePlanned: null,
+      breakTimePlanned: "",
       isBreakTimePlannedValid: true,
       isBreakTimeActive: false,
       breaksTotal: 0,
@@ -133,6 +133,7 @@ class App extends Component {
           changeState={this.handleStateChange}
           changeTaskName={this.handleTaskName}
           taskNameValidity={isTaskNameValid}
+          taskName={taskName}
         />
 
         <Time
@@ -149,9 +150,10 @@ class App extends Component {
           changeState={this.handleStateChange}
           handleStartButton={this.handleStartButton}
           isTimerActive={isTaskTimeActive}
-          taskTimePlanned={this.handleTaskTimePlanned}
+          changeTaskTimePlanned={this.handleTaskTimePlanned}
           taskTimePlannedValidity={isTaskTimePlannedValid}
           handleTimeArray={this.handleTimeArray}
+          taskTimePlanned={taskTimePlanned}
         />
 
         <Timer
@@ -175,6 +177,7 @@ class App extends Component {
           ? "Outro--visible slideInRight"
           : "slideOutLeft"}`}
           state={this.state}
+          changeState={this.handleStateChange}
         />
       </div>
     );

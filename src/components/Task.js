@@ -11,7 +11,12 @@ const Task = (props) => {
         className="Task__input Task__input--name"
         id="task-name"
         placeholder="What would be your next task?"
-        onChange={(e) => props.changeTaskName(e.target.value)}
+        onChange={(e) => props.changeState({
+          taskName: e.target.value,
+          isTaskNameValid: e.target.value.length > 0 ? true : false,
+          alertFlag: true
+        })}
+        value={props.taskName}
       />
       <button 
         className="button Task__button Task__button--right"

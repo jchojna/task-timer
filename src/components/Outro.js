@@ -65,7 +65,12 @@ const Outro = (props) => {
         </p>
         <button
           className="Outro__retry"
-          
+          onClick={() => props.changeState({
+            isOutroVisible: false,
+            isTaskVisible: true,
+            taskName: "",
+            taskTimePlanned: ""
+          })}
         >
           <svg className="Outro__svg" viewBox="0 0 512 512">
             <use href={`${icons}#retry`}/>
