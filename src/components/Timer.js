@@ -52,7 +52,7 @@ class Timer extends Component {
           overallTime: taskTimeElapsed + breakTimeElapsed,
           overallTimeArray: overallTimeResult
         });
-        
+
       // normal task time tick
       } else {
         this.props.changeState({
@@ -103,7 +103,7 @@ class Timer extends Component {
     return (
       <section className={`Timer ${this.props.compClassName}`}>
         <div className="Timer__container">
-          <h2 className="Timer__heading">Work on your task</h2>
+          <h2 className="Timer__heading">Keep working...</h2>
   
           {/* CONTROL BUTTONS */}
           <Controls

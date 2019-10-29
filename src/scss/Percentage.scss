@@ -6,12 +6,11 @@
   @include flex-center;
   color: $color-tomato;
   font-family: 'Inconsolata';
-  font-size: 1.2em;
   font-weight: 600;
   left: 50%;
   margin: 0;
   position: absolute;
-  top: -1.3em;
+  top: -1.2em;
   transform: translateX(-50%);
   transition: visibility 0s;
   visibility: hidden;
