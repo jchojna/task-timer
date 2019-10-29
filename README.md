@@ -1,11 +1,13 @@
-# taskTimer App
+![website screenshot](public/markdown-cover.PNG)
 
+# TaskTimer App
 ## Main app
 [master branch](https://github.com/jchojna/task-timer/tree/master)
 #### created using create-react-app
 media queries applied
 JS code refactored
 max break time not applied yet
+keyboard support not implemented yet
 
 ## Vanilla to React app
 [react-no-jsx branch](https://github.com/jchojna/task-timer/tree/react-no-jsx)
