@@ -3,7 +3,9 @@
 ## Main app
 [master branch](https://github.com/jchojna/task-timer/tree/master)
 #### created using create-react-app
-work in progress ...
+media queries applied
+JS code refactored
+max break time not applied yet
 
 ## Vanilla to React app
 [react-no-jsx branch](https://github.com/jchojna/task-timer/tree/react-no-jsx)
@@ -18,7 +20,7 @@ JS code refactored
 ## Static Page
 [static-page branch](https://github.com/jchojna/task-timer/tree/static-page)
 #### created in html + scss + JS
-does not include media queries yet - not adjusted to mobile devices
+media queries not applied yet (not adjusted to mobile devices)
 
 ## Figma Project
 [figma branch](https://github.com/jchojna/task-timer/tree/figma)

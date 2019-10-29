@@ -29,33 +29,23 @@ class App extends Component {
       taskTimeElapsedArray: ['00','00','00'],
       taskTimeRemaining: 0,
       taskTimeRemainingArray: ['00','00','00'],
+      isTaskTimeActive: false,
       //timer
       previousTime: 0,
-      isTaskTimeActive: false,
-      // break
       breakTimePlanned: "",
       isBreakTimePlannedValid: true,
       isBreakTimeActive: false,
       breaksTotal: 0,
       breakTimeElapsed: 0,
       breakTimeElapsedArray: ['00','00','00'],
-      // progress
       percentElapsed: 0,
       percentRemaining: 100,
-      // outro
       overallTime: 0,
       overallTimeArray: ['00','00','00']
     }
   }
 
-  handleTimeArray = (time) => {
-    const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
-    return [
-      makeTwoDigits(Math.floor(time / 60000)),
-      makeTwoDigits(Math.floor(time / 1000 % 60)),
-      makeTwoDigits(Math.floor(time / 10 % 100))
-    ]
-  }
+  handleStateChange = (object) => this.setState(object);
 
   handleTaskName = (name) => {
     this.setState({
@@ -91,93 +81,108 @@ class App extends Component {
     return minutes * 60000 + seconds * 1000;
   }
 
-  handleStateChange = (object) => this.setState(object);
+  handleStartButton = () => {
+    const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
+    const breakTimeElapsedResult = this.handleTimeArray(0);
+
+    if (isTaskTimePlannedValid && isBreakTimePlannedValid) {
+      this.setState({
+        isTimeVisible: false,
+        isTimerVisible: true,
+        isTaskTimeActive: true,
+        previousTime: Date.now(),
+        taskTimeElapsed: 0,
+        breaksTotal: 0,
+        breakTimeElapsed: 0,
+        breakTimeElapsedArray: breakTimeElapsedResult,
+        alertFlag: false
+      });
+    }
+  }
 
   handleDisplayMode = () => this.setState(prevState => ({
     isElapsedMode: !prevState.isElapsedMode
   }));
 
+  handleTimeArray = (time) => {
+    const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
+    return [
+      makeTwoDigits(Math.floor(time / 60000)),
+      makeTwoDigits(Math.floor(time / 1000 % 60)),
+      makeTwoDigits(Math.floor(time / 10 % 100))
+    ]
+  }
+
   render() {
     const {
-      // visibility
       isTaskVisible,
       isTimeVisible,
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
       alertFlag,
-      // task
       taskName,
       isTaskNameChangeActive,
       isTaskNameValid,
       taskTimePlanned,
       isTaskTimePlannedValid,
-      // break
       isBreakTimePlannedValid,
-      // timer
       isTaskTimeActive
     } = this.state;
 
     return (
       <div className="App">
         <h1 className="App__heading visuallyhidden">Task Timer App</h1>
-
+        {/* TASK SECTION */}
         <Task
           compClassName={isTaskVisible
             ? `Task--visible ${isTaskNameChangeActive
-              ? "slideInLeft"
-              : "slideInRight"}`
+              ? "slideInLeft" : "slideInRight"}`
             : "slideOutLeft"}
           alertClassName={alertFlag && !isTaskNameValid
-            ? "Task__alert--visible"
-            : ""}
-          changeState={this.handleStateChange}
-          changeTaskName={this.handleTaskName}
+            ? "Task__alert--visible" : ""}
+          onStateChange={this.handleStateChange}
+          onTaskNameChange={this.handleTaskName}
           taskNameValidity={isTaskNameValid}
           taskName={taskName}
         />
-
+        {/* TIME SECTION */}
         <Time
           compClassName={isTimeVisible
-            ? "Time--visible slideInRight"
-            : isTimerVisible ? "slideOutLeft" : "slideOutRight"}
+            ? "Time--visible slideInRight" : isTimerVisible
+            ? "slideOutLeft" : "slideOutRight"}
           alertClassName={(alertFlag && !isTaskTimePlannedValid)
             || (alertFlag && !isBreakTimePlannedValid)
-            ? "Time__alert--visible"
-            : ""}
-          breakTimePlanned={this.handleBreakTimePlanned}
-          breakTimePlannedValidity={isBreakTimePlannedValid}
-          changeState={this.handleStateChange}
-          handleStartButton={this.handleStartButton}
+            ? "Time__alert--visible" : ""}
+          onTaskTimePlannedChange={this.handleTaskTimePlanned}
+          onBreakTimePlannedChange={this.handleBreakTimePlanned}
+          onStateChange={this.handleStateChange}
+          onStartButtonClick={this.handleStartButton}
           isTimerActive={isTaskTimeActive}
-          changeTaskTimePlanned={this.handleTaskTimePlanned}
-          taskTimePlannedValidity={isTaskTimePlannedValid}
-          handleTimeArray={this.handleTimeArray}
           taskTimePlanned={taskTimePlanned}
         />
-
+        {/* TIMER SECTION */}
         <Timer
           compClassName={isTimerVisible
-            ? "Timer--visible slideInRight"
-            : "slideOutLeft"}
-          changeDisplayMode={this.handleDisplayMode}
-          changeState={this.handleStateChange}
-          handleTimeArray={this.handleTimeArray}
+            ? "Timer--visible slideInRight" : "slideOutLeft"}
+          onStateChange={this.handleStateChange}
+          onDisplayModeChange={this.handleDisplayMode}
+          onTimeArrayChange={this.handleTimeArray}
           state={this.state}
         />
-
+        {/* STOP TASK SECTION */}
         <StopTask
           compClassName={`StopTask ${isStopTaskVisible
           ? "StopTask--visible" : ""}`}
-          changeState={this.handleStateChange}
+          onStateChange={this.handleStateChange}
         />
-
+        {/* OUTRO SECTION */}
         <Outro
           compClassName={`Outro ${isOutroVisible
           ? "Outro--visible slideInRight"
           : "slideOutLeft"}`}
           state={this.state}
-          changeState={this.handleStateChange}
+          onStateChange={this.handleStateChange}
         />
       </div>
     );

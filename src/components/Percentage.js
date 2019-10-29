@@ -2,9 +2,10 @@ import React from 'react';
 import '../scss/Percentage.scss';
 
 const Percentage = (props) => {
+  const { compClassName, percent } = props;
   return (
-    <p className={props.compClassName}>
-      {`${Math.round(props.percent)}%`}
+    <p className={compClassName}>
+      {`${Math.round(percent)}%`}
     </p>
   );
 }

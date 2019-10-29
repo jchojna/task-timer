@@ -2,7 +2,7 @@ import React from 'react';
 import '../scss/StopTask.scss';
 
 const StopTask = (props) => {
-  const { compClassName, changeState } = props;
+  const { compClassName, onStateChange } = props;
 
   return (
     <section className={compClassName}>
@@ -12,7 +12,7 @@ const StopTask = (props) => {
         </h2>
         <button
           className="StopTask__button StopTask__button--stop"
-          onClick={() => changeState({
+          onClick={() => onStateChange({
             isTaskVisible: true,
             isStopTaskVisible: false,
             isTimerVisible: false,
@@ -25,7 +25,7 @@ const StopTask = (props) => {
         </button>
         <button
           className="StopTask__button StopTask__button--cancel"
-          onClick={() => changeState({
+          onClick={() => onStateChange({
             isStopTaskVisible: false
           })}
         >
