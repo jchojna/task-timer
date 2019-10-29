@@ -17,6 +17,12 @@
     stroke: #fff;
     stroke-width: 15;
     width: $size-controls-xs;
+    transition: border-color $hover-icon, stroke $hover-icon;
+
+    &:hover {
+      stroke: $color-tomato;
+      border-color: $color-tomato;
+    }
   }
 
   &__svg {
