@@ -20,12 +20,12 @@ const Outro = (props) => {
     <section className={props.compClassName}>
       <div className="Outro__container">
         <h2 className="Outro__heading">
-        Congratulations!
-        <span
-          className="Outro__party"
-          role="img"
-          aria-label="party"
-        > 🎉</span>
+          Congratulations!
+          <span
+            className="Outro__party"
+            role="img"
+            aria-label="party"
+          > 🎉</span>
         </h2>
         <p className="Outro__message">
           You have finished your task entitled <br />
