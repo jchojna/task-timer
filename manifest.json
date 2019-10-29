@@ -6,7 +6,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "Scope": "/task-timer/",
-  "start_url": "/task-timer/",
+  "start_url": "/./",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
