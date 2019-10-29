@@ -80,7 +80,7 @@
   }
 
   &__label {
-    align-self: start;
+    align-self: center;
     font-size: 0.9em;
 
     &--name { grid-area: lblName; }
@@ -167,6 +167,10 @@
 
       &__button {
         width: 100px;
+      }
+
+      &__label {
+        align-self: start;
       }
     }
   }

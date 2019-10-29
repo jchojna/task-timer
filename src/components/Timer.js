@@ -29,16 +29,16 @@ class Timer extends Component {
         breakTimeElapsed
       } = this.props.state;
       
-      const taskTimeElapsedResult = this.props.handleTimeArray(taskTimeElapsed);
-      const taskTimeRemainingResult = this.props.handleTimeArray(taskTimeRemaining);
-      const overallTimeResult = this.props.handleTimeArray(taskTimeElapsed + breakTimeElapsed);
+      const taskTimeElapsedResult = this.props.onTimeArrayChange(taskTimeElapsed);
+      const taskTimeRemainingResult = this.props.onTimeArrayChange(taskTimeRemaining);
+      const overallTimeResult = this.props.onTimeArrayChange(taskTimeElapsed + breakTimeElapsed);
       const percentElapsed = taskTimeElapsed / taskTimeTotal * 100;
       const percentRemaining = taskTimeRemaining / taskTimeTotal * 100;
 
       // when countdown finishes
       if (taskTimeElapsed >= taskTimeTotal) {
 
-        this.props.changeState({
+        this.props.onStateChange({
           isStopTaskVisible: false,
           isTimerVisible: false,
           isTaskTimeActive: false,
@@ -55,7 +55,7 @@ class Timer extends Component {
 
       // normal task time tick
       } else {
-        this.props.changeState({
+        this.props.onStateChange({
           previousTime: now,
           taskTimeElapsed: taskTimeElapsed + (now - previousTime),
           taskTimeElapsedArray: taskTimeElapsedResult,
@@ -77,9 +77,9 @@ class Timer extends Component {
         previousTime
       } = this.props.state;
       
-      const breakTimeElapsedResult = this.props.handleTimeArray(breakTimeElapsed);
+      const breakTimeElapsedResult = this.props.onTimeArrayChange(breakTimeElapsed);
 
-      this.props.changeState({
+      this.props.onStateChange({
         breakTimeElapsed: breakTimeElapsed + (now - previousTime),
         breakTimeElapsedArray: breakTimeElapsedResult,
         previousTime: now
@@ -110,8 +110,8 @@ class Timer extends Component {
             isTaskTimeActive={isTaskTimeActive}
             isBreakTimeActive={isBreakTimeActive}
             breaksTotal={breaksTotal}
-            changeDisplayMode={this.props.changeDisplayMode}
-            changeState={this.props.changeState}
+            onDisplayModeChange={this.props.onDisplayModeChange}
+            onStateChange={this.props.onStateChange}
           />
   
           {/* TIMER DISPLAY */}

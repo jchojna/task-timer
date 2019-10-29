@@ -6,8 +6,8 @@ const Controls = (props) => {
   const {
     isTaskTimeActive,
     isBreakTimeActive,
-    changeDisplayMode,
-    changeState,
+    onDisplayModeChange,
+    onStateChange,
     breaksTotal
   } = props;
   const incBreaksTotal = isTaskTimeActive
@@ -19,7 +19,7 @@ const Controls = (props) => {
       <button
         className="Controls__button Controls__button--playPause"
         onClick={(isTaskTimeActive || isBreakTimeActive)
-          ? () => changeState({
+          ? () => onStateChange({
           isTaskTimeActive: !isTaskTimeActive,
           isBreakTimeActive: !isBreakTimeActive,
           breaksTotal: incBreaksTotal,
@@ -46,7 +46,7 @@ const Controls = (props) => {
       <button
         className="Controls__button Controls__button--stop"
         onClick={(isTaskTimeActive || isBreakTimeActive)
-          ? () => changeState({ isStopTaskVisible: true })
+          ? () => onStateChange({ isStopTaskVisible: true })
           : () => false }
       >
         <svg className="Controls__svg" viewBox="0 0 512 512">
@@ -57,7 +57,7 @@ const Controls = (props) => {
       {/* TOGGLE BUTTON */}
       <button
         className="Controls__button Controls__button--toggle"
-        onClick={() => changeDisplayMode()}
+        onClick={() => onDisplayModeChange()}
       >
         <svg className="Controls__svg" viewBox="0 0 512 512">
           <use href={`${icons}#toggle`} />

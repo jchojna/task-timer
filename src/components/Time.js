@@ -7,17 +7,13 @@ const Time = (props) => {
   const {
     compClassName,
     alertClassName,
-    changeState,
-    handleTimeArray,
-    changeTaskTimePlanned,
-    taskTimePlannedValidity,
+    onStateChange,
     taskTimePlanned,
-    breakTimePlanned,
-    breakTimePlannedValidity,
-    isTimerActive
+    onTaskTimePlannedChange,
+    onBreakTimePlannedChange,
+    isTimerActive,
+    onStartButtonClick
   } = props;
-
-  const breakTimeElapsedResult = handleTimeArray(0);
 
   return (
     <section className={`Time ${compClassName}`}>
@@ -25,7 +21,7 @@ const Time = (props) => {
       {/* LEFT BUTTON */}
       <button
         className="Time__button Time__button--left"
-        onClick={() => changeState({
+        onClick={() => onStateChange({
           isTaskVisible: true,
           isTimeVisible: false,
           isTaskNameChangeActive: true
@@ -42,8 +38,8 @@ const Time = (props) => {
         placeholder="00m00s"
         maxLength="6"
         onChange={(e) => {
-          changeTaskTimePlanned(e.target.value);
-          changeState({ alertFlag: true })
+          onTaskTimePlannedChange(e.target.value);
+          onStateChange({ alertFlag: true })
         }}
         value={taskTimePlanned}
       />
@@ -57,7 +53,7 @@ const Time = (props) => {
         className="Time__input Time__input--break-time"
         placeholder="00m00s"
         maxLength="6"
-        onChange={(e) => breakTimePlanned(e.target.value)}
+        onChange={(e) => onBreakTimePlannedChange(e.target.value)}
       />
       {/* BREAK TIME LABEL */}
       <label className="Time__label Time__label--break-time" htmlFor="break-time">
@@ -66,22 +62,9 @@ const Time = (props) => {
       {/* START BUTTON */}
       <button
         className={`Time__start ${isTimerActive
-          ? "Time__start--disabled"
-          : ""}`}
-        onClick={taskTimePlannedValidity && breakTimePlannedValidity
-        ? () => changeState({
-          isTimeVisible: false,
-          isTimerVisible: true,
-          isTaskTimeActive: true,
-          previousTime: Date.now(),
-          taskTimeElapsed: 0,
-          breaksTotal: 0,
-          breakTimeElapsed: 0,
-          breakTimeElapsedArray: breakTimeElapsedResult,
-          alertFlag: false
-        })
-        : undefined}
+          ? "Time__start--disabled" : ""}`}
         disabled = {isTimerActive}
+        onClick={() => onStartButtonClick()}
       >
         Start
       </button>

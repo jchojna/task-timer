@@ -14,8 +14,8 @@ const Task = (props) => {
         id="task-name"
         placeholder="What would be your next task?"
         onChange={(e) => {
-          props.changeTaskName(e.target.value);
-          props.changeState({ alertFlag: true })
+          props.onTaskNameChange(e.target.value);
+          props.onStateChange({ alertFlag: true })
         }}
         value={props.taskName}
       />
@@ -27,13 +27,13 @@ const Task = (props) => {
       <button 
         className="button Task__button Task__button--right"
         onClick={props.taskNameValidity
-          ? () => props.changeState({
+          ? () => props.onStateChange({
             isTaskVisible: false,
             isTimeVisible: true,
             isTaskNameChangeActive: false,
             alertFlag: false
           })
-          : () => props.changeTaskName("")}
+          : () => props.onTaskNameChange("")}
       >
         <svg className="Task__svg" viewBox="0 0 512 512">
           <use href={`${icons}#arrow-right`} />

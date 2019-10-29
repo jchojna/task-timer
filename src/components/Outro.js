@@ -65,7 +65,7 @@ const Outro = (props) => {
         </p>
         <button
           className="Outro__retry"
-          onClick={() => props.changeState({
+          onClick={() => props.onStateChange({
             isOutroVisible: false,
             isTaskVisible: true,
             taskName: "",
