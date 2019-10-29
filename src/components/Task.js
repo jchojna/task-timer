@@ -1,12 +1,14 @@
 import React from 'react';
 import icons from '../assets/svg/icons.svg';
-import '../scss/Task_Time.scss';
+import '../scss/Task&Time.scss';
 
 const Task = (props) => {
 
   return (
     <section className={`Task ${props.compClassName}`}>
+      {/* TASK HEADING */}
       <h2 className="Task__heading">Write your task</h2>
+      {/* TASK NAME INPUT */}
       <input
         className="Task__input Task__input--name"
         id="task-name"
@@ -17,6 +19,11 @@ const Task = (props) => {
         }}
         value={props.taskName}
       />
+      {/* TASK NAME LABEL */}
+      <label className="Task__label Task__label--name visuallyhidden" htmlFor="task-name">
+        Your task
+      </label>
+      {/* RIGHT BUTTON */}
       <button 
         className="button Task__button Task__button--right"
         onClick={props.taskNameValidity
@@ -32,14 +39,10 @@ const Task = (props) => {
           <use href={`${icons}#arrow-right`} />
         </svg>
       </button>
-      <div className="Task__row">
-        <label className="Task__label Task__label--name" htmlFor="task-name">
-          Your task
-        </label>
-        <p className={`Task__alert ${props.alertClassName}`}>
-          You have to enter your task first!
-        </p>
-      </div>
+      {/* ALERT */}
+      <p className={`Task__alert ${props.alertClassName}`}>
+        You have to enter your task first!
+      </p>
     </section>
   );
 }

@@ -6,8 +6,8 @@
   @include flex-center;
   background-color: $color-cyan;
   bottom: 0;
-  flex-direction: column;
   left: 0;
+  padding: $layout-padding;
   position: fixed;
   right: 0;
   top: 0;
@@ -20,11 +20,13 @@
   }
 
   &__container {
+    @include flex-center;
+    flex-direction: column;
     max-width: 1000px;
   }
 
   &__heading {
-    font-size: 4em;
+    font-size: 1.5em;
     font-weight: 600;
     margin: 0.8em 0;
   }
@@ -34,16 +36,15 @@
   }
 
   &__message {
-    font-size: 1.5em;
+    font-size: 1em;
     line-height: 1.5;
   }
   
   &__retry {
     @include button;
-    align-self: flex-start;
     fill: #fff;
     transition: $hover-icon;
-    width: 100px;
+    width: $size-controls-xs;
 
     &:hover {
       fill: $color-tomato;
@@ -52,5 +53,24 @@
 
   &__svg {
     width: 100%;
+  }
+
+  @media only screen and (min-width: $media-md) {
+
+    & {
+      
+      &__heading {
+        font-size: 4em;
+      }
+
+      &__message {
+        font-size: 1.5em;
+      }
+
+      &__retry {
+        width: $size-controls-md;
+        align-self: flex-start;
+      }
+    }
   }
 }

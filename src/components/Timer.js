@@ -53,13 +53,7 @@ class Timer extends Component {
           overallTimeArray: overallTimeResult
         });
 
-        /*
-        task.overallTimeArray = task.overallTime;
-        stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
-        stopWorktime();
-        handleOutro();
-        outroRetryButton.addEventListener('click', handleRetry); */
-
+      // normal task time tick
       } else {
         this.props.changeState({
           previousTime: now,
@@ -109,7 +103,7 @@ class Timer extends Component {
     return (
       <section className={`Timer ${this.props.compClassName}`}>
         <div className="Timer__container">
-          <h2 className="Timer__heading">Work on your task</h2>
+          <h2 className="Timer__heading">Keep working...</h2>
   
           {/* CONTROL BUTTONS */}
           <Controls

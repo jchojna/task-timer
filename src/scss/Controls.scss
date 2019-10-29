@@ -5,18 +5,18 @@
 .Controls {
   display: grid;
   gap: 20px;
+  grid-area: control;
   grid-template-columns: repeat(3, 1fr);
-  justify-self: left;
 
   &__button {
     @include button;
     border: 2px solid #fff;
     border-radius: 50%;
     fill: none;
-    height: 80px;
+    height: $size-controls-xs;
     stroke: #fff;
     stroke-width: 15;
-    width: 80px;
+    width: $size-controls-xs;
   }
 
   &__svg {
@@ -25,6 +25,17 @@
 
     &--hidden {
       display: none;
+    }
+  }
+
+  @media only screen and (min-width: $media-md) {
+
+    & {
+      
+      &__button {
+        height: $size-controls-md;
+        width: $size-controls-md;
+      }
     }
   }
 }
