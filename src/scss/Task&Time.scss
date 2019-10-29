@@ -6,7 +6,7 @@
 
 .Task,
 .Time {
-  align-items: start;
+  align-items: center;
   bottom: 0;
   display: grid;
   font-weight: 400;
@@ -35,7 +35,6 @@
   }
 
   &__heading {
-    align-self: center;
     margin: 0;
     font-size: 2em;
     font-weight: 400;
@@ -76,14 +75,13 @@
 
     &::placeholder {
       color: #fff;
-      font-size: 0.7em;
+      font-size: 0.9em;
     }
   }
 
   &__label {
 
-    align-self: center;
-    font-size: 0.8em;
+    font-size: 0.9em;
 
     &--name { grid-area: label-name; }
     &--task-time { grid-area: label-task-time; }
@@ -106,6 +104,7 @@
   &__button {
     @include flex-center;
     @include button;
+    align-self: start;
     fill: none;
     stroke: #fff;
     stroke-width: 20;
@@ -140,11 +139,17 @@
     grid-area: start-button;
     text-transform: uppercase;
     width: 100%;
+    transition: background-color $hover-icon, border-color $hover-icon;
 
     &--disabled {
       border-color: $color-disabled;
       color: $color-disabled;
       cursor: default;
+    }
+
+    &:hover {
+      background-color: $color-tomato;
+      border-color: $color-tomato;
     }
   }
   

@@ -49,7 +49,7 @@ const Time = (props) => {
       />
       {/* TASK TIME LABEL */}
       <label className="Time__label Time__label--task-time" htmlFor="task-time">
-        task time
+        Task time
       </label>
       {/* BREAK TIME INPUT */}
       <input
@@ -61,7 +61,7 @@ const Time = (props) => {
       />
       {/* BREAK TIME LABEL */}
       <label className="Time__label Time__label--break-time" htmlFor="break-time">
-        max break time
+        Max break time
       </label>
       {/* START BUTTON */}
       <button
@@ -87,7 +87,7 @@ const Time = (props) => {
       </button>
       {/* ALERT */}
       <p className={`Time__alert ${alertClassName}`}>
-        You have to specify time in the following format: 0m0s
+        Enter time in a correct format (00m00s)
       </p>
     </section>
   );
