@@ -52,14 +52,8 @@ class Timer extends Component {
           overallTime: taskTimeElapsed + breakTimeElapsed,
           overallTimeArray: overallTimeResult
         });
-
-        /*
-        task.overallTimeArray = task.overallTime;
-        stopSection.classList.contains('stop--visible') ? toggleStopConfirm() : false;
-        stopWorktime();
-        handleOutro();
-        outroRetryButton.addEventListener('click', handleRetry); */
-
+        
+      // normal task time tick
       } else {
         this.props.changeState({
           previousTime: now,

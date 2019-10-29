@@ -12,15 +12,15 @@
   font-weight: 400;
   grid-template-areas:
     "heading"
-    "input-name"
-    "label-name"
-    "right-button"
-    "alert";
+    "tskName"
+    "lblName"
+    "rButton"
+    "message";
   grid-template-columns: 1fr;
   grid-template-rows: 3fr 50px 1fr 1fr 1fr;
   justify-items: center;
   left: 0;
-  padding: 1em;
+  padding: $layout-padding;
   position: fixed;
   right: 0;
   text-align: center;
@@ -61,16 +61,16 @@
     }
 
     &--name {
-      grid-area: input-name;
+      grid-area: tskName;
       text-align: left;
     }
 
     &--task-time {
-      grid-area: input-task-time;
+      grid-area: tskTime;
     }
 
     &--break-time {
-      grid-area: input-break-time;
+      grid-area: brkTime;
     }
 
     &::placeholder {
@@ -80,16 +80,16 @@
   }
 
   &__label {
-
+    align-self: start;
     font-size: 0.9em;
 
-    &--name { grid-area: label-name; }
-    &--task-time { grid-area: label-task-time; }
-    &--break-time { grid-area: label-break-time; }
+    &--name { grid-area: lblName; }
+    &--task-time { grid-area: lblTime; }
+    &--break-time { grid-area: lblBreak; }
   }
 
   &__alert {
-    grid-area: alert;
+    grid-area: message;
     opacity: 0;
     transition: opacity $time-alert, visibility 0s $time-alert;
     visibility: hidden;
@@ -116,11 +116,11 @@
     }
 
     &--right {
-      grid-area: right-button;
+      grid-area: rButton;
     }
 
     &--left {
-      grid-area: left-button;
+      grid-area: lButton;
     }
   }
 
@@ -136,7 +136,7 @@
     border-radius: 100px;
     font-size: 1.2em;
     font-weight: 600;
-    grid-area: start-button;
+    grid-area: sButton;
     text-transform: uppercase;
     width: 100%;
     transition: background-color $hover-icon, border-color $hover-icon;
@@ -159,18 +159,14 @@
       font-size: 1.6em;
       grid-template-areas:
         "heading heading heading"
-        ". input-name right-button"
-        ". label-name ."
-        ". alert .";
+        ".       tskName rButton"
+        ".       lblName .      "
+        ".       message .      ";
       grid-template-columns: 1fr 3fr 1fr;
       grid-template-rows: 2fr 80px 1fr 1fr;
 
       &__button {
         width: 100px;
-      }
-
-      &__label {
-        margin-top: 1em;
       }
     }
   }
@@ -181,11 +177,11 @@
 .Time {
   gap: 2em 1em;
   grid-template-areas:
-    "heading heading"
-    "label-task-time input-task-time"
-    "label-break-time input-break-time"
-    "left-button start-button"
-    "alert alert";
+    "heading  heading"
+    "lblTime  tskTime"
+    "lblBreak brkTime"
+    "lButton  sButton"
+    "message  message";
   grid-template-columns: 80px 1fr;
   grid-template-rows: 1fr 60px 60px 60px 1fr;
 
@@ -195,9 +191,9 @@
       column-gap: 1em;
       grid-template-areas:
         "heading heading heading heading heading"
-        "left-button input-task-time input-break-time start-button ."
-        ". label-task-time label-break-time . ."
-        ". alert alert alert .";
+        "lButton tskTime brkTime sButton .      "
+        ".       lblTime lblBreak .      .      "
+        ".       message message message .      ";
       grid-template-columns: repeat(5, 1fr);
       grid-template-rows: 2fr 80px 1fr 1fr;
     }
