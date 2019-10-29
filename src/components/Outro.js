@@ -13,11 +13,13 @@ const Outro = (props) => {
     overallTimeArray
   } = props.state;
 
+  const { compClassName, onStateChange } = props;
+
   const [minutes, seconds] = overallTimeArray;
   const [breakMinutes, breakSeconds] = breakTimeElapsedArray;
 
   return (
-    <section className={props.compClassName}>
+    <section className={compClassName}>
       <div className="Outro__container">
         <h2 className="Outro__heading">
           Congratulations!
@@ -65,7 +67,7 @@ const Outro = (props) => {
         </p>
         <button
           className="Outro__retry"
-          onClick={() => props.onStateChange({
+          onClick={() => onStateChange({
             isOutroVisible: false,
             isTaskVisible: true,
             taskName: "",

@@ -12,7 +12,7 @@ const Break = (props) => {
   return (
     <div className={compClassName}>
       <h3 className="Break__counter">
-        {`${props.breaksTotal} ${breaksTotal === 1
+        {`${breaksTotal} ${breaksTotal === 1
         ? "break" : "breaks"}`}
       </h3>
       <Display

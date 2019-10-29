@@ -10,8 +10,8 @@ const Controls = (props) => {
     onStateChange,
     breaksTotal
   } = props;
-  const incBreaksTotal = isTaskTimeActive
-  ? breaksTotal + 1 : breaksTotal;
+
+  const incBreaksTotal = isTaskTimeActive ? breaksTotal + 1 : breaksTotal;
 
   return (
     <div className="Controls">
