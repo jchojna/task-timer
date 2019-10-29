@@ -3,9 +3,17 @@ import icons from '../assets/svg/icons.svg';
 import '../scss/Task&Time.scss';
 
 const Task = (props) => {
+  const {
+    compClassName,
+    alertClassName,
+    taskName,
+    taskNameValidity,
+    onStateChange,
+    onTaskNameChange
+  } = props;
 
   return (
-    <section className={`Task ${props.compClassName}`}>
+    <section className={`Task ${compClassName}`}>
       {/* TASK HEADING */}
       <h2 className="Task__heading">Write your task</h2>
       {/* TASK NAME INPUT */}
@@ -14,10 +22,10 @@ const Task = (props) => {
         id="task-name"
         placeholder="What would be your next task?"
         onChange={(e) => {
-          props.onTaskNameChange(e.target.value);
-          props.onStateChange({ alertFlag: true })
+          onTaskNameChange(e.target.value);
+          onStateChange({ alertFlag: true })
         }}
-        value={props.taskName}
+        value={taskName}
       />
       {/* TASK NAME LABEL */}
       <label className="Task__label Task__label--name visuallyhidden" htmlFor="task-name">
@@ -26,21 +34,21 @@ const Task = (props) => {
       {/* RIGHT BUTTON */}
       <button 
         className="button Task__button Task__button--right"
-        onClick={props.taskNameValidity
-          ? () => props.onStateChange({
+        onClick={taskNameValidity
+          ? () => onStateChange({
             isTaskVisible: false,
             isTimeVisible: true,
             isTaskNameChangeActive: false,
             alertFlag: false
           })
-          : () => props.onTaskNameChange("")}
+          : () => onTaskNameChange("")}
       >
         <svg className="Task__svg" viewBox="0 0 512 512">
           <use href={`${icons}#arrow-right`} />
         </svg>
       </button>
       {/* ALERT */}
-      <p className={`Task__alert ${props.alertClassName}`}>
+      <p className={`Task__alert ${alertClassName}`}>
         You have to enter your task first!
       </p>
     </section>
