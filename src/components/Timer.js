@@ -91,6 +91,7 @@ class Timer extends Component {
 
   render() {
     const {
+      taskName,
       isTaskTimeActive,
       isBreakTimeActive,
       isElapsedMode,
@@ -111,7 +112,7 @@ class Timer extends Component {
     return (
       <section className={`Timer ${compClassName}`}>
         <div className="Timer__container">
-          <h2 className="Timer__heading">Keep working...</h2>
+          <h2 className="Timer__heading">{`"${taskName}"`}</h2>
           {/* CONTROL BUTTONS */}
           <Controls
             isTaskTimeActive={isTaskTimeActive}
