@@ -39,3 +39,16 @@
     transform: translateY(-100%);
   }
 }
+
+.slideInLeft {
+  animation: slideInLeft $time-slide forwards;
+}
+.slideInRight {
+  animation: slideInRight $time-slide forwards;
+}
+.slideOutLeft {
+  animation: slideOutLeft $time-slide forwards;
+}
+.slideOutRight {
+  animation: slideOutRight $time-slide forwards;
+}
