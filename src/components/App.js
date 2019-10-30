@@ -159,7 +159,6 @@ class App extends Component {
           onTaskNameChange={this.handleTaskName}
           taskNameValidity={isTaskNameValid}
           taskName={taskName}
-          onKeyPress={this.handleKeyPress}
         />
         {/* TIME SECTION */}
         <Time

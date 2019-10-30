@@ -4,6 +4,19 @@ import '../scss/Task&Time.scss';
 
 class Time extends Component {
 
+  handlePreviousView = (e) => {
+    const { onStateChange } = this.props;
+    const keyPressed = e.key || null;
+
+    if (keyPressed === "Escape" || keyPressed === null) {
+      onStateChange({
+        isTaskVisible: true,
+        isTimeVisible: false,
+        isTaskNameChangeActive: true
+      })
+    }
+  }
+
   render() {
     const {
       compClassName,
@@ -21,17 +34,14 @@ class Time extends Component {
       <section
         className={`Time ${compClassName}`}
         tabIndex="0"
-        autofocus
+        autoFocus
+        onKeyDown={(e) => this.handlePreviousView(e)}
       >
         <h2 className="Time__heading">Estimate a time</h2>
         {/* LEFT BUTTON */}
         <button
           className="Time__button Time__button--left"
-          onClick={() => onStateChange({
-            isTaskVisible: true,
-            isTimeVisible: false,
-            isTaskNameChangeActive: true
-          })}
+          onClick={this.handlePreviousView}
         >
           <svg className="Time__svg" viewBox="0 0 512 512">
             <use href={`${icons}#arrow-left`} />

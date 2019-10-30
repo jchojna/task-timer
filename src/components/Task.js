@@ -36,7 +36,7 @@ class Task extends Component {
         className={`Task ${compClassName}`}
         onKeyDown={(e) => this.handleNextView(e)}
         tabIndex="0"
-        autofocus
+        autoFocus
       >
         {/* TASK HEADING */}
         <h2 className="Task__heading">Write your task</h2>
