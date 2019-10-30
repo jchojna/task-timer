@@ -9,11 +9,16 @@ const Task = (props) => {
     taskName,
     taskNameValidity,
     onStateChange,
-    onTaskNameChange
+    onTaskNameChange,
+    onKeyPress
   } = props;
 
   return (
-    <section className={`Task ${compClassName}`}>
+    <section
+      className={`Task ${compClassName}`}
+      onKeyDown={(e) => onKeyPress(e)}
+      tabIndex="0"
+    >
       {/* TASK HEADING */}
       <h2 className="Task__heading">Write your task</h2>
       {/* TASK NAME INPUT */}

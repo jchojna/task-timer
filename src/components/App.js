@@ -12,8 +12,8 @@ class App extends Component {
     super(props);
     this.state = {
       // visibility
-      isTaskVisible: false,
-      isTimeVisible: true,
+      isTaskVisible: true,
+      isTimeVisible: false,
       isTimerVisible: false,
       isStopTaskVisible: false,
       isOutroVisible: false,
@@ -125,6 +125,10 @@ class App extends Component {
     ]
   }
 
+  handleKeyPress = (e) => {
+    console.log(e.key);
+  }
+
   render() {
     const {
       isTaskVisible,
@@ -159,6 +163,7 @@ class App extends Component {
           onTaskNameChange={this.handleTaskName}
           taskNameValidity={isTaskNameValid}
           taskName={taskName}
+          onKeyPress={this.handleKeyPress}
         />
         {/* TIME SECTION */}
         <Time
