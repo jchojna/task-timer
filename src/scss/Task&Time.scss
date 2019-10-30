@@ -104,7 +104,7 @@
   &__button {
     @include flex-center;
     @include button;
-    align-self: start;
+    align-self: center;
     fill: none;
     stroke: #fff;
     stroke-width: 20;
