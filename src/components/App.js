@@ -4,6 +4,7 @@ import Time from './Time.js';
 import Timer from './Timer.js';
 import StopTask from './StopTask.js';
 import Outro from './Outro.js';
+import Failure from './Failure.js';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
       isTimerVisible: false,
       isStopTaskVisible: false,
       isOutroVisible: false,
+      isFailureVisible: false,
       isElapsedMode: true,
       isTaskNameChangeActive: false,
       alertFlag: false,
@@ -30,14 +32,16 @@ class App extends Component {
       taskTimeRemaining: 0,
       taskTimeRemainingArray: ['00','00','00'],
       isTaskTimeActive: false,
-      //timer
-      previousTime: 0,
-      breakTimePlanned: "",
+      //break
       isBreakTimePlannedValid: true,
       isBreakTimeActive: false,
       breaksTotal: 0,
+      breakTimePlanned: "",
+      breakTimeTotal: 0,
       breakTimeElapsed: 0,
       breakTimeElapsedArray: ['00','00','00'],
+      //timer
+      previousTime: 0,
       percentElapsed: 0,
       percentRemaining: 100,
       overallTime: 0,
@@ -57,9 +61,11 @@ class App extends Component {
   handleTaskTimePlanned = (time) => {
     const taskTimeTotal = this.handleTotalTime(time);
     const taskTimeRemainingArray = this.handleTimeArray(taskTimeTotal);
+
     this.setState({
       taskTimePlanned: time,
-      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && taskTimeTotal > 0,
+      isTaskTimePlannedValid:
+        /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && taskTimeTotal > 0,
       taskTimeTotal: taskTimeTotal,
       taskTimeRemaining: taskTimeTotal,
       taskTimeRemainingArray: taskTimeRemainingArray
@@ -67,9 +73,13 @@ class App extends Component {
   }
   
   handleBreakTimePlanned = (time) => {
+    const breakTimeTotal = this.handleTotalTime(time);
+    
     this.setState({
       breakTimePlanned: time,
-      isBreakTimePlannedValid: /^((\d?\d[Mm])?\d?\d[Ss]|)$/.test(time)
+      isBreakTimePlannedValid:
+      /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && breakTimeTotal > 0,
+      breakTimeTotal: breakTimeTotal
     })
   }
 
@@ -97,6 +107,8 @@ class App extends Component {
         breakTimeElapsedArray: breakTimeElapsedResult,
         alertFlag: false
       });
+    } else {
+      this.setState({ alertFlag: true });
     }
   }
 
@@ -120,11 +132,13 @@ class App extends Component {
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
+      isFailureVisible,
       alertFlag,
       taskName,
       isTaskNameChangeActive,
       isTaskNameValid,
       taskTimePlanned,
+      breakTimePlanned,
       isTaskTimePlannedValid,
       isBreakTimePlannedValid,
       isTaskTimeActive
@@ -160,6 +174,7 @@ class App extends Component {
           onStartButtonClick={this.handleStartButton}
           isTimerActive={isTaskTimeActive}
           taskTimePlanned={taskTimePlanned}
+          breakTimePlanned={breakTimePlanned}
         />
         {/* TIMER SECTION */}
         <Timer
@@ -180,6 +195,14 @@ class App extends Component {
         <Outro
           compClassName={`Outro ${isOutroVisible
           ? "Outro--visible slideInRight"
+          : "slideOutLeft"}`}
+          state={this.state}
+          onStateChange={this.handleStateChange}
+        />
+        {/* BREAK TIME EXCEEDED */}
+        <Failure
+          compClassName={`Failure ${isFailureVisible
+          ? "Failure--visible slideInRight"
           : "slideOutLeft"}`}
           state={this.state}
           onStateChange={this.handleStateChange}

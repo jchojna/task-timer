@@ -9,6 +9,7 @@ const Time = (props) => {
     alertClassName,
     onStateChange,
     taskTimePlanned,
+    breakTimePlanned,
     onTaskTimePlannedChange,
     onBreakTimePlannedChange,
     isTimerActive,
@@ -37,11 +38,11 @@ const Time = (props) => {
         className="Time__input Time__input--task-time"
         placeholder="00m00s"
         maxLength="6"
+        value={taskTimePlanned}
         onChange={(e) => {
           onTaskTimePlannedChange(e.target.value);
           onStateChange({ alertFlag: true })
         }}
-        value={taskTimePlanned}
       />
       {/* TASK TIME LABEL */}
       <label className="Time__label Time__label--task-time" htmlFor="task-time">
@@ -53,7 +54,11 @@ const Time = (props) => {
         className="Time__input Time__input--break-time"
         placeholder="00m00s"
         maxLength="6"
-        onChange={(e) => onBreakTimePlannedChange(e.target.value)}
+        value={breakTimePlanned}
+        onChange={(e) => {
+          onBreakTimePlannedChange(e.target.value);
+          onStateChange({ alertFlag: true })
+        }}
       />
       {/* BREAK TIME LABEL */}
       <label className="Time__label Time__label--break-time" htmlFor="break-time">

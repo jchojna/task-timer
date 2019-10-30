@@ -37,7 +37,7 @@ class Timer extends Component {
       const percentElapsed = taskTimeElapsed / taskTimeTotal * 100;
       const percentRemaining = taskTimeRemaining / taskTimeTotal * 100;
 
-      // when countdown finishes
+      // when task time finishes
       if (taskTimeElapsed >= taskTimeTotal) {
         onStateChange({
           isStopTaskVisible: false,
@@ -53,7 +53,6 @@ class Timer extends Component {
           overallTime: taskTimeElapsed + breakTimeElapsed,
           overallTimeArray: overallTimeResult
         });
-
       // normal task time tick
       } else {
         onStateChange({
@@ -71,8 +70,10 @@ class Timer extends Component {
 
   handleBreakTimeTick = () => {
     const {
+      taskTimeElapsed,
       isBreakTimeActive,
       breakTimeElapsed,
+      breakTimeTotal,
       previousTime
     } = this.props.state;
     
@@ -80,12 +81,26 @@ class Timer extends Component {
       const { onStateChange, onTimeArrayChange } = this.props;
       const now = Date.now();
       const breakTimeElapsedResult = onTimeArrayChange(breakTimeElapsed);
+      const breakTimeTotalResult = onTimeArrayChange(breakTimeTotal);
 
-      onStateChange({
-        breakTimeElapsed: breakTimeElapsed + (now - previousTime),
-        breakTimeElapsedArray: breakTimeElapsedResult,
-        previousTime: now
-      });
+      // when break time finishes
+      if (breakTimeElapsed >= breakTimeTotal) {
+        onStateChange({
+          isBreakTimeActive: false,
+          isTimerVisible: false,
+          isFailureVisible: true,
+          overallTime: taskTimeElapsed + breakTimeElapsed,
+          breakTimeElapsed: breakTimeTotal,
+          breakTimeElapsedArray: breakTimeTotalResult
+        })
+      } else {
+        // normal break time tick
+        onStateChange({
+          breakTimeElapsed: breakTimeElapsed + (now - previousTime),
+          breakTimeElapsedArray: breakTimeElapsedResult,
+          previousTime: now
+        });
+      }
     }
   }
 

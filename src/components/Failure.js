@@ -3,45 +3,32 @@ import TimeResult from './TimeResult';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Outro&Failure.scss';
 
-const Outro = (props) => {
+const Failure = (props) => {
+  const { compClassName, onStateChange, state } = props;
+
   const {
-    taskName,
     breaksTotal,
     breakTimeElapsed,
     breakTimeElapsedArray,
-    overallTime,
-    overallTimeArray
-  } = props.state;
-
-  const { compClassName, onStateChange } = props;
-
-  const [minutes, seconds] = overallTimeArray;
+    overallTime
+  } = state;
+  
   const [breakMinutes, breakSeconds] = breakTimeElapsedArray;
 
   return (
     <section className={compClassName}>
-      <div className="Outro__container">
-        <h2 className="Outro__heading">
-          Congratulations!
+      <div className="Failure__container">
+        <h2 className="Failure__heading">
+          Too long break!
           <span
-            className="Outro__emoji"
+            className="Failure__emoji"
             role="img"
-            aria-label="party"
-          > 🎉</span>
+            aria-label="fail"
+          > 😮</span>
         </h2>
-        <p className="Outro__message">
-          You have finished your task entitled <br />
-          <span className="TimeResult">
-            {`"${taskName}"`}
-          </span><br />
-          in
-          <TimeResult
-            minutes={parseInt(minutes)}
-            seconds={parseInt(seconds)}
-            breakTimeElapsed={breakTimeElapsed}
-          />
-          {`${breakTimeElapsed > 0 ? " including break time." : "."}`}
-          <br />
+        <p className="Failure__message">
+          It seems you exceeded the limit of break time! <br />
+
           You had
           <span className="TimeResult">
             {`
@@ -63,12 +50,13 @@ const Outro = (props) => {
               ? ` ${Math.round(breakTimeElapsed / overallTime * 100)}%`
               : ""}
           </span>
-          {breaksTotal ? " of all time." : "."}
+          {breaksTotal ? " of all time." : "."} <br />
+          But don't give up, try again!
         </p>
         <button
-          className="Outro__retry"
+          className="Failure__retry"
           onClick={() => onStateChange({
-            isOutroVisible: false,
+            isFailureVisible: false,
             isTaskVisible: true,
             taskName: "",
             isTaskNameValid: false,
@@ -78,7 +66,7 @@ const Outro = (props) => {
             isBreakTimePlannedValid: false
           })}
         >
-          <svg className="Outro__svg" viewBox="0 0 512 512">
+          <svg className="Failure__svg" viewBox="0 0 512 512">
             <use href={`${icons}#retry`}/>
           </svg>
         </button>
@@ -86,4 +74,4 @@ const Outro = (props) => {
     </section>
   );
 }
-export default Outro;
+export default Failure;
