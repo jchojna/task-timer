@@ -17,6 +17,17 @@ class Creator extends Component {
     }
   } */
   
+  handleAddButton = () => {
+    console.log('add');
+  }
+  
+  handleCancelButton = () => {
+    const { onStateChange } = this.props;
+    onStateChange({
+      isCreatorVisible: false
+    })
+  }
+
   render() {
     const {
       compClassName,
@@ -25,7 +36,6 @@ class Creator extends Component {
       state,
       onStateChange,
       onTaskNameChange,
-      onStartButtonClick,
       onTaskTimePlannedChange,
       onBreakTimePlannedChange
     } = this.props;
@@ -87,7 +97,7 @@ class Creator extends Component {
         <button
           className="Creator__button Creator__button--add"
           //disabled = {isTimerActive}
-          onClick={() => onStartButtonClick()}
+          onClick={this.handleAddButton}
         >
           Add Task
         </button>
@@ -95,14 +105,14 @@ class Creator extends Component {
         <button
           className="Creator__button Creator__button--cancel"
           //disabled = {isTimerActive}
-          onClick={() => onStartButtonClick()}
+          onClick={this.handleCancelButton}
         >
           Cancel
         </button>
 
         {/* TASK NAME LABEL */}
         <label className="Creator__label Creator__label--task-name" htmlFor="task-name">
-          Your task
+          Your task name
         </label>
         {/* TASK TIME LABEL */}
         <label className="Creator__label Creator__label--task-time" htmlFor="task-time">
