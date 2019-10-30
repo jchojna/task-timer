@@ -11,8 +11,8 @@ class App extends Component {
     super(props);
     this.state = {
       // visibility
-      isTaskVisible: true,
-      isTimeVisible: false,
+      isTaskVisible: false,
+      isTimeVisible: true,
       isTimerVisible: false,
       isStopTaskVisible: false,
       isOutroVisible: false,
@@ -32,10 +32,10 @@ class App extends Component {
       isTaskTimeActive: false,
       //timer
       previousTime: 0,
-      breakTimePlanned: "",
       isBreakTimePlannedValid: true,
       isBreakTimeActive: false,
       breaksTotal: 0,
+      breakTimePlanned: "",
       breakTimeElapsed: 0,
       breakTimeElapsedArray: ['00','00','00'],
       percentElapsed: 0,
@@ -127,6 +127,7 @@ class App extends Component {
       isTaskNameChangeActive,
       isTaskNameValid,
       taskTimePlanned,
+      breakTimePlanned,
       isTaskTimePlannedValid,
       isBreakTimePlannedValid,
       isTaskTimeActive
@@ -162,6 +163,7 @@ class App extends Component {
           onStartButtonClick={this.handleStartButton}
           isTimerActive={isTaskTimeActive}
           taskTimePlanned={taskTimePlanned}
+          breakTimePlanned={breakTimePlanned}
         />
         {/* TIMER SECTION */}
         <Timer
