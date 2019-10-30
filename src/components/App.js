@@ -30,14 +30,16 @@ class App extends Component {
       taskTimeRemaining: 0,
       taskTimeRemainingArray: ['00','00','00'],
       isTaskTimeActive: false,
-      //timer
-      previousTime: 0,
+      //break
       isBreakTimePlannedValid: true,
       isBreakTimeActive: false,
       breaksTotal: 0,
       breakTimePlanned: "",
+      breakTimeTotal: 0,
       breakTimeElapsed: 0,
       breakTimeElapsedArray: ['00','00','00'],
+      //timer
+      previousTime: 0,
       percentElapsed: 0,
       percentRemaining: 100,
       overallTime: 0,
@@ -57,9 +59,11 @@ class App extends Component {
   handleTaskTimePlanned = (time) => {
     const taskTimeTotal = this.handleTotalTime(time);
     const taskTimeRemainingArray = this.handleTimeArray(taskTimeTotal);
+
     this.setState({
       taskTimePlanned: time,
-      isTaskTimePlannedValid: /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && taskTimeTotal > 0,
+      isTaskTimePlannedValid:
+        /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && taskTimeTotal > 0,
       taskTimeTotal: taskTimeTotal,
       taskTimeRemaining: taskTimeTotal,
       taskTimeRemainingArray: taskTimeRemainingArray
@@ -67,9 +71,13 @@ class App extends Component {
   }
   
   handleBreakTimePlanned = (time) => {
+    const breakTimeTotal = this.handleTotalTime(time);
+    
     this.setState({
       breakTimePlanned: time,
-      isBreakTimePlannedValid: /^((\d?\d[Mm])?\d?\d[Ss]|)$/.test(time)
+      isBreakTimePlannedValid:
+        /^((\d?\d[Mm])?\d?\d[Ss]|)$/.test(time) && breakTimeTotal > 0,
+      breakTimeTotal: breakTimeTotal
     })
   }
 
