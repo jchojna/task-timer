@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import icons from '../assets/svg/icons.svg';
 import '../scss/Task&Time.scss';
 
 class Time extends Component {
@@ -37,7 +36,7 @@ class Time extends Component {
         autoFocus
         onKeyDown={(e) => this.handlePreviousView(e)}
       >
-        
+
         {/* TASK TIME INPUT */}
         <input
           id="task-time"
