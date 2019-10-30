@@ -97,6 +97,8 @@ class App extends Component {
         breakTimeElapsedArray: breakTimeElapsedResult,
         alertFlag: false
       });
+    } else {
+      this.setState({ alertFlag: true });
     }
   }
 

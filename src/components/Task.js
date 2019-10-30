@@ -41,7 +41,7 @@ const Task = (props) => {
             isTaskNameChangeActive: false,
             alertFlag: false
           })
-          : () => onTaskNameChange("")}
+          : () => onStateChange({ alertFlag: true })}
       >
         <svg className="Task__svg" viewBox="0 0 512 512">
           <use href={`${icons}#arrow-right`} />
