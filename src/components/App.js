@@ -11,14 +11,12 @@ class App extends Component {
     super(props);
     this.state = {
       // visibility
-      isTaskVisible: true,
-      isTimeVisible: false,
+      isCreatorVisible: true,
       isTimerVisible: false,
       isStopTaskVisible: false,
       isOutroVisible: false,
       isFailureVisible: false,
       isElapsedMode: true,
-      isTaskNameChangeActive: false,
       nameAlertFlag: false,
       timeAlertFlag: false,
       // task
@@ -50,7 +48,7 @@ class App extends Component {
   }
 
   handleStateChange = (object) => this.setState(object);
-
+  
   handleTaskName = (name) => {
     this.setState({
       taskName: name,
@@ -125,19 +123,35 @@ class App extends Component {
     ]
   }
 
-  render() {
+  handleAlertVisibility = (alert) => {
     const {
-      isTaskVisible,
-      isTimerVisible,
-      isStopTaskVisible,
-      isOutroVisible,
-      isFailureVisible,
       nameAlertFlag,
       timeAlertFlag,
-      isTaskNameChangeActive,
       isTaskNameValid,
       isTaskTimePlannedValid,
       isBreakTimePlannedValid
+    } = this.state;
+
+    switch (alert) {
+      case 'name':
+        return nameAlertFlag && !isTaskNameValid ? "Creator__alert--visible" : "";
+
+      case 'time':
+        return (timeAlertFlag && !isTaskTimePlannedValid)
+        || (timeAlertFlag && !isBreakTimePlannedValid)
+        ? "Creator__alert--visible" : "";
+
+      default: break;
+    }
+  }
+
+  render() {
+    const {
+      isCreatorVisible,
+      isTimerVisible,
+      isStopTaskVisible,
+      isOutroVisible,
+      isFailureVisible
     } = this.state;
 
     return (
@@ -147,15 +161,10 @@ class App extends Component {
 
         {/* TASK CREATOR */}
         <Creator
-          compClassName={isTaskVisible
-            ? `Creator--visible ${isTaskNameChangeActive
-              ? "slideInLeft" : "slideInRight"}`
-            : "slideOutLeft"}
-          nameAlertClassName={nameAlertFlag && !isTaskNameValid
-            ? "Creator__alert--visible" : ""}
-          timeAlertClassName={(timeAlertFlag && !isTaskTimePlannedValid)
-            || (timeAlertFlag && !isBreakTimePlannedValid)
-            ? "Creator__alert--visible" : ""}
+          compClassName={isCreatorVisible
+            ? "Creator--visible slideInRight" : "slideOutLeft"}
+          nameAlertClassName={this.handleAlertVisibility('name')}
+          timeAlertClassName={this.handleAlertVisibility('time')}
           state={this.state}
           onStateChange={this.handleStateChange}
           onTaskNameChange={this.handleTaskName}
