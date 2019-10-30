@@ -3,6 +3,19 @@ import React, { Component } from 'react';
 import '../scss/Creator.scss';
 
 class Creator extends Component {
+
+  /* handlePreviousView = (e) => {
+    const { onStateChange } = this.props;
+    const keyPressed = e.key || null;
+
+    if (keyPressed === "Escape" || keyPressed === null) {
+      onStateChange({
+        isTaskVisible: true,
+        isTimeVisible: false,
+        isTaskNameChangeActive: true
+      })
+    }
+  } */
   
   render() {
     const {
@@ -30,9 +43,8 @@ class Creator extends Component {
         autoFocus
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >
-  
         {/* TASK HEADING */}
-        <h2 className="Creator__heading">Write your task</h2>
+        <h2 className="Creator__heading">Create a new task</h2>
   
         {/* TASK NAME INPUT */}
         <input
@@ -45,21 +57,11 @@ class Creator extends Component {
           }}
           value={taskName}
         />
-  
-        {/* TASK NAME LABEL */}
-        <label className="Creator__label Creator__label--name visuallyhidden" htmlFor="task-name">
-          Your task
-        </label>
-        
-        {/* ALERT */}
-        <p className={`Creator__alert ${alertClassName}`}>
-          You have to enter your task first!
-        </p>
-  
+          
         {/* TASK TIME INPUT */}
         <input
           id="task-time"
-          className="Time__input Time__input--task-time"
+          className="Creator__input Creator__input--task-time"
           placeholder="00m00s"
           maxLength="6"
           value={taskTimePlanned}
@@ -69,15 +71,10 @@ class Creator extends Component {
           }}
         />
   
-        {/* TASK TIME LABEL */}
-        <label className="Time__label Time__label--task-time" htmlFor="task-time">
-          Task time
-        </label>
-  
         {/* BREAK TIME INPUT */}
         <input
           id="break-time"
-          className="Time__input Time__input--break-time"
+          className="Creator__input Creator__input--break-time"
           placeholder="00m00s"
           maxLength="6"
           value={breakTimePlanned}
@@ -86,21 +83,44 @@ class Creator extends Component {
             onStateChange({ alertFlag: true })
           }}
         />
-  
-        {/* BREAK TIME LABEL */}
-        <label className="Time__label Time__label--break-time" htmlFor="break-time">
-          Max break time
-        </label>
-  
-        {/* START BUTTON */}
+        
+        {/* ADD BUTTON */}
         <button
-          className={`Time__start ${isTimerActive
-            ? "Time__start--disabled" : ""}`}
-          disabled = {isTimerActive}
+          className="Creator__button Creator__button--add"
+          //disabled = {isTimerActive}
           onClick={() => onStartButtonClick()}
         >
-          Start
+          Add Task
         </button>
+  
+        {/* CANCEL BUTTON */}
+        <button
+          className="Creator__button Creator__button--cancel"
+          //disabled = {isTimerActive}
+          onClick={() => onStartButtonClick()}
+        >
+          Cancel
+        </button>
+
+        {/* TASK NAME LABEL */}
+        <label className="Creator__label Creator__label--task-name" htmlFor="task-name">
+          Your task
+        </label>
+        
+        {/* TASK TIME LABEL */}
+        <label className="Creator__label Creator__label--task-time" htmlFor="task-time">
+          Task time
+        </label>
+        
+        {/* BREAK TIME LABEL */}
+        <label className="Creator__label Creator__label--break-time" htmlFor="break-time">
+          Max break time
+        </label>
+
+        {/* ALERT */}
+        <p className={`Creator__alert ${alertClassName}`}>
+          You have to enter your task first!
+        </p>
       </section>
     );
   }
