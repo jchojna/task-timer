@@ -6,6 +6,7 @@
 
 .Creator {
   align-items: start;
+  background-color: $color-cyan;
   bottom: 0;
   display: grid;
   font-weight: 400;
@@ -19,7 +20,7 @@
   grid-template-rows: 3fr 50px 1fr 1fr 1fr;
   justify-items: center;
   max-width: $layout-max-width;
-  padding: $layout-padding;
+  padding: 0 200px;
   position: fixed;
   text-align: center;
   top: 0;
