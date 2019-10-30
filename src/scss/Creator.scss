@@ -1,0 +1,163 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+////////////////////////////////////////////////////////////////// TASK & TIME 
+
+.Creator {
+  align-items: start;
+  bottom: 0;
+  display: grid;
+  font-weight: 400;
+  /* grid-template-areas:
+    "heading"
+    "tskName"
+    "lblName"
+    "rButton"
+    "message"; */
+  //grid-template-columns: 1fr;
+  grid-template-rows: 3fr 50px 1fr 1fr 1fr;
+  justify-items: center;
+  max-width: $layout-max-width;
+  padding: $layout-padding;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  transition: visibility 0s $time-slide;
+  visibility: hidden;
+  width: 100%;
+
+  &--visible {
+    transition: visibility 0s;
+    visibility: visible;
+  }
+
+  &__heading {
+    align-self: center;
+    margin: 0;
+    font-size: 2em;
+    font-weight: 400;
+    grid-area: heading;
+  }
+
+  &__input {
+    align-self: stretch;
+    background: none;
+    border: 2px solid #fff;
+    border-radius: 100px;
+    color: #fff;
+    font-size: 1.1em;
+    justify-self: stretch;
+    min-width: 50px;
+    padding: 0 1.3em;
+    text-align: center;
+    transition: box-shadow $focus-input;
+
+    &:focus {
+      box-shadow:
+        0 0 0 5px rgba($color: $color-cyan-dark, $alpha: 0.7),
+        0 0 30px rgba($color: $color-cyan-dark, $alpha: 0.4);
+    }
+
+    &--name {
+      grid-area: taskName;
+      text-align: left;
+    }
+
+    &--task-time {
+      grid-area: taskTime;
+    }
+
+    &--break-time {
+      grid-area: breakTime;
+    }
+
+    &::placeholder {
+      color: #fff;
+      font-size: 0.8em;
+    }
+  }
+
+  &__label {
+    font-size: 0.7em;
+    padding-top: 0.5em;
+
+    &--task-name { grid-area: labelName; }
+    &--task-time { grid-area: labelTime; }
+    &--break-time { grid-area: labelBreak; }
+  }
+
+  &__button {
+    @include button;
+    align-self: stretch;
+    border: 2px solid #fff;
+    border-radius: 100px;
+    fill: none;
+    font-weight: 600;
+    justify-self: stretch;
+    padding: 0 1.5em;
+    stroke: #fff;
+    stroke-width: 20;
+    transition: background-color $hover-icon, border-color $hover-icon;
+    width: 100%;
+
+    &:hover {
+      background-color: $color-tomato;
+      border-color: $color-tomato;
+    }
+
+    &--disabled {
+      border-color: $color-disabled;
+      color: $color-disabled;
+      cursor: default;
+    }
+
+    &--add {
+      grid-area: addTask;
+    }
+
+    &--cancel {
+      grid-area: cancel;
+
+      &:hover {
+        background-color: $color-cyan-dark;
+        border-color: $color-cyan-dark;
+      }
+    }
+  }
+
+  &__alerts {
+    color: $color-tomato;
+    font-size: 0.9em;
+    grid-area: messages;
+  }
+  
+  &__alert {
+    opacity: 0;
+    transition: opacity $time-alert, visibility 0s $time-alert;
+    visibility: hidden;
+
+    &--visible {
+      opacity: 1;
+      transition: opacity $time-alert, visibility 0s;
+      visibility: inherit;
+    }
+  }
+  
+  @media only screen and (min-width: $media-md) {
+
+    & {
+      font-size: 1.5em;
+      grid-template-areas:
+        "heading   heading    heading   heading  "
+        "taskName  taskName   taskName  taskName "
+        "labelName .          .         .        "
+        "taskTime  breakTime  addTask   cancel   "
+        "labelTime labelBreak .         .        "
+        "messages  messages   messages  messages ";
+      grid-template-columns: 1fr 1fr auto auto;
+      grid-template-rows: 2fr 80px 50px 80px 1fr 1fr;
+      column-gap: 1em;
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import Task from './Task.js';
-import Time from './Time.js';
+import Creator from './Creator.js';
 import Timer from './Timer.js';
 import StopTask from './StopTask.js';
 import Outro from './Outro.js';
@@ -12,15 +11,14 @@ class App extends Component {
     super(props);
     this.state = {
       // visibility
-      isTaskVisible: true,
-      isTimeVisible: false,
+      isCreatorVisible: true,
       isTimerVisible: false,
       isStopTaskVisible: false,
       isOutroVisible: false,
       isFailureVisible: false,
       isElapsedMode: true,
-      isTaskNameChangeActive: false,
-      alertFlag: false,
+      nameAlertFlag: false,
+      timeAlertFlag: false,
       // task
       taskName: "",
       isTaskNameValid: false,
@@ -50,7 +48,7 @@ class App extends Component {
   }
 
   handleStateChange = (object) => this.setState(object);
-
+  
   handleTaskName = (name) => {
     this.setState({
       taskName: name,
@@ -65,7 +63,7 @@ class App extends Component {
     this.setState({
       taskTimePlanned: time,
       isTaskTimePlannedValid:
-        /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && taskTimeTotal > 0,
+        /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && taskTimeTotal > 0,
       taskTimeTotal: taskTimeTotal,
       taskTimeRemaining: taskTimeTotal,
       taskTimeRemainingArray: taskTimeRemainingArray
@@ -78,7 +76,7 @@ class App extends Component {
     this.setState({
       breakTimePlanned: time,
       isBreakTimePlannedValid:
-      /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && breakTimeTotal > 0,
+      /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && breakTimeTotal > 0,
       breakTimeTotal: breakTimeTotal
     })
   }
@@ -125,57 +123,56 @@ class App extends Component {
     ]
   }
 
+  handleAlertVisibility = (alert) => {
+    const {
+      nameAlertFlag,
+      timeAlertFlag,
+      isTaskNameValid,
+      isTaskTimePlannedValid,
+      isBreakTimePlannedValid
+    } = this.state;
+
+    switch (alert) {
+      case 'name':
+        return nameAlertFlag && !isTaskNameValid ? "Creator__alert--visible" : "";
+
+      case 'time':
+        return (timeAlertFlag && !isTaskTimePlannedValid)
+        || (timeAlertFlag && !isBreakTimePlannedValid)
+        ? "Creator__alert--visible" : "";
+
+      default: break;
+    }
+  }
+
   render() {
     const {
-      isTaskVisible,
-      isTimeVisible,
+      isCreatorVisible,
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
-      isFailureVisible,
-      alertFlag,
-      taskName,
-      isTaskNameChangeActive,
-      isTaskNameValid,
-      taskTimePlanned,
-      breakTimePlanned,
-      isTaskTimePlannedValid,
-      isBreakTimePlannedValid,
-      isTaskTimeActive
+      isFailureVisible
     } = this.state;
 
     return (
       <div className="App">
+        {/* APP HEADING */}
         <h1 className="App__heading visuallyhidden">Task Timer App</h1>
-        {/* TASK SECTION */}
-        <Task
-          compClassName={isTaskVisible
-            ? `Task--visible ${isTaskNameChangeActive
-              ? "slideInLeft" : "slideInRight"}`
-            : "slideOutLeft"}
-          alertClassName={alertFlag && !isTaskNameValid
-            ? "Task__alert--visible" : ""}
+
+        {/* TASK CREATOR */}
+        <Creator
+          compClassName={isCreatorVisible
+            ? "Creator--visible slideInRight" : "slideOutLeft"}
+          nameAlertClassName={this.handleAlertVisibility('name')}
+          timeAlertClassName={this.handleAlertVisibility('time')}
+          state={this.state}
           onStateChange={this.handleStateChange}
           onTaskNameChange={this.handleTaskName}
-          taskNameValidity={isTaskNameValid}
-          taskName={taskName}
-        />
-        {/* TIME SECTION */}
-        <Time
-          compClassName={isTimeVisible
-            ? "Time--visible slideInRight" : isTimerVisible
-            ? "slideOutLeft" : "slideOutRight"}
-          alertClassName={(alertFlag && !isTaskTimePlannedValid)
-            || (alertFlag && !isBreakTimePlannedValid)
-            ? "Time__alert--visible" : ""}
+          onStartButtonClick={this.handleStartButton}
           onTaskTimePlannedChange={this.handleTaskTimePlanned}
           onBreakTimePlannedChange={this.handleBreakTimePlanned}
-          onStateChange={this.handleStateChange}
-          onStartButtonClick={this.handleStartButton}
-          isTimerActive={isTaskTimeActive}
-          taskTimePlanned={taskTimePlanned}
-          breakTimePlanned={breakTimePlanned}
         />
+        
         {/* TIMER SECTION */}
         <Timer
           compClassName={isTimerVisible
