@@ -50,17 +50,20 @@ const Failure = (props) => {
               ? ` ${Math.round(breakTimeElapsed / overallTime * 100)}%`
               : ""}
           </span>
-          {breaksTotal ? " of all time." : "."}
+          {breaksTotal ? " of all time." : "."} <br />
+          But don't give up, try again!
         </p>
         <button
           className="Failure__retry"
           onClick={() => onStateChange({
-            isOutroVisible: false,
+            isFailureVisible: false,
             isTaskVisible: true,
             taskName: "",
             isTaskNameValid: false,
             taskTimePlanned: "",
-            isTaskTimePlannedValid: false
+            isTaskTimePlannedValid: false,
+            breakTimePlanned: "",
+            isBreakTimePlannedValid: false
           })}
         >
           <svg className="Failure__svg" viewBox="0 0 512 512">

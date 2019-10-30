@@ -21,7 +21,9 @@ const StopTask = (props) => {
             taskName: "",
             isTaskNameValid: false,
             taskTimePlanned: "",
-            isTaskTimePlannedValid: false
+            isTaskTimePlannedValid: false,
+            breakTimePlanned: "",
+            isBreakTimePlannedValid: false
           })}
         >
           Yes
