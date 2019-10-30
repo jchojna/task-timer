@@ -19,7 +19,8 @@ class App extends Component {
       isFailureVisible: false,
       isElapsedMode: true,
       isTaskNameChangeActive: false,
-      alertFlag: false,
+      nameAlertFlag: false,
+      timeAlertFlag: false,
       // task
       taskName: "",
       isTaskNameValid: false,
@@ -127,20 +128,16 @@ class App extends Component {
   render() {
     const {
       isTaskVisible,
-      isTimeVisible,
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
       isFailureVisible,
-      alertFlag,
-      taskName,
+      nameAlertFlag,
+      timeAlertFlag,
       isTaskNameChangeActive,
       isTaskNameValid,
-      taskTimePlanned,
-      breakTimePlanned,
       isTaskTimePlannedValid,
-      isBreakTimePlannedValid,
-      isTaskTimeActive
+      isBreakTimePlannedValid
     } = this.state;
 
     return (
@@ -154,7 +151,10 @@ class App extends Component {
             ? `Creator--visible ${isTaskNameChangeActive
               ? "slideInLeft" : "slideInRight"}`
             : "slideOutLeft"}
-          alertClassName={alertFlag && !isTaskNameValid
+          nameAlertClassName={nameAlertFlag && !isTaskNameValid
+            ? "Creator__alert--visible" : ""}
+          timeAlertClassName={(timeAlertFlag && !isTaskTimePlannedValid)
+            || (timeAlertFlag && !isBreakTimePlannedValid)
             ? "Creator__alert--visible" : ""}
           state={this.state}
           onStateChange={this.handleStateChange}

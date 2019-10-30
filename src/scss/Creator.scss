@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////////// TASK & TIME 
 
 .Creator {
-  align-items: center;
+  align-items: start;
   bottom: 0;
   display: grid;
   font-weight: 400;
@@ -33,6 +33,7 @@
   }
 
   &__heading {
+    align-self: center;
     margin: 0;
     font-size: 2em;
     font-weight: 400;
@@ -78,7 +79,6 @@
   }
 
   &__label {
-    align-self: start;
     font-size: 0.7em;
     padding-top: 0.5em;
 
@@ -95,7 +95,7 @@
     fill: none;
     font-weight: 600;
     justify-self: stretch;
-    padding: 0 1em;
+    padding: 0 1.5em;
     stroke: #fff;
     stroke-width: 20;
     transition: background-color $hover-icon, border-color $hover-icon;
@@ -125,9 +125,14 @@
       }
     }
   }
+
+  &__alerts {
+    color: $color-tomato;
+    font-size: 0.9em;
+    grid-area: messages;
+  }
   
   &__alert {
-    grid-area: message;
     opacity: 0;
     transition: opacity $time-alert, visibility 0s $time-alert;
     visibility: hidden;
@@ -142,14 +147,14 @@
   @media only screen and (min-width: $media-md) {
 
     & {
-      font-size: 1.6em;
+      font-size: 1.5em;
       grid-template-areas:
         "heading   heading    heading   heading  "
         "taskName  taskName   taskName  taskName "
         "labelName .          .         .        "
         "taskTime  breakTime  addTask   cancel   "
         "labelTime labelBreak .         .        "
-        "message   message    message   message  ";
+        "messages  messages   messages  messages ";
       grid-template-columns: 1fr 1fr auto auto;
       grid-template-rows: 2fr 80px 50px 80px 1fr 1fr;
       column-gap: 1em;

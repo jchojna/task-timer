@@ -20,7 +20,8 @@ class Creator extends Component {
   render() {
     const {
       compClassName,
-      alertClassName,
+      nameAlertClassName,
+      timeAlertClassName,
       state,
       onStateChange,
       onTaskNameChange,
@@ -32,8 +33,7 @@ class Creator extends Component {
     const {
       taskName,
       taskTimePlanned,
-      breakTimePlanned,
-      isTimerActive
+      breakTimePlanned
     } = state;
 
     return (
@@ -53,7 +53,7 @@ class Creator extends Component {
           placeholder="What would be your next task?"
           onChange={(e) => {
             onTaskNameChange(e.target.value);
-            onStateChange({ alertFlag: true })
+            onStateChange({ nameAlertFlag: true })
           }}
           value={taskName}
         />
@@ -67,10 +67,9 @@ class Creator extends Component {
           value={taskTimePlanned}
           onChange={(e) => {
             onTaskTimePlannedChange(e.target.value);
-            onStateChange({ alertFlag: true })
+            onStateChange({ timeAlertFlag: true })
           }}
         />
-  
         {/* BREAK TIME INPUT */}
         <input
           id="break-time"
@@ -80,7 +79,7 @@ class Creator extends Component {
           value={breakTimePlanned}
           onChange={(e) => {
             onBreakTimePlannedChange(e.target.value);
-            onStateChange({ alertFlag: true })
+            onStateChange({ timeAlertFlag: true })
           }}
         />
         
@@ -92,7 +91,6 @@ class Creator extends Component {
         >
           Add Task
         </button>
-  
         {/* CANCEL BUTTON */}
         <button
           className="Creator__button Creator__button--cancel"
@@ -106,21 +104,24 @@ class Creator extends Component {
         <label className="Creator__label Creator__label--task-name" htmlFor="task-name">
           Your task
         </label>
-        
         {/* TASK TIME LABEL */}
         <label className="Creator__label Creator__label--task-time" htmlFor="task-time">
           Task time
         </label>
-        
         {/* BREAK TIME LABEL */}
         <label className="Creator__label Creator__label--break-time" htmlFor="break-time">
           Max break time
         </label>
 
-        {/* ALERT */}
-        <p className={`Creator__alert ${alertClassName}`}>
-          You have to enter your task first!
-        </p>
+        {/* ALERTS */}
+        <div className="Creator__alerts">
+          <p className={`Creator__alert ${nameAlertClassName}`}>
+            You have to enter your task name!
+          </p>
+          <p className={`Creator__alert ${timeAlertClassName}`}>
+            Enter time in specific format (00m00s)
+          </p>
+        </div>
       </section>
     );
   }
