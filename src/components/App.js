@@ -17,6 +17,7 @@ class App extends Component {
       isTimerVisible: false,
       isStopTaskVisible: false,
       isOutroVisible: false,
+      isFailureVisible: false,
       isElapsedMode: true,
       isTaskNameChangeActive: false,
       alertFlag: false,
@@ -131,6 +132,7 @@ class App extends Component {
       isTimerVisible,
       isStopTaskVisible,
       isOutroVisible,
+      isFailureVisible,
       alertFlag,
       taskName,
       isTaskNameChangeActive,
@@ -199,8 +201,8 @@ class App extends Component {
         />
         {/* BREAK TIME EXCEEDED */}
         <Failure
-          compClassName={`Outro ${isOutroVisible
-          ? "Outro--visible slideInRight"
+          compClassName={`Failure ${isFailureVisible
+          ? "Failure--visible slideInRight"
           : "slideOutLeft"}`}
           state={this.state}
           onStateChange={this.handleStateChange}

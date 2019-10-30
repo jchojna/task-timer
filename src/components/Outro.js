@@ -1,7 +1,7 @@
 import React from 'react';
 import TimeResult from './TimeResult';
 import icons from '../assets/svg/icons.svg';
-import '../scss/Outro.scss';
+import '../scss/Outro&Failure.scss';
 
 const Outro = (props) => {
   const {
@@ -24,7 +24,7 @@ const Outro = (props) => {
         <h2 className="Outro__heading">
           Congratulations!
           <span
-            className="Outro__party"
+            className="Outro__emoji"
             role="img"
             aria-label="party"
           > 🎉</span>

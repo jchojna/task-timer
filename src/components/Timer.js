@@ -70,6 +70,7 @@ class Timer extends Component {
 
   handleBreakTimeTick = () => {
     const {
+      taskTimeElapsed,
       isBreakTimeActive,
       breakTimeElapsed,
       breakTimeTotal,
@@ -80,11 +81,17 @@ class Timer extends Component {
       const { onStateChange, onTimeArrayChange } = this.props;
       const now = Date.now();
       const breakTimeElapsedResult = onTimeArrayChange(breakTimeElapsed);
+      const breakTimeTotalResult = onTimeArrayChange(breakTimeTotal);
 
       // when break time finishes
       if (breakTimeElapsed >= breakTimeTotal) {
         onStateChange({
-          isBreakTimeActive: false
+          isBreakTimeActive: false,
+          isTimerVisible: false,
+          isFailureVisible: true,
+          overallTime: taskTimeElapsed + breakTimeElapsed,
+          breakTimeElapsed: breakTimeTotal,
+          breakTimeElapsedArray: breakTimeTotalResult
         })
       } else {
         // normal break time tick
