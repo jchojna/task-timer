@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import Task from './Task.js';
-import Time from './Time.js';
+import Creator from './Creator.js';
 import Timer from './Timer.js';
 import StopTask from './StopTask.js';
 import Outro from './Outro.js';
@@ -146,36 +145,25 @@ class App extends Component {
 
     return (
       <div className="App">
+        {/* APP HEADING */}
         <h1 className="App__heading visuallyhidden">Task Timer App</h1>
-        {/* TASK SECTION */}
-        <Task
+
+        {/* TASK CREATOR */}
+        <Creator
           compClassName={isTaskVisible
-            ? `Task--visible ${isTaskNameChangeActive
+            ? `Creator--visible ${isTaskNameChangeActive
               ? "slideInLeft" : "slideInRight"}`
             : "slideOutLeft"}
           alertClassName={alertFlag && !isTaskNameValid
-            ? "Task__alert--visible" : ""}
+            ? "Creator__alert--visible" : ""}
+          state={this.state}
           onStateChange={this.handleStateChange}
           onTaskNameChange={this.handleTaskName}
-          taskNameValidity={isTaskNameValid}
-          taskName={taskName}
-        />
-        {/* TIME SECTION */}
-        <Time
-          compClassName={isTimeVisible
-            ? "Time--visible slideInRight" : isTimerVisible
-            ? "slideOutLeft" : "slideOutRight"}
-          alertClassName={(alertFlag && !isTaskTimePlannedValid)
-            || (alertFlag && !isBreakTimePlannedValid)
-            ? "Time__alert--visible" : ""}
+          onStartButtonClick={this.handleStartButton}
           onTaskTimePlannedChange={this.handleTaskTimePlanned}
           onBreakTimePlannedChange={this.handleBreakTimePlanned}
-          onStateChange={this.handleStateChange}
-          onStartButtonClick={this.handleStartButton}
-          isTimerActive={isTaskTimeActive}
-          taskTimePlanned={taskTimePlanned}
-          breakTimePlanned={breakTimePlanned}
         />
+        
         {/* TIMER SECTION */}
         <Timer
           compClassName={isTimerVisible

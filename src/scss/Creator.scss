@@ -4,8 +4,7 @@
 
 ////////////////////////////////////////////////////////////////// TASK & TIME 
 
-.Task,
-.Time {
+.Creator {
   align-items: center;
   bottom: 0;
   display: grid;
@@ -172,34 +171,6 @@
       &__label {
         align-self: start;
       }
-    }
-  }
-}
-
-///////////////////////////////////////////////////////////////////////// TIME 
-
-.Time {
-  gap: 2em 1em;
-  grid-template-areas:
-    "heading  heading"
-    "lblTime  tskTime"
-    "lblBreak brkTime"
-    "lButton  sButton"
-    "message  message";
-  grid-template-columns: 80px 1fr;
-  grid-template-rows: 1fr 60px 60px 60px 1fr;
-
-  @media only screen and (min-width: $media-md) {
-
-    & {
-      column-gap: 1em;
-      grid-template-areas:
-        "heading heading heading heading heading"
-        "lButton tskTime brkTime sButton .      "
-        ".       lblTime lblBreak .      .      "
-        ".       message message message .      ";
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: 2fr 80px 1fr 1fr;
     }
   }
 }

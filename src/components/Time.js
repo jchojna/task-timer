@@ -37,16 +37,7 @@ class Time extends Component {
         autoFocus
         onKeyDown={(e) => this.handlePreviousView(e)}
       >
-        <h2 className="Time__heading">Estimate a time</h2>
-        {/* LEFT BUTTON */}
-        <button
-          className="Time__button Time__button--left"
-          onClick={this.handlePreviousView}
-        >
-          <svg className="Time__svg" viewBox="0 0 512 512">
-            <use href={`${icons}#arrow-left`} />
-          </svg>
-        </button>
+        
         {/* TASK TIME INPUT */}
         <input
           id="task-time"
