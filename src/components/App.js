@@ -63,7 +63,7 @@ class App extends Component {
     this.setState({
       taskTimePlanned: time,
       isTaskTimePlannedValid:
-        /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && taskTimeTotal > 0,
+        /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && taskTimeTotal > 0,
       taskTimeTotal: taskTimeTotal,
       taskTimeRemaining: taskTimeTotal,
       taskTimeRemainingArray: taskTimeRemainingArray
@@ -76,7 +76,7 @@ class App extends Component {
     this.setState({
       breakTimePlanned: time,
       isBreakTimePlannedValid:
-      /(\d?\d[Mm])?(\d?\d[Ss])/.test(time) && breakTimeTotal > 0,
+      /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && breakTimeTotal > 0,
       breakTimeTotal: breakTimeTotal
     })
   }
