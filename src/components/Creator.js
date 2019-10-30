@@ -18,7 +18,11 @@ class Creator extends Component {
   } */
   
   handleAddButton = () => {
-    console.log('add');
+    const { onStateChange } = this.props;
+    onStateChange({
+      isCreatorVisible: false
+      // add new task
+    })
   }
   
   handleCancelButton = () => {
