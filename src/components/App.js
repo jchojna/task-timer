@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Board from './Board.js';
 import Creator from './Creator.js';
 import Timer from './Timer.js';
 import StopTask from './StopTask.js';
@@ -11,6 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       // visibility
+      isBoardVisible: true,
       isCreatorVisible: true,
       isTimerVisible: false,
       isStopTaskVisible: false,
@@ -158,6 +160,9 @@ class App extends Component {
       <div className="App">
         {/* APP HEADING */}
         <h1 className="App__heading visuallyhidden">Task Timer App</h1>
+
+        {/* BOARD OF TASKS */}
+        <Board />
 
         {/* TASK CREATOR */}
         <Creator

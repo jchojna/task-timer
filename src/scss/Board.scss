@@ -1,0 +1,9 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.Board {
+  background-color: $color-cyan-dark;
+  width: 100%;
+  height: 100%;
+}
