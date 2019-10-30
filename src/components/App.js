@@ -4,6 +4,7 @@ import Time from './Time.js';
 import Timer from './Timer.js';
 import StopTask from './StopTask.js';
 import Outro from './Outro.js';
+import Failure from './Failure.js';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -190,6 +191,14 @@ class App extends Component {
         />
         {/* OUTRO SECTION */}
         <Outro
+          compClassName={`Outro ${isOutroVisible
+          ? "Outro--visible slideInRight"
+          : "slideOutLeft"}`}
+          state={this.state}
+          onStateChange={this.handleStateChange}
+        />
+        {/* BREAK TIME EXCEEDED */}
+        <Failure
           compClassName={`Outro ${isOutroVisible
           ? "Outro--visible slideInRight"
           : "slideOutLeft"}`}
