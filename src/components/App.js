@@ -125,10 +125,6 @@ class App extends Component {
     ]
   }
 
-  handleKeyPress = (e) => {
-    console.log(e.key);
-  }
-
   render() {
     const {
       isTaskVisible,
