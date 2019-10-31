@@ -9,6 +9,31 @@ class Task extends Component {
     this.state = {
       totalTaskTime,
       totalBreakTime
+      //isElapsedMode: true,
+      
+      //taskTimeElapsed: 0,
+      //taskTimeElapsedArray: ['00','00','00'],
+      //taskTimeRemaining: 0,
+      //taskTimeRemainingArray: ['00','00','00'],
+      //isTaskTimeActive: false,
+
+      //totalBreaks: 0,
+
+      //break
+      //isBreakTimeActive: false,
+      //breakTimeElapsed: 0,
+      //breakTimeElapsedArray: ['00','00','00'],
+      //timer
+      //previousTime: 0,
+      //percentElapsed: 0,
+      //percentRemaining: 100,
+      //overallTime: 0,
+      //overallTimeArray: ['00','00','00']
+
+      //isTimerVisible: false,
+      //isStopTaskVisible: false,
+      //isOutroVisible: false,
+      //isFailureVisible: false,
     }
   }
 
@@ -21,14 +46,14 @@ class Task extends Component {
     return (
       <section className="Task">
         <h2 className="Task__name">
-          {taskName}
+          {`"${taskName}"`}
         </h2>
         <Display
-          className="Task__totalTaskTime"
+          className="Task__totalTime Task__totalTime--task"
           taskTimeArray={handleTimeArray(totalTaskTime)}
         />
         <Display
-          className="Task__totalBreakTime"
+          className="Task__totalTime Task__totalTime--break"
           taskTimeArray={handleTimeArray(totalBreakTime)}
         />
         <p>

@@ -14,52 +14,30 @@ class App extends Component {
       // visibility
       isBoardVisible: true,
       isCreatorVisible: false,
-      //isTimerVisible: false,
-      //isStopTaskVisible: false,
-      //isOutroVisible: false,
-      //isFailureVisible: false,
-      //isElapsedMode: true,
       alertNameFlag: false,
       alertTimeFlag: false,
-      // task
       tasks: [
         {
           taskName: "Test task for preview purposes",
           plannedTaskTime: "30s",
           plannedBreakTime: "10s",
           totalTaskTime: 30000,
-          totalBreakTime: 10000
+          totalBreakTime: 10000,
+          dateCreated: 6453654365346
         },
         {
           taskName: "Another task for testing",
           plannedTaskTime: "60s",
           plannedBreakTime: "20s",
           totalTaskTime: 60000,
-          totalBreakTime: 20000
+          totalBreakTime: 20000,
+          dateCreated: 543254234523
         },
       ],
       // validity
       isTaskNameValid: false,
       isPlannedTaskTimeValid: false,
       isPlannedBreakTimeValid: false,
-      //taskTimeElapsed: 0,
-      //taskTimeElapsedArray: ['00','00','00'],
-      //taskTimeRemaining: 0,
-      //taskTimeRemainingArray: ['00','00','00'],
-      //isTaskTimeActive: false,
-
-      //totalBreaks: 0,
-
-      //break
-      //isBreakTimeActive: false,
-      //breakTimeElapsed: 0,
-      //breakTimeElapsedArray: ['00','00','00'],
-      //timer
-      //previousTime: 0,
-      //percentElapsed: 0,
-      //percentRemaining: 100,
-      //overallTime: 0,
-      //overallTimeArray: ['00','00','00']
     };
   }
 
