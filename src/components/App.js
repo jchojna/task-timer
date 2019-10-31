@@ -14,41 +14,39 @@ class App extends Component {
       // visibility
       isBoardVisible: true,
       isCreatorVisible: true,
-      isTimerVisible: false,
-      isStopTaskVisible: false,
-      isOutroVisible: false,
-      isFailureVisible: false,
-      isElapsedMode: true,
+      //isTimerVisible: false,
+      //isStopTaskVisible: false,
+      //isOutroVisible: false,
+      //isFailureVisible: false,
+      //isElapsedMode: true,
       alertNameFlag: false,
       alertTimeFlag: false,
       // task
-      taskName: "",
+      taskNames: [],
       isTaskNameValid: false,
-      taskTimeElapsed: 0,
-      taskTimeElapsedArray: ['00','00','00'],
-      taskTimeRemaining: 0,
-      taskTimeRemainingArray: ['00','00','00'],
-      isTaskTimeActive: false,
+      //taskTimeElapsed: 0,
+      //taskTimeElapsedArray: ['00','00','00'],
+      //taskTimeRemaining: 0,
+      //taskTimeRemainingArray: ['00','00','00'],
+      //isTaskTimeActive: false,
       // planned time
-      plannedTaskTime: "",
-      plannedBreakTime: "",
+      plannedTaskTimes: [],
+      plannedBreakTimes: [],
       isPlannedTaskTimeValid: false,
       isPlannedBreakTimeValid: false,
-      // total time
-      totalTaskTime: 0,
-      totalBreakTime: 0,
-      totalBreaks: 0,
+      
+      //totalBreaks: 0,
 
       //break
-      isBreakTimeActive: false,
-      breakTimeElapsed: 0,
-      breakTimeElapsedArray: ['00','00','00'],
+      //isBreakTimeActive: false,
+      //breakTimeElapsed: 0,
+      //breakTimeElapsedArray: ['00','00','00'],
       //timer
-      previousTime: 0,
-      percentElapsed: 0,
-      percentRemaining: 100,
-      overallTime: 0,
-      overallTimeArray: ['00','00','00']
+      //previousTime: 0,
+      //percentElapsed: 0,
+      //percentRemaining: 100,
+      //overallTime: 0,
+      //overallTimeArray: ['00','00','00']
     };
   }
 
@@ -67,7 +65,6 @@ class App extends Component {
     this.setState({
       isPlannedTaskTimeValid:
         /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && totalTaskTime > 0,
-      totalTaskTime: totalTaskTime,
       alertTimeFlag: true
     })
   }
@@ -78,7 +75,6 @@ class App extends Component {
     this.setState({
       isPlannedBreakTimeValid:
       /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && totalBreakTime > 0,
-      totalBreakTime: totalBreakTime,
       alertTimeFlag: true
     })
   }
@@ -148,13 +144,7 @@ class App extends Component {
   }
 
   render() {
-    const {
-      isCreatorVisible,
-      isTimerVisible,
-      isStopTaskVisible,
-      isOutroVisible,
-      isFailureVisible
-    } = this.state;
+    const { isCreatorVisible } = this.state;
 
     return (
       <div className="App">

@@ -5,9 +5,7 @@ import '../scss/Board.scss';
 class Board extends Component {
 
   render() {
-    const { 
-      state
-    } = this.props;
+    const { state } = this.props;
 
     return (
       <section className="Board">
