@@ -2,11 +2,11 @@ import React from 'react';
 import '../scss/Display.scss';
 
 const Display = (props) => {
-  const { compClassName, taskTimeArray } = props;
+  const { className, taskTimeArray } = props;
   const taskTimeResult = taskTimeArray.join(':');
 
   return (
-    <p className={compClassName}>
+    <p className={className}>
       {taskTimeResult}
     </p>
   );

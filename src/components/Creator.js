@@ -3,8 +3,83 @@ import React, { Component } from 'react';
 import '../scss/Creator.scss';
 
 class Creator extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      creatorTaskName: "",
+      creatorTaskTime: "",
+      creatorBreakTime: ""
+    };
+  }
 
-  /* handlePreviousView = (e) => {
+  handleTaskName = (e) => {
+    const {value } = e.target;
+    const { onTaskNameChange } = this.props;
+    onTaskNameChange(value);
+    this.setState({ creatorTaskName: value });
+  }
+
+  handlePlannedTaskTime = (e) => {
+    const {value } = e.target;
+    const { onPlannedTaskTimeChange } = this.props;
+    onPlannedTaskTimeChange(value);
+    this.setState({ creatorTaskTime: value });
+  }
+  
+  handlePlannedBreakTime = (e) => {
+    const {value } = e.target;
+    const { onPlannedBreakTimeChange } = this.props;
+    onPlannedBreakTimeChange(value);
+    this.setState({ creatorBreakTime: value });
+  }
+  
+  handleCancelButton = (e) => {
+    e.preventDefault();
+    const { onStateChange } = this.props;
+    // return to Board component
+    onStateChange({
+      isCreatorVisible: false
+    });
+  }
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    const { onStateChange, handleTotalTime } = this.props;
+    const { creatorTaskName, creatorTaskTime, creatorBreakTime } = this.state;
+    const {
+      isTaskNameValid,
+      isPlannedTaskTimeValid,
+      isPlannedBreakTimeValid
+    } = this.props.state;
+    // validation
+    if (isTaskNameValid && isPlannedTaskTimeValid && isPlannedBreakTimeValid) {
+      
+      const totalTaskTime = handleTotalTime(creatorTaskTime);
+      const totalBreakTime = handleTotalTime(creatorBreakTime);
+      // new task data
+      const newTask = {
+        taskName: creatorTaskName,
+        plannedTaskTime: creatorTaskTime,
+        plannedBreakTime: creatorBreakTime,
+        totalTaskTime,
+        totalBreakTime,
+        dateCreated: Date.now()
+      };
+      // add new task to app state
+      onStateChange(prevState => ({
+        isCreatorVisible: false,
+        tasks: [...prevState.tasks, newTask]
+      }));
+      // clear inputs after submitting
+      this.setState({
+        creatorTaskName: "",
+        creatorTaskTime: "",
+        creatorBreakTime: ""
+      })
+    }
+  }
+
+  /* handleKeyPress = (e) => {
     const { onStateChange } = this.props;
     const keyPressed = e.key || null;
 
@@ -16,45 +91,27 @@ class Creator extends Component {
       })
     }
   } */
-  
-  handleAddButton = () => {
-    const { onStateChange } = this.props;
-    onStateChange({
-      isCreatorVisible: false
-      // add new task
-    })
-  }
-  
-  handleCancelButton = () => {
-    const { onStateChange } = this.props;
-    onStateChange({
-      isCreatorVisible: false
-    })
-  }
 
   render() {
+
+    const {
+      creatorTaskName,
+      creatorTaskTime,
+      creatorBreakTime
+    } = this.state;
+
     const {
       compClassName,
       nameAlertClassName,
-      timeAlertClassName,
-      state,
-      onStateChange,
-      onTaskNameChange,
-      onTaskTimePlannedChange,
-      onBreakTimePlannedChange
+      timeAlertClassName
     } = this.props;
-  
-    const {
-      taskName,
-      taskTimePlanned,
-      breakTimePlanned
-    } = state;
 
     return (
-      <section
+      <form
         className={`Creator ${compClassName}`}
         tabIndex="0"
         autoFocus
+        onSubmit={this.handleFormSubmit}
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >
         {/* TASK HEADING */}
@@ -62,46 +119,40 @@ class Creator extends Component {
   
         {/* TASK NAME INPUT */}
         <input
-          className="Creator__input Creator__input--name"
           id="task-name"
+          name="task-name"
+          className="Creator__input Creator__input--name"
           placeholder="What would be your next task?"
-          onChange={(e) => {
-            onTaskNameChange(e.target.value);
-            onStateChange({ nameAlertFlag: true })
-          }}
-          value={taskName}
+          value={creatorTaskName}
+          onChange={(e) => this.handleTaskName(e)}
         />
           
         {/* TASK TIME INPUT */}
         <input
           id="task-time"
+          name="task-time"
           className="Creator__input Creator__input--task-time"
           placeholder="00m00s"
           maxLength="6"
-          value={taskTimePlanned}
-          onChange={(e) => {
-            onTaskTimePlannedChange(e.target.value);
-            onStateChange({ timeAlertFlag: true })
-          }}
+          value={creatorTaskTime}
+          onChange={(e) => this.handlePlannedTaskTime(e)}
         />
         {/* BREAK TIME INPUT */}
         <input
           id="break-time"
+          name="break-time"
           className="Creator__input Creator__input--break-time"
           placeholder="00m00s"
           maxLength="6"
-          value={breakTimePlanned}
-          onChange={(e) => {
-            onBreakTimePlannedChange(e.target.value);
-            onStateChange({ timeAlertFlag: true })
-          }}
+          value={creatorBreakTime}
+          onChange={(e) => this.handlePlannedBreakTime(e)}
         />
         
         {/* ADD BUTTON */}
         <button
+          type="submit"
           className="Creator__button Creator__button--add"
           //disabled = {isTimerActive}
-          onClick={this.handleAddButton}
         >
           Add Task
         </button>
@@ -136,7 +187,7 @@ class Creator extends Component {
             Enter time in specific format (00m00s)
           </p>
         </div>
-      </section>
+      </form>
     );
   }
 }

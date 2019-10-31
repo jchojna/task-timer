@@ -11,3 +11,9 @@
   cursor: pointer;
   padding: 0;
 }
+
+@mixin card {
+  background-color: $color-cyan;
+  border-radius: $radius-card;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}

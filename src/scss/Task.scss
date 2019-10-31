@@ -1,0 +1,25 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.Task {
+  @include card;
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  padding: 1em;
+
+  &__name {
+    font-weight: 600;
+    font-size: 1.2em;
+    margin: 0;
+    text-align: center;
+  }
+
+  &__totalTime {
+    font-family: 'Inconsolata';
+    font-size: 2em;
+    font-weight: 800;
+    margin: 0;
+  }
+}
