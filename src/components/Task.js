@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Display from './Display.js';
 import '../scss/Task.scss';
 
 class Task extends Component {
@@ -13,20 +14,23 @@ class Task extends Component {
 
   render() {
 
-    const {
-      taskName, dateCreated } = this.props.task;
+    const { taskName, dateCreated } = this.props.task;
+    const { handleTimeArray } = this.props;
+    const { totalTaskTime, totalBreakTime } = this.state;
 
     return (
       <section className="Task">
         <h2 className="Task__name">
           {taskName}
         </h2>
-        <p className="Task__totalTaskTime">
-          {this.state.totalTaskTime}
-        </p>
-        <p className="Task__totalBreakTime">
-          {this.state.totalBreakTime}
-        </p>
+        <Display
+          className="Task__totalTaskTime"
+          taskTimeArray={handleTimeArray(totalTaskTime)}
+        />
+        <Display
+          className="Task__totalBreakTime"
+          taskTimeArray={handleTimeArray(totalBreakTime)}
+        />
         <p>
           {dateCreated}
         </p>

@@ -12,7 +12,7 @@ class Board extends Component {
   }
 
   render() {
-    const { state, handleTotalTime } = this.props;
+    const { state, handleTotalTime, handleTimeArray } = this.props;
     const { tasks } = state;
 
     return (
@@ -24,6 +24,7 @@ class Board extends Component {
             task={task}
             key={task.dateCreated}
             handleTotalTime={handleTotalTime}
+            handleTimeArray={handleTimeArray}
           />
         ))}
 

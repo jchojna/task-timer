@@ -22,14 +22,7 @@ class App extends Component {
       alertNameFlag: false,
       alertTimeFlag: false,
       // task
-      tasks: [
-        {
-          taskName: 'test1',
-          plannedTaskTime: '5s',
-          plannedBreakTime: '2s',
-          dateCreated: 5423454324
-        }
-      ],
+      tasks: [],
       // validity
       isTaskNameValid: false,
       isPlannedTaskTimeValid: false,
@@ -161,6 +154,7 @@ class App extends Component {
           state={this.state}
           onStateChange={this.handleStateChange}
           handleTotalTime={this.handleTotalTime}
+          handleTimeArray={this.handleTimeArray}
         />
 
         {/* TASK CREATOR */}
