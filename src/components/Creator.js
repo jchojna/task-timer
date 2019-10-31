@@ -3,6 +3,14 @@ import React, { Component } from 'react';
 import '../scss/Creator.scss';
 
 class Creator extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      creatorTaskName: "",
+      creatorTaskTime: "",
+      creatorBreakTime: ""
+    };
+  }
 
   /* handlePreviousView = (e) => {
     const { onStateChange } = this.props;
@@ -16,46 +24,68 @@ class Creator extends Component {
       })
     }
   } */
+
+  handleTaskName = (e) => {
+    const {value } = e.target;
+    const { onTaskNameChange } = this.props;
+    onTaskNameChange(value);
+    this.setState({ creatorTaskName: value })
+  }
+
+  handlePlannedTaskTime = (e) => {
+    const {value } = e.target;
+    const { onPlannedTaskTimeChange } = this.props;
+    onPlannedTaskTimeChange(value);
+    this.setState({ creatorTaskTime: value })
+  }
   
-  handleAddButton = () => {
-    const { onStateChange } = this.props;
-    onStateChange({
-      isCreatorVisible: false
-      // add new task
-    })
+  handlePlannedBreakTime = (e) => {
+    const {value } = e.target;
+    const { onPlannedBreakTimeChange } = this.props;
+    onPlannedBreakTimeChange(value);
+    this.setState({ creatorBreakTime: value })
   }
   
   handleCancelButton = (e) => {
-    const { onStateChange } = this.props;
     e.preventDefault();
+    const { onStateChange } = this.props;
+    
     onStateChange({
       isCreatorVisible: false
     })
   }
 
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    const { onStateChange } = this.props;
+    console.log(e.target.name);
+
+    onStateChange({
+      isCreatorVisible: false
+      // add new task
+    })
+  }
+
   render() {
+
+    const {
+      creatorTaskName,
+      creatorTaskTime,
+      creatorBreakTime
+    } = this.state;
+
     const {
       compClassName,
       nameAlertClassName,
-      timeAlertClassName,
-      state,
-      onStateChange,
-      onTaskNameChange,
-      onTaskTimePlannedChange,
-      onBreakTimePlannedChange
+      timeAlertClassName
     } = this.props;
-  
-    const {
-      taskName,
-      taskTimePlanned,
-      breakTimePlanned
-    } = state;
 
     return (
       <form
         className={`Creator ${compClassName}`}
         tabIndex="0"
         autoFocus
+        onSubmit={this.handleFormSubmit}
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >
         {/* TASK HEADING */}
@@ -63,36 +93,41 @@ class Creator extends Component {
   
         {/* TASK NAME INPUT */}
         <input
-          className="Creator__input Creator__input--name"
           id="task-name"
+          name="task-name"
+          className="Creator__input Creator__input--name"
           placeholder="What would be your next task?"
-          onChange={(e) => onTaskNameChange(e.target.value)}
+          value={creatorTaskName}
+          onChange={(e) => this.handleTaskName(e)}
         />
           
         {/* TASK TIME INPUT */}
         <input
           id="task-time"
+          name="task-time"
           className="Creator__input Creator__input--task-time"
           placeholder="00m00s"
           maxLength="6"
-          value={taskTimePlanned}
-          onChange={(e) => onTaskTimePlannedChange(e.target.value)}
+          value={creatorTaskTime}
+          onChange={(e) => this.handlePlannedTaskTime(e)}
         />
         {/* BREAK TIME INPUT */}
         <input
           id="break-time"
+          name="break-time"
           className="Creator__input Creator__input--break-time"
           placeholder="00m00s"
           maxLength="6"
-          value={breakTimePlanned}
-          onChange={(e) => onBreakTimePlannedChange(e.target.value)}
+          value={creatorBreakTime}
+          onChange={(e) => this.handlePlannedBreakTime(e)}
         />
         
         {/* ADD BUTTON */}
         <button
+          type="submit"
           className="Creator__button Creator__button--add"
           //disabled = {isTimerActive}
-          onClick={this.handleAddButton}
+          //onClick={this.handleAddButton}
         >
           Add Task
         </button>

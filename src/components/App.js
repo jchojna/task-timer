@@ -46,7 +46,7 @@ class App extends Component {
       percentRemaining: 100,
       overallTime: 0,
       overallTimeArray: ['00','00','00']
-    }
+    };
   }
 
   handleStateChange = (object) => this.setState(object);
@@ -59,7 +59,7 @@ class App extends Component {
     });
   }
 
-  handleTaskTimePlanned = (time) => {
+  handlePlannedTaskTime = (time) => {
     const taskTimeTotal = this.handleTotalTime(time);
     const taskTimeRemainingArray = this.handleTimeArray(taskTimeTotal);
 
@@ -67,22 +67,22 @@ class App extends Component {
       //taskTimePlanned: time,
       isTaskTimePlannedValid:
         /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && taskTimeTotal > 0,
-      taskTimeTotal: taskTimeTotal,
-      taskTimeRemaining: taskTimeTotal,
-      taskTimeRemainingArray: taskTimeRemainingArray,
-      nameAlertFlag: true
+      //taskTimeTotal: taskTimeTotal,
+      //taskTimeRemaining: taskTimeTotal,
+      //taskTimeRemainingArray: taskTimeRemainingArray,
+      timeAlertFlag: true
     })
   }
   
-  handleBreakTimePlanned = (time) => {
+  handlePlannedBreakTime = (time) => {
     const breakTimeTotal = this.handleTotalTime(time);
     
     this.setState({
       //breakTimePlanned: time,
       isBreakTimePlannedValid:
       /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && breakTimeTotal > 0,
-      breakTimeTotal: breakTimeTotal,
-      nameAlertFlag: true
+      //breakTimeTotal: breakTimeTotal,
+      timeAlertFlag: true
     })
   }
 
@@ -179,8 +179,8 @@ class App extends Component {
           onStateChange={this.handleStateChange}
           onTaskNameChange={this.handleTaskName}
           onStartButtonClick={this.handleStartButton}
-          onTaskTimePlannedChange={this.handleTaskTimePlanned}
-          onBreakTimePlannedChange={this.handleBreakTimePlanned}
+          onPlannedTaskTimeChange={this.handlePlannedTaskTime}
+          onPlannedBreakTimeChange={this.handlePlannedBreakTime}
         />
         
         {/* TIMER SECTION */}
