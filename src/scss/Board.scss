@@ -12,4 +12,15 @@
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 300px;
   padding: 4em;
+
+  &__createButton {
+    @include button;
+    @include flex-center;
+    background-color: $color-cyan;
+    font-size: 20em;
+
+    &:hover {
+      background-color: $color-tomato;
+    }
+  }
 }

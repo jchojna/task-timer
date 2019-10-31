@@ -22,7 +22,7 @@ class Board extends Component {
 
         {/* ADD NEW TASK BUTTON */}
         <button
-          className="Board__addButton"
+          className="button Board__createButton"
           onClick={this.handleCreateNewTaskButton}
         >
           +
