@@ -22,18 +22,22 @@ class App extends Component {
       alertNameFlag: false,
       alertTimeFlag: false,
       // task
-      taskNames: ['test1', 'test2', 'test3'],
+      tasks: [
+        {
+          taskName: 'test1',
+          plannedTaskTime: '5s',
+          plannedBreakTime: '2s'
+        }
+      ],
+      // validity
       isTaskNameValid: false,
+      isPlannedTaskTimeValid: false,
+      isPlannedBreakTimeValid: false,
       //taskTimeElapsed: 0,
       //taskTimeElapsedArray: ['00','00','00'],
       //taskTimeRemaining: 0,
       //taskTimeRemainingArray: ['00','00','00'],
       //isTaskTimeActive: false,
-      // planned time
-      plannedTaskTimes: ['5s', '7s', '9s'],
-      plannedBreakTimes: ['2s', '4s', '6s'],
-      isPlannedTaskTimeValid: false,
-      isPlannedBreakTimeValid: false,
 
       //totalBreaks: 0,
 
@@ -87,7 +91,7 @@ class App extends Component {
     return minutes * 60000 + seconds * 1000;
   }
 
-  handleStartButton = () => {
+  /* handleStartButton = () => {
     const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
     const breakTimeElapsedResult = this.handleTimeArray(0);
 
@@ -106,7 +110,7 @@ class App extends Component {
     } else {
       this.setState({ alertFlag: true });
     }
-  }
+  } */
 
   handleDisplayMode = () => this.setState(prevState => ({
     isElapsedMode: !prevState.isElapsedMode
@@ -165,7 +169,6 @@ class App extends Component {
           timeAlertClassName={this.handleAlertVisibility('time')}
           state={this.state}
           onStateChange={this.handleStateChange}
-          onStartButtonClick={this.handleStartButton}
           onTaskNameChange={this.handleTaskNameValidition}
           onPlannedTaskTimeChange={this.handlePlannedTaskTimeValidition}
           onPlannedBreakTimeChange={this.handlePlannedBreakTimeValidition}

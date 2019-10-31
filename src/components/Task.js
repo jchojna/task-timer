@@ -10,10 +10,10 @@ class Task extends Component {
           {this.props.taskName}
         </h2>
         <p>
-          {this.props.taskTime}
+          {this.props.plannedTaskTime}
         </p>
         <p>
-          {this.props.breakTime}
+          {this.props.plannedBreakTime}
         </p>
       </section>
     );

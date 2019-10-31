@@ -66,11 +66,14 @@ class Creator extends Component {
     } = this.props.state;
     // validation
     if (isTaskNameValid && isPlannedTaskTimeValid && isPlannedBreakTimeValid) {
+      const newTask = {
+        taskName: creatorTaskName,
+        plannedTaskTime: creatorTaskTime,
+        plannedBreakTime: creatorBreakTime
+      };
       onStateChange(prevState => ({
         isCreatorVisible: false,
-        taskNames: [...prevState.taskNames, creatorTaskName],
-        plannedTaskTimes: [...prevState.plannedTaskTimes, creatorTaskTime],
-        plannedBreakTimes: [...prevState.plannedBreakTimes, creatorBreakTime]
+        tasks: [...prevState.tasks, newTask]
       }));
       this.setState({
         creatorTaskName: "",
