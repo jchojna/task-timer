@@ -170,6 +170,7 @@ class App extends Component {
           nameAlertClassName={this.handleAlertVisibility('name')}
           timeAlertClassName={this.handleAlertVisibility('time')}
           state={this.state}
+          handleTotalTime={this.handleTotalTime}
           onStateChange={this.handleStateChange}
           onTaskNameChange={this.handleTaskNameValidition}
           onPlannedTaskTimeChange={this.handlePlannedTaskTimeValidition}

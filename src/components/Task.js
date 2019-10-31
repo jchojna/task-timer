@@ -4,35 +4,28 @@ import '../scss/Task.scss';
 class Task extends Component {
   constructor(props) {
     super(props);
+    const {totalTaskTime, totalBreakTime} = this.props.task;
     this.state = {
-      totalTaskTime: 0,
-      totalBreakTime: 0
+      totalTaskTime,
+      totalBreakTime
     }
-  }
-
-  handleTotalTime = (time) => {
-    const { handleTotalTime } = this.props;
-    return handleTotalTime(time);
   }
 
   render() {
 
     const {
-      taskName,
-      plannedTaskTime,
-      plannedBreakTime,
-      dateCreated } = this.props.task;
-      
+      taskName, dateCreated } = this.props.task;
+
     return (
       <section className="Task">
         <h2 className="Task__name">
           {taskName}
         </h2>
         <p className="Task__totalTaskTime">
-          {this.handleTotalTime(plannedTaskTime)}
+          {this.state.totalTaskTime}
         </p>
         <p className="Task__totalBreakTime">
-          {this.handleTotalTime(plannedBreakTime)}
+          {this.state.totalBreakTime}
         </p>
         <p>
           {dateCreated}

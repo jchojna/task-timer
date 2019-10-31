@@ -44,7 +44,7 @@ class Creator extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    const { onStateChange } = this.props;
+    const { onStateChange, handleTotalTime } = this.props;
     const { creatorTaskName, creatorTaskTime, creatorBreakTime } = this.state;
     const {
       isTaskNameValid,
@@ -53,11 +53,16 @@ class Creator extends Component {
     } = this.props.state;
     // validation
     if (isTaskNameValid && isPlannedTaskTimeValid && isPlannedBreakTimeValid) {
+      
+      const totalTaskTime = handleTotalTime(creatorTaskTime);
+      const totalBreakTime = handleTotalTime(creatorBreakTime);
       // new task data
       const newTask = {
         taskName: creatorTaskName,
         plannedTaskTime: creatorTaskTime,
         plannedBreakTime: creatorBreakTime,
+        totalTaskTime,
+        totalBreakTime,
         dateCreated: Date.now()
       };
       // add new task to app state
