@@ -22,7 +22,22 @@ class App extends Component {
       alertNameFlag: false,
       alertTimeFlag: false,
       // task
-      tasks: [],
+      tasks: [
+        {
+          taskName: "Test task for preview purposes",
+          plannedTaskTime: "30s",
+          plannedBreakTime: "10s",
+          totalTaskTime: 30000,
+          totalBreakTime: 10000
+        },
+        {
+          taskName: "Another task for testing",
+          plannedTaskTime: "60s",
+          plannedBreakTime: "20s",
+          totalTaskTime: 60000,
+          totalBreakTime: 20000
+        },
+      ],
       // validity
       isTaskNameValid: false,
       isPlannedTaskTimeValid: false,
