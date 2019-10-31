@@ -3,6 +3,9 @@
 @import "_animations.scss";
 
 .Task {
-  background-color: $color-cyan;
-  border-radius: 10px;
+  @include card;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  padding: 1em;
 }

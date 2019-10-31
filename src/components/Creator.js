@@ -12,19 +12,6 @@ class Creator extends Component {
     };
   }
 
-  /* handlePreviousView = (e) => {
-    const { onStateChange } = this.props;
-    const keyPressed = e.key || null;
-
-    if (keyPressed === "Escape" || keyPressed === null) {
-      onStateChange({
-        isTaskVisible: true,
-        isTimeVisible: false,
-        isTaskNameChangeActive: true
-      })
-    }
-  } */
-
   handleTaskName = (e) => {
     const {value } = e.target;
     const { onTaskNameChange } = this.props;
@@ -66,15 +53,18 @@ class Creator extends Component {
     } = this.props.state;
     // validation
     if (isTaskNameValid && isPlannedTaskTimeValid && isPlannedBreakTimeValid) {
+      // new task data
       const newTask = {
         taskName: creatorTaskName,
         plannedTaskTime: creatorTaskTime,
         plannedBreakTime: creatorBreakTime
       };
+      // add new task to app state
       onStateChange(prevState => ({
         isCreatorVisible: false,
         tasks: [...prevState.tasks, newTask]
       }));
+      // clear inputs after submitting
       this.setState({
         creatorTaskName: "",
         creatorTaskTime: "",
@@ -82,6 +72,19 @@ class Creator extends Component {
       })
     }
   }
+
+  /* handleKeyPress = (e) => {
+    const { onStateChange } = this.props;
+    const keyPressed = e.key || null;
+
+    if (keyPressed === "Escape" || keyPressed === null) {
+      onStateChange({
+        isTaskVisible: true,
+        isTimeVisible: false,
+        isTaskNameChangeActive: true
+      })
+    }
+  } */
 
   render() {
 
@@ -144,7 +147,6 @@ class Creator extends Component {
           type="submit"
           className="Creator__button Creator__button--add"
           //disabled = {isTimerActive}
-          //onClick={this.handleAddButton}
         >
           Add Task
         </button>
