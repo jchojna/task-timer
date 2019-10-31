@@ -72,6 +72,11 @@ class Creator extends Component {
         plannedTaskTime: creatorTaskTime,
         plannedBreakTime: creatorBreakTime
       });
+      this.setState({
+        creatorTaskName: "",
+        creatorTaskTime: "",
+        creatorBreakTime: ""
+      })
     }
   }
 

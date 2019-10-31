@@ -9,6 +9,12 @@ class Task extends Component {
         <h2 className="Task__heading">
           {this.props.state.taskName}
         </h2>
+        <p>
+          {this.props.state.plannedTaskTime}
+        </p>
+        <p>
+          {this.props.state.plannedBreakTime}
+        </p>
       </section>
     );
   }

@@ -19,12 +19,11 @@ class App extends Component {
       isOutroVisible: false,
       isFailureVisible: false,
       isElapsedMode: true,
-      nameAlertFlag: false,
-      timeAlertFlag: false,
+      alertNameFlag: false,
+      alertTimeFlag: false,
       // task
       taskName: "",
       isTaskNameValid: false,
-      taskTimeTotal: 0,
       taskTimeElapsed: 0,
       taskTimeElapsedArray: ['00','00','00'],
       taskTimeRemaining: 0,
@@ -35,11 +34,13 @@ class App extends Component {
       plannedBreakTime: "",
       isPlannedTaskTimeValid: false,
       isPlannedBreakTimeValid: false,
+      // total time
+      totalTaskTime: 0,
+      totalBreakTime: 0,
+      totalBreaks: 0,
 
       //break
       isBreakTimeActive: false,
-      breaksTotal: 0,
-      breakTimeTotal: 0,
       breakTimeElapsed: 0,
       breakTimeElapsedArray: ['00','00','00'],
       //timer
@@ -53,38 +54,32 @@ class App extends Component {
 
   handleStateChange = (object) => this.setState(object);
   
-  handleTaskName = (name) => {
+  handleTaskNameValidition = (name) => {
     this.setState({
-      //taskName: name,
       isTaskNameValid: name.length > 0 ? true : false ,
-      nameAlertFlag: true
+      alertNameFlag: true
     });
   }
 
-  handlePlannedTaskTime = (time) => {
-    const taskTimeTotal = this.handleTotalTime(time);
-    const taskTimeRemainingArray = this.handleTimeArray(taskTimeTotal);
+  handlePlannedTaskTimeValidition = (time) => {
+    const totalTaskTime = this.handleTotalTime(time);
 
     this.setState({
-      //taskTimePlanned: time,
       isPlannedTaskTimeValid:
-        /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && taskTimeTotal > 0,
-      //taskTimeTotal: taskTimeTotal,
-      //taskTimeRemaining: taskTimeTotal,
-      //taskTimeRemainingArray: taskTimeRemainingArray,
-      timeAlertFlag: true
+        /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && totalTaskTime > 0,
+      totalTaskTime: totalTaskTime,
+      alertTimeFlag: true
     })
   }
-  
-  handlePlannedBreakTime = (time) => {
-    const breakTimeTotal = this.handleTotalTime(time);
+
+  handlePlannedBreakTimeValidition = (time) => {
+    const totalBreakTime = this.handleTotalTime(time);
     
     this.setState({
-      //breakTimePlanned: time,
       isPlannedBreakTimeValid:
-      /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && breakTimeTotal > 0,
-      //breakTimeTotal: breakTimeTotal,
-      timeAlertFlag: true
+      /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && totalBreakTime > 0,
+      totalBreakTime: totalBreakTime,
+      alertTimeFlag: true
     })
   }
 
@@ -132,20 +127,20 @@ class App extends Component {
 
   handleAlertVisibility = (alert) => {
     const {
-      nameAlertFlag,
-      timeAlertFlag,
+      alertNameFlag,
+      alertTimeFlag,
       isTaskNameValid,
-      isTaskTimePlannedValid,
-      isBreakTimePlannedValid
+      isPlannedTaskTimeValid,
+      isPlannedBreakTimeValid
     } = this.state;
 
     switch (alert) {
       case 'name':
-        return nameAlertFlag && !isTaskNameValid ? "Creator__alert--visible" : "";
+        return alertNameFlag && !isTaskNameValid ? "Creator__alert--visible" : "";
 
       case 'time':
-        return (timeAlertFlag && !isTaskTimePlannedValid)
-        || (timeAlertFlag && !isBreakTimePlannedValid)
+        return (alertTimeFlag && !isPlannedTaskTimeValid)
+        || (alertTimeFlag && !isPlannedBreakTimeValid)
         ? "Creator__alert--visible" : "";
 
       default: break;
@@ -179,10 +174,10 @@ class App extends Component {
           timeAlertClassName={this.handleAlertVisibility('time')}
           state={this.state}
           onStateChange={this.handleStateChange}
-          onTaskNameChange={this.handleTaskName}
           onStartButtonClick={this.handleStartButton}
-          onPlannedTaskTimeChange={this.handlePlannedTaskTime}
-          onPlannedBreakTimeChange={this.handlePlannedBreakTime}
+          onTaskNameChange={this.handleTaskNameValidition}
+          onPlannedTaskTimeChange={this.handlePlannedTaskTimeValidition}
+          onPlannedBreakTimeChange={this.handlePlannedBreakTimeValidition}
         />
         
         {/* TIMER SECTION */}
