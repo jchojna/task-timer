@@ -29,41 +29,50 @@ class Creator extends Component {
     const {value } = e.target;
     const { onTaskNameChange } = this.props;
     onTaskNameChange(value);
-    this.setState({ creatorTaskName: value })
+    this.setState({ creatorTaskName: value });
   }
 
   handlePlannedTaskTime = (e) => {
     const {value } = e.target;
     const { onPlannedTaskTimeChange } = this.props;
     onPlannedTaskTimeChange(value);
-    this.setState({ creatorTaskTime: value })
+    this.setState({ creatorTaskTime: value });
   }
   
   handlePlannedBreakTime = (e) => {
     const {value } = e.target;
     const { onPlannedBreakTimeChange } = this.props;
     onPlannedBreakTimeChange(value);
-    this.setState({ creatorBreakTime: value })
+    this.setState({ creatorBreakTime: value });
   }
   
   handleCancelButton = (e) => {
     e.preventDefault();
     const { onStateChange } = this.props;
-    
+    // return to Board component
     onStateChange({
       isCreatorVisible: false
-    })
+    });
   }
 
   handleFormSubmit = (e) => {
     e.preventDefault();
     const { onStateChange } = this.props;
-    console.log(e.target.name);
-
-    onStateChange({
-      isCreatorVisible: false
-      // add new task
-    })
+    const { creatorTaskName, creatorTaskTime, creatorBreakTime } = this.state;
+    const {
+      isTaskNameValid,
+      isPlannedTaskTimeValid,
+      isPlannedBreakTimeValid
+    } = this.props.state;
+    // validation
+    if (isTaskNameValid && isPlannedTaskTimeValid && isPlannedBreakTimeValid) {
+      onStateChange({
+        isCreatorVisible: false,
+        taskName: creatorTaskName,
+        plannedTaskTime: creatorTaskTime,
+        plannedBreakTime: creatorBreakTime
+      });
+    }
   }
 
   render() {

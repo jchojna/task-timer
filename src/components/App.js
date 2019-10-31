@@ -24,19 +24,21 @@ class App extends Component {
       // task
       taskName: "",
       isTaskNameValid: false,
-      taskTimePlanned: "",
-      isTaskTimePlannedValid: false,
       taskTimeTotal: 0,
       taskTimeElapsed: 0,
       taskTimeElapsedArray: ['00','00','00'],
       taskTimeRemaining: 0,
       taskTimeRemainingArray: ['00','00','00'],
       isTaskTimeActive: false,
+      // planned time
+      plannedTaskTime: "",
+      plannedBreakTime: "",
+      isPlannedTaskTimeValid: false,
+      isPlannedBreakTimeValid: false,
+
       //break
-      isBreakTimePlannedValid: true,
       isBreakTimeActive: false,
       breaksTotal: 0,
-      breakTimePlanned: "",
       breakTimeTotal: 0,
       breakTimeElapsed: 0,
       breakTimeElapsedArray: ['00','00','00'],
@@ -65,7 +67,7 @@ class App extends Component {
 
     this.setState({
       //taskTimePlanned: time,
-      isTaskTimePlannedValid:
+      isPlannedTaskTimeValid:
         /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && taskTimeTotal > 0,
       //taskTimeTotal: taskTimeTotal,
       //taskTimeRemaining: taskTimeTotal,
@@ -79,7 +81,7 @@ class App extends Component {
     
     this.setState({
       //breakTimePlanned: time,
-      isBreakTimePlannedValid:
+      isPlannedBreakTimeValid:
       /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && breakTimeTotal > 0,
       //breakTimeTotal: breakTimeTotal,
       timeAlertFlag: true
