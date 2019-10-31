@@ -5,9 +5,15 @@ import '../scss/Board.scss';
 class Board extends Component {
 
   render() {
+    const { 
+      state
+    } = this.props;
+
     return (
       <section className="Board">
-        <Task />
+        <Task
+          state={state}
+        />
       </section>
     );
   }

@@ -53,8 +53,9 @@ class App extends Component {
   
   handleTaskName = (name) => {
     this.setState({
-      taskName: name,
-      isTaskNameValid: name.length > 0 ? true : false 
+      //taskName: name,
+      isTaskNameValid: name.length > 0 ? true : false ,
+      nameAlertFlag: true
     });
   }
 
@@ -63,12 +64,13 @@ class App extends Component {
     const taskTimeRemainingArray = this.handleTimeArray(taskTimeTotal);
 
     this.setState({
-      taskTimePlanned: time,
+      //taskTimePlanned: time,
       isTaskTimePlannedValid:
         /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && taskTimeTotal > 0,
       taskTimeTotal: taskTimeTotal,
       taskTimeRemaining: taskTimeTotal,
-      taskTimeRemainingArray: taskTimeRemainingArray
+      taskTimeRemainingArray: taskTimeRemainingArray,
+      nameAlertFlag: true
     })
   }
   
@@ -76,10 +78,11 @@ class App extends Component {
     const breakTimeTotal = this.handleTotalTime(time);
     
     this.setState({
-      breakTimePlanned: time,
+      //breakTimePlanned: time,
       isBreakTimePlannedValid:
       /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && breakTimeTotal > 0,
-      breakTimeTotal: breakTimeTotal
+      breakTimeTotal: breakTimeTotal,
+      nameAlertFlag: true
     })
   }
 
@@ -162,7 +165,9 @@ class App extends Component {
         <h1 className="App__heading visuallyhidden">Task Timer App</h1>
 
         {/* BOARD OF TASKS */}
-        <Board />
+        <Board
+          state={this.state}
+        />
 
         {/* TASK CREATOR */}
         <Creator
@@ -179,36 +184,36 @@ class App extends Component {
         />
         
         {/* TIMER SECTION */}
-        <Timer
+        {/* <Timer
           compClassName={isTimerVisible
             ? "Timer--visible slideInRight" : "slideOutLeft"}
           onStateChange={this.handleStateChange}
           onDisplayModeChange={this.handleDisplayMode}
           onTimeArrayChange={this.handleTimeArray}
           state={this.state}
-        />
+        /> */}
         {/* STOP TASK SECTION */}
-        <StopTask
+        {/* <StopTask
           compClassName={`StopTask ${isStopTaskVisible
           ? "StopTask--visible" : ""}`}
           onStateChange={this.handleStateChange}
-        />
+        /> */}
         {/* OUTRO SECTION */}
-        <Outro
+        {/* <Outro
           compClassName={`Outro ${isOutroVisible
           ? "Outro--visible slideInRight"
           : "slideOutLeft"}`}
           state={this.state}
           onStateChange={this.handleStateChange}
-        />
+        /> */}
         {/* BREAK TIME EXCEEDED */}
-        <Failure
+        {/* <Failure
           compClassName={`Failure ${isFailureVisible
           ? "Failure--visible slideInRight"
           : "slideOutLeft"}`}
           state={this.state}
           onStateChange={this.handleStateChange}
-        />
+        /> */}
       </div>
     );
   }

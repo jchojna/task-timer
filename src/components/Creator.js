@@ -25,8 +25,9 @@ class Creator extends Component {
     })
   }
   
-  handleCancelButton = () => {
+  handleCancelButton = (e) => {
     const { onStateChange } = this.props;
+    e.preventDefault();
     onStateChange({
       isCreatorVisible: false
     })
@@ -51,7 +52,7 @@ class Creator extends Component {
     } = state;
 
     return (
-      <section
+      <form
         className={`Creator ${compClassName}`}
         tabIndex="0"
         autoFocus
@@ -65,11 +66,7 @@ class Creator extends Component {
           className="Creator__input Creator__input--name"
           id="task-name"
           placeholder="What would be your next task?"
-          onChange={(e) => {
-            onTaskNameChange(e.target.value);
-            onStateChange({ nameAlertFlag: true })
-          }}
-          value={taskName}
+          onChange={(e) => onTaskNameChange(e.target.value)}
         />
           
         {/* TASK TIME INPUT */}
@@ -79,10 +76,7 @@ class Creator extends Component {
           placeholder="00m00s"
           maxLength="6"
           value={taskTimePlanned}
-          onChange={(e) => {
-            onTaskTimePlannedChange(e.target.value);
-            onStateChange({ timeAlertFlag: true })
-          }}
+          onChange={(e) => onTaskTimePlannedChange(e.target.value)}
         />
         {/* BREAK TIME INPUT */}
         <input
@@ -91,10 +85,7 @@ class Creator extends Component {
           placeholder="00m00s"
           maxLength="6"
           value={breakTimePlanned}
-          onChange={(e) => {
-            onBreakTimePlannedChange(e.target.value);
-            onStateChange({ timeAlertFlag: true })
-          }}
+          onChange={(e) => onBreakTimePlannedChange(e.target.value)}
         />
         
         {/* ADD BUTTON */}
@@ -136,7 +127,7 @@ class Creator extends Component {
             Enter time in specific format (00m00s)
           </p>
         </div>
-      </section>
+      </form>
     );
   }
 }

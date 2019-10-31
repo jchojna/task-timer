@@ -6,7 +6,9 @@ class Task extends Component {
   render() {
     return (
       <section className="Task">
-
+        <h2 className="Task__heading">
+          {this.props.state.taskName}
+        </h2>
       </section>
     );
   }
