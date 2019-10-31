@@ -58,7 +58,7 @@ class App extends Component {
   
   handleTaskNameValidition = (name) => {
     this.setState({
-      isTaskNameValid: name.length > 0 ? true : false ,
+      isTaskNameValid: name.length > 0 ? true : false,
       alertNameFlag: true
     });
   }
@@ -159,6 +159,7 @@ class App extends Component {
         <Board
           state={this.state}
           onStateChange={this.handleStateChange}
+          handleTotalTime={this.handleTotalTime}
         />
 
         {/* TASK CREATOR */}

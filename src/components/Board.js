@@ -12,7 +12,7 @@ class Board extends Component {
   }
 
   render() {
-    const { state } = this.props;
+    const { state, handleTotalTime } = this.props;
     const { tasks } = state;
 
     return (
@@ -24,6 +24,7 @@ class Board extends Component {
             taskName={task.taskName}
             plannedTaskTime={task.plannedTaskTime}
             plannedBreakTime={task.plannedBreakTime}
+            handleTotalTime={handleTotalTime}
           />
         ))}
 
