@@ -57,7 +57,8 @@ class Creator extends Component {
       const newTask = {
         taskName: creatorTaskName,
         plannedTaskTime: creatorTaskTime,
-        plannedBreakTime: creatorBreakTime
+        plannedBreakTime: creatorBreakTime,
+        dateCreated: Date.now()
       };
       // add new task to app state
       onStateChange(prevState => ({

@@ -15,10 +15,14 @@ class Task extends Component {
     return handleTotalTime(time);
   }
 
-
   render() {
 
-    const { taskName, plannedTaskTime, plannedBreakTime } = this.props;
+    const {
+      taskName,
+      plannedTaskTime,
+      plannedBreakTime,
+      dateCreated } = this.props.task;
+      
     return (
       <section className="Task">
         <h2 className="Task__name">
@@ -30,9 +34,9 @@ class Task extends Component {
         <p className="Task__totalBreakTime">
           {this.handleTotalTime(plannedBreakTime)}
         </p>
-
-        <p>{plannedTaskTime}</p>
-        <p>{plannedBreakTime}</p>
+        <p>
+          {dateCreated}
+        </p>
       </section>
     );
   }

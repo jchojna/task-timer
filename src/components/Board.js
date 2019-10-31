@@ -21,9 +21,8 @@ class Board extends Component {
         {/* TASK CARDS */}
         {tasks.map((task) => (
           <Task
-            taskName={task.taskName}
-            plannedTaskTime={task.plannedTaskTime}
-            plannedBreakTime={task.plannedBreakTime}
+            task={task}
+            key={task.dateCreated}
             handleTotalTime={handleTotalTime}
           />
         ))}

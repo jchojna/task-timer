@@ -26,7 +26,8 @@ class App extends Component {
         {
           taskName: 'test1',
           plannedTaskTime: '5s',
-          plannedBreakTime: '2s'
+          plannedBreakTime: '2s',
+          dateCreated: 5423454324
         }
       ],
       // validity
