@@ -34,7 +34,7 @@ class App extends Component {
       plannedBreakTimes: [],
       isPlannedTaskTimeValid: false,
       isPlannedBreakTimeValid: false,
-      
+
       //totalBreaks: 0,
 
       //break
@@ -154,6 +154,7 @@ class App extends Component {
         {/* BOARD OF TASKS */}
         <Board
           state={this.state}
+          onStateChange={this.handleStateChange}
         />
 
         {/* TASK CREATOR */}

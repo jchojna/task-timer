@@ -4,6 +4,13 @@ import '../scss/Board.scss';
 
 class Board extends Component {
 
+  handleCreateNewTaskButton = () => {
+    const { onStateChange } = this.props;
+    onStateChange({
+      isCreatorVisible: true
+    });
+  }
+
   render() {
     const { state } = this.props;
 
@@ -12,6 +19,14 @@ class Board extends Component {
         <Task
           state={state}
         />
+
+        {/* ADD NEW TASK BUTTON */}
+        <button
+          className="Board__addButton"
+          onClick={this.handleCreateNewTaskButton}
+        >
+          +
+        </button>
       </section>
     );
   }
