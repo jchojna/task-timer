@@ -7,19 +7,13 @@ class Task extends Component {
     return (
       <section className="Task">
         <h2 className="Task__heading">
-          {this.props.state.taskNames}
+          {this.props.taskName}
         </h2>
         <p>
-          {this.props.state.plannedTaskTimes}
+          {this.props.taskTime}
         </p>
         <p>
-          {this.props.state.plannedBreakTimes}
-        </p>
-        <p>
-          {this.props.state.totalTaskTimes}
-        </p>
-        <p>
-          {this.props.state.totalBreakTimes}
+          {this.props.breakTime}
         </p>
       </section>
     );

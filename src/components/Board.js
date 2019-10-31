@@ -13,12 +13,19 @@ class Board extends Component {
 
   render() {
     const { state } = this.props;
+    const { taskNames, plannedTaskTimes, plannedBreakTimes } = state;
 
     return (
       <section className="Board">
-        <Task
-          state={state}
-        />
+
+        {/* TASK CARDS */}
+        {taskNames.map((taskName, index) => (
+          <Task
+            taskName={taskName}
+            taskTime={plannedTaskTimes[index]}
+            breakTime={plannedBreakTimes[index]}
+          />
+        ))}
 
         {/* ADD NEW TASK BUTTON */}
         <button

@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       // visibility
       isBoardVisible: true,
-      isCreatorVisible: true,
+      isCreatorVisible: false,
       //isTimerVisible: false,
       //isStopTaskVisible: false,
       //isOutroVisible: false,
@@ -22,7 +22,7 @@ class App extends Component {
       alertNameFlag: false,
       alertTimeFlag: false,
       // task
-      taskNames: [],
+      taskNames: ['test1', 'test2', 'test3'],
       isTaskNameValid: false,
       //taskTimeElapsed: 0,
       //taskTimeElapsedArray: ['00','00','00'],
@@ -30,8 +30,8 @@ class App extends Component {
       //taskTimeRemainingArray: ['00','00','00'],
       //isTaskTimeActive: false,
       // planned time
-      plannedTaskTimes: [],
-      plannedBreakTimes: [],
+      plannedTaskTimes: ['5s', '7s', '9s'],
+      plannedBreakTimes: ['2s', '4s', '6s'],
       isPlannedTaskTimeValid: false,
       isPlannedBreakTimeValid: false,
 
