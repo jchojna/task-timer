@@ -21,22 +21,11 @@
     }
   }
 
-  &__row {
+  &__input {
     position: absolute;
     left: 0;
-    height: 100%;
     top: 0;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    visibility: hidden;
-    width: 100%;
-
-    &--visible {
-      visibility: visible;
-    }
-  }
-
-  &__input {
+    height: 100%;
     background: $color-cyan-dark;
     border: none;
     border-radius: 5px;
@@ -46,6 +35,12 @@
     min-width: 10px;
     resize: none;
     text-align: center;
+    visibility: hidden;
+    width: 100%;
+
+    &--visible {
+      visibility: visible;
+    }
   }
 
   &__button {

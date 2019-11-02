@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Display from './Display.js';
 import Editable from './Editable.js';
-import Timer from './Timer.js';
-import StopTask from './StopTask.js';
-import Outro from './Outro.js';
-import Failure from './Failure.js';
+//import Timer from './Timer.js';
+//import StopTask from './StopTask.js';
+//import Outro from './Outro.js';
+//import Failure from './Failure.js';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -52,11 +52,10 @@ class Task extends Component {
     onTaskRemove(id);
   }
 
-  handleEditMode = (target) => {
+  toggleEditMode = () => {
     this.setState(prevState => ({
       isEditMode: !prevState.isEditMode
     }));
-
   }
 
 
@@ -100,7 +99,7 @@ class Task extends Component {
         <Editable
           className="taskName"
           isEditMode={isEditMode}
-          onEditModeClick={this.handleEditMode}
+          onEditModeClick={this.toggleEditMode}
           text={taskName}
           onTaskEdit={this.handleStateChange}
         />
@@ -116,16 +115,29 @@ class Task extends Component {
           className="Task__totalTime Task__totalTime--break"
           taskTimeArray={handleTimeArray(totalBreakTime)}
         />
-        
-        {/* REMOVE BUTTON */}
-        <button
-          className="button Task__button Task__button--remove"
-          onClick={() => this.handleTaskRemove(id)}
-        >
-          <svg className="Task__svg" viewBox="0 0 512 512">
-            <use href={`${icons}#remove`}/>
-          </svg>
-        </button>
+                
+        {/* EDIT BUTTONS */}
+        <div className="Task__buttons">
+          {/* ACCEPT */}
+          <button
+            className={`button Task__button Task__button--accept
+            ${isEditMode ? "Task__button--visible" : ""}`}
+            onClick={this.toggleEditMode}
+          >
+            <svg className="Task__svg" viewBox="0 0 512 512">
+              <use href={`${icons}#tick`}/>
+            </svg>
+          </button>
+          {/* REMOVE */}
+          <button
+            className="button Task__button Task__button--remove"
+            onClick={() => this.handleTaskRemove(id)}
+          >
+            <svg className="Task__svg" viewBox="0 0 512 512">
+              <use href={`${icons}#remove`}/>
+            </svg>
+          </button>
+        </div>
 
         {/* START BUTTON */}
         <button className="button Task__button Task__button--start">

@@ -21,26 +21,16 @@ const Editable = (props) => {
         {`"${text}"`}
       </p>
 
-      {/* EDITION ROW */}
-      <div
-        className={`${className}__row ${isEditMode
-        ? `${className}__row--visible` : ""}`}
-      >
-        <textarea
-          className={`${className}__input`}
-          defaultValue={text}
-          spellCheck="false"
-          onChange={(e) => onTaskEdit({
-            taskName: e.target.value
-          })}
-        ></textarea>
-        <button
-          className={`button ${className}__button`}
-          onClick={() => onEditModeClick()}
-        >
-          OK
-        </button>
-      </div>
+      {/* INPUT */}
+      <textarea
+        className={`${className}__input ${isEditMode
+        ? `${className}__input--visible` : ""}`}
+        defaultValue={text}
+        spellCheck="false"
+        onChange={(e) => onTaskEdit({
+          taskName: e.target.value
+        })}
+      ></textarea>
     </div>
   );
 }

@@ -7,7 +7,7 @@
   align-items: center;
   display: grid;
   grid-template-areas:
-    "remove"
+    "buttons"
     "taskName"
     "taskTime"
     "breakTime"
@@ -16,28 +16,39 @@
   justify-items: center;
   padding: 1em;
 
+  &__buttons {
+    align-self: start;
+    display: grid;
+    gap: 20px;
+    grid-area: buttons;
+    grid-template-columns: auto auto;
+    justify-self: end;
+  }
+
   &__button {
     @include button;
     fill: #fff;
+    max-width: 40px;
 
-    &:hover {
-      fill: $color-tomato;
-      border-color: $color-tomato;
-    }
-
-    &--remove {
-      align-self: start;
-      grid-area: remove;
-      justify-self: end;
-      max-width: 40px;
+    &--accept {
+      visibility: hidden;
     }
 
     &--start {
       @include flex-center;
-      grid-area: startBtn;
       border: 2px solid #fff;
       border-radius: 50%;
+      grid-area: startBtn;
       max-width: 60px;
+    }
+    
+    &:hover {
+      border-color: $color-tomato;
+      fill: $color-tomato;
+    }
+    
+    &--visible {
+      visibility: visible;
     }
   }
 
