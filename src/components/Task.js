@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Display from './Display.js';
+import Editable from './Editable.js';
 import Timer from './Timer.js';
 import StopTask from './StopTask.js';
 import Outro from './Outro.js';
@@ -77,9 +78,10 @@ class Task extends Component {
     return (
       <section className="Task">
         {/* TASK  NAME */}
-        <h2 className="Task__name">
-          {`"${taskName}"`}
-        </h2>
+        <Editable
+          className="taskName"
+          text={taskName}
+        />
 
         {/* TOTAL TASK TIME DISPLAY */}
         <Display
