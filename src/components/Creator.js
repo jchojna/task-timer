@@ -22,19 +22,19 @@ class Creator extends Component {
     this.setState({ creatorTaskName: value });
   }
 
-  handlePlannedTaskTime = (e) => {
+  /* handlePlannedTaskTime = (e) => {
     const {value } = e.target;
     const { onPlannedTaskTimeChange } = this.props;
     onPlannedTaskTimeChange(value);
     this.setState({ creatorTaskTime: value });
-  }
+  } */
   
-  handlePlannedBreakTime = (e) => {
+  /* handlePlannedBreakTime = (e) => {
     const {value } = e.target;
     const { onPlannedBreakTimeChange } = this.props;
     onPlannedBreakTimeChange(value);
     this.setState({ creatorBreakTime: value });
-  }
+  } */
   
   handleCancelButton = (e) => {
     e.preventDefault();
@@ -99,6 +99,16 @@ class Creator extends Component {
     }
   } */
 
+  handleMinutesChange = (value, type) => {
+    this.setState( type === 'task'
+    ? { creatorTaskMinutes: value } : { creatorBreakMinutes: value });
+  }
+ 
+  handleSecondsChange = (value, type) => {
+    this.setState( type === 'task'
+    ? { creatorTaskSeconds: value } : { creatorBreakSeconds: value });
+  }
+
   render() {
 
     const {
@@ -141,6 +151,8 @@ class Creator extends Component {
           modifier="taskTime"
           minutes={creatorTaskMinutes}
           seconds={creatorTaskSeconds}
+          onMinutesChange={(value) => this.handleMinutesChange(value, 'task')}
+          onSecondsChange={(value) => this.handleSecondsChange(value, 'task')}
         />
 
         {/* BREAK TIME INPUTS */}
@@ -148,6 +160,8 @@ class Creator extends Component {
           modifier="breakTime"
           minutes={creatorBreakMinutes}
           seconds={creatorBreakSeconds}
+          onMinutesChange={(value) => this.handleMinutesChange(value, 'break')}
+          onSecondsChange={(value) => this.handleSecondsChange(value, 'break')}
         />
         
         {/* ADD BUTTON */}

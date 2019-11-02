@@ -5,7 +5,9 @@ const TimeDisplay = (props) => {
   const {
     modifier,
     minutes,
-    seconds
+    seconds,
+    onMinutesChange,
+    onSecondsChange
   } = props;
 
   return (
@@ -17,7 +19,7 @@ const TimeDisplay = (props) => {
         placeholder="min"
         maxLength="2"
         defaultValue={minutes}
-        onChange={(e) => this.handlePlannedTaskTime(e)}
+        onChange={(e) => onMinutesChange(e.target.value)}
       />
       <span className="Field__separator">:</span>
       <input
@@ -26,7 +28,7 @@ const TimeDisplay = (props) => {
         placeholder="sec"
         maxLength="2"
         defaultValue={seconds}
-        onChange={(e) => this.handlePlannedTaskTime(e)}
+        onChange={(e) => onSecondsChange(e.target.value)}
       />
     </fieldset>
   );
