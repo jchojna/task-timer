@@ -2,12 +2,16 @@ import React from 'react';
 import '../scss/Display.scss';
 
 const Display = (props) => {
-  const { className, taskTimeArray } = props;
-  const taskTimeResult = taskTimeArray.join(':');
+  const { className, output, onEditModeChange } = props;
+  const result = typeof output === 'string'
+  ? output : output.join(':');
 
   return (
-    <p className={className}>
-      {taskTimeResult}
+    <p
+      className={className}
+      onClick={onEditModeChange}
+    >
+      {result}
     </p>
   );
 }

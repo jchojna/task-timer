@@ -1,35 +1,34 @@
 import React from 'react';
 import '../scss/Editable.scss';
+import Display from './Display';
 
 const Editable = (props) => {
+    
   const {
     className,
-    text,
+    output,
+    onTaskEdit,
     isEditMode,
-    onEditModeClick,
-    onTaskEdit
+    onEditModeChange
   } = props;
-  
+
   return (
     <div className={className}>
       {/* TEXT TITLE */}
-      <p
+      <Display
         className={`${className}__text ${isEditMode
         ? "" : `${className}__text--visible`}`}
-        onClick={() => onEditModeClick()}
-      >
-        {`"${text}"`}
-      </p>
+        output={output}
+        onEditModeChange={onEditModeChange}
+      />
 
       {/* INPUT */}
       <textarea
         className={`${className}__input ${isEditMode
         ? `${className}__input--visible` : ""}`}
-        defaultValue={text}
+        defaultValue={output}
         spellCheck="false"
-        onChange={(e) => onTaskEdit({
-          taskName: e.target.value
-        })}
+        onChange={(e) => onTaskEdit(e.target.value)}
       ></textarea>
     </div>
   );

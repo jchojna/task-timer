@@ -16,7 +16,9 @@ class Task extends Component {
       taskName,
       totalTaskTime,
       totalBreakTime,
-      isEditMode: false
+      isTaskNameEditMode: false,
+      isTaskTimeEditMode: false,
+      isBreakTimeEditMode: false,
       //isElapsedMode: true,
       
       //taskTimeElapsed: 0,
@@ -52,14 +54,6 @@ class Task extends Component {
     onTaskRemove(id);
   }
 
-  toggleEditMode = () => {
-    this.setState(prevState => ({
-      isEditMode: !prevState.isEditMode
-    }));
-  }
-
-
-  
   /* handleStartButton = () => {
     const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
     const breakTimeElapsedResult = this.handleTimeArray(0);
@@ -81,6 +75,18 @@ class Task extends Component {
     }
   } */
 
+  disableEditMode = () => {
+    this.setState({
+      isTaskNameEditMode: false,
+      isTaskTimeEditMode: false,
+      isBreakTimeEditMode: false
+    });
+  }
+
+  handleTaskNameEdit = (value) => this.setState({ taskName: value });
+  handleTaskTimeEdit = (value) => this.setState({ totalTaskTime: value });
+  handleBreakTimeEdit = (value) => this.setState({ totalBreakTime: value });
+
   render() {
 
     const { handleTimeArray, id } = this.props;
@@ -88,7 +94,9 @@ class Task extends Component {
       taskName,
       totalTaskTime,
       totalBreakTime,
-      isEditMode
+      isTaskNameEditMode,
+      isTaskTimeEditMode,
+      isBreakTimeEditMode
     } = this.state;
 
     return (
@@ -98,22 +106,28 @@ class Task extends Component {
         {/* TASK  NAME */}
         <Editable
           className="taskName"
-          isEditMode={isEditMode}
-          onEditModeClick={this.toggleEditMode}
-          text={taskName}
-          onTaskEdit={this.handleStateChange}
+          output={taskName}
+          onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
+          onTaskEdit={this.handleTaskNameEdit}
+          isEditMode={isTaskNameEditMode}
         />
 
-        {/* TOTAL TASK TIME DISPLAY */}
-        <Display
-          className="Task__totalTime Task__totalTime--task"
-          taskTimeArray={handleTimeArray(totalTaskTime)}
+        {/* TOTAL TASK TIME */}
+        <Editable
+          className="totalTaskTime"
+          output={handleTimeArray(totalTaskTime)}
+          onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
+          onTaskEdit={this.handleTaskTimeEdit}
+          isEditMode={isTaskTimeEditMode}
         />
-
-        {/* TOTAL BREAK TIME DISPLAY */}
-        <Display
-          className="Task__totalTime Task__totalTime--break"
-          taskTimeArray={handleTimeArray(totalBreakTime)}
+        
+        {/* TOTAL BREAK TIME */}
+        <Editable
+          className="totalBreakTime"
+          output={handleTimeArray(totalBreakTime)}
+          onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
+          onTaskEdit={this.handleBreakTimeEdit}
+          isEditMode={isBreakTimeEditMode}
         />
                 
         {/* EDIT BUTTONS */}
@@ -121,8 +135,9 @@ class Task extends Component {
           {/* ACCEPT */}
           <button
             className={`button Task__button Task__button--accept
-            ${isEditMode ? "Task__button--visible" : ""}`}
-            onClick={this.toggleEditMode}
+            ${isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
+            ? "Task__button--visible" : ""}`}
+            onClick={this.disableEditMode}
           >
             <svg className="Task__svg" viewBox="0 0 512 512">
               <use href={`${icons}#tick`}/>

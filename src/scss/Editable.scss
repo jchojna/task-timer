@@ -2,7 +2,9 @@
 @import "_mixins.scss";
 @import "_animations.scss";
 
-.taskName {
+.taskName,
+.totalTaskTime,
+.totalBreakTime {
   grid-area: taskName;
   height: 100%;
   position: relative;
@@ -47,4 +49,12 @@
     @include button;
     padding: 0.7em;
   }
+}
+
+.totalTaskTime {
+  grid-area: taskTime;
+}
+
+.totalBreakTime {
+  grid-area: breakTime;
 }
