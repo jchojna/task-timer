@@ -41,42 +41,43 @@
     grid-area: heading;
   }
 
-  &__input {
+  &__taskName {
     align-self: stretch;
     background: none;
     border: 2px solid #fff;
     border-radius: 100px;
     color: #fff;
     font-size: 1.1em;
+    grid-area: taskName;
     justify-self: stretch;
     min-width: 50px;
     padding: 0 1.3em;
-    text-align: center;
+    text-align: left;
     transition: box-shadow $focus-input;
+
+    &::placeholder {
+      color: #fff;
+      font-size: 0.8em;
+    }
 
     &:focus {
       box-shadow:
         0 0 0 5px rgba($color: $color-cyan-dark, $alpha: 0.7),
         0 0 30px rgba($color: $color-cyan-dark, $alpha: 0.4);
     }
+  }
 
-    &--name {
-      grid-area: taskName;
-      text-align: left;
-    }
+  &__taskTime {
+    grid-area: taskTime;
+  }
+ 
+  &__breakTime {
+    grid-area: breakTime;
+  }
 
-    &--task-time {
-      grid-area: taskTime;
-    }
-
-    &--break-time {
-      grid-area: breakTime;
-    }
-
-    &::placeholder {
-      color: #fff;
-      font-size: 0.8em;
-    }
+  &__input {
+    background: none;
+    border: none;
   }
 
   &__label {

@@ -7,8 +7,10 @@ class Creator extends Component {
     super(props);
     this.state = {
       creatorTaskName: "",
-      creatorTaskTime: "",
-      creatorBreakTime: ""
+      creatorTaskMinutes: "",
+      creatorTaskSeconds: "",
+      creatorBreakMinutes: "",
+      creatorBreakSeconds: "",
     };
   }
 
@@ -75,8 +77,10 @@ class Creator extends Component {
       // clear inputs after submitting
       this.setState({
         creatorTaskName: "",
-        creatorTaskTime: "",
-        creatorBreakTime: ""
+        creatorTaskMinutes: "",
+        creatorTaskSeconds: "",
+        creatorBreakMinutes: "",
+        creatorBreakSeconds: "",
       })
     }
   }
@@ -98,8 +102,10 @@ class Creator extends Component {
 
     const {
       creatorTaskName,
-      creatorTaskTime,
-      creatorBreakTime
+      creatorTaskMinutes,
+      creatorTaskSeconds,
+      creatorBreakMinutes,
+      creatorBreakSeconds
     } = this.state;
 
     const {
@@ -121,34 +127,57 @@ class Creator extends Component {
   
         {/* TASK NAME INPUT */}
         <input
-          id="task-name"
-          name="task-name"
-          className="Creator__input Creator__input--name"
+          id="taskName"
+          name="taskName"
+          className="Creator__taskName"
           placeholder="What would be your next task?"
           value={creatorTaskName}
           onChange={(e) => this.handleTaskName(e)}
         />
           
-        {/* TASK TIME INPUT */}
-        <input
-          id="task-time"
-          name="task-time"
-          className="Creator__input Creator__input--task-time"
-          placeholder="00m00s"
-          maxLength="6"
-          value={creatorTaskTime}
-          onChange={(e) => this.handlePlannedTaskTime(e)}
-        />
-        {/* BREAK TIME INPUT */}
-        <input
-          id="break-time"
-          name="break-time"
-          className="Creator__input Creator__input--break-time"
-          placeholder="00m00s"
-          maxLength="6"
-          value={creatorBreakTime}
-          onChange={(e) => this.handlePlannedBreakTime(e)}
-        />
+        {/* TASK TIME INPUTS */}
+        <div className="Creator__taskTime">
+          <input
+            id="taskTime"
+            name="taskTimeMinutes"
+            className="Creator__input Creator__input--minutes"
+            placeholder="min"
+            maxLength="2"
+            defaultValue={creatorTaskMinutes}
+            onChange={(e) => this.handlePlannedTaskTime(e)}
+          />
+          <span>:</span>
+          <input
+            name="taskTimeSeconds"
+            className="Creator__input Creator__input--seconds"
+            placeholder="sec"
+            maxLength="2"
+            defaultValue={creatorTaskSeconds}
+            onChange={(e) => this.handlePlannedTaskTime(e)}
+          />
+        </div>
+
+        {/* BREAK TIME INPUTS */}
+        <div className="Creator__breakTime">
+          <input
+            id="breakTime"
+            name="breakTimeMinutes"
+            className="Creator__input Creator__input--minutes"
+            placeholder="min"
+            maxLength="2"
+            value={creatorBreakMinutes}
+            onChange={(e) => this.handlePlannedBreakTime(e)}
+          />
+          <span>:</span>
+          <input
+            name="breakTimeSeconds"
+            className="Creator__input Creator__input--minutes"
+            placeholder="sec"
+            maxLength="2"
+            value={creatorBreakMinutes}
+            onChange={(e) => this.handlePlannedBreakTime(e)}
+          />
+        </div>
         
         {/* ADD BUTTON */}
         <button
@@ -168,15 +197,15 @@ class Creator extends Component {
         </button>
 
         {/* TASK NAME LABEL */}
-        <label className="Creator__label Creator__label--task-name" htmlFor="task-name">
+        <label className="Creator__label Creator__label--task-name" htmlFor="taskName">
           Your task name
         </label>
         {/* TASK TIME LABEL */}
-        <label className="Creator__label Creator__label--task-time" htmlFor="task-time">
+        <label className="Creator__label Creator__label--task-time" htmlFor="taskTime">
           Task time
         </label>
         {/* BREAK TIME LABEL */}
-        <label className="Creator__label Creator__label--break-time" htmlFor="break-time">
+        <label className="Creator__label Creator__label--break-time" htmlFor="breakTime">
           Max break time
         </label>
 

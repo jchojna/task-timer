@@ -9,7 +9,7 @@ class App extends Component {
     this.state = {
       // visibility
       isBoardVisible: true,
-      isCreatorVisible: false,
+      isCreatorVisible: true,
       alertNameFlag: false,
       alertTimeFlag: false,
       tasks: [
