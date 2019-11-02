@@ -41,59 +41,31 @@
     grid-area: heading;
   }
 
-  &__field {
-    @include flex-center;
+  &__taskName {
+    align-self: stretch;
+    background: none;
     border: 2px solid #fff;
     border-radius: 100px;
-    height: 100%;
-    padding: 0 1.3em;
-    
-    &--taskName {
-      align-self: stretch;
-      background: none;
-      color: #fff;
-      font-size: 1.1em;
-      grid-area: taskName;
-      justify-self: stretch;
-      min-width: 50px;
-      text-align: left;
-      transition: box-shadow $focus-input;
-
-      &::placeholder {
-        color: #fff;
-        font-size: 0.8em;
-      }
-
-      &:focus {
-        box-shadow:
-          0 0 0 5px rgba($color: $color-cyan-dark, $alpha: 0.7),
-          0 0 30px rgba($color: $color-cyan-dark, $alpha: 0.4);
-      }
-    }
-
-    &--taskTime {
-      grid-area: taskTime;
-    }
-  
-    &--breakTime {
-      grid-area: breakTime;
-    }
-  }
-
-  &__input {
-    border: none;
-    background: none;
     color: #fff;
-    max-width: 60px;
+    font-size: 1.1em;
+    grid-area: taskName;
     height: 100%;
+    justify-self: stretch;
+    min-width: 50px;
+    padding: 0 1.3em;
+    text-align: left;
+    transition: box-shadow $focus-input;
 
-    &--minutes {
-      text-align: right;
+    &::placeholder {
+      color: #fff;
+      font-size: 0.8em;
     }
-  }
 
-  &__separator {
-    margin: 0 5px;
+    &:focus {
+      box-shadow:
+        0 0 0 5px rgba($color: $color-cyan-dark, $alpha: 0.7),
+        0 0 30px rgba($color: $color-cyan-dark, $alpha: 0.4);
+    }
   }
 
   &__label {

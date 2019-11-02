@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TimeDisplay from './TimeDisplay.js';
 //import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
 
@@ -129,55 +130,25 @@ class Creator extends Component {
         <input
           id="taskName"
           name="taskName"
-          className="Creator__field Creator__field--taskName"
+          className="Creator__taskName"
           placeholder="What would be your next task?"
           value={creatorTaskName}
           onChange={(e) => this.handleTaskName(e)}
         />
           
         {/* TASK TIME INPUTS */}
-        <div className="Creator__field Creator__field--taskTime">
-          <input
-            id="taskTime"
-            name="taskTimeMinutes"
-            className="Creator__input Creator__input--minutes"
-            placeholder="min"
-            maxLength="2"
-            defaultValue={creatorTaskMinutes}
-            onChange={(e) => this.handlePlannedTaskTime(e)}
-          />
-          <span className="Creator__separator">:</span>
-          <input
-            name="taskTimeSeconds"
-            className="Creator__input Creator__input--seconds"
-            placeholder="sec"
-            maxLength="2"
-            defaultValue={creatorTaskSeconds}
-            onChange={(e) => this.handlePlannedTaskTime(e)}
-          />
-        </div>
+        <TimeDisplay
+          modifier="taskTime"
+          minutes={creatorTaskMinutes}
+          seconds={creatorTaskSeconds}
+        />
 
         {/* BREAK TIME INPUTS */}
-        <div className="Creator__field Creator__field--breakTime">
-          <input
-            id="breakTime"
-            name="breakTimeMinutes"
-            className="Creator__input Creator__input--minutes"
-            placeholder="min"
-            maxLength="2"
-            value={creatorBreakMinutes}
-            onChange={(e) => this.handlePlannedBreakTime(e)}
-          />
-          <span className="Creator__separator">:</span>
-          <input
-            name="breakTimeSeconds"
-            className="Creator__input Creator__input--seconds"
-            placeholder="sec"
-            maxLength="2"
-            value={creatorBreakMinutes}
-            onChange={(e) => this.handlePlannedBreakTime(e)}
-          />
-        </div>
+        <TimeDisplay
+          modifier="breakTime"
+          minutes={creatorBreakMinutes}
+          seconds={creatorBreakSeconds}
+        />
         
         {/* ADD BUTTON */}
         <button
