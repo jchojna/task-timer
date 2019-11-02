@@ -12,9 +12,8 @@
   &__text {
     font-weight: 600;
     font-size: 1.2em;
-    height: 100%;
     margin: 0;
-    //visibility: hidden;
+    visibility: hidden;
     width: 100%;
 
     &--visible {
@@ -25,16 +24,32 @@
   &__row {
     position: absolute;
     left: 0;
+    height: 100%;
     top: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto;
+    visibility: hidden;
     width: 100%;
+
+    &--visible {
+      visibility: visible;
+    }
   }
 
   &__input {
-    background: none;
+    background: $color-cyan-dark;
     border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2em;
     min-width: 10px;
-    grid-column: 1 / span 2;
+    resize: none;
+    text-align: center;
+  }
+
+  &__button {
+    @include button;
+    padding: 0.7em;
   }
 }

@@ -11,10 +11,12 @@ import '../scss/Task.scss';
 class Task extends Component {
   constructor(props) {
     super(props);
-    const {totalTaskTime, totalBreakTime} = this.props.task;
+    const { taskName, totalTaskTime, totalBreakTime } = this.props.task;
     this.state = {
+      taskName,
       totalTaskTime,
-      totalBreakTime
+      totalBreakTime,
+      isEditMode: false
       //isElapsedMode: true,
       
       //taskTimeElapsed: 0,
@@ -42,11 +44,22 @@ class Task extends Component {
       //isFailureVisible: false,
     }
   }
+  
+  handleStateChange = (object) => this.setState(object);
 
   handleTaskRemove = (id) => {
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
   }
+
+  handleEditMode = (target) => {
+    this.setState(prevState => ({
+      isEditMode: !prevState.isEditMode
+    }));
+
+  }
+
+
   
   /* handleStartButton = () => {
     const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
@@ -71,16 +84,25 @@ class Task extends Component {
 
   render() {
 
-    const { taskName } = this.props.task;
     const { handleTimeArray, id } = this.props;
-    const { totalTaskTime, totalBreakTime } = this.state;
+    const {
+      taskName,
+      totalTaskTime,
+      totalBreakTime,
+      isEditMode
+    } = this.state;
 
     return (
-      <section className="Task">
+      <section
+        className="Task"
+      >
         {/* TASK  NAME */}
         <Editable
           className="taskName"
+          isEditMode={isEditMode}
+          onEditModeClick={this.handleEditMode}
           text={taskName}
+          onTaskEdit={this.handleStateChange}
         />
 
         {/* TOTAL TASK TIME DISPLAY */}
