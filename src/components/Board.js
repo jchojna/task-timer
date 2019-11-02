@@ -12,7 +12,12 @@ class Board extends Component {
   }
 
   render() {
-    const { state, handleTotalTime, handleTimeArray } = this.props;
+    const {
+      state,
+      handleTotalTime,
+      handleTimeArray,
+      onTaskRemove
+    } = this.props;
     const { tasks } = state;
 
     return (
@@ -22,9 +27,11 @@ class Board extends Component {
         {tasks.map((task) => (
           <Task
             task={task}
+            id={task.dateCreated}
             key={task.dateCreated}
             handleTotalTime={handleTotalTime}
             handleTimeArray={handleTimeArray}
+            onTaskRemove={onTaskRemove}
           />
         ))}
 

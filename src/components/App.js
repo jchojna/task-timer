@@ -19,6 +19,7 @@ class App extends Component {
           plannedBreakTime: "10s",
           totalTaskTime: 30000,
           totalBreakTime: 10000,
+          id: 6453654365346,
           dateCreated: 6453654365346
         },
         {
@@ -27,6 +28,7 @@ class App extends Component {
           plannedBreakTime: "20s",
           totalTaskTime: 60000,
           totalBreakTime: 20000,
+          id: 543254234523,
           dateCreated: 543254234523
         },
       ],
@@ -109,6 +111,15 @@ class App extends Component {
     }
   }
 
+  handleTaskRemove = (id) => {
+    console.log(id);
+    //const { tasks } = this.state
+    //const updatedTasks = tasks.filter(task => task.id !== id)
+    this.setState(prevState => ({
+      tasks: prevState.tasks.filter(task => task.id !== id)
+    }))
+  }
+
   render() {
     const { isCreatorVisible } = this.state;
 
@@ -123,6 +134,7 @@ class App extends Component {
           onStateChange={this.handleStateChange}
           handleTotalTime={this.handleTotalTime}
           handleTimeArray={this.handleTimeArray}
+          onTaskRemove={this.handleTaskRemove}
         />
 
         {/* TASK CREATOR */}

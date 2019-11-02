@@ -42,6 +42,10 @@ class Task extends Component {
     }
   }
 
+  handleTaskRemove = (id) => {
+    const { onTaskRemove } = this.props;
+    onTaskRemove(id);
+  }
   
   /* handleStartButton = () => {
     const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
@@ -67,7 +71,7 @@ class Task extends Component {
   render() {
 
     const { taskName } = this.props.task;
-    const { handleTimeArray } = this.props;
+    const { handleTimeArray, id } = this.props;
     const { totalTaskTime, totalBreakTime } = this.state;
 
     return (
@@ -76,13 +80,6 @@ class Task extends Component {
         <h2 className="Task__name">
           {`"${taskName}"`}
         </h2>
-
-        {/* REMOVE BUTTON */}
-        <button className="button Task__button Task__button--remove">
-          <svg className="Task__svg" viewBox="0 0 512 512">
-            <use href={`${icons}#remove`}/>
-          </svg>
-        </button>
 
         {/* TOTAL TASK TIME DISPLAY */}
         <Display
@@ -95,6 +92,16 @@ class Task extends Component {
           className="Task__totalTime Task__totalTime--break"
           taskTimeArray={handleTimeArray(totalBreakTime)}
         />
+        
+        {/* REMOVE BUTTON */}
+        <button
+          className="button Task__button Task__button--remove"
+          onClick={() => this.handleTaskRemove(id)}
+        >
+          <svg className="Task__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#remove`}/>
+          </svg>
+        </button>
       </section>
     );
   }

@@ -56,6 +56,7 @@ class Creator extends Component {
       
       const totalTaskTime = handleTotalTime(creatorTaskTime);
       const totalBreakTime = handleTotalTime(creatorBreakTime);
+      const date = Date.now();
       // new task data
       const newTask = {
         taskName: creatorTaskName,
@@ -63,7 +64,8 @@ class Creator extends Component {
         plannedBreakTime: creatorBreakTime,
         totalTaskTime,
         totalBreakTime,
-        dateCreated: Date.now()
+        dateCreated: date,
+        id: date
       };
       // add new task to app state
       onStateChange(prevState => ({
