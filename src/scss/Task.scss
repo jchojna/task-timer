@@ -6,6 +6,11 @@
   @include card;
   align-items: center;
   display: grid;
+  grid-template-areas:
+    "remove"
+    "taskName"
+    "taskTime"
+    "breakTime";
   grid-template-rows: 40px 1fr 1fr 1fr;
   justify-items: center;
   padding: 1em;
@@ -14,6 +19,7 @@
     @include button;
     align-self: start;
     fill: #fff;
+    grid-area: remove;
     justify-self: end;
     max-width: 40px;
 
@@ -25,6 +31,7 @@
   &__name {
     font-weight: 600;
     font-size: 1.2em;
+    grid-area: taskName;
     margin: 0;
     text-align: center;
   }
@@ -37,6 +44,11 @@
 
     &--task {
       font-size: 2.5em;
+      grid-area: taskTime;
+    }
+
+    &--break {
+      grid-area: breakTime;
     }
   }
 }
