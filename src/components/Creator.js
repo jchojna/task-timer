@@ -129,14 +129,14 @@ class Creator extends Component {
         <input
           id="taskName"
           name="taskName"
-          className="Creator__taskName"
+          className="Creator__field Creator__field--taskName"
           placeholder="What would be your next task?"
           value={creatorTaskName}
           onChange={(e) => this.handleTaskName(e)}
         />
           
         {/* TASK TIME INPUTS */}
-        <div className="Creator__taskTime">
+        <div className="Creator__field Creator__field--taskTime">
           <input
             id="taskTime"
             name="taskTimeMinutes"
@@ -146,7 +146,7 @@ class Creator extends Component {
             defaultValue={creatorTaskMinutes}
             onChange={(e) => this.handlePlannedTaskTime(e)}
           />
-          <span>:</span>
+          <span className="Creator__separator">:</span>
           <input
             name="taskTimeSeconds"
             className="Creator__input Creator__input--seconds"
@@ -158,7 +158,7 @@ class Creator extends Component {
         </div>
 
         {/* BREAK TIME INPUTS */}
-        <div className="Creator__breakTime">
+        <div className="Creator__field Creator__field--breakTime">
           <input
             id="breakTime"
             name="breakTimeMinutes"
@@ -168,10 +168,10 @@ class Creator extends Component {
             value={creatorBreakMinutes}
             onChange={(e) => this.handlePlannedBreakTime(e)}
           />
-          <span>:</span>
+          <span className="Creator__separator">:</span>
           <input
             name="breakTimeSeconds"
-            className="Creator__input Creator__input--minutes"
+            className="Creator__input Creator__input--seconds"
             placeholder="sec"
             maxLength="2"
             value={creatorBreakMinutes}
