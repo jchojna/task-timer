@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import Board from './Board.js';
 import Creator from './Creator.js';
-import Timer from './Timer.js';
-import StopTask from './StopTask.js';
-import Outro from './Outro.js';
-import Failure from './Failure.js';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -77,27 +73,6 @@ class App extends Component {
     const [minutes, seconds] = totalTime;
     return minutes * 60000 + seconds * 1000;
   }
-
-  /* handleStartButton = () => {
-    const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
-    const breakTimeElapsedResult = this.handleTimeArray(0);
-
-    if (isTaskTimePlannedValid && isBreakTimePlannedValid) {
-      this.setState({
-        isTimeVisible: false,
-        isTimerVisible: true,
-        isTaskTimeActive: true,
-        previousTime: Date.now(),
-        taskTimeElapsed: 0,
-        breaksTotal: 0,
-        breakTimeElapsed: 0,
-        breakTimeElapsedArray: breakTimeElapsedResult,
-        alertFlag: false
-      });
-    } else {
-      this.setState({ alertFlag: true });
-    }
-  } */
 
   handleDisplayMode = () => this.setState(prevState => ({
     isElapsedMode: !prevState.isElapsedMode
