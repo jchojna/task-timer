@@ -102,6 +102,13 @@ class Task extends Component {
             <use href={`${icons}#remove`}/>
           </svg>
         </button>
+
+        {/* START BUTTON */}
+        <button className="button Task__button Task__button--start">
+          <svg className="Task__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#play`} />
+          </svg>
+        </button>
       </section>
     );
   }

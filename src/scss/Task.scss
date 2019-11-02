@@ -10,21 +10,34 @@
     "remove"
     "taskName"
     "taskTime"
-    "breakTime";
+    "breakTime"
+    "startBtn";
   grid-template-rows: 40px 1fr 1fr 1fr;
   justify-items: center;
   padding: 1em;
 
   &__button {
     @include button;
-    align-self: start;
     fill: #fff;
-    grid-area: remove;
-    justify-self: end;
-    max-width: 40px;
 
     &:hover {
       fill: $color-tomato;
+      border-color: $color-tomato;
+    }
+
+    &--remove {
+      align-self: start;
+      grid-area: remove;
+      justify-self: end;
+      max-width: 40px;
+    }
+
+    &--start {
+      @include flex-center;
+      grid-area: startBtn;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      max-width: 60px;
     }
   }
 
