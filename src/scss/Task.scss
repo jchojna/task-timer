@@ -6,8 +6,21 @@
   @include card;
   align-items: center;
   display: grid;
+  grid-template-rows: 40px 1fr 1fr 1fr;
   justify-items: center;
   padding: 1em;
+
+  &__button {
+    @include button;
+    align-self: start;
+    fill: #fff;
+    justify-self: end;
+    max-width: 40px;
+
+    &:hover {
+      fill: $color-tomato;
+    }
+  }
 
   &__name {
     font-weight: 600;

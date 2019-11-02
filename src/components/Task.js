@@ -72,13 +72,25 @@ class Task extends Component {
 
     return (
       <section className="Task">
+        {/* TASK  NAME */}
         <h2 className="Task__name">
           {`"${taskName}"`}
         </h2>
+
+        {/* REMOVE BUTTON */}
+        <button className="button Task__button Task__button--remove">
+          <svg className="Task__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#remove`}/>
+          </svg>
+        </button>
+
+        {/* TOTAL TASK TIME DISPLAY */}
         <Display
           className="Task__totalTime Task__totalTime--task"
           taskTimeArray={handleTimeArray(totalTaskTime)}
         />
+
+        {/* TOTAL BREAK TIME DISPLAY */}
         <Display
           className="Task__totalTime Task__totalTime--break"
           taskTimeArray={handleTimeArray(totalBreakTime)}
