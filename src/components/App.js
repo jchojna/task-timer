@@ -34,8 +34,7 @@ class App extends Component {
       ],
       // validity
       isTaskNameValid: false,
-      isPlannedTaskTimeValid: false,
-      isPlannedBreakTimeValid: false,
+      isTimeInputValid: false
     };
   }
 
@@ -48,22 +47,10 @@ class App extends Component {
     });
   }
 
-  handlePlannedTaskTimeValidition = (time) => {
-    const totalTaskTime = this.handleTotalTime(time);
-
+  handleTimeInputValidition = (time, total) => {
     this.setState({
-      isPlannedTaskTimeValid:
-        /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && totalTaskTime > 0,
-      alertTimeFlag: true
-    })
-  }
-
-  handlePlannedBreakTimeValidition = (time) => {
-    const totalBreakTime = this.handleTotalTime(time);
-    
-    this.setState({
-      isPlannedBreakTimeValid:
-      /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && totalBreakTime > 0,
+      isTimeInputValid:
+        /^\d*$/.test(time) && total > 0,
       alertTimeFlag: true
     })
   }
@@ -94,17 +81,16 @@ class App extends Component {
       alertNameFlag,
       alertTimeFlag,
       isTaskNameValid,
-      isPlannedTaskTimeValid,
-      isPlannedBreakTimeValid
+      isTimeInputValid
     } = this.state;
 
     switch (alert) {
       case 'name':
-        return alertNameFlag && !isTaskNameValid ? "Creator__alert--visible" : "";
+        return alertNameFlag && !isTaskNameValid
+        ? "Creator__alert--visible" : "";
 
       case 'time':
-        return (alertTimeFlag && !isPlannedTaskTimeValid)
-        || (alertTimeFlag && !isPlannedBreakTimeValid)
+        return (alertTimeFlag && !isTimeInputValid)
         ? "Creator__alert--visible" : "";
 
       default: break;
@@ -113,8 +99,6 @@ class App extends Component {
 
   handleTaskRemove = (id) => {
     console.log(id);
-    //const { tasks } = this.state
-    //const updatedTasks = tasks.filter(task => task.id !== id)
     this.setState(prevState => ({
       tasks: prevState.tasks.filter(task => task.id !== id)
     }))
@@ -146,9 +130,7 @@ class App extends Component {
           state={this.state}
           handleTotalTime={this.handleTotalTime}
           onStateChange={this.handleStateChange}
-          onTaskNameChange={this.handleTaskNameValidition}
-          onPlannedTaskTimeChange={this.handlePlannedTaskTimeValidition}
-          onPlannedBreakTimeChange={this.handlePlannedBreakTimeValidition}
+          validateTaskName={this.handleTaskNameValidition}
         />
         
         {/* TIMER SECTION */}

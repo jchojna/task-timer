@@ -12,30 +12,57 @@ class Creator extends Component {
       creatorTaskSeconds: "",
       creatorBreakMinutes: "",
       creatorBreakSeconds: "",
+      creatorTotalTaskTime: 0,
+      creatorTotalBreakTime: 0,
+      isTimeInputValid: false
     };
   }
 
   handleTaskName = (e) => {
     const {value } = e.target;
-    const { onTaskNameChange } = this.props;
-    onTaskNameChange(value);
+    const { validateTaskName } = this.props;
+    validateTaskName(value);
     this.setState({ creatorTaskName: value });
   }
 
-  /* handlePlannedTaskTime = (e) => {
-    const {value } = e.target;
-    const { onPlannedTaskTimeChange } = this.props;
-    onPlannedTaskTimeChange(value);
-    this.setState({ creatorTaskTime: value });
-  } */
-  
-  /* handlePlannedBreakTime = (e) => {
-    const {value } = e.target;
-    const { onPlannedBreakTimeChange } = this.props;
-    onPlannedBreakTimeChange(value);
-    this.setState({ creatorBreakTime: value });
-  } */
-  
+  handleTotalTime = (minutes, seconds) => {
+    minutes = !minutes ? 0 : parseInt(minutes);
+    seconds = !seconds ? 0 : parseInt(seconds);
+    return (minutes * 60000) + (seconds * 1000);
+  }
+
+  handleMinutesChange = (value, type) => {
+    const { creatorTaskSeconds, creatorBreakSeconds } = this.state;
+    const totalTaskTime = this.handleTotalTime(value, creatorTaskSeconds);
+    const totalBreakTime = this.handleTotalTime(value, creatorBreakSeconds);
+
+    this.setState( type === 'task'
+    ? {
+      creatorTaskMinutes: value,
+      creatorTotalTaskTime: totalTaskTime,
+      isTimeInputValid: (/^\d*$/.test(value) && totalTaskTime > 0),
+    } : {
+      creatorBreakMinutes: value,
+      creatorTotalBreakTime: totalBreakTime
+    });
+  }
+ 
+  handleSecondsChange = (value, type) => {
+    const { creatorTaskMinutes, creatorBreakMinutes } = this.state;
+    const totalTaskTime = this.handleTotalTime(creatorTaskMinutes, value);
+    const totalBreakTime = this.handleTotalTime(creatorBreakMinutes, value);
+
+    this.setState( type === 'task'
+    ? {
+      creatorTaskSeconds: value,
+      creatorTotalTaskTime: totalTaskTime,
+      isTimeInputValid: (/^\d*$/.test(value) && totalTaskTime > 0),
+    } : {
+      creatorBreakSeconds: value,
+      creatorTotalBreakTime: totalBreakTime
+    });
+  }
+ 
   handleCancelButton = (e) => {
     e.preventDefault();
     const { onStateChange } = this.props;
@@ -98,16 +125,6 @@ class Creator extends Component {
       })
     }
   } */
-
-  handleMinutesChange = (value, type) => {
-    this.setState( type === 'task'
-    ? { creatorTaskMinutes: value } : { creatorBreakMinutes: value });
-  }
- 
-  handleSecondsChange = (value, type) => {
-    this.setState( type === 'task'
-    ? { creatorTaskSeconds: value } : { creatorBreakSeconds: value });
-  }
 
   render() {
 
