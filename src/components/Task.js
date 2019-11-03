@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Display from './Display.js';
 import EditableText from './EditableText.js';
 import EditableDisplay from './EditableDisplay.js';
 //import Timer from './Timer.js';
@@ -24,12 +23,12 @@ class Task extends Component {
 
     this.state = {
       taskName,
-      totalTaskTime,
-      totalBreakTime,
       taskMinutes,
       taskSeconds,
       breakMinutes,
       breakSeconds,
+      totalTaskTime,
+      totalBreakTime,
       isTaskNameEditMode: false,
       isTaskTimeEditMode: false,
       isBreakTimeEditMode: false,
@@ -141,7 +140,7 @@ class Task extends Component {
 
   render() {
 
-    const { handleTimeArray, id } = this.props;
+    const { id } = this.props;
     const {
       taskName,
       taskMinutes,
@@ -224,6 +223,38 @@ class Task extends Component {
             <use href={`${icons}#play`} />
           </svg>
         </button>
+        
+        {/* TIMER SECTION */}
+        {/* <Timer
+          compClassName={isTimerVisible
+            ? "Timer--visible slideInRight" : "slideOutLeft"}
+          onStateChange={this.handleStateChange}
+          onDisplayModeChange={this.handleDisplayMode}
+          onTimeArrayChange={this.handleTimeArray}
+          state={this.state}
+        /> */}
+        {/* STOP TASK SECTION */}
+        {/* <StopTask
+          compClassName={`StopTask ${isStopTaskVisible
+          ? "StopTask--visible" : ""}`}
+          onStateChange={this.handleStateChange}
+        /> */}
+        {/* OUTRO SECTION */}
+        {/* <Outro
+          compClassName={`Outro ${isOutroVisible
+          ? "Outro--visible slideInRight"
+          : "slideOutLeft"}`}
+          state={this.state}
+          onStateChange={this.handleStateChange}
+        /> */}
+        {/* BREAK TIME EXCEEDED */}
+        {/* <Failure
+          compClassName={`Failure ${isFailureVisible
+          ? "Failure--visible slideInRight"
+          : "slideOutLeft"}`}
+          state={this.state}
+          onStateChange={this.handleStateChange}
+        /> */}
       </section>
     );
   }

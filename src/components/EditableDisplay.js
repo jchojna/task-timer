@@ -1,6 +1,5 @@
 import React from 'react';
 import '../scss/Editable.scss';
-import Display from './Display';
 import TimeDisplay from './TimeDisplay.js';
 
 const EditableDisplay = (props) => {
@@ -19,12 +18,13 @@ const EditableDisplay = (props) => {
   return (
     <div className={`${block} ${block}__${modifier}`}>
       {/* TEXT */}
-      <Display
+      <p
         className={`${block}__text ${isEditMode
         ? "" : `${block}__text--visible`}`}
-        output={`${minutes}:${seconds}`}
-        onEditModeChange={onEditModeChange}
-      />
+        onClick={onEditModeChange}
+      >
+        {`${minutes}:${seconds}`}
+      </p>
 
       {/* INPUT */}
       <TimeDisplay

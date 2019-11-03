@@ -13,8 +13,10 @@ class App extends Component {
       tasks: [
         {
           taskName: "Test task for preview purposes",
-          plannedTaskTime: "30s",
-          plannedBreakTime: "10s",
+          taskMinutes: 30,
+          taskSeconds: 0,
+          breakMinutes: 10,
+          breakSeconds: 0,
           totalTaskTime: 30000,
           totalBreakTime: 10000,
           id: 6453654365346,
@@ -22,8 +24,10 @@ class App extends Component {
         },
         {
           taskName: "Another task for testing",
-          plannedTaskTime: "60s",
-          plannedBreakTime: "20s",
+          taskMinutes: 60,
+          taskSeconds: 0,
+          breakMinutes: 20,
+          breakSeconds: 0,
           totalTaskTime: 60000,
           totalBreakTime: 20000,
           id: 543254234523,
@@ -115,8 +119,6 @@ class App extends Component {
         <Board
           state={this.state}
           onStateChange={this.handleStateChange}
-          handleTotalTime={this.handleTotalTime}
-          handleTimeArray={this.handleTimeArray}
           onTaskRemove={this.handleTaskRemove}
           onTimeChange={this.handleTimeChange}
         />
@@ -129,38 +131,6 @@ class App extends Component {
           onTimeChange={this.handleTimeChange}
           validateTaskName={this.handleTaskNameValidition}
         />
-        
-        {/* TIMER SECTION */}
-        {/* <Timer
-          compClassName={isTimerVisible
-            ? "Timer--visible slideInRight" : "slideOutLeft"}
-          onStateChange={this.handleStateChange}
-          onDisplayModeChange={this.handleDisplayMode}
-          onTimeArrayChange={this.handleTimeArray}
-          state={this.state}
-        /> */}
-        {/* STOP TASK SECTION */}
-        {/* <StopTask
-          compClassName={`StopTask ${isStopTaskVisible
-          ? "StopTask--visible" : ""}`}
-          onStateChange={this.handleStateChange}
-        /> */}
-        {/* OUTRO SECTION */}
-        {/* <Outro
-          compClassName={`Outro ${isOutroVisible
-          ? "Outro--visible slideInRight"
-          : "slideOutLeft"}`}
-          state={this.state}
-          onStateChange={this.handleStateChange}
-        /> */}
-        {/* BREAK TIME EXCEEDED */}
-        {/* <Failure
-          compClassName={`Failure ${isFailureVisible
-          ? "Failure--visible slideInRight"
-          : "slideOutLeft"}`}
-          state={this.state}
-          onStateChange={this.handleStateChange}
-        /> */}
       </div>
     );
   }
