@@ -201,6 +201,7 @@ class Creator extends Component {
           
         {/* TASK TIME INPUTS */}
         <TimeDisplay
+          className="Field"
           modifier="taskTime"
           minutes={creatorTaskMinutes}
           seconds={creatorTaskSeconds}
@@ -210,6 +211,7 @@ class Creator extends Component {
 
         {/* BREAK TIME INPUTS */}
         <TimeDisplay
+          className="Field"
           modifier="breakTime"
           minutes={creatorBreakMinutes}
           seconds={creatorBreakSeconds}

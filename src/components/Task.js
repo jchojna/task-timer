@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Display from './Display.js';
-import Editable from './Editable.js';
+import EditableText from './EditableText.js';
+import EditableDisplay from './EditableDisplay.js';
 //import Timer from './Timer.js';
 //import StopTask from './StopTask.js';
 //import Outro from './Outro.js';
@@ -104,7 +105,7 @@ class Task extends Component {
         className="Task"
       >
         {/* TASK  NAME */}
-        <Editable
+        <EditableText
           className="taskName"
           output={taskName}
           onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
@@ -113,7 +114,7 @@ class Task extends Component {
         />
 
         {/* TOTAL TASK TIME */}
-        <Editable
+        <EditableDisplay
           className="totalTaskTime"
           output={handleTimeArray(totalTaskTime)}
           onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
@@ -122,7 +123,7 @@ class Task extends Component {
         />
         
         {/* TOTAL BREAK TIME */}
-        <Editable
+        <EditableDisplay
           className="totalBreakTime"
           output={handleTimeArray(totalBreakTime)}
           onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}

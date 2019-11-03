@@ -1,8 +1,9 @@
 import React from 'react';
 import '../scss/Editable.scss';
 import Display from './Display';
+import TimeDisplay from './TimeDisplay.js';
 
-const Editable = (props) => {
+const EditableDisplay = (props) => {
     
   const {
     className,
@@ -14,7 +15,7 @@ const Editable = (props) => {
 
   return (
     <div className={className}>
-      {/* TEXT TITLE */}
+      {/* TEXT */}
       <Display
         className={`${className}__text ${isEditMode
         ? "" : `${className}__text--visible`}`}
@@ -23,14 +24,12 @@ const Editable = (props) => {
       />
 
       {/* INPUT */}
-      <textarea
+      <TimeDisplay
         className={`${className}__input ${isEditMode
         ? `${className}__input--visible` : ""}`}
-        defaultValue={output}
-        spellCheck="false"
-        onChange={(e) => onTaskEdit(e.target.value)}
-      ></textarea>
+      
+      />
     </div>
   );
 }
-export default Editable;
+export default EditableDisplay;
