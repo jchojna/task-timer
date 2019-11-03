@@ -69,11 +69,7 @@ class App extends Component {
   }
 
   render() {
-    const {
-      isCreatorVisible,
-      isTaskNameValid,
-      isTimeInputValid
-    } = this.state;
+    const { isCreatorVisible } = this.state;
 
     return (
       <div className="App">
@@ -93,7 +89,6 @@ class App extends Component {
         <Creator
           compClassName={isCreatorVisible
             ? "Creator--visible slideInRight" : "slideOutLeft"}
-          state={this.state}
           onStateChange={this.handleStateChange}
           validateTaskName={this.handleTaskNameValidition}
           validateTimeInput={this.handleTimeInputValidition}

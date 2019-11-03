@@ -102,33 +102,32 @@ class Creator extends Component {
     e.preventDefault();
     const { onStateChange } = this.props;
     // return to Board component
-    onStateChange({
-      isCreatorVisible: false
-    });
+    onStateChange({ isCreatorVisible: false });
   }
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    const { onStateChange, handleTotalTime } = this.props;
-    const { creatorTaskName, creatorTaskTime, creatorBreakTime } = this.state;
+    const { onStateChange } = this.props;
     const {
+      creatorTaskName,
+      creatorTotalTaskTime,
+      creatorTotalBreakTime,
       isTaskNameValid,
-      isPlannedTaskTimeValid,
-      isPlannedBreakTimeValid
-    } = this.props.state;
+      isTimeInputValid
+    } = this.state;
+
+    this.setState({
+      alertNameFlag: true,
+      alertTimeFlag: true
+    })    
     // validation
-    if (isTaskNameValid && isPlannedTaskTimeValid && isPlannedBreakTimeValid) {
-      
-      const totalTaskTime = handleTotalTime(creatorTaskTime);
-      const totalBreakTime = handleTotalTime(creatorBreakTime);
+    if (isTaskNameValid && isTimeInputValid) {
       const date = Date.now();
       // new task data
       const newTask = {
         taskName: creatorTaskName,
-        plannedTaskTime: creatorTaskTime,
-        plannedBreakTime: creatorBreakTime,
-        totalTaskTime,
-        totalBreakTime,
+        totalTaskTime: creatorTotalTaskTime,
+        totalBreakTime: creatorTotalBreakTime,
         dateCreated: date,
         id: date
       };
@@ -144,6 +143,12 @@ class Creator extends Component {
         creatorTaskSeconds: "",
         creatorBreakMinutes: "",
         creatorBreakSeconds: "",
+        creatorTotalTaskTime: 0,
+        creatorTotalBreakTime: 0,
+        isTaskNameValid: false,
+        isTimeInputValid: false,
+        alertNameFlag: false,
+        alertTimeFlag: false,
       })
     }
   }
@@ -171,11 +176,7 @@ class Creator extends Component {
       creatorBreakSeconds
     } = this.state;
 
-    const {
-      compClassName,
-      nameAlertClassName,
-      timeAlertClassName
-    } = this.props;
+    const { compClassName } = this.props;
 
     return (
       <form
@@ -252,7 +253,7 @@ class Creator extends Component {
             You have to enter your task name!
           </p>
           <p className={`Creator__alert ${this.handleAlertVisibility('time')}`}>
-            Enter time in specific format (00m00s)
+            Enter correct time for task!
           </p>
         </div>
       </form>
