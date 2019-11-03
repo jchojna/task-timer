@@ -12,14 +12,28 @@ import '../scss/Task.scss';
 class Task extends Component {
   constructor(props) {
     super(props);
-    const { taskName, totalTaskTime, totalBreakTime } = this.props.task;
+    const {
+      taskName,
+      taskMinutes,
+      taskSeconds,
+      breakMinutes,
+      breakSeconds,
+      totalTaskTime,
+      totalBreakTime
+    } = this.props.task;
+
     this.state = {
       taskName,
       totalTaskTime,
       totalBreakTime,
+      taskMinutes,
+      taskSeconds,
+      breakMinutes,
+      breakSeconds,
       isTaskNameEditMode: false,
       isTaskTimeEditMode: false,
       isBreakTimeEditMode: false,
+      isTimeInputValid: true
       //isElapsedMode: true,
       
       //taskTimeElapsed: 0,
@@ -85,16 +99,55 @@ class Task extends Component {
   }
 
   handleTaskNameEdit = (value) => this.setState({ taskName: value });
-  handleTaskTimeEdit = (value) => this.setState({ totalTaskTime: value });
-  handleBreakTimeEdit = (value) => this.setState({ totalBreakTime: value });
+
+  handleTimeChange = (minutes, seconds, units, type) => {
+    const { onTimeChange } = this.props;
+    const object = onTimeChange(minutes, seconds, units, type);
+    //const { alertTimeFlag } = object;
+
+    if (type === 'task') {
+      if (units === 'minutes') {
+        const { taskMinutes, totalTaskTime, isTimeInputValid } = object;
+        this.setState({
+          taskMinutes,
+          totalTaskTime,
+          isTimeInputValid
+        });
+      } else if (units === 'seconds') {
+        const { taskSeconds, totalTaskTime, isTimeInputValid } = object;
+        this.setState({
+          taskSeconds,
+          totalTaskTime,
+          isTimeInputValid
+        });
+      }
+    } else if (type === 'break') {
+      if (units === 'minutes') {
+        const { breakMinutes, totalBreakTime } = object;
+        this.setState({
+          breakMinutes,
+          totalBreakTime
+        });
+      } else if (units === 'seconds') {
+        const { breakSeconds, totalBreakTime } = object;
+        this.setState({
+          breakSeconds,
+          totalBreakTime
+        });
+      }
+    }
+    //this.setState({ alertTimeFlag });
+  }
 
   render() {
 
     const { handleTimeArray, id } = this.props;
     const {
       taskName,
-      totalTaskTime,
-      totalBreakTime,
+      taskMinutes,
+      taskSeconds,
+      breakMinutes,
+      breakSeconds,
       isTaskNameEditMode,
       isTaskTimeEditMode,
       isBreakTimeEditMode
@@ -117,20 +170,28 @@ class Task extends Component {
         <EditableDisplay
           block="totalTime"
           modifier="taskTime"
-          timeArray={handleTimeArray(totalTaskTime)}
+          minutes={taskMinutes}
+          seconds={taskSeconds}
           onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
-          onTaskEdit={this.handleTaskTimeEdit}
           isEditMode={isTaskTimeEditMode}
+          onMinutesChange={(value) => 
+            this.handleTimeChange(value, taskSeconds, 'minutes', 'task')}
+          onSecondsChange={(value) => 
+            this.handleTimeChange(taskMinutes, value, 'seconds', 'task')}
         />
         
         {/* TOTAL BREAK TIME */}
         <EditableDisplay
           block="totalTime"
           modifier="breakTime"
-          timeArray={handleTimeArray(totalBreakTime)}
+          minutes={breakMinutes}
+          seconds={breakSeconds}
           onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
-          onTaskEdit={this.handleBreakTimeEdit}
           isEditMode={isBreakTimeEditMode}
+          onMinutesChange={(value) => 
+            this.handleTimeChange(value, breakSeconds, 'minutes', 'break')}
+          onSecondsChange={(value) => 
+            this.handleTimeChange(breakMinutes, value, 'seconds', 'break')}
         />
                 
         {/* EDIT BUTTONS */}

@@ -14,9 +14,8 @@ class Board extends Component {
   render() {
     const {
       state,
-      handleTotalTime,
-      handleTimeArray,
-      onTaskRemove
+      onTaskRemove,
+      onTimeChange
     } = this.props;
     const { tasks } = state;
 
@@ -29,9 +28,8 @@ class Board extends Component {
             task={task}
             id={task.dateCreated}
             key={task.dateCreated}
-            handleTotalTime={handleTotalTime}
-            handleTimeArray={handleTimeArray}
             onTaskRemove={onTaskRemove}
+            onTimeChange={onTimeChange}
           />
         ))}
 

@@ -65,6 +65,10 @@ class Creator extends Component {
     const { onStateChange } = this.props;
     const {
       creatorTaskName,
+      creatorTaskMinutes,
+      creatorTaskSeconds,
+      creatorBreakMinutes,
+      creatorBreakSeconds,
       creatorTotalTaskTime,
       creatorTotalBreakTime,
       isTaskNameValid,
@@ -81,6 +85,10 @@ class Creator extends Component {
       // new task data
       const newTask = {
         taskName: creatorTaskName,
+        taskMinutes: creatorTaskMinutes,
+        taskSeconds: creatorTaskSeconds,
+        breakMinutes: creatorBreakMinutes,
+        breakSeconds: creatorBreakSeconds,
         totalTaskTime: creatorTotalTaskTime,
         totalBreakTime: creatorTotalBreakTime,
         dateCreated: date,
@@ -124,58 +132,40 @@ class Creator extends Component {
   handleTimeChange = (minutes, seconds, units, type) => {
     const { onTimeChange } = this.props;
     const object = onTimeChange(minutes, seconds, units, type);
+    const { alertTimeFlag } = object;
 
     if (type === 'task') {
-
       if (units === 'minutes') {
-        const { taskMinutes, totalTaskTime, isTimeInputValid, alertTimeFlag } = object;
+        const { taskMinutes, totalTaskTime, isTimeInputValid } = object;
         this.setState({
           creatorTaskMinutes: taskMinutes,
           creatorTotalTaskTime: totalTaskTime,
-          isTimeInputValid,
-          alertTimeFlag
+          isTimeInputValid
         });
       } else if (units === 'seconds') {
-        const { taskSeconds, totalTaskTime, isTimeInputValid, alertTimeFlag } = object;
+        const { taskSeconds, totalTaskTime, isTimeInputValid } = object;
         this.setState({
           creatorTaskSeconds: taskSeconds,
           creatorTotalTaskTime: totalTaskTime,
-          isTimeInputValid,
-          alertTimeFlag
+          isTimeInputValid
         });
       }
     } else if (type === 'break') {
-
       if (units === 'minutes') {
-        const { breakMinutes, totalBreakTime, alertTimeFlag } = object;
+        const { breakMinutes, totalBreakTime } = object;
         this.setState({
           creatorBreakMinutes: breakMinutes,
-          creatorTotalBreakTime: totalBreakTime,
-          alertTimeFlag
+          creatorTotalBreakTime: totalBreakTime
         });
       } else if (units === 'seconds') {
-        const { breakSeconds, totalBreakTime, alertTimeFlag } = object;
+        const { breakSeconds, totalBreakTime } = object;
         this.setState({
           creatorBreakSeconds: breakSeconds,
-          creatorTotalBreakTime: totalBreakTime,
-          alertTimeFlag
+          creatorTotalBreakTime: totalBreakTime
         });
       }
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
+    this.setState({ alertTimeFlag });
   }
 
 

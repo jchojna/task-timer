@@ -9,7 +9,7 @@ class App extends Component {
     this.state = {
       // visibility
       isBoardVisible: true,
-      isCreatorVisible: true,
+      isCreatorVisible: false,
       tasks: [
         {
           taskName: "Test task for preview purposes",
@@ -50,7 +50,6 @@ class App extends Component {
     
     if (type === 'task') {
       const totalTaskTime = this.handleTotalTime(minutes, seconds);
-
       if (units === 'minutes') {
         return {
           taskMinutes: minutes,
@@ -68,7 +67,6 @@ class App extends Component {
       }
     } else if (type === 'break') {
       const totalBreakTime = this.handleTotalTime(minutes, seconds);
-
       if (units === 'minutes') {
         return {
           breakMinutes: minutes,
@@ -120,6 +118,7 @@ class App extends Component {
           handleTotalTime={this.handleTotalTime}
           handleTimeArray={this.handleTimeArray}
           onTaskRemove={this.handleTaskRemove}
+          onTimeChange={this.handleTimeChange}
         />
 
         {/* TASK CREATOR */}

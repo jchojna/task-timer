@@ -8,8 +8,10 @@ const EditableDisplay = (props) => {
   const {
     block,
     modifier,
-    timeArray,
-    onTaskEdit,
+    minutes,
+    seconds,
+    onMinutesChange,
+    onSecondsChange,
     isEditMode,
     onEditModeChange
   } = props;
@@ -20,7 +22,7 @@ const EditableDisplay = (props) => {
       <Display
         className={`${block}__text ${isEditMode
         ? "" : `${block}__text--visible`}`}
-        output={timeArray}
+        output={`${minutes}:${seconds}`}
         onEditModeChange={onEditModeChange}
       />
 
@@ -29,8 +31,10 @@ const EditableDisplay = (props) => {
         block={block}
         modifier={modifier}
         visible={isEditMode ? `${block}--visible` : ""}
-        minutes={timeArray[0]}
-        seconds={timeArray[1]}
+        minutes={minutes}
+        seconds={seconds}
+        onMinutesChange={(value) => onMinutesChange(value)}
+        onSecondsChange={(value) => onSecondsChange(value)}
       />
     </div>
   );
