@@ -46,38 +46,43 @@ class App extends Component {
     return (minutes * 60000) + (seconds * 1000);
   }
 
-  handleMinutesChange = (minutes, seconds, type) => {
-    const totalTaskTime = this.handleTotalTime(minutes, seconds);
-    const totalBreakTime = this.handleTotalTime(minutes, seconds);
+  handleTimeChange = (minutes, seconds, units, type) => {
+    
+    if (type === 'task') {
+      const totalTaskTime = this.handleTotalTime(minutes, seconds);
 
-    return type === 'task'
-    ? {
-      taskMinutes: minutes,
-      totalTaskTime,
-      isTimeInputValid: this.handleTimeInputValidition(minutes, totalTaskTime),
-      alertTimeFlag: true
-    } : {
-      breakMinutes: minutes,
-      totalBreakTime: totalBreakTime,
-      alertTimeFlag: true
-    };
-  }
- 
-  handleSecondsChange = (minutes, seconds, type)  => {
-    const totalTaskTime = this.handleTotalTime(minutes, seconds);
-    const totalBreakTime = this.handleTotalTime(minutes, seconds);
+      if (units === 'minutes') {
+        return {
+          taskMinutes: minutes,
+          totalTaskTime,
+          isTimeInputValid: this.handleTimeInputValidition(minutes, totalTaskTime),
+          alertTimeFlag: true
+        };
+      } else if (units === 'seconds') {
+        return {
+          taskSeconds: seconds,
+          totalTaskTime,
+          isTimeInputValid: this.handleTimeInputValidition(seconds, totalTaskTime),
+          alertTimeFlag: true
+        };
+      }
+    } else if (type === 'break') {
+      const totalBreakTime = this.handleTotalTime(minutes, seconds);
 
-    return type === 'task'
-    ? {
-      taskSeconds: seconds,
-      totalTaskTime,
-      isTimeInputValid: this.handleTimeInputValidition(seconds, totalTaskTime),
-      alertTimeFlag: true
-    } : {
-      breakSeconds: seconds,
-      totalBreakTime: totalBreakTime,
-      alertTimeFlag: true
-    };
+      if (units === 'minutes') {
+        return {
+          breakMinutes: minutes,
+          totalBreakTime,
+          alertTimeFlag: true
+        };
+      } else if (units === 'seconds') {
+        return {
+          breakSeconds: seconds,
+          totalBreakTime,
+          alertTimeFlag: true
+        };
+      }
+    }
   }
 
   handleDisplayMode = () => this.setState(prevState => ({
@@ -122,8 +127,8 @@ class App extends Component {
           compClassName={isCreatorVisible
             ? "Creator--visible slideInRight" : "slideOutLeft"}
           onStateChange={this.handleStateChange}
-          onMinutesChange={this.handleMinutesChange}
-          onSecondsChange={this.handleSecondsChange}
+          onTimeChange={this.handleTimeChange}
+          validateTaskName={this.handleTaskNameValidition}
         />
         
         {/* TIMER SECTION */}
