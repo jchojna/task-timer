@@ -14,15 +14,23 @@ class Creator extends Component {
       creatorBreakSeconds: "",
       creatorTotalTaskTime: 0,
       creatorTotalBreakTime: 0,
-      isTimeInputValid: false
+      // validation
+      isTaskNameValid: false,
+      isTimeInputValid: false,
+      alertNameFlag: false,
+      alertTimeFlag: false,
     };
   }
 
   handleTaskName = (e) => {
     const {value } = e.target;
     const { validateTaskName } = this.props;
-    validateTaskName(value);
-    this.setState({ creatorTaskName: value });
+    console.log(validateTaskName(value));
+    this.setState({
+      creatorTaskName: value,
+      isTaskNameValid: validateTaskName(value),
+      alertNameFlag: true
+    });
   }
 
   handleTotalTime = (minutes, seconds) => {
@@ -33,6 +41,7 @@ class Creator extends Component {
 
   handleMinutesChange = (value, type) => {
     const { creatorTaskSeconds, creatorBreakSeconds } = this.state;
+    const { validateTimeInput } = this.props;
     const totalTaskTime = this.handleTotalTime(value, creatorTaskSeconds);
     const totalBreakTime = this.handleTotalTime(value, creatorBreakSeconds);
 
@@ -40,15 +49,18 @@ class Creator extends Component {
     ? {
       creatorTaskMinutes: value,
       creatorTotalTaskTime: totalTaskTime,
-      isTimeInputValid: (/^\d*$/.test(value) && totalTaskTime > 0),
+      isTimeInputValid: validateTimeInput(value, totalTaskTime),
+      alertTimeFlag: true
     } : {
       creatorBreakMinutes: value,
-      creatorTotalBreakTime: totalBreakTime
+      creatorTotalBreakTime: totalBreakTime,
+      alertTimeFlag: true
     });
   }
  
   handleSecondsChange = (value, type) => {
     const { creatorTaskMinutes, creatorBreakMinutes } = this.state;
+    const { validateTimeInput } = this.props;
     const totalTaskTime = this.handleTotalTime(creatorTaskMinutes, value);
     const totalBreakTime = this.handleTotalTime(creatorBreakMinutes, value);
 
@@ -56,11 +68,34 @@ class Creator extends Component {
     ? {
       creatorTaskSeconds: value,
       creatorTotalTaskTime: totalTaskTime,
-      isTimeInputValid: (/^\d*$/.test(value) && totalTaskTime > 0),
+      isTimeInputValid: validateTimeInput(value, totalTaskTime),
+      alertTimeFlag: true
     } : {
       creatorBreakSeconds: value,
-      creatorTotalBreakTime: totalBreakTime
+      creatorTotalBreakTime: totalBreakTime,
+      alertTimeFlag: true
     });
+  }
+  
+  handleAlertVisibility = (alert) => {
+    const {
+      alertNameFlag,
+      alertTimeFlag,
+      isTaskNameValid,
+      isTimeInputValid
+     } = this.state;
+
+    switch (alert) {
+      case 'name':
+        return alertNameFlag && !isTaskNameValid
+        ? "Creator__alert--visible" : "";
+
+      case 'time':
+        return alertTimeFlag && !isTimeInputValid
+        ? "Creator__alert--visible" : "";
+
+      default: break;
+    }
   }
  
   handleCancelButton = (e) => {
@@ -213,10 +248,10 @@ class Creator extends Component {
 
         {/* ALERTS */}
         <div className="Creator__alerts">
-          <p className={`Creator__alert ${nameAlertClassName}`}>
+          <p className={`Creator__alert ${this.handleAlertVisibility('name')}`}>
             You have to enter your task name!
           </p>
-          <p className={`Creator__alert ${timeAlertClassName}`}>
+          <p className={`Creator__alert ${this.handleAlertVisibility('time')}`}>
             Enter time in specific format (00m00s)
           </p>
         </div>

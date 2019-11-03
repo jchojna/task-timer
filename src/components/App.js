@@ -10,8 +10,6 @@ class App extends Component {
       // visibility
       isBoardVisible: true,
       isCreatorVisible: true,
-      alertNameFlag: false,
-      alertTimeFlag: false,
       tasks: [
         {
           taskName: "Test task for preview purposes",
@@ -39,29 +37,16 @@ class App extends Component {
   }
 
   handleStateChange = (object) => this.setState(object);
-  
-  handleTaskNameValidition = (name) => {
-    this.setState({
-      isTaskNameValid: name.length > 0 ? true : false,
-      alertNameFlag: true
-    });
-  }
+  handleTaskNameValidition = (name) => name.length > 0 ? true : false;
+  handleTimeInputValidition = (time, total) => /^\d*$/.test(time) && total > 0;
 
-  handleTimeInputValidition = (time, total) => {
-    this.setState({
-      isTimeInputValid:
-        /^\d*$/.test(time) && total > 0,
-      alertTimeFlag: true
-    })
-  }
-
-  handleTotalTime = (time) => {
+  /* handleTotalTime = (time) => {
     let totalTime = time.split(/[mM]/).map(a => parseInt(a) || 0);
     // if time format 00m is acceptable
     totalTime = totalTime.length > 1 ? totalTime : [0, ...totalTime];
     const [minutes, seconds] = totalTime;
     return minutes * 60000 + seconds * 1000;
-  }
+  } */
 
   handleDisplayMode = () => this.setState(prevState => ({
     isElapsedMode: !prevState.isElapsedMode
@@ -76,27 +61,6 @@ class App extends Component {
     ]
   }
 
-  handleAlertVisibility = (alert) => {
-    const {
-      alertNameFlag,
-      alertTimeFlag,
-      isTaskNameValid,
-      isTimeInputValid
-    } = this.state;
-
-    switch (alert) {
-      case 'name':
-        return alertNameFlag && !isTaskNameValid
-        ? "Creator__alert--visible" : "";
-
-      case 'time':
-        return (alertTimeFlag && !isTimeInputValid)
-        ? "Creator__alert--visible" : "";
-
-      default: break;
-    }
-  }
-
   handleTaskRemove = (id) => {
     console.log(id);
     this.setState(prevState => ({
@@ -105,7 +69,11 @@ class App extends Component {
   }
 
   render() {
-    const { isCreatorVisible } = this.state;
+    const {
+      isCreatorVisible,
+      isTaskNameValid,
+      isTimeInputValid
+    } = this.state;
 
     return (
       <div className="App">
@@ -125,12 +93,10 @@ class App extends Component {
         <Creator
           compClassName={isCreatorVisible
             ? "Creator--visible slideInRight" : "slideOutLeft"}
-          nameAlertClassName={this.handleAlertVisibility('name')}
-          timeAlertClassName={this.handleAlertVisibility('time')}
           state={this.state}
-          handleTotalTime={this.handleTotalTime}
           onStateChange={this.handleStateChange}
           validateTaskName={this.handleTaskNameValidition}
+          validateTimeInput={this.handleTimeInputValidition}
         />
         
         {/* TIMER SECTION */}
