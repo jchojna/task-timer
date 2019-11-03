@@ -13,8 +13,8 @@ const TimeDisplay = (props) => {
   return (
     <fieldset className={`Field Field--${modifier}`}>
       <input
-        id="taskTime"
-        name="taskTimeMinutes"
+        id={modifier}
+        name={`${modifier}Minutes`}
         className="Field__input Field__input--minutes"
         placeholder="min"
         maxLength="2"
@@ -23,7 +23,7 @@ const TimeDisplay = (props) => {
       />
       <span className="Field__separator">:</span>
       <input
-        name="taskTimeSeconds"
+        name={`${modifier}Seconds`}
         className="Field__input Field__input--seconds"
         placeholder="sec"
         maxLength="2"
