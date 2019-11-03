@@ -32,50 +32,6 @@ class Creator extends Component {
       alertNameFlag: true
     });
   }
-
-  handleTotalTime = (minutes, seconds) => {
-    minutes = !minutes ? 0 : parseInt(minutes);
-    seconds = !seconds ? 0 : parseInt(seconds);
-    return (minutes * 60000) + (seconds * 1000);
-  }
-
-  handleMinutesChange = (value, type) => {
-    const { creatorTaskSeconds, creatorBreakSeconds } = this.state;
-    const { validateTimeInput } = this.props;
-    const totalTaskTime = this.handleTotalTime(value, creatorTaskSeconds);
-    const totalBreakTime = this.handleTotalTime(value, creatorBreakSeconds);
-
-    this.setState( type === 'task'
-    ? {
-      creatorTaskMinutes: value,
-      creatorTotalTaskTime: totalTaskTime,
-      isTimeInputValid: validateTimeInput(value, totalTaskTime),
-      alertTimeFlag: true
-    } : {
-      creatorBreakMinutes: value,
-      creatorTotalBreakTime: totalBreakTime,
-      alertTimeFlag: true
-    });
-  }
- 
-  handleSecondsChange = (value, type) => {
-    const { creatorTaskMinutes, creatorBreakMinutes } = this.state;
-    const { validateTimeInput } = this.props;
-    const totalTaskTime = this.handleTotalTime(creatorTaskMinutes, value);
-    const totalBreakTime = this.handleTotalTime(creatorBreakMinutes, value);
-
-    this.setState( type === 'task'
-    ? {
-      creatorTaskSeconds: value,
-      creatorTotalTaskTime: totalTaskTime,
-      isTimeInputValid: validateTimeInput(value, totalTaskTime),
-      alertTimeFlag: true
-    } : {
-      creatorBreakSeconds: value,
-      creatorTotalBreakTime: totalBreakTime,
-      alertTimeFlag: true
-    });
-  }
   
   handleAlertVisibility = (alert) => {
     const {
@@ -166,6 +122,104 @@ class Creator extends Component {
     }
   } */
 
+  /* handleTaskMinutesChange = (value) => {
+    const { onMinutesChange } = this.props;
+    const { creatorTaskSeconds } = this.state;
+
+    const object = onMinutesChange(value, creatorTaskSeconds, 'task');
+    const {taskMinutes, totalTaskTime, isTimeInputValid, alertTimeFlag} = object;
+    this.setState({
+      creatorTaskMinutes: taskMinutes,
+      creatorTotalTaskTime: totalTaskTime,
+      isTimeInputValid,
+      alertTimeFlag,
+    });
+  }
+  
+  handleTaskSecondsChange = (value) => {
+    const { onSecondsChange } = this.props;
+    const { creatorTaskMinutes } = this.state;
+
+    const object = onSecondsChange(creatorTaskMinutes, value, 'task');
+    const {taskSeconds, totalTaskTime, isTimeInputValid, alertTimeFlag} = object;
+    this.setState({
+      creatorTaskSeconds: taskSeconds,
+      creatorTotalTaskTime: totalTaskTime,
+      isTimeInputValid,
+      alertTimeFlag,
+    });
+  }
+  
+  handleBreakMinutesChange = (value) => {
+    const { onMinutesChange } = this.props;
+    const { creatorBreakSeconds } = this.state;
+
+    const object = onMinutesChange(value, creatorBreakSeconds, 'break');
+    const {breakMinutes, totalTaskTime, alertTimeFlag} = object;
+    this.setState({
+      creatorBreakMinutes: breakMinutes,
+      creatorTotalBreakTime: totalTaskTime,
+      alertTimeFlag,
+    });
+  }
+  
+  handleBreakSecondsChange = (value) => {
+    const { onSecondsChange } = this.props;
+    const { creatorBreakMinutes } = this.state;
+
+    const object = onSecondsChange(creatorBreakMinutes, value, 'break');
+    const {breakSeconds, totalTaskTime, alertTimeFlag} = object;
+    this.setState({
+      creatorBreakSeconds: breakSeconds,
+      creatorTotalBreakTime: totalTaskTime,
+      alertTimeFlag,
+    });
+  } */
+
+  handleMinutesChange = (minutes, seconds, type) => {
+    const { onMinutesChange } = this.props;
+    const object = onMinutesChange(minutes, seconds, type);
+    const {min, totalTaskTime, isTimeInputValid, alertTimeFlag} = object;
+
+    if (type === 'task') {
+      this.setState({
+        creatorTaskMinutes: min,
+        isTimeInputValid,
+      });
+    } else if (type === 'break') {
+      this.setState({
+        creatorBreakMinutes: min,
+      });
+    }
+    this.setState({
+      creatorTotalTaskTime: totalTaskTime,
+      alertTimeFlag,
+    });
+  }
+
+  handleSecondsChange = (minutes, seconds, type) => {
+    const { onSecondsChange } = this.props;
+    const object = onSecondsChange(minutes, seconds, type);
+    const {sec, totalTaskTime, isTimeInputValid, alertTimeFlag} = object;
+
+    if (type === 'task') {
+      this.setState({
+        creatorTaskSeconds: sec,
+        isTimeInputValid,
+      });
+    } else if (type === 'break') {
+      this.setState({
+        creatorBreakSeconds: sec,
+      });
+    }
+    this.setState({
+      creatorTotalTaskTime: totalTaskTime,
+      alertTimeFlag,
+    });
+  }
+
+
+
   render() {
 
     const {
@@ -176,7 +230,11 @@ class Creator extends Component {
       creatorBreakSeconds
     } = this.state;
 
-    const { compClassName } = this.props;
+    const {
+      compClassName,
+      onMinutesChange,
+      onSecondsChange
+    } = this.props;
 
     return (
       <form
@@ -201,22 +259,26 @@ class Creator extends Component {
           
         {/* TASK TIME INPUTS */}
         <TimeDisplay
-          className="Field"
+          block="Field"
           modifier="taskTime"
           minutes={creatorTaskMinutes}
           seconds={creatorTaskSeconds}
-          onMinutesChange={(value) => this.handleMinutesChange(value, 'task')}
-          onSecondsChange={(value) => this.handleSecondsChange(value, 'task')}
+          onMinutesChange={(value) =>
+            this.handleMinutesChange(value, creatorTaskSeconds, 'task')}
+          onSecondsChange={(value) =>
+            this.handleSecondsChange(creatorTaskMinutes, value, 'task')}
         />
 
         {/* BREAK TIME INPUTS */}
         <TimeDisplay
-          className="Field"
+          block="Field"
           modifier="breakTime"
           minutes={creatorBreakMinutes}
           seconds={creatorBreakSeconds}
-          onMinutesChange={(value) => this.handleMinutesChange(value, 'break')}
-          onSecondsChange={(value) => this.handleSecondsChange(value, 'break')}
+          onMinutesChange={(value) =>
+            this.handleMinutesChange(value, creatorBreakSeconds, 'break')}
+          onSecondsChange={(value) =>
+            this.handleSecondsChange(creatorBreakMinutes, value, 'break')}
         />
         
         {/* ADD BUTTON */}

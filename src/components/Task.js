@@ -115,8 +115,9 @@ class Task extends Component {
 
         {/* TOTAL TASK TIME */}
         <EditableDisplay
-          className="totalTaskTime"
-          output={handleTimeArray(totalTaskTime)}
+          block="totalTime"
+          modifier="taskTime"
+          timeArray={handleTimeArray(totalTaskTime)}
           onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
           onTaskEdit={this.handleTaskTimeEdit}
           isEditMode={isTaskTimeEditMode}
@@ -124,8 +125,9 @@ class Task extends Component {
         
         {/* TOTAL BREAK TIME */}
         <EditableDisplay
-          className="totalBreakTime"
-          output={handleTimeArray(totalBreakTime)}
+          block="totalTime"
+          modifier="breakTime"
+          timeArray={handleTimeArray(totalBreakTime)}
           onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
           onTaskEdit={this.handleBreakTimeEdit}
           isEditMode={isBreakTimeEditMode}

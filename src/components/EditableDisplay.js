@@ -6,28 +6,31 @@ import TimeDisplay from './TimeDisplay.js';
 const EditableDisplay = (props) => {
     
   const {
-    className,
-    output,
+    block,
+    modifier,
+    timeArray,
     onTaskEdit,
     isEditMode,
     onEditModeChange
   } = props;
 
   return (
-    <div className={className}>
+    <div className={`${block} ${block}__${modifier}`}>
       {/* TEXT */}
       <Display
-        className={`${className}__text ${isEditMode
-        ? "" : `${className}__text--visible`}`}
-        output={output}
+        className={`${block}__text ${isEditMode
+        ? "" : `${block}__text--visible`}`}
+        output={timeArray}
         onEditModeChange={onEditModeChange}
       />
 
       {/* INPUT */}
       <TimeDisplay
-        className={`${className}__input ${isEditMode
-        ? `${className}__input--visible` : ""}`}
-      
+        block={block}
+        modifier={modifier}
+        visible={isEditMode ? `${block}--visible` : ""}
+        minutes={timeArray[0]}
+        seconds={timeArray[1]}
       />
     </div>
   );

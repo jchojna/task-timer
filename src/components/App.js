@@ -9,7 +9,7 @@ class App extends Component {
     this.state = {
       // visibility
       isBoardVisible: true,
-      isCreatorVisible: false,
+      isCreatorVisible: true,
       tasks: [
         {
           taskName: "Test task for preview purposes",
@@ -40,13 +40,45 @@ class App extends Component {
   handleTaskNameValidition = (name) => name.length > 0 ? true : false;
   handleTimeInputValidition = (time, total) => /^\d*$/.test(time) && total > 0;
 
-  /* handleTotalTime = (time) => {
-    let totalTime = time.split(/[mM]/).map(a => parseInt(a) || 0);
-    // if time format 00m is acceptable
-    totalTime = totalTime.length > 1 ? totalTime : [0, ...totalTime];
-    const [minutes, seconds] = totalTime;
-    return minutes * 60000 + seconds * 1000;
-  } */
+  handleTotalTime = (minutes, seconds) => {
+    minutes = !minutes ? 0 : parseInt(minutes);
+    seconds = !seconds ? 0 : parseInt(seconds);
+    return (minutes * 60000) + (seconds * 1000);
+  }
+
+  handleMinutesChange = (minutes, seconds, type) => {
+    const totalTaskTime = this.handleTotalTime(minutes, seconds);
+    const totalBreakTime = this.handleTotalTime(minutes, seconds);
+
+    return type === 'task'
+    ? {
+      taskMinutes: minutes,
+      totalTaskTime,
+      isTimeInputValid: this.handleTimeInputValidition(minutes, totalTaskTime),
+      alertTimeFlag: true
+    } : {
+      breakMinutes: minutes,
+      totalBreakTime: totalBreakTime,
+      alertTimeFlag: true
+    };
+  }
+ 
+  handleSecondsChange = (minutes, seconds, type)  => {
+    const totalTaskTime = this.handleTotalTime(minutes, seconds);
+    const totalBreakTime = this.handleTotalTime(minutes, seconds);
+
+    return type === 'task'
+    ? {
+      taskSeconds: seconds,
+      totalTaskTime,
+      isTimeInputValid: this.handleTimeInputValidition(seconds, totalTaskTime),
+      alertTimeFlag: true
+    } : {
+      breakSeconds: seconds,
+      totalBreakTime: totalBreakTime,
+      alertTimeFlag: true
+    };
+  }
 
   handleDisplayMode = () => this.setState(prevState => ({
     isElapsedMode: !prevState.isElapsedMode
@@ -90,8 +122,8 @@ class App extends Component {
           compClassName={isCreatorVisible
             ? "Creator--visible slideInRight" : "slideOutLeft"}
           onStateChange={this.handleStateChange}
-          validateTaskName={this.handleTaskNameValidition}
-          validateTimeInput={this.handleTimeInputValidition}
+          onMinutesChange={this.handleMinutesChange}
+          onSecondsChange={this.handleSecondsChange}
         />
         
         {/* TIMER SECTION */}

@@ -3,8 +3,9 @@ import '../scss/TimeDisplay.scss';
 
 const TimeDisplay = (props) => {
   const {
-    className,
+    block,
     modifier,
+    visible,
     minutes,
     seconds,
     onMinutesChange,
@@ -12,11 +13,13 @@ const TimeDisplay = (props) => {
   } = props;
 
   return (
-    <fieldset className={`${className} ${className}--${modifier}`}>
+    <fieldset
+      className={`${block} ${block}--${modifier} ${visible ? visible : ""}`}
+    >
       <input
         id={modifier}
         name={`${modifier}Minutes`}
-        className={`${className}__input ${className}__input--minutes`}
+        className={`${block}__input ${block}__input--minutes`}
         placeholder="min"
         maxLength="2"
         value={minutes}
@@ -25,7 +28,7 @@ const TimeDisplay = (props) => {
       <span className="Field__separator">:</span>
       <input
         name={`${modifier}Seconds`}
-        className={`${className}__input ${className}__input--seconds`}
+        className={`${block}__input ${block}__input--seconds`}
         placeholder="sec"
         maxLength="2"
         value={seconds}
