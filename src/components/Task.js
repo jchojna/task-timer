@@ -11,12 +11,13 @@ import '../scss/Task.scss';
 class Task extends Component {
   constructor(props) {
     super(props);
+    this.timerRef = React.createRef();
     const {
       taskName,
       totalTaskTime,
       totalBreakTime,
-      taskTimeArray,
-      breakTimeArray,
+      totalTaskTimeArray,
+      totalBreakTimeArray,
     } = this.props.task;
 
     this.state = {
@@ -25,20 +26,20 @@ class Task extends Component {
       //isOutroVisible: false,
       //isFailureVisible: false,
       taskName,
-      taskMinutes: taskTimeArray[0],
-      taskSeconds: taskTimeArray[1],
-      breakMinutes: breakTimeArray[0],
-      breakSeconds: breakTimeArray[1],
+      taskMinutes: totalTaskTimeArray[0],
+      taskSeconds: totalTaskTimeArray[1],
+      breakMinutes: totalBreakTimeArray[0],
+      breakSeconds: totalBreakTimeArray[1],
       totalTaskTime,
       totalBreakTime,
-      taskTimeArray,
-      breakTimeArray,
+      totalTaskTimeArray,
+      totalBreakTimeArray,
       isTaskNameEditMode: false,
       isTaskTimeEditMode: false,
       isBreakTimeEditMode: false,
       isTaskNameValid: true,
       isTaskTimeValid: true,
-      isBreakTimeValid: true,
+      isBreakTimeValid: true
     }
   }
   
@@ -59,14 +60,14 @@ class Task extends Component {
   
   acceptEditChange = () => {
     const {
-      taskTimeArray,
-      breakTimeArray,
+      totalTaskTimeArray,
+      totalBreakTimeArray,
       isTaskNameValid,
       isTaskTimeValid,
       isBreakTimeValid
     } = this.state;
-    const [ taskMinutes, taskSeconds ] = taskTimeArray;
-    const [ breakMinutes, breakSeconds ] = breakTimeArray;
+    const [ taskMinutes, taskSeconds ] = totalTaskTimeArray;
+    const [ breakMinutes, breakSeconds ] = totalBreakTimeArray;
 
     if (isTaskNameValid && isTaskTimeValid && isBreakTimeValid) {
       this.setState({
@@ -89,33 +90,33 @@ class Task extends Component {
     if (type === 'task') {
       if (units === 'minutes') {
         const {
-          taskMinutes, totalTaskTime, taskTimeArray, isTaskTimeValid
+          taskMinutes, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
         } = object;
         this.setState({
-          taskMinutes, totalTaskTime, taskTimeArray, isTaskTimeValid
+          taskMinutes, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
         });
       } else if (units === 'seconds') {
         const {
-          taskSeconds, totalTaskTime, taskTimeArray, isTaskTimeValid
+          taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
         } = object;
         this.setState({
-          taskSeconds, totalTaskTime, taskTimeArray, isTaskTimeValid
+          taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
         });
       }
     } else if (type === 'break') {
       if (units === 'minutes') {
         const {
-          breakMinutes, totalBreakTime, breakTimeArray, isBreakTimeValid
+          breakMinutes, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
         } = object;
         this.setState({
-          breakMinutes, totalBreakTime, breakTimeArray, isBreakTimeValid
+          breakMinutes, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
         });
       } else if (units === 'seconds') {
         const {
-          breakSeconds, totalBreakTime, breakTimeArray, isBreakTimeValid
+          breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
         } = object;
         this.setState({
-          breakSeconds, totalBreakTime, breakTimeArray, isBreakTimeValid
+          breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
         });
       }
     }
@@ -123,12 +124,25 @@ class Task extends Component {
   }
 
   handleStartButton = () => {
-    this.setState({ isTimerVisible: true })
+    const {
+      totalTaskTime,
+      totalBreakTime
+    } = this.state;
+
+    this.setState({
+      isTimerVisible: true
+    })
+    this.timerRef.current.setState({
+      previousTime: Date.now(),
+      totalTaskTime,
+      totalBreakTime,
+      isTaskTimeActive: true
+    });
   }
 
   render() {
 
-    const { id } = this.props;
+    const { id, onTimeArrayChange } = this.props;
     const {
       isTimerVisible,
       taskName,
@@ -136,6 +150,7 @@ class Task extends Component {
       taskSeconds,
       breakMinutes,
       breakSeconds,
+      isTaskActive,
       isTaskNameEditMode,
       isTaskTimeEditMode,
       isBreakTimeEditMode,
@@ -235,10 +250,13 @@ class Task extends Component {
         
         {/* TIMER SECTION */}
         <Timer
-          compClassName={isTimerVisible
+          ref={this.timerRef}
+          className={isTimerVisible
             ? "Timer--visible" : ""}
           onStateChange={this.handleStateChange}
           state={this.state}
+          isTaskActive={isTaskActive}
+          onTimeArrayChange={onTimeArrayChange}
         />
 
         {/* STOP TASK SECTION */}

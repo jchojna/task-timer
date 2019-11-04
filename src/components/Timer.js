@@ -12,27 +12,24 @@ class Timer extends Component {
       isElapsedMode: true,
       isTaskTimeActive: false,
       isBreakTimeActive: false,
-      //breaksTotal: 0,
-      //taskTimeElapsedArray,
-      //taskTimeRemainingArray,
-      //breakTimeElapsedArray,
+      breaksTotal: 0,
+      taskTimeElapsed: 0,
+      taskTimeRemaining: 0,
       //percentElapsed,
       //percentRemaining
+      totalTaskTime: null,
+      totalBreakTime: null,
       
-      //taskTimeElapsed: 0,
-      //taskTimeElapsedArray: ['00','00','00'],
-      //taskTimeRemaining: 0,
-      //taskTimeRemainingArray: ['00','00','00'],
-      //isTaskTimeActive: false,
+      taskTimeElapsedArray: ['00','00','00'],
+      taskTimeRemainingArray: ['00','00','00'],
+      breakTimeElapsedArray: ['00','00','00'],
 
       //totalBreaks: 0,
 
       //break
-      //isBreakTimeActive: false,
       //breakTimeElapsed: 0,
-      //breakTimeElapsedArray: ['00','00','00'],
       //timer
-      //previousTime: 0,
+      previousTime: 0,
       //percentElapsed: 0,
       //percentRemaining: 100,
       //overallTime: 0,
@@ -55,29 +52,35 @@ class Timer extends Component {
   }));
 
   handleTaskTimeTick = () => {
+
     const {
+      totalTaskTime,
+      totalBreakTime,
       isTaskTimeActive,
       taskTimeElapsed,
       taskTimeRemaining,
-      previousTime,
-      taskTimeTotal,
-      breakTimeElapsed
-    } = this.props.state;
+      previousTime
+    } = this.state;
+
+    const { onTimeArrayChange } = this.props;
 
     if (isTaskTimeActive) {
       const { onTimeArrayChange, onStateChange } = this.props;
       const now = Date.now();
-      const taskTimeElapsedResult = onTimeArrayChange(taskTimeElapsed);
-      const taskTimeTotalResult = onTimeArrayChange(taskTimeTotal);
-      const taskTimeRemainingResult = onTimeArrayChange(taskTimeRemaining);
-      const overallTimeResult = onTimeArrayChange(taskTimeElapsed + breakTimeElapsed);
-      const percentElapsed = taskTimeElapsed / taskTimeTotal * 100;
-      const percentRemaining = taskTimeRemaining / taskTimeTotal * 100;
+
+
+
+      const taskTimeElapsedArray = onTimeArrayChange(taskTimeElapsed);
+      //const taskTimeTotalResult = onTimeArrayChange(taskTimeTotal);
+      const taskTimeRemainingArray = onTimeArrayChange(taskTimeRemaining);
+      //const overallTimeResult = onTimeArrayChange(taskTimeElapsed + breakTimeElapsed);
+      //const percentElapsed = taskTimeElapsed / taskTimeTotal * 100;
+      //const percentRemaining = taskTimeRemaining / taskTimeTotal * 100;
 
       // when task time finishes
-      if (taskTimeElapsed >= taskTimeTotal) {
-        onStateChange({
-          isStopTaskVisible: false,
+      if (taskTimeElapsed >= totalTaskTime) {
+        this.setState({
+          /* isStopTaskVisible: false,
           isTimerVisible: false,
           isTaskTimeActive: false,
           taskTimeElapsed: taskTimeTotal,
@@ -88,18 +91,18 @@ class Timer extends Component {
           percentRemaining: 0,
           isOutroVisible: true,
           overallTime: taskTimeElapsed + breakTimeElapsed,
-          overallTimeArray: overallTimeResult
+          overallTimeArray: overallTimeResult */
         });
       // normal task time tick
       } else {
-        onStateChange({
+        this.setState({
           previousTime: now,
           taskTimeElapsed: taskTimeElapsed + (now - previousTime),
-          taskTimeElapsedArray: taskTimeElapsedResult,
-          taskTimeRemaining: taskTimeTotal - taskTimeElapsed,
-          taskTimeRemainingArray: taskTimeRemainingResult,
-          percentElapsed: percentElapsed,
-          percentRemaining: percentRemaining
+          taskTimeElapsedArray,
+          taskTimeRemaining: totalTaskTime - taskTimeElapsed,
+          taskTimeRemainingArray,
+          //percentElapsed: percentElapsed,
+          //percentRemaining: percentRemaining
         });
       }
     }
@@ -142,22 +145,27 @@ class Timer extends Component {
   }
 
   render() {
+    
     const {
       taskName,
-      totalTaskTime,
-      totalBreakTime,
       taskTimeArray,
-      breakTimeArray,
+      breakTimeArray
     } = this.props.state;
 
     const {
-      compClassName,
+      isElapsedMode,
+      taskTimeElapsedArray,
+      taskTimeRemainingArray
+    } = this.state;
+
+    const {
+      className,
       onDisplayModeChange,
       onStateChange
     } = this.props;
 
     return (
-      <section className={`Timer ${compClassName}`}>
+      <section className={`Timer ${className}`}>
         <div className="Timer__container">
           <h2 className="Timer__heading">{`"${taskName}"`}</h2>
           {/* CONTROL BUTTONS */}
@@ -168,24 +176,24 @@ class Timer extends Component {
             onDisplayModeChange={onDisplayModeChange}
             onStateChange={onStateChange}
           /> */}
+
           {/* TIMER DISPLAY */}
+
           <div className={`Timer__display`}>
-            {taskTimeArray}
-            <TimeDisplay />
-            
-            {/* <Display
-              compClassName={isElapsedMode
-                ? "Display Display--visible Display--showUp"
-                : "Display Display--hideUp"}
-              taskTimeArray={taskTimeElapsedArray}
-            /> */}
-            {/* <Display
-              compClassName={isElapsedMode
-                ? "Display Display--hideUp"
-                : "Display Display--visible Display--showUp"}
-              taskTimeArray={taskTimeRemainingArray}
-            /> */}
+            <TimeDisplay
+              className={isElapsedMode
+                ? "TimeDisplay TimeDisplay--visible TimeDisplay--showUp"
+                : "TimeDisplay TimeDisplay--hideUp"}
+              timeArray={taskTimeElapsedArray}
+            />
+            <TimeDisplay
+              className={isElapsedMode
+                ? "TimeDisplay TimeDisplay--hideUp"
+                : "TimeDisplay TimeDisplay--visible TimeDisplay--showUp"}
+              timeArray={taskTimeRemainingArray}
+            />
           </div>
+
           {/* BREAK */}
           {/* <Break
             compClassName={`Break ${isBreakTimeActive
