@@ -4,18 +4,24 @@
 
 .taskName,
 .totalTime {
+  @include flex-center;
   grid-area: taskName;
   height: 100%;
   position: relative;
   text-align: center;
   width: 100%;
 
+  &:hover {
+    cursor: text;
+  }
+
   &__text {
     font-weight: 600;
     font-size: 1.2em;
     margin: 0;
-    visibility: hidden;
     width: 100%;
+    word-break: break-word;
+    visibility: hidden;
 
     &--visible {
       visibility: visible;
@@ -24,6 +30,15 @@
   
   &__inputs {
     border: none;
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 600;
+    height: 100%;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
     visibility: hidden;
 
     &--visible {
@@ -31,22 +46,16 @@
     }
   }
 
-  /* &__input {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background: $color-cyan-dark;
+  &__input {
+    padding: 0;
     border: none;
     border-radius: 5px;
+    background: $color-cyan-dark;
     color: #fff;
-    font-weight: 600;
-    font-size: 1.2em;
-    min-width: 10px;
-    resize: none;
+    height: 100%;
     text-align: center;
     width: 100%;
-  } */
+  }
   
   &__button {
     @include button;
@@ -55,22 +64,15 @@
 }
 
 .taskName {
-
-  &__textInput {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background: $color-cyan-dark;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    font-weight: 600;
+  
+  &__input {
     font-size: 1.2em;
+    font-weight: 600;
     min-width: 10px;
+    left: 0;
+    position: absolute;
+    top: 0;
     resize: none;
-    text-align: center;
-    width: 100%;
     visibility: hidden;
 
     &--visible {
@@ -80,32 +82,20 @@
 }
 
 .totalTime {
-  @include flex-center;
-  border: 1px solid #fff;
   height: 100%;
   
   &--taskTime {
+    font-size: 2em;
     grid-area: taskTime;
   }
 
   &--breakTime {
+    font-size: 1.5em;
     grid-area: breakTime;
   }
 
-  /* &__text {
-    visibility: hidden;
-  } */
-
   &__input {
-    border: none;
-    background: $color-cyan-dark;
-    color: #fff;
-    max-width: 50px;
-    height: 100%;
-  
-    &--minutes {
-      text-align: right;
-    }
+    max-width: 70px;
   }
   
   &__separator {

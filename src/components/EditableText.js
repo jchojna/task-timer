@@ -13,20 +13,22 @@ const Editable = (props) => {
   } = props;
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      onClick={onEditModeChange}
+    >
       {/* TEXT TITLE */}
       <h2
         className={`${className}__text ${isEditMode
         ? "" : `${className}__text--visible`}`}
-        onClick={onEditModeChange}
       >
         {output}
       </h2>
 
       {/* INPUT */}
       <textarea
-        className={`${className}__textInput ${isEditMode
-        ? `${className}__textInput--visible` : ""}`}
+        className={`${className}__input ${isEditMode
+        ? `${className}__input--visible` : ""}`}
         defaultValue={output}
         spellCheck="false"
         onChange={(e) => onTaskEdit(e.target.value)}

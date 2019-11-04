@@ -6,13 +6,14 @@
   @include card;
   align-items: center;
   display: grid;
+  gap: 1em;
   grid-template-areas:
     "buttons"
     "taskName"
     "taskTime"
     "breakTime"
     "startBtn";
-  grid-template-rows: 40px 1fr 1fr 1fr;
+  grid-template-rows: 40px auto auto auto;
   justify-items: center;
   padding: 1em;
 
