@@ -52,7 +52,7 @@
   grid-area: taskName;
   
   &__input {
-    background: $color-cyan-dark;
+    background: rgba($color: $color-cyan-dark, $alpha: 0.4);
     border: 2px solid #fff;
     border-radius: 5px;
     left: 0;
@@ -86,7 +86,7 @@
   }
   
   &__inputs {
-    background: $color-cyan-dark;
+    background: rgba($color: $color-cyan-dark, $alpha: 0.4);
     border: 2px solid #fff;
     border-radius: 5px;
     height: 100%;

@@ -4,10 +4,10 @@ const TimeDisplay = (props) => {
   const {
     block,
     modifier,
-    visible,
     minutes,
     seconds,
     isValid,
+    isEditMode,
     onMinutesChange,
     onSecondsChange
   } = props;
@@ -15,7 +15,8 @@ const TimeDisplay = (props) => {
   return (
     <fieldset
       className={`${block}__inputs ${block}__inputs--${modifier}
-      ${visible ? visible : ""} ${isValid ? "" : `${block}__inputs--incorrect`}`}
+      ${isEditMode ? `${block}__inputs--visible` : ""}
+      ${isValid ? "" : `${block}__inputs--incorrect`}`}
     >
       <input
         id={modifier}

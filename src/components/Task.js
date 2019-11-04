@@ -190,9 +190,9 @@ class Task extends Component {
           className="taskName"
           output={taskName}
           isValid={isTaskNameValid}
+          isEditMode={isTaskNameEditMode}
           onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
           onTaskNameChange={this.handleTaskNameChange}
-          isEditMode={isTaskNameEditMode}
         />
 
         {/* TOTAL TASK TIME */}

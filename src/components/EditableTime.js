@@ -10,18 +10,18 @@ const EditableDisplay = (props) => {
     minutes,
     seconds,
     isValid,
-    onMinutesChange,
-    onSecondsChange,
     isEditMode,
-    onEditModeChange
+    onEditModeChange,
+    onMinutesChange,
+    onSecondsChange
   } = props;
 
   return (
     <div className={`${block} ${block}--${modifier}`}>
       {/* TEXT */}
       <p
-        className={`${block}__text ${isEditMode
-        ? "" : `${block}__text--visible`}`}
+        className={`${block}__text
+        ${isEditMode ? "" : `${block}__text--visible`}`}
         onClick={onEditModeChange}
       >
         {`${minutes} : ${seconds}`}
@@ -31,10 +31,11 @@ const EditableDisplay = (props) => {
       <TimeDisplay
         block={block}
         modifier={modifier}
-        visible={isEditMode ? `${block}__inputs--visible` : ""}
+        //visible={isEditMode ? `${block}__inputs--visible` : ""}
         minutes={minutes}
         seconds={seconds}
         isValid={isValid}
+        isEditMode={isEditMode}
         onMinutesChange={(value) => onMinutesChange(value)}
         onSecondsChange={(value) => onSecondsChange(value)}
       />

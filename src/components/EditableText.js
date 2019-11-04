@@ -7,31 +7,31 @@ const EditableText = (props) => {
   const {
     className,
     output,
-    onTaskNameChange,
     isValid,
     isEditMode,
+    onTaskNameChange,
     onEditModeChange
   } = props;
 
   return (
     <div
       className={className}
-      onClick={onEditModeChange}
     >
       {/* TEXT TITLE */}
       <h2
-        className={`${className}__text ${isEditMode
-        ? "" : `${className}__text--visible`}`}
+        className={`${className}__text
+        ${isEditMode ? "" : `${className}__text--visible`}`}
+        onClick={onEditModeChange}
       >
         {output}
       </h2>
 
       {/* INPUT */}
       <textarea
-        className={`${className}__input ${isEditMode
-        ? `${className}__input--visible` : ""} ${isValid
-          ? "" : `${className}__input--incorrect`}`}
-        defaultValue={output}
+        className={`${className}__input
+        ${isEditMode ? `${className}__input--visible` : ""}
+        ${isValid ? "" : `${className}__input--incorrect`}`}
+        value={output}
         spellCheck="false"
         onChange={(e) => onTaskNameChange(e.target.value)}
       ></textarea>
