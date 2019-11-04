@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EditableText from './EditableText.js';
-import EditableDisplay from './EditableDisplay.js';
+import EditableTime from './EditableTime.js';
 //import Timer from './Timer.js';
 //import StopTask from './StopTask.js';
 //import Outro from './Outro.js';
@@ -89,11 +89,18 @@ class Task extends Component {
     }
   } */
 
-  disableEditMode = () => {
+  acceptEditChange = () => {
+    const { taskTimeArray, breakTimeArray } = this.state;
+    const [ taskMinutes, taskSeconds ] = taskTimeArray;
+    const [ breakMinutes, breakSeconds ] = breakTimeArray;
     this.setState({
       isTaskNameEditMode: false,
       isTaskTimeEditMode: false,
-      isBreakTimeEditMode: false
+      isBreakTimeEditMode: false,
+      taskMinutes,
+      taskSeconds,
+      breakMinutes,
+      breakSeconds,
     });
   }
 
@@ -165,12 +172,9 @@ class Task extends Component {
       breakSeconds,
       isTaskNameEditMode,
       isTaskTimeEditMode,
-      isBreakTimeEditMode,
-      taskTimeArray,
-      breakTimeArray
+      isBreakTimeEditMode
     } = this.state;
     
-    console.log('taskTimeArray', taskTimeArray);
     return (
       <section
         className="Task"
@@ -185,11 +189,11 @@ class Task extends Component {
         />
 
         {/* TOTAL TASK TIME */}
-        <EditableDisplay
+        <EditableTime
           block="totalTime"
           modifier="taskTime"
-          minutes={taskTimeArray[0]}
-          seconds={taskTimeArray[1]}
+          minutes={taskMinutes}
+          seconds={taskSeconds}
           onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
           isEditMode={isTaskTimeEditMode}
           onMinutesChange={(value) => 
@@ -199,11 +203,11 @@ class Task extends Component {
         />
         
         {/* TOTAL BREAK TIME */}
-        <EditableDisplay
+        <EditableTime
           block="totalTime"
           modifier="breakTime"
-          minutes={breakTimeArray[0]}
-          seconds={breakTimeArray[1]}
+          minutes={breakMinutes}
+          seconds={breakSeconds}
           onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
           isEditMode={isBreakTimeEditMode}
           onMinutesChange={(value) => 
@@ -219,7 +223,7 @@ class Task extends Component {
             className={`button Task__button Task__button--accept
             ${isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
             ? "Task__button--visible" : ""}`}
-            onClick={this.disableEditMode}
+            onClick={this.acceptEditChange}
           >
             <svg className="Task__svg" viewBox="0 0 512 512">
               <use href={`${icons}#tick`}/>

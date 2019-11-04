@@ -21,7 +21,7 @@ const TimeDisplay = (props) => {
         className={`${block}__input ${block}__input--minutes`}
         placeholder="min"
         maxLength="2"
-        defaultValue={minutes}
+        value={minutes}
         onChange={(e) => onMinutesChange(e.target.value)}
       />
       <span className={`${block}__separator`}>:</span>
@@ -30,7 +30,7 @@ const TimeDisplay = (props) => {
         className={`${block}__input ${block}__input--seconds`}
         placeholder="sec"
         maxLength="2"
-        defaultValue={seconds}
+        value={seconds}
         onChange={(e) => onSecondsChange(e.target.value)}
       />
     </fieldset>

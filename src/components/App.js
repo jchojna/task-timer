@@ -19,8 +19,8 @@ class App extends Component {
           breakSeconds: 0,
           totalTaskTime: 30000,
           totalBreakTime: 10000,
-          taskTimeArray: [30,0,0],
-          breakTimeArray: [10,0,0],
+          taskTimeArray: ["30","00","00"],
+          breakTimeArray: ["10","00","00"],
           id: 6453654365346,
           dateCreated: 6453654365346
         },
@@ -32,8 +32,8 @@ class App extends Component {
           breakSeconds: 0,
           totalTaskTime: 60000,
           totalBreakTime: 20000,
-          taskTimeArray: [60,0,0],
-          breakTimeArray: [20,0,0],
+          taskTimeArray: ["60","00","00"],
+          breakTimeArray: ["20","00","00"],
           id: 543254234523,
           dateCreated: 543254234523
         },
