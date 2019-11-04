@@ -34,6 +34,11 @@
     @include button;
     fill: #fff;
     max-width: 40px;
+    
+    &:hover {
+      border-color: $color-tomato;
+      fill: $color-tomato;
+    }
 
     &--accept {
       visibility: hidden;
@@ -46,14 +51,14 @@
       grid-area: startBtn;
       max-width: 60px;
     }
-    
-    &:hover {
-      border-color: $color-tomato;
-      fill: $color-tomato;
-    }
-    
+        
     &--visible {
       visibility: visible;
+    }
+    
+    &--disabled {
+      opacity: 0.5;
+      pointer-events: none;
     }
   }
 

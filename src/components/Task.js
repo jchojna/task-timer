@@ -252,7 +252,13 @@ class Task extends Component {
         </div>
 
         {/* START BUTTON */}
-        <button className="button Task__button Task__button--start">
+        <button
+          className={`button Task__button Task__button--start
+          ${ isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
+          ? "Task__button--disabled" : ""}`}
+          disabled={isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode}
+          onClick={() => console.log('test')}
+        >
           <svg className="Task__svg" viewBox="0 0 512 512">
             <use href={`${icons}#play`} />
           </svg>
