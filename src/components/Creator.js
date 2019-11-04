@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TimeDisplay from './TimeDisplay.js';
+import TimeInputs from './TimeInputs.js';
 //import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
 
@@ -218,7 +218,7 @@ class Creator extends Component {
         />
           
         {/* TASK TIME INPUTS */}
-        <TimeDisplay
+        <TimeInputs
           block="Creator"
           modifier="taskTime"
           minutes={creatorTaskMinutes}
@@ -230,7 +230,7 @@ class Creator extends Component {
         />
 
         {/* BREAK TIME INPUTS */}
-        <TimeDisplay
+        <TimeInputs
           block="Creator"
           modifier="breakTime"
           minutes={creatorBreakMinutes}

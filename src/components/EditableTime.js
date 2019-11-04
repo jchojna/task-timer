@@ -1,6 +1,6 @@
 import React from 'react';
 import '../scss/Editable.scss';
-import TimeDisplay from './TimeDisplay.js';
+import TimeInputs from './TimeInputs.js';
 
 const EditableDisplay = (props) => {
     
@@ -39,7 +39,7 @@ const EditableDisplay = (props) => {
       </p>
 
       {/* INPUT */}
-      <TimeDisplay
+      <TimeInputs
         labelName={labelName}
         block={block}
         modifier={modifier}

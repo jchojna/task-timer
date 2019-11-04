@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import Controls from './Controls';
-import Break from './Break';
-import Progress from './Progress';
+import TimeDisplay from './TimeDisplay.js';
+//import Controls from './Controls';
+//import Break from './Break';
+//import Progress from './Progress';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
@@ -170,6 +171,8 @@ class Timer extends Component {
           {/* TIMER DISPLAY */}
           <div className={`Timer__display`}>
             {taskTimeArray}
+            <TimeDisplay />
+            
             {/* <Display
               compClassName={isElapsedMode
                 ? "Display Display--visible Display--showUp"
