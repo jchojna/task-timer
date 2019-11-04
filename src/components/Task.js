@@ -183,7 +183,9 @@ class Task extends Component {
     
     return (
       <section
-        className="Task"
+        className={`Task
+        ${ isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
+        ? "Task--editMode" : ""}`}
       >
         {/* TASK  NAME */}
         <EditableText

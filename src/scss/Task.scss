@@ -17,6 +17,10 @@
   justify-items: center;
   padding: 1em;
 
+  &--editMode {
+    background-color: rgba($color: $color-cyan, $alpha: 0.4);
+  }
+
   &__buttons {
     align-self: start;
     display: grid;
