@@ -19,6 +19,8 @@ class App extends Component {
           breakSeconds: 0,
           totalTaskTime: 30000,
           totalBreakTime: 10000,
+          taskTimeArray: [30,0,0],
+          breakTimeArray: [10,0,0],
           id: 6453654365346,
           dateCreated: 6453654365346
         },
@@ -30,6 +32,8 @@ class App extends Component {
           breakSeconds: 0,
           totalTaskTime: 60000,
           totalBreakTime: 20000,
+          taskTimeArray: [60,0,0],
+          breakTimeArray: [20,0,0],
           id: 543254234523,
           dateCreated: 543254234523
         },
@@ -58,6 +62,7 @@ class App extends Component {
         return {
           taskMinutes: minutes,
           totalTaskTime,
+          taskTimeArray: this.handleTimeArray(totalTaskTime),
           isTimeInputValid: this.handleTimeInputValidition(minutes, totalTaskTime),
           alertTimeFlag: true
         };
@@ -65,6 +70,7 @@ class App extends Component {
         return {
           taskSeconds: seconds,
           totalTaskTime,
+          taskTimeArray: this.handleTimeArray(totalTaskTime),
           isTimeInputValid: this.handleTimeInputValidition(seconds, totalTaskTime),
           alertTimeFlag: true
         };
@@ -75,12 +81,14 @@ class App extends Component {
         return {
           breakMinutes: minutes,
           totalBreakTime,
+          breakTimeArray: this.handleTimeArray(totalBreakTime),
           alertTimeFlag: true
         };
       } else if (units === 'seconds') {
         return {
           breakSeconds: seconds,
           totalBreakTime,
+          breakTimeArray: this.handleTimeArray(totalBreakTime),
           alertTimeFlag: true
         };
       }
@@ -92,7 +100,7 @@ class App extends Component {
   }));
 
   handleTimeArray = (time) => {
-    const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
+    const makeTwoDigits = (number) => number < 10 ? `0${number}` : `${number}`;
     return [
       makeTwoDigits(Math.floor(time / 60000)),
       makeTwoDigits(Math.floor(time / 1000 % 60)),

@@ -14,6 +14,8 @@ class Creator extends Component {
       creatorBreakSeconds: "",
       creatorTotalTaskTime: 0,
       creatorTotalBreakTime: 0,
+      creatorTaskTimeArray: ["",""],
+      creatorBreakTimeArray: ["",""],
       // validation
       isTaskNameValid: false,
       isTimeInputValid: false,
@@ -71,6 +73,8 @@ class Creator extends Component {
       creatorBreakSeconds,
       creatorTotalTaskTime,
       creatorTotalBreakTime,
+      creatorTaskTimeArray,
+      creatorBreakTimeArray,
       isTaskNameValid,
       isTimeInputValid
     } = this.state;
@@ -91,6 +95,8 @@ class Creator extends Component {
         breakSeconds: creatorBreakSeconds,
         totalTaskTime: creatorTotalTaskTime,
         totalBreakTime: creatorTotalBreakTime,
+        taskTimeArray: creatorTaskTimeArray,
+        breakTimeArray: creatorBreakTimeArray,
         dateCreated: date,
         id: date
       };
@@ -136,32 +142,36 @@ class Creator extends Component {
 
     if (type === 'task') {
       if (units === 'minutes') {
-        const { taskMinutes, totalTaskTime, isTimeInputValid } = object;
+        const { taskMinutes, totalTaskTime, taskTimeArray, isTimeInputValid } = object;
         this.setState({
           creatorTaskMinutes: taskMinutes,
           creatorTotalTaskTime: totalTaskTime,
+          creatorTaskTimeArray: taskTimeArray,
           isTimeInputValid
         });
       } else if (units === 'seconds') {
-        const { taskSeconds, totalTaskTime, isTimeInputValid } = object;
+        const { taskSeconds, totalTaskTime, taskTimeArray, isTimeInputValid } = object;
         this.setState({
           creatorTaskSeconds: taskSeconds,
           creatorTotalTaskTime: totalTaskTime,
+          creatorTaskTimeArray: taskTimeArray,
           isTimeInputValid
         });
       }
     } else if (type === 'break') {
       if (units === 'minutes') {
-        const { breakMinutes, totalBreakTime } = object;
+        const { breakMinutes, totalBreakTime, breakTimeArray } = object;
         this.setState({
           creatorBreakMinutes: breakMinutes,
-          creatorTotalBreakTime: totalBreakTime
+          creatorTotalBreakTime: totalBreakTime,
+          creatorBreakTimeArray: breakTimeArray,
         });
       } else if (units === 'seconds') {
-        const { breakSeconds, totalBreakTime } = object;
+        const { breakSeconds, totalBreakTime, breakTimeArray } = object;
         this.setState({
           creatorBreakSeconds: breakSeconds,
-          creatorTotalBreakTime: totalBreakTime
+          creatorTotalBreakTime: totalBreakTime,
+          creatorBreakTimeArray: breakTimeArray,
         });
       }
     }
