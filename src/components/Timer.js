@@ -8,7 +8,34 @@ class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isElapsedMode: true
+      isElapsedMode: true,
+      isTaskTimeActive: false,
+      isBreakTimeActive: false,
+      //breaksTotal: 0,
+      //taskTimeElapsedArray,
+      //taskTimeRemainingArray,
+      //breakTimeElapsedArray,
+      //percentElapsed,
+      //percentRemaining
+      
+      //taskTimeElapsed: 0,
+      //taskTimeElapsedArray: ['00','00','00'],
+      //taskTimeRemaining: 0,
+      //taskTimeRemainingArray: ['00','00','00'],
+      //isTaskTimeActive: false,
+
+      //totalBreaks: 0,
+
+      //break
+      //isBreakTimeActive: false,
+      //breakTimeElapsed: 0,
+      //breakTimeElapsedArray: ['00','00','00'],
+      //timer
+      //previousTime: 0,
+      //percentElapsed: 0,
+      //percentRemaining: 100,
+      //overallTime: 0,
+      //overallTimeArray: ['00','00','00']
     }
   }
 
@@ -116,15 +143,10 @@ class Timer extends Component {
   render() {
     const {
       taskName,
-      isTaskTimeActive,
-      isBreakTimeActive,
-      isElapsedMode,
-      breaksTotal,
-      taskTimeElapsedArray,
-      taskTimeRemainingArray,
-      breakTimeElapsedArray,
-      percentElapsed,
-      percentRemaining
+      totalTaskTime,
+      totalBreakTime,
+      taskTimeArray,
+      breakTimeArray,
     } = this.props.state;
 
     const {
@@ -138,42 +160,42 @@ class Timer extends Component {
         <div className="Timer__container">
           <h2 className="Timer__heading">{`"${taskName}"`}</h2>
           {/* CONTROL BUTTONS */}
-          <Controls
+          {/* <Controls
             isTaskTimeActive={isTaskTimeActive}
             isBreakTimeActive={isBreakTimeActive}
             breaksTotal={breaksTotal}
             onDisplayModeChange={onDisplayModeChange}
             onStateChange={onStateChange}
-          />
+          /> */}
           {/* TIMER DISPLAY */}
-          <div className={`Timer__display ${isTaskTimeActive
-          ? "" : "Timer__display--inactive"}`}>
-            <Display
+          <div className={`Timer__display`}>
+            {taskTimeArray}
+            {/* <Display
               compClassName={isElapsedMode
                 ? "Display Display--visible Display--showUp"
                 : "Display Display--hideUp"}
               taskTimeArray={taskTimeElapsedArray}
-            />
-            <Display
+            /> */}
+            {/* <Display
               compClassName={isElapsedMode
                 ? "Display Display--hideUp"
                 : "Display Display--visible Display--showUp"}
               taskTimeArray={taskTimeRemainingArray}
-            />
+            /> */}
           </div>
           {/* BREAK */}
-          <Break
+          {/* <Break
             compClassName={`Break ${isBreakTimeActive
             ? "Break--active" : ""}`}
             breaksTotal={breaksTotal}
             breakTimeElapsedArray={breakTimeElapsedArray}
-          />
+          /> */}
           {/* PROGRESS */}
-          <Progress
+          {/* <Progress
             isElapsedMode={isElapsedMode}
             percentElapsed={percentElapsed}
             percentRemaining={percentRemaining}
-          />
+          /> */}
         </div>
       </section>
     );

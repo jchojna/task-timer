@@ -23,7 +23,7 @@ const EditableText = (props) => {
         ${isEditMode ? "" : `${className}__text--visible`}`}
         onClick={onEditModeChange}
       >
-        {output}
+        {`"${output}"`}
       </h2>
 
       {/* INPUT */}

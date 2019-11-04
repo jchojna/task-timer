@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EditableText from './EditableText.js';
 import EditableTime from './EditableTime.js';
-//import Timer from './Timer.js';
+import Timer from './Timer.js';
 //import StopTask from './StopTask.js';
 //import Outro from './Outro.js';
 //import Failure from './Failure.js';
@@ -20,6 +20,10 @@ class Task extends Component {
     } = this.props.task;
 
     this.state = {
+      isTimerVisible: false,
+      //isStopTaskVisible: false,
+      //isOutroVisible: false,
+      //isFailureVisible: false,
       taskName,
       taskMinutes: taskTimeArray[0],
       taskSeconds: taskTimeArray[1],
@@ -35,31 +39,6 @@ class Task extends Component {
       isTaskNameValid: true,
       isTaskTimeValid: true,
       isBreakTimeValid: true,
-      //isElapsedMode: true,
-      
-      //taskTimeElapsed: 0,
-      //taskTimeElapsedArray: ['00','00','00'],
-      //taskTimeRemaining: 0,
-      //taskTimeRemainingArray: ['00','00','00'],
-      //isTaskTimeActive: false,
-
-      //totalBreaks: 0,
-
-      //break
-      //isBreakTimeActive: false,
-      //breakTimeElapsed: 0,
-      //breakTimeElapsedArray: ['00','00','00'],
-      //timer
-      //previousTime: 0,
-      //percentElapsed: 0,
-      //percentRemaining: 100,
-      //overallTime: 0,
-      //overallTimeArray: ['00','00','00']
-
-      //isTimerVisible: false,
-      //isStopTaskVisible: false,
-      //isOutroVisible: false,
-      //isFailureVisible: false,
     }
   }
   
@@ -77,28 +56,7 @@ class Task extends Component {
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
   }
-
-  /* handleStartButton = () => {
-    const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
-    const breakTimeElapsedResult = this.handleTimeArray(0);
-
-    if (isTaskTimePlannedValid && isBreakTimePlannedValid) {
-      this.setState({
-        isTimeVisible: false,
-        isTimerVisible: true,
-        isTaskTimeActive: true,
-        previousTime: Date.now(),
-        taskTimeElapsed: 0,
-        breaksTotal: 0,
-        breakTimeElapsed: 0,
-        breakTimeElapsedArray: breakTimeElapsedResult,
-        alertFlag: false
-      });
-    } else {
-      this.setState({ alertFlag: true });
-    }
-  } */
-
+  
   acceptEditChange = () => {
     const {
       taskTimeArray,
@@ -164,10 +122,15 @@ class Task extends Component {
     //this.setState({ alertTimeFlag });
   }
 
+  handleStartButton = () => {
+    this.setState({ isTimerVisible: true })
+  }
+
   render() {
 
     const { id } = this.props;
     const {
+      isTimerVisible,
       taskName,
       taskMinutes,
       taskSeconds,
@@ -233,6 +196,7 @@ class Task extends Component {
                 
         {/* EDIT BUTTONS */}
         <div className="Task__buttons">
+
           {/* ACCEPT */}
           <button
             className={`button Task__button Task__button--accept
@@ -244,6 +208,7 @@ class Task extends Component {
               <use href={`${icons}#tick`}/>
             </svg>
           </button>
+          
           {/* REMOVE */}
           <button
             className="button Task__button Task__button--remove"
@@ -261,7 +226,7 @@ class Task extends Component {
           ${ isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
           ? "Task__button--disabled" : ""}`}
           disabled={isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode}
-          onClick={() => console.log('test')}
+          onClick={this.handleStartButton}
         >
           <svg className="Task__svg" viewBox="0 0 512 512">
             <use href={`${icons}#play`} />
@@ -269,14 +234,13 @@ class Task extends Component {
         </button>
         
         {/* TIMER SECTION */}
-        {/* <Timer
+        <Timer
           compClassName={isTimerVisible
-            ? "Timer--visible slideInRight" : "slideOutLeft"}
+            ? "Timer--visible" : ""}
           onStateChange={this.handleStateChange}
-          onDisplayModeChange={this.handleDisplayMode}
-          onTimeArrayChange={this.handleTimeArray}
           state={this.state}
-        /> */}
+        />
+
         {/* STOP TASK SECTION */}
         {/* <StopTask
           compClassName={`StopTask ${isStopTaskVisible
@@ -304,3 +268,24 @@ class Task extends Component {
   }
 }
 export default Task;
+
+/* handleStartButton = () => {
+    const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
+    const breakTimeElapsedResult = this.handleTimeArray(0);
+
+    if (isTaskTimePlannedValid && isBreakTimePlannedValid) {
+      this.setState({
+        isTimeVisible: false,
+        isTimerVisible: true,
+        isTaskTimeActive: true,
+        previousTime: Date.now(),
+        taskTimeElapsed: 0,
+        breaksTotal: 0,
+        breakTimeElapsed: 0,
+        breakTimeElapsedArray: breakTimeElapsedResult,
+        alertFlag: false
+      });
+    } else {
+      this.setState({ alertFlag: true });
+    }
+  } */

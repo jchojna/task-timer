@@ -16,6 +16,7 @@
   grid-template-rows: 40px auto auto auto;
   justify-items: center;
   padding: 1em;
+  position: relative;
 
   &--editMode {
     background-color: rgba($color: $color-cyan, $alpha: 0.4);

@@ -1,5 +1,5 @@
 import React from 'react';
-import Display from './Display';
+//import Display from './Display';
 import '../scss/Break.scss';
 
 const Break = (props) => {
@@ -15,10 +15,10 @@ const Break = (props) => {
         {`${breaksTotal} ${breaksTotal === 1
         ? "break" : "breaks"}`}
       </h3>
-      <Display
+      {/* <Display
         compClassName="Break__display"
         taskTimeArray={breakTimeElapsedArray}
-      />
+      /> */}
     </div>
   );
 }

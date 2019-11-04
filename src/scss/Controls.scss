@@ -15,9 +15,9 @@
     fill: none;
     height: $size-controls-xs;
     stroke: #fff;
-    stroke-width: 15;
+    stroke-width: 25;
     width: $size-controls-xs;
-    transition: border-color $hover-icon, stroke $hover-icon;
+    //transition: border-color $hover-icon, stroke $hover-icon;
 
     &:hover {
       stroke: $color-tomato;
@@ -31,17 +31,6 @@
 
     &--hidden {
       display: none;
-    }
-  }
-
-  @media only screen and (min-width: $media-md) {
-
-    & {
-      
-      &__button {
-        height: $size-controls-md;
-        width: $size-controls-md;
-      }
     }
   }
 }
