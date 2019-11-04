@@ -96,10 +96,6 @@ class App extends Component {
     }
   }
 
-  handleDisplayMode = () => this.setState(prevState => ({
-    isElapsedMode: !prevState.isElapsedMode
-  }));
-
   handleTimeArray = (time) => {
     const makeTwoDigits = (number) => number < 10 ? `0${number}` : `${number}`;
     return [

@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import Controls from './Controls';
-import Display from './Display';
 import Break from './Break';
 import Progress from './Progress';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isElapsedMode: true
+    }
+  }
 
   componentDidMount() {
     this.taskIntervalId = setInterval(() => this.handleTaskTimeTick(), 10);
@@ -16,6 +21,10 @@ class Timer extends Component {
     clearInterval(this.taskIntervalId);
     clearInterval(this.breakIntervalId);
   }
+  
+  handleDisplayMode = () => this.setState(prevState => ({
+    isElapsedMode: !prevState.isElapsedMode
+  }));
 
   handleTaskTimeTick = () => {
     const {
