@@ -1,5 +1,4 @@
 import React from 'react';
-import '../scss/TimeDisplay.scss';
 
 const TimeDisplay = (props) => {
   const {
@@ -14,7 +13,7 @@ const TimeDisplay = (props) => {
 
   return (
     <fieldset
-      className={`${block} ${block}--${modifier} ${visible ? visible : ""}`}
+      className={`${block}__inputs ${block}__inputs--${modifier} ${visible ? visible : ""}`}
     >
       <input
         id={modifier}
@@ -25,7 +24,7 @@ const TimeDisplay = (props) => {
         defaultValue={minutes}
         onChange={(e) => onMinutesChange(e.target.value)}
       />
-      <span className="Field__separator">:</span>
+      <span className={`${block}__separator`}>:</span>
       <input
         name={`${modifier}Seconds`}
         className={`${block}__input ${block}__input--seconds`}

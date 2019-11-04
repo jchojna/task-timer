@@ -25,8 +25,8 @@ const Editable = (props) => {
 
       {/* INPUT */}
       <textarea
-        className={`${className}__input ${isEditMode
-        ? `${className}__input--visible` : ""}`}
+        className={`${className}__textInput ${isEditMode
+        ? `${className}__textInput--visible` : ""}`}
         defaultValue={output}
         spellCheck="false"
         onChange={(e) => onTaskEdit(e.target.value)}

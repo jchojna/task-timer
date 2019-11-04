@@ -3,8 +3,7 @@
 @import "_animations.scss";
 
 .taskName,
-.totalTaskTime,
-.totalBreakTime {
+.totalTime {
   grid-area: taskName;
   height: 100%;
   position: relative;
@@ -22,8 +21,17 @@
       visibility: visible;
     }
   }
+  
+  &__inputs {
+    border: none;
+    visibility: hidden;
 
-  &__input {
+    &--visible {
+      visibility: visible;
+    }
+  }
+
+  /* &__input {
     position: absolute;
     left: 0;
     top: 0;
@@ -37,24 +45,70 @@
     min-width: 10px;
     resize: none;
     text-align: center;
-    visibility: hidden;
     width: 100%;
-
-    &--visible {
-      visibility: visible;
-    }
-  }
-
+  } */
+  
   &__button {
     @include button;
     padding: 0.7em;
   }
 }
 
-.totalTaskTime {
-  grid-area: taskTime;
+.taskName {
+
+  &__textInput {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: $color-cyan-dark;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2em;
+    min-width: 10px;
+    resize: none;
+    text-align: center;
+    width: 100%;
+    visibility: hidden;
+
+    &--visible {
+      visibility: visible;
+    }
+  }
 }
 
-.totalBreakTime {
-  grid-area: breakTime;
+.totalTime {
+  @include flex-center;
+  border: 1px solid #fff;
+  height: 100%;
+  
+  &--taskTime {
+    grid-area: taskTime;
+  }
+
+  &--breakTime {
+    grid-area: breakTime;
+  }
+
+  /* &__text {
+    visibility: hidden;
+  } */
+
+  &__input {
+    border: none;
+    background: $color-cyan-dark;
+    color: #fff;
+    max-width: 50px;
+    height: 100%;
+  
+    &--minutes {
+      text-align: right;
+    }
+  }
+  
+  &__separator {
+    margin: 0 5px;
+  }
 }
