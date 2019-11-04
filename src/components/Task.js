@@ -32,7 +32,9 @@ class Task extends Component {
       isTaskNameEditMode: false,
       isTaskTimeEditMode: false,
       isBreakTimeEditMode: false,
-      isTimeInputValid: true
+      isTaskNameValid: true,
+      isTaskTimeValid: true,
+      isBreakTimeValid: true,
       //isElapsedMode: true,
       
       //taskTimeElapsed: 0,
@@ -63,6 +65,14 @@ class Task extends Component {
   
   handleStateChange = (object) => this.setState(object);
 
+  handleTaskNameChange = (value) => {
+    const { validateTaskName } = this.props;
+    this.setState({
+      taskName: value,
+      isTaskNameValid: validateTaskName(value)
+    });
+  }
+
   handleTaskRemove = (id) => {
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
@@ -90,71 +100,64 @@ class Task extends Component {
   } */
 
   acceptEditChange = () => {
-    const { taskTimeArray, breakTimeArray } = this.state;
+    const {
+      taskTimeArray,
+      breakTimeArray,
+      isTaskNameValid,
+      isTaskTimeValid,
+      isBreakTimeValid
+    } = this.state;
     const [ taskMinutes, taskSeconds ] = taskTimeArray;
     const [ breakMinutes, breakSeconds ] = breakTimeArray;
-    this.setState({
-      isTaskNameEditMode: false,
-      isTaskTimeEditMode: false,
-      isBreakTimeEditMode: false,
-      taskMinutes,
-      taskSeconds,
-      breakMinutes,
-      breakSeconds,
-    });
-  }
 
-  handleTaskNameEdit = (value) => this.setState({ taskName: value });
+    if (isTaskNameValid && isTaskTimeValid && isBreakTimeValid) {
+      this.setState({
+        isTaskNameEditMode: false,
+        isTaskTimeEditMode: false,
+        isBreakTimeEditMode: false,
+        taskMinutes,
+        taskSeconds,
+        breakMinutes,
+        breakSeconds,
+      });
+    }
+  }
 
   handleTimeChange = (minutes, seconds, units, type) => {
     const { onTimeChange } = this.props;
     const object = onTimeChange(minutes, seconds, units, type);
-    //const { alertTimeFlag } = object;
+    console.log('object', object);
 
     if (type === 'task') {
       if (units === 'minutes') {
         const {
-          taskMinutes,
-          totalTaskTime,
-          taskTimeArray,
-          isTimeInputValid
+          taskMinutes, totalTaskTime, taskTimeArray, isTaskTimeValid
         } = object;
-
         this.setState({
-          taskMinutes,
-          totalTaskTime,
-          taskTimeArray,
-          isTimeInputValid
+          taskMinutes, totalTaskTime, taskTimeArray, isTaskTimeValid
         });
       } else if (units === 'seconds') {
         const {
-          taskSeconds,
-          totalTaskTime,
-          taskTimeArray,
-          isTimeInputValid
+          taskSeconds, totalTaskTime, taskTimeArray, isTaskTimeValid
         } = object;
-
         this.setState({
-          taskSeconds,
-          totalTaskTime,
-          taskTimeArray,
-          isTimeInputValid
+          taskSeconds, totalTaskTime, taskTimeArray, isTaskTimeValid
         });
       }
     } else if (type === 'break') {
       if (units === 'minutes') {
-        const { breakMinutes, totalBreakTime, breakTimeArray } = object;
+        const {
+          breakMinutes, totalBreakTime, breakTimeArray, isBreakTimeValid
+        } = object;
         this.setState({
-          breakMinutes,
-          totalBreakTime,
-          breakTimeArray
+          breakMinutes, totalBreakTime, breakTimeArray, isBreakTimeValid
         });
       } else if (units === 'seconds') {
-        const { breakSeconds, totalBreakTime, breakTimeArray } = object;
+        const {
+          breakSeconds, totalBreakTime, breakTimeArray, isBreakTimeValid
+        } = object;
         this.setState({
-          breakSeconds,
-          totalBreakTime,
-          breakTimeArray
+          breakSeconds, totalBreakTime, breakTimeArray, isBreakTimeValid
         });
       }
     }
@@ -172,7 +175,10 @@ class Task extends Component {
       breakSeconds,
       isTaskNameEditMode,
       isTaskTimeEditMode,
-      isBreakTimeEditMode
+      isBreakTimeEditMode,
+      isTaskNameValid,
+      isTaskTimeValid,
+      isBreakTimeValid
     } = this.state;
     
     return (
@@ -183,8 +189,9 @@ class Task extends Component {
         <EditableText
           className="taskName"
           output={taskName}
+          isValid={isTaskNameValid}
           onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
-          onTaskEdit={this.handleTaskNameEdit}
+          onTaskNameChange={this.handleTaskNameChange}
           isEditMode={isTaskNameEditMode}
         />
 
@@ -194,6 +201,7 @@ class Task extends Component {
           modifier="taskTime"
           minutes={taskMinutes}
           seconds={taskSeconds}
+          isValid={isTaskTimeValid}
           onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
           isEditMode={isTaskTimeEditMode}
           onMinutesChange={(value) => 
@@ -208,6 +216,7 @@ class Task extends Component {
           modifier="breakTime"
           minutes={breakMinutes}
           seconds={breakSeconds}
+          isValid={isBreakTimeValid}
           onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
           isEditMode={isBreakTimeEditMode}
           onMinutesChange={(value) => 

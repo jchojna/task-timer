@@ -18,7 +18,8 @@ class Creator extends Component {
       creatorBreakTimeArray: ["",""],
       // validation
       isTaskNameValid: false,
-      isTimeInputValid: false,
+      isTaskTimeValid: false,
+      isBreakTimeValid: false,
       alertNameFlag: false,
       alertTimeFlag: false,
     };
@@ -39,7 +40,8 @@ class Creator extends Component {
       alertNameFlag,
       alertTimeFlag,
       isTaskNameValid,
-      isTimeInputValid
+      isTaskTimeValid,
+      isBreakTimeValid
      } = this.state;
 
     switch (alert) {
@@ -48,7 +50,7 @@ class Creator extends Component {
         ? "Creator__alert--visible" : "";
 
       case 'time':
-        return alertTimeFlag && !isTimeInputValid
+        return alertTimeFlag && (!isTaskTimeValid || !isBreakTimeValid)
         ? "Creator__alert--visible" : "";
 
       default: break;
@@ -76,7 +78,7 @@ class Creator extends Component {
       creatorTaskTimeArray,
       creatorBreakTimeArray,
       isTaskNameValid,
-      isTimeInputValid
+      isTaskTimeValid
     } = this.state;
 
     this.setState({
@@ -84,7 +86,7 @@ class Creator extends Component {
       alertTimeFlag: true
     })    
     // validation
-    if (isTaskNameValid && isTimeInputValid) {
+    if (isTaskNameValid && isTaskTimeValid) {
       const date = Date.now();
       // new task data
       const newTask = {
@@ -142,36 +144,38 @@ class Creator extends Component {
 
     if (type === 'task') {
       if (units === 'minutes') {
-        const { taskMinutes, totalTaskTime, taskTimeArray, isTimeInputValid } = object;
+        const { taskMinutes, totalTaskTime, taskTimeArray, isTaskTimeValid } = object;
         this.setState({
           creatorTaskMinutes: taskMinutes,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: taskTimeArray,
-          isTimeInputValid
+          isTaskTimeValid
         });
       } else if (units === 'seconds') {
-        const { taskSeconds, totalTaskTime, taskTimeArray, isTimeInputValid } = object;
+        const { taskSeconds, totalTaskTime, taskTimeArray, isTaskTimeValid } = object;
         this.setState({
           creatorTaskSeconds: taskSeconds,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: taskTimeArray,
-          isTimeInputValid
+          isTaskTimeValid
         });
       }
     } else if (type === 'break') {
       if (units === 'minutes') {
-        const { breakMinutes, totalBreakTime, breakTimeArray } = object;
+        const { breakMinutes, totalBreakTime, breakTimeArray, isBreakTimeValid } = object;
         this.setState({
           creatorBreakMinutes: breakMinutes,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: breakTimeArray,
+          isBreakTimeValid
         });
       } else if (units === 'seconds') {
-        const { breakSeconds, totalBreakTime, breakTimeArray } = object;
+        const { breakSeconds, totalBreakTime, breakTimeArray, isBreakTimeValid } = object;
         this.setState({
           creatorBreakSeconds: breakSeconds,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: breakTimeArray,
+          isBreakTimeValid
         });
       }
     }

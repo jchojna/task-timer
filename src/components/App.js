@@ -46,7 +46,8 @@ class App extends Component {
 
   handleStateChange = (object) => this.setState(object);
   handleTaskNameValidition = (name) => name.length > 0 ? true : false;
-  handleTimeInputValidition = (time, total) => /^\d*$/.test(time) && total > 0;
+  handleTaskTimeValidition = (time, total) => /^\d*$/.test(time) && total > 0;
+  handleBreakTimeValidition = (time) => /^\d*$/.test(time);
 
   handleTotalTime = (minutes, seconds) => {
     minutes = !minutes ? 0 : parseInt(minutes);
@@ -63,7 +64,7 @@ class App extends Component {
           taskMinutes: minutes,
           totalTaskTime,
           taskTimeArray: this.handleTimeArray(totalTaskTime),
-          isTimeInputValid: this.handleTimeInputValidition(minutes, totalTaskTime),
+          isTaskTimeValid: this.handleTaskTimeValidition(minutes, totalTaskTime),
           alertTimeFlag: true
         };
       } else if (units === 'seconds') {
@@ -71,7 +72,7 @@ class App extends Component {
           taskSeconds: seconds,
           totalTaskTime,
           taskTimeArray: this.handleTimeArray(totalTaskTime),
-          isTimeInputValid: this.handleTimeInputValidition(seconds, totalTaskTime),
+          isTaskTimeValid: this.handleTaskTimeValidition(seconds, totalTaskTime),
           alertTimeFlag: true
         };
       }
@@ -81,14 +82,14 @@ class App extends Component {
         return {
           breakMinutes: minutes,
           totalBreakTime,
-          breakTimeArray: this.handleTimeArray(totalBreakTime),
+          breakTimeArray: this.handleTimeArray(totalBreakTime),isBreakTimeValid: this.handleBreakTimeValidition(minutes),
           alertTimeFlag: true
         };
       } else if (units === 'seconds') {
         return {
           breakSeconds: seconds,
           totalBreakTime,
-          breakTimeArray: this.handleTimeArray(totalBreakTime),
+          breakTimeArray: this.handleTimeArray(totalBreakTime),isBreakTimeValid: this.handleBreakTimeValidition(seconds),
           alertTimeFlag: true
         };
       }
@@ -129,6 +130,7 @@ class App extends Component {
           onStateChange={this.handleStateChange}
           onTaskRemove={this.handleTaskRemove}
           onTimeChange={this.handleTimeChange}
+          validateTaskName={this.handleTaskNameValidition}
         />
 
         {/* TASK CREATOR */}

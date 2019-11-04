@@ -5,7 +5,6 @@
 .taskName,
 .totalTime {
   @include flex-center;
-  grid-area: taskName;
   height: 100%;
   position: relative;
   text-align: center;
@@ -16,6 +15,7 @@
   }
 
   &__text {
+    border: 2px solid transparent;
     font-weight: 600;
     font-size: 1.2em;
     margin: 0;
@@ -27,31 +27,14 @@
       visibility: visible;
     }
   }
-  
-  &__inputs {
-    border: none;
-    color: #fff;
-    font-size: 1.2em;
-    font-weight: 600;
-    height: 100%;
-    left: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    visibility: hidden;
-
-    &--visible {
-      visibility: visible;
-    }
-  }
 
   &__input {
     padding: 0;
+    background: none;
     border: none;
-    border-radius: 5px;
-    background: $color-cyan-dark;
     color: #fff;
+    font-weight: 600;
+    font-size: 1.2em;
     height: 100%;
     text-align: center;
     width: 100%;
@@ -63,26 +46,34 @@
   }
 }
 
+/* TASK NAME */
+
 .taskName {
+  grid-area: taskName;
   
   &__input {
-    font-size: 1.2em;
-    font-weight: 600;
-    min-width: 10px;
+    background: $color-cyan-dark;
+    border: 2px solid #fff;
+    border-radius: 5px;
     left: 0;
     position: absolute;
-    top: 0;
     resize: none;
+    top: 0;
     visibility: hidden;
 
     &--visible {
       visibility: visible;
     }
+
+    &--incorrect {
+      border-color: $color-tomato;
+    }
   }
 }
 
+/* TOTAL TIME */
+
 .totalTime {
-  height: 100%;
   
   &--taskTime {
     font-size: 2em;
@@ -93,12 +84,34 @@
     font-size: 1.5em;
     grid-area: breakTime;
   }
+  
+  &__inputs {
+    background: $color-cyan-dark;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    height: 100%;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    visibility: hidden;
+
+    &--visible {
+      visibility: visible;
+    }
+
+    &--incorrect {
+      border-color: $color-tomato;
+    }
+  }
 
   &__input {
-    max-width: 70px;
+    max-width: 50px;
   }
   
   &__separator {
-    margin: 0 5px;
+    font-size: 1.2em;
+    font-weight: 600;
   }
 }

@@ -15,6 +15,7 @@ class Board extends Component {
     const {
       state,
       onTaskRemove,
+      validateTaskName,
       onTimeChange
     } = this.props;
     const { tasks } = state;
@@ -29,6 +30,7 @@ class Board extends Component {
             id={task.dateCreated}
             key={task.dateCreated}
             onTaskRemove={onTaskRemove}
+            validateTaskName={validateTaskName}
             onTimeChange={onTimeChange}
           />
         ))}

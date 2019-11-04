@@ -9,6 +9,7 @@ const EditableDisplay = (props) => {
     modifier,
     minutes,
     seconds,
+    isValid,
     onMinutesChange,
     onSecondsChange,
     isEditMode,
@@ -33,6 +34,7 @@ const EditableDisplay = (props) => {
         visible={isEditMode ? `${block}__inputs--visible` : ""}
         minutes={minutes}
         seconds={seconds}
+        isValid={isValid}
         onMinutesChange={(value) => onMinutesChange(value)}
         onSecondsChange={(value) => onSecondsChange(value)}
       />

@@ -7,13 +7,15 @@ const TimeDisplay = (props) => {
     visible,
     minutes,
     seconds,
+    isValid,
     onMinutesChange,
     onSecondsChange
   } = props;
 
   return (
     <fieldset
-      className={`${block}__inputs ${block}__inputs--${modifier} ${visible ? visible : ""}`}
+      className={`${block}__inputs ${block}__inputs--${modifier}
+      ${visible ? visible : ""} ${isValid ? "" : `${block}__inputs--incorrect`}`}
     >
       <input
         id={modifier}
@@ -24,7 +26,7 @@ const TimeDisplay = (props) => {
         value={minutes}
         onChange={(e) => onMinutesChange(e.target.value)}
       />
-      <span className={`${block}__separator`}>:</span>
+      <span className={`${block}__separator`}>{` : `}</span>
       <input
         name={`${modifier}Seconds`}
         className={`${block}__input ${block}__input--seconds`}
