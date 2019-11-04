@@ -41,41 +41,30 @@
     grid-area: heading;
   }
 
-  &__input {
+  &__taskName {
     align-self: stretch;
     background: none;
     border: 2px solid #fff;
     border-radius: 100px;
     color: #fff;
     font-size: 1.1em;
+    grid-area: taskName;
+    height: 100%;
     justify-self: stretch;
     min-width: 50px;
     padding: 0 1.3em;
-    text-align: center;
+    text-align: left;
     transition: box-shadow $focus-input;
+
+    &::placeholder {
+      color: #fff;
+      font-size: 0.8em;
+    }
 
     &:focus {
       box-shadow:
         0 0 0 5px rgba($color: $color-cyan-dark, $alpha: 0.7),
         0 0 30px rgba($color: $color-cyan-dark, $alpha: 0.4);
-    }
-
-    &--name {
-      grid-area: taskName;
-      text-align: left;
-    }
-
-    &--task-time {
-      grid-area: taskTime;
-    }
-
-    &--break-time {
-      grid-area: breakTime;
-    }
-
-    &::placeholder {
-      color: #fff;
-      font-size: 0.8em;
     }
   }
 
@@ -86,6 +75,38 @@
     &--task-name { grid-area: labelName; }
     &--task-time { grid-area: labelTime; }
     &--break-time { grid-area: labelBreak; }
+  }
+
+  &__inputs {
+    @include flex-center;
+    border: 2px solid #fff;
+    border-radius: 100px;
+    height: 100%;
+    padding: 0 1.3em;
+    
+    &--taskTime {
+      grid-area: taskTime;
+    }
+  
+    &--breakTime {
+      grid-area: breakTime;
+    }
+  }
+  
+  &__input {
+    border: none;
+    background: none;
+    color: #fff;
+    max-width: 60px;
+    height: 100%;
+  
+    &--minutes {
+      text-align: right;
+    }
+  }
+  
+  &__separator {
+    margin: 0 5px;
   }
 
   &__button {

@@ -6,14 +6,51 @@
   @include card;
   align-items: center;
   display: grid;
+  gap: 1em;
+  grid-template-areas:
+    "buttons"
+    "taskName"
+    "taskTime"
+    "breakTime"
+    "startBtn";
+  grid-template-rows: 40px auto auto auto;
   justify-items: center;
   padding: 1em;
 
-  &__name {
-    font-weight: 600;
-    font-size: 1.2em;
-    margin: 0;
-    text-align: center;
+  &__buttons {
+    align-self: start;
+    display: grid;
+    gap: 20px;
+    grid-area: buttons;
+    grid-template-columns: auto auto;
+    justify-self: end;
+  }
+
+  &__button {
+    @include button;
+    fill: #fff;
+    max-width: 40px;
+
+    &--accept {
+      visibility: hidden;
+    }
+
+    &--start {
+      @include flex-center;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      grid-area: startBtn;
+      max-width: 60px;
+    }
+    
+    &:hover {
+      border-color: $color-tomato;
+      fill: $color-tomato;
+    }
+    
+    &--visible {
+      visibility: visible;
+    }
   }
 
   &__totalTime {
@@ -21,5 +58,14 @@
     font-size: 2em;
     font-weight: 800;
     margin: 0;
+
+    &--task {
+      font-size: 2.5em;
+      grid-area: taskTime;
+    }
+
+    &--break {
+      grid-area: breakTime;
+    }
   }
 }

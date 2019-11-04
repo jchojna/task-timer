@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import Board from './Board.js';
 import Creator from './Creator.js';
-import Timer from './Timer.js';
-import StopTask from './StopTask.js';
-import Outro from './Outro.js';
-import Failure from './Failure.js';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -14,97 +10,98 @@ class App extends Component {
       // visibility
       isBoardVisible: true,
       isCreatorVisible: false,
-      alertNameFlag: false,
-      alertTimeFlag: false,
       tasks: [
         {
           taskName: "Test task for preview purposes",
-          plannedTaskTime: "30s",
-          plannedBreakTime: "10s",
+          taskMinutes: 30,
+          taskSeconds: 0,
+          breakMinutes: 10,
+          breakSeconds: 0,
           totalTaskTime: 30000,
           totalBreakTime: 10000,
+          taskTimeArray: ["30","00","00"],
+          breakTimeArray: ["10","00","00"],
+          id: 6453654365346,
           dateCreated: 6453654365346
         },
         {
           taskName: "Another task for testing",
-          plannedTaskTime: "60s",
-          plannedBreakTime: "20s",
+          taskMinutes: 60,
+          taskSeconds: 0,
+          breakMinutes: 20,
+          breakSeconds: 0,
           totalTaskTime: 60000,
           totalBreakTime: 20000,
+          taskTimeArray: ["60","00","00"],
+          breakTimeArray: ["20","00","00"],
+          id: 543254234523,
           dateCreated: 543254234523
         },
       ],
       // validity
       isTaskNameValid: false,
-      isPlannedTaskTimeValid: false,
-      isPlannedBreakTimeValid: false,
+      isTimeInputValid: false
     };
   }
 
   handleStateChange = (object) => this.setState(object);
-  
-  handleTaskNameValidition = (name) => {
-    this.setState({
-      isTaskNameValid: name.length > 0 ? true : false,
-      alertNameFlag: true
-    });
+  handleTaskNameValidition = (name) => name.length > 0 ? true : false;
+  handleTaskTimeValidition = (time, total) => /^\d*$/.test(time) && total > 0;
+  handleBreakTimeValidition = (time) => /^\d*$/.test(time);
+
+  handleTotalTime = (minutes, seconds) => {
+    minutes = !minutes ? 0 : parseInt(minutes);
+    seconds = !seconds ? 0 : parseInt(seconds);
+    return (minutes * 60000) + (seconds * 1000);
   }
 
-  handlePlannedTaskTimeValidition = (time) => {
-    const totalTaskTime = this.handleTotalTime(time);
-
-    this.setState({
-      isPlannedTaskTimeValid:
-        /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && totalTaskTime > 0,
-      alertTimeFlag: true
-    })
-  }
-
-  handlePlannedBreakTimeValidition = (time) => {
-    const totalBreakTime = this.handleTotalTime(time);
+  handleTimeChange = (minutes, seconds, units, type) => {
     
-    this.setState({
-      isPlannedBreakTimeValid:
-      /^(\d?\d[Mm])?(\d?\d[Ss])$/.test(time) && totalBreakTime > 0,
-      alertTimeFlag: true
-    })
-  }
-
-  handleTotalTime = (time) => {
-    let totalTime = time.split(/[mM]/).map(a => parseInt(a) || 0);
-    // if time format 00m is acceptable
-    totalTime = totalTime.length > 1 ? totalTime : [0, ...totalTime];
-    const [minutes, seconds] = totalTime;
-    return minutes * 60000 + seconds * 1000;
-  }
-
-  /* handleStartButton = () => {
-    const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
-    const breakTimeElapsedResult = this.handleTimeArray(0);
-
-    if (isTaskTimePlannedValid && isBreakTimePlannedValid) {
-      this.setState({
-        isTimeVisible: false,
-        isTimerVisible: true,
-        isTaskTimeActive: true,
-        previousTime: Date.now(),
-        taskTimeElapsed: 0,
-        breaksTotal: 0,
-        breakTimeElapsed: 0,
-        breakTimeElapsedArray: breakTimeElapsedResult,
-        alertFlag: false
-      });
-    } else {
-      this.setState({ alertFlag: true });
+    if (type === 'task') {
+      const totalTaskTime = this.handleTotalTime(minutes, seconds);
+      if (units === 'minutes') {
+        return {
+          taskMinutes: minutes,
+          totalTaskTime,
+          taskTimeArray: this.handleTimeArray(totalTaskTime),
+          isTaskTimeValid: this.handleTaskTimeValidition(minutes, totalTaskTime),
+          alertTimeFlag: true
+        };
+      } else if (units === 'seconds') {
+        return {
+          taskSeconds: seconds,
+          totalTaskTime,
+          taskTimeArray: this.handleTimeArray(totalTaskTime),
+          isTaskTimeValid: this.handleTaskTimeValidition(seconds, totalTaskTime),
+          alertTimeFlag: true
+        };
+      }
+    } else if (type === 'break') {
+      const totalBreakTime = this.handleTotalTime(minutes, seconds);
+      if (units === 'minutes') {
+        return {
+          breakMinutes: minutes,
+          totalBreakTime,
+          breakTimeArray: this.handleTimeArray(totalBreakTime),isBreakTimeValid: this.handleBreakTimeValidition(minutes),
+          alertTimeFlag: true
+        };
+      } else if (units === 'seconds') {
+        return {
+          breakSeconds: seconds,
+          totalBreakTime,
+          breakTimeArray: this.handleTimeArray(totalBreakTime),isBreakTimeValid: this.handleBreakTimeValidition(seconds),
+          alertTimeFlag: true
+        };
+      }
     }
-  } */
+  }
 
   handleDisplayMode = () => this.setState(prevState => ({
     isElapsedMode: !prevState.isElapsedMode
   }));
 
   handleTimeArray = (time) => {
-    const makeTwoDigits = (number) => number < 10 ? `0${number}` : number;
+    const makeTwoDigits = (number) => number < 10 ? `0${number}` : `${number}`;
     return [
       makeTwoDigits(Math.floor(time / 60000)),
       makeTwoDigits(Math.floor(time / 1000 % 60)),
@@ -112,26 +109,11 @@ class App extends Component {
     ]
   }
 
-  handleAlertVisibility = (alert) => {
-    const {
-      alertNameFlag,
-      alertTimeFlag,
-      isTaskNameValid,
-      isPlannedTaskTimeValid,
-      isPlannedBreakTimeValid
-    } = this.state;
-
-    switch (alert) {
-      case 'name':
-        return alertNameFlag && !isTaskNameValid ? "Creator__alert--visible" : "";
-
-      case 'time':
-        return (alertTimeFlag && !isPlannedTaskTimeValid)
-        || (alertTimeFlag && !isPlannedBreakTimeValid)
-        ? "Creator__alert--visible" : "";
-
-      default: break;
-    }
+  handleTaskRemove = (id) => {
+    console.log(id);
+    this.setState(prevState => ({
+      tasks: prevState.tasks.filter(task => task.id !== id)
+    }))
   }
 
   render() {
@@ -146,55 +128,19 @@ class App extends Component {
         <Board
           state={this.state}
           onStateChange={this.handleStateChange}
-          handleTotalTime={this.handleTotalTime}
-          handleTimeArray={this.handleTimeArray}
+          onTaskRemove={this.handleTaskRemove}
+          onTimeChange={this.handleTimeChange}
+          validateTaskName={this.handleTaskNameValidition}
         />
 
         {/* TASK CREATOR */}
         <Creator
           compClassName={isCreatorVisible
             ? "Creator--visible slideInRight" : "slideOutLeft"}
-          nameAlertClassName={this.handleAlertVisibility('name')}
-          timeAlertClassName={this.handleAlertVisibility('time')}
-          state={this.state}
-          handleTotalTime={this.handleTotalTime}
           onStateChange={this.handleStateChange}
-          onTaskNameChange={this.handleTaskNameValidition}
-          onPlannedTaskTimeChange={this.handlePlannedTaskTimeValidition}
-          onPlannedBreakTimeChange={this.handlePlannedBreakTimeValidition}
+          onTimeChange={this.handleTimeChange}
+          validateTaskName={this.handleTaskNameValidition}
         />
-        
-        {/* TIMER SECTION */}
-        {/* <Timer
-          compClassName={isTimerVisible
-            ? "Timer--visible slideInRight" : "slideOutLeft"}
-          onStateChange={this.handleStateChange}
-          onDisplayModeChange={this.handleDisplayMode}
-          onTimeArrayChange={this.handleTimeArray}
-          state={this.state}
-        /> */}
-        {/* STOP TASK SECTION */}
-        {/* <StopTask
-          compClassName={`StopTask ${isStopTaskVisible
-          ? "StopTask--visible" : ""}`}
-          onStateChange={this.handleStateChange}
-        /> */}
-        {/* OUTRO SECTION */}
-        {/* <Outro
-          compClassName={`Outro ${isOutroVisible
-          ? "Outro--visible slideInRight"
-          : "slideOutLeft"}`}
-          state={this.state}
-          onStateChange={this.handleStateChange}
-        /> */}
-        {/* BREAK TIME EXCEEDED */}
-        {/* <Failure
-          compClassName={`Failure ${isFailureVisible
-          ? "Failure--visible slideInRight"
-          : "slideOutLeft"}`}
-          state={this.state}
-          onStateChange={this.handleStateChange}
-        /> */}
       </div>
     );
   }
