@@ -4,6 +4,7 @@ const TimeDisplay = (props) => {
   const {
     block,
     modifier,
+    id,
     minutes,
     seconds,
     isValid,
@@ -19,7 +20,7 @@ const TimeDisplay = (props) => {
       ${isValid ? "" : `${block}__inputs--incorrect`}`}
     >
       <input
-        id={modifier}
+        id={`${modifier}-${id}`}
         name={`${modifier}Minutes`}
         className={`${block}__input ${block}__input--minutes`}
         placeholder="min"

@@ -44,6 +44,10 @@
     @include button;
     padding: 0.7em;
   }
+
+  &__label {
+    font-size: 0.8rem;
+  }
 }
 
 /* TASK NAME */

@@ -199,8 +199,10 @@ class Task extends Component {
 
         {/* TOTAL TASK TIME */}
         <EditableTime
+          labelName="Task Time"
           block="totalTime"
           modifier="taskTime"
+          id={id}
           minutes={taskMinutes}
           seconds={taskSeconds}
           isValid={isTaskTimeValid}
@@ -214,8 +216,10 @@ class Task extends Component {
         
         {/* TOTAL BREAK TIME */}
         <EditableTime
+          labelName="Break Time"
           block="totalTime"
           modifier="breakTime"
+          id={id}
           minutes={breakMinutes}
           seconds={breakSeconds}
           isValid={isBreakTimeValid}

@@ -5,8 +5,10 @@ import TimeDisplay from './TimeDisplay.js';
 const EditableDisplay = (props) => {
     
   const {
+    labelName,
     block,
     modifier,
+    id,
     minutes,
     seconds,
     isValid,
@@ -18,6 +20,15 @@ const EditableDisplay = (props) => {
 
   return (
     <div className={`${block} ${block}--${modifier}`}>
+      {/* LABEL */}
+      <label
+        className={`${block}__label`}
+        htmlFor={`${modifier}-${id}`}
+        onClick={onEditModeChange}
+      >
+        {labelName}
+      </label>
+      
       {/* TEXT */}
       <p
         className={`${block}__text
@@ -29,9 +40,10 @@ const EditableDisplay = (props) => {
 
       {/* INPUT */}
       <TimeDisplay
+        labelName={labelName}
         block={block}
         modifier={modifier}
-        //visible={isEditMode ? `${block}__inputs--visible` : ""}
+        id={id}
         minutes={minutes}
         seconds={seconds}
         isValid={isValid}
