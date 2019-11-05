@@ -13,24 +13,21 @@ class Timer extends Component {
       isElapsedMode: true,
       isTaskTimeActive: true,
       isBreakTimeActive: false,
-      elapsedTaskTime: 0,
-      elapsedBreakTime: 0,
-      remainingTaskTime: 0,
-      //percentElapsed,
-      //percentRemaining
       totalTaskTime,
       totalBreakTime,
       totalBreaks: 0,
       
+      elapsedTaskTime: 0,
       elapsedTaskTimeArray: ['00','00','00'],
+      elapsedTaskPercent: 0,
+      elapsedBreakTime: 0,
       elapsedBreakTimeArray: ['00','00','00'],
+      
+      remainingTaskTime: 0,
+      remainingTaskPercent: 100,
       remainingTaskTimeArray: ['00','00','00'],
 
-
-      //breakTimeElapsed: 0,
       previousTime: startTime,
-      //percentElapsed: 0,
-      //percentRemaining: 100,
       //overallTime: 0,
       //overallTimeArray: ['00','00','00']
     }
@@ -68,7 +65,7 @@ class Timer extends Component {
 
 
       const elapsedTaskTimeArray = onTimeArrayChange(elapsedTaskTime);
-      //const taskTimeTotalResult = onTimeArrayChange(taskTimeTotal);
+      const totalTaskTimeArray = onTimeArrayChange(totalTaskTime);
       const remainingTaskTimeArray = onTimeArrayChange(remainingTaskTime);
       //const overallTimeResult = onTimeArrayChange(taskTimeElapsed + breakTimeElapsed);
       //const percentElapsed = taskTimeElapsed / taskTimeTotal * 100;
@@ -77,18 +74,18 @@ class Timer extends Component {
       // when task time finishes
       if (elapsedTaskTime >= totalTaskTime) {
         this.setState({
-          /* isStopTaskVisible: false,
-          isTimerVisible: false,
+          //isStopTaskVisible: false,
+          //isTimerVisible: false,
+          //isOutroVisible: true,
           isTaskTimeActive: false,
-          taskTimeElapsed: taskTimeTotal,
-          taskTimeRemaining: 0,
-          taskTimeElapsedArray: taskTimeTotalResult,
-          taskTimeRemainingArray: ['00','00','00'],
-          percentElapsed: 100,
-          percentRemaining: 0,
-          isOutroVisible: true,
-          overallTime: taskTimeElapsed + breakTimeElapsed,
-          overallTimeArray: overallTimeResult */
+          elapsedTaskTime: totalTaskTime,
+          elapsedTaskTimeArray: totalTaskTimeArray,
+          remainingTaskTimeArray: ['00','00','00'],
+          elapsedTaskPercent: 100,
+          remainingTaskTime: 0,
+          remainingTaskPercent: 0,
+          //overallTime: taskTimeElapsed + breakTimeElapsed,
+          //overallTimeArray: overallTimeResult
         });
       // normal task time tick
       } else {
