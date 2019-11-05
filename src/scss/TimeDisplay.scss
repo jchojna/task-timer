@@ -1,20 +1,27 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
 .TimeDisplay {
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   visibility: hidden;
+  @include flex-center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  transition: visibility 0s $time-display;
 
-   &--visible {
-     visibility: inherit;
-   }
+  &--visible {
+    transition: visibility 0s;
+    visibility: inherit;
+  }
 
-   &--showUp {
-     animation: showUp 0.5s forwards;
-   }
+  &--showUp {
+    animation: showUp $time-display forwards;
+  }
 
-   &--hideUp {
-     animation: hideUp 0.5s forwards;
-   }
+  &--hideUp {
+    animation: hideUp $time-display forwards;
+  }
 }

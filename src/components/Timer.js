@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import TimeDisplay from './TimeDisplay.js';
-//import Controls from './Controls';
+import Controls from './Controls';
 //import Break from './Break';
 //import Progress from './Progress';
 import '../scss/Timer.scss';
@@ -12,7 +12,6 @@ class Timer extends Component {
       isElapsedMode: true,
       isTaskTimeActive: false,
       isBreakTimeActive: false,
-      breaksTotal: 0,
       taskTimeElapsed: 0,
       taskTimeRemaining: 0,
       //percentElapsed,
@@ -24,7 +23,7 @@ class Timer extends Component {
       taskTimeRemainingArray: ['00','00','00'],
       breakTimeElapsedArray: ['00','00','00'],
 
-      //totalBreaks: 0,
+      totalBreaks: 0,
 
       //break
       //breakTimeElapsed: 0,
@@ -46,6 +45,8 @@ class Timer extends Component {
     clearInterval(this.taskIntervalId);
     clearInterval(this.breakIntervalId);
   }
+
+  handleStateChange = (object) => this.setState(object);
   
   handleDisplayMode = () => this.setState(prevState => ({
     isElapsedMode: !prevState.isElapsedMode
@@ -147,20 +148,20 @@ class Timer extends Component {
   render() {
     
     const {
-      taskName,
-      taskTimeArray,
-      breakTimeArray
+      taskName
     } = this.props.state;
 
     const {
       isElapsedMode,
+      isTaskTimeActive,
+      isBreakTimeActive,
       taskTimeElapsedArray,
-      taskTimeRemainingArray
+      taskTimeRemainingArray,
+      totalBreaks
     } = this.state;
 
     const {
       className,
-      onDisplayModeChange,
       onStateChange
     } = this.props;
 
@@ -169,13 +170,13 @@ class Timer extends Component {
         <div className="Timer__container">
           <h2 className="Timer__heading">{`"${taskName}"`}</h2>
           {/* CONTROL BUTTONS */}
-          {/* <Controls
+          <Controls
             isTaskTimeActive={isTaskTimeActive}
             isBreakTimeActive={isBreakTimeActive}
-            breaksTotal={breaksTotal}
-            onDisplayModeChange={onDisplayModeChange}
-            onStateChange={onStateChange}
-          /> */}
+            totalBreaks={totalBreaks}
+            onDisplayModeChange={this.handleDisplayMode}
+            onTimerStateChange={this.handleStateChange}
+          />
 
           {/* TIMER DISPLAY */}
 

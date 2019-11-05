@@ -255,7 +255,6 @@ class Task extends Component {
             ? "Timer--visible" : ""}
           onStateChange={this.handleStateChange}
           state={this.state}
-          isTaskActive={isTaskActive}
           onTimeArrayChange={onTimeArrayChange}
         />
 
