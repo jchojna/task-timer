@@ -6,7 +6,7 @@ const Break = (props) => {
   const {
     compClassName,
     totalBreaks,
-    breakTimeElapsedArray
+    elapsedBreakTimeArray
   } = props;
   
   return (
@@ -17,7 +17,7 @@ const Break = (props) => {
       </h3>
       <TimeDisplay
         className="Break__display"
-        timeArray={breakTimeElapsedArray}
+        timeArray={elapsedBreakTimeArray}
       />
     </div>
   );
