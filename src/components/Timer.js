@@ -8,16 +8,17 @@ import '../scss/Timer.scss';
 class Timer extends Component {
   constructor(props) {
     super(props);
+    const { startTime, totalTaskTime, totalBreakTime } = this.props.state;
     this.state = {
       isElapsedMode: true,
-      isTaskTimeActive: false,
+      isTaskTimeActive: true,
       isBreakTimeActive: false,
       taskTimeElapsed: 0,
       taskTimeRemaining: 0,
       //percentElapsed,
       //percentRemaining
-      totalTaskTime: null,
-      totalBreakTime: null,
+      totalTaskTime,
+      totalBreakTime,
       
       taskTimeElapsedArray: ['00','00','00'],
       taskTimeRemainingArray: ['00','00','00'],
@@ -28,7 +29,7 @@ class Timer extends Component {
       //break
       //breakTimeElapsed: 0,
       //timer
-      previousTime: 0,
+      previousTime: startTime,
       //percentElapsed: 0,
       //percentRemaining: 100,
       //overallTime: 0,
@@ -184,14 +185,14 @@ class Timer extends Component {
           <div className={`Timer__display`}>
             <TimeDisplay
               className={isElapsedMode
-                ? "TimeDisplay TimeDisplay--visible TimeDisplay--showUp"
-                : "TimeDisplay TimeDisplay--hideUp"}
+              ? "TimeDisplay TimeDisplay--visible TimeDisplay--showUp"
+              : "TimeDisplay TimeDisplay--hideUp"}
               timeArray={taskTimeElapsedArray}
             />
             <TimeDisplay
               className={isElapsedMode
-                ? "TimeDisplay TimeDisplay--hideUp"
-                : "TimeDisplay TimeDisplay--visible TimeDisplay--showUp"}
+              ? "TimeDisplay TimeDisplay--hideUp"
+              : "TimeDisplay TimeDisplay--visible TimeDisplay--showUp"}
               timeArray={taskTimeRemainingArray}
             />
           </div>

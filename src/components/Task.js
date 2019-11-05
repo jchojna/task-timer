@@ -11,7 +11,6 @@ import '../scss/Task.scss';
 class Task extends Component {
   constructor(props) {
     super(props);
-    this.timerRef = React.createRef();
     const {
       taskName,
       totalTaskTime,
@@ -39,7 +38,8 @@ class Task extends Component {
       isBreakTimeEditMode: false,
       isTaskNameValid: true,
       isTaskTimeValid: true,
-      isBreakTimeValid: true
+      isBreakTimeValid: true,
+      startTime: 0
     }
   }
   
@@ -124,20 +124,10 @@ class Task extends Component {
   }
 
   handleStartButton = () => {
-    const {
-      totalTaskTime,
-      totalBreakTime
-    } = this.state;
-
     this.setState({
-      isTimerVisible: true
+      isTimerVisible: true,
+      startTime: Date.now()
     })
-    this.timerRef.current.setState({
-      previousTime: Date.now(),
-      totalTaskTime,
-      totalBreakTime,
-      isTaskTimeActive: true
-    });
   }
 
   render() {
@@ -247,15 +237,18 @@ class Task extends Component {
           </svg>
         </button>
         
-        {/* TIMER SECTION */}
-        <Timer
-          ref={this.timerRef}
-          className={isTimerVisible
-            ? "Timer--visible" : ""}
-          onTaskStateChange={this.handleStateChange}
-          state={this.state}
-          onTimeArrayChange={onTimeArrayChange}
-        />
+        {/* TIMER COMPONENT */}
+        {
+          this.state.isTimerVisible
+          ? <Timer
+              className={isTimerVisible
+                ? "Timer--visible" : ""}
+              onTaskStateChange={this.handleStateChange}
+              state={this.state}
+              onTimeArrayChange={onTimeArrayChange}
+            />
+          : <div></div>
+        }
 
         {/* STOP TASK SECTION */}
         {/* <StopTask
