@@ -16,7 +16,8 @@ class Board extends Component {
       state,
       onTaskRemove,
       validateTaskName,
-      onTimeChange
+      onTimeChange,
+      onTimeArrayChange
     } = this.props;
     const { tasks } = state;
 
@@ -32,6 +33,7 @@ class Board extends Component {
             onTaskRemove={onTaskRemove}
             validateTaskName={validateTaskName}
             onTimeChange={onTimeChange}
+            onTimeArrayChange={onTimeArrayChange}
           />
         ))}
 

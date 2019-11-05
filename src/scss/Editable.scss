@@ -44,6 +44,10 @@
     @include button;
     padding: 0.7em;
   }
+
+  &__label {
+    font-size: 0.8rem;
+  }
 }
 
 /* TASK NAME */
@@ -52,7 +56,7 @@
   grid-area: taskName;
   
   &__input {
-    background: $color-cyan-dark;
+    background-color: $color-cyan;
     border: 2px solid #fff;
     border-radius: 5px;
     left: 0;
@@ -86,7 +90,7 @@
   }
   
   &__inputs {
-    background: $color-cyan-dark;
+    background-color: $color-cyan;
     border: 2px solid #fff;
     border-radius: 5px;
     height: 100%;

@@ -19,21 +19,21 @@ class App extends Component {
           breakSeconds: 0,
           totalTaskTime: 30000,
           totalBreakTime: 10000,
-          taskTimeArray: ["30","00","00"],
-          breakTimeArray: ["10","00","00"],
+          totalTaskTimeArray: ["30","00","00"],
+          totalBreakTimeArray: ["10","00","00"],
           id: 6453654365346,
           dateCreated: 6453654365346
         },
         {
           taskName: "Another task for testing",
-          taskMinutes: 60,
-          taskSeconds: 0,
-          breakMinutes: 20,
-          breakSeconds: 0,
-          totalTaskTime: 60000,
-          totalBreakTime: 20000,
-          taskTimeArray: ["60","00","00"],
-          breakTimeArray: ["20","00","00"],
+          taskMinutes: 0,
+          taskSeconds: 2,
+          breakMinutes: 0,
+          breakSeconds: 2,
+          totalTaskTime: 2000,
+          totalBreakTime: 2000,
+          totalTaskTimeArray: ["00","02","00"],
+          totalBreakTimeArray: ["00","02","00"],
           id: 543254234523,
           dateCreated: 543254234523
         },
@@ -63,7 +63,7 @@ class App extends Component {
         return {
           taskMinutes: minutes,
           totalTaskTime,
-          taskTimeArray: this.handleTimeArray(totalTaskTime),
+          totalTaskTimeArray: this.handleTimeArray(totalTaskTime),
           isTaskTimeValid: this.handleTaskTimeValidition(minutes, totalTaskTime),
           alertTimeFlag: true
         };
@@ -71,7 +71,7 @@ class App extends Component {
         return {
           taskSeconds: seconds,
           totalTaskTime,
-          taskTimeArray: this.handleTimeArray(totalTaskTime),
+          totalTaskTimeArray: this.handleTimeArray(totalTaskTime),
           isTaskTimeValid: this.handleTaskTimeValidition(seconds, totalTaskTime),
           alertTimeFlag: true
         };
@@ -82,23 +82,19 @@ class App extends Component {
         return {
           breakMinutes: minutes,
           totalBreakTime,
-          breakTimeArray: this.handleTimeArray(totalBreakTime),isBreakTimeValid: this.handleBreakTimeValidition(minutes),
+          totalBreakTimeArray: this.handleTimeArray(totalBreakTime),isBreakTimeValid: this.handleBreakTimeValidition(minutes),
           alertTimeFlag: true
         };
       } else if (units === 'seconds') {
         return {
           breakSeconds: seconds,
           totalBreakTime,
-          breakTimeArray: this.handleTimeArray(totalBreakTime),isBreakTimeValid: this.handleBreakTimeValidition(seconds),
+          totalBreakTimeArray: this.handleTimeArray(totalBreakTime),isBreakTimeValid: this.handleBreakTimeValidition(seconds),
           alertTimeFlag: true
         };
       }
     }
   }
-
-  handleDisplayMode = () => this.setState(prevState => ({
-    isElapsedMode: !prevState.isElapsedMode
-  }));
 
   handleTimeArray = (time) => {
     const makeTwoDigits = (number) => number < 10 ? `0${number}` : `${number}`;
@@ -131,6 +127,7 @@ class App extends Component {
           onTaskRemove={this.handleTaskRemove}
           onTimeChange={this.handleTimeChange}
           validateTaskName={this.handleTaskNameValidition}
+          onTimeArrayChange={this.handleTimeArray}
         />
 
         {/* TASK CREATOR */}

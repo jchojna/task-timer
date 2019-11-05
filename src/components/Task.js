@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import EditableText from './EditableText.js';
 import EditableTime from './EditableTime.js';
-//import Timer from './Timer.js';
+import Timer from './Timer.js';
 //import StopTask from './StopTask.js';
 //import Outro from './Outro.js';
 //import Failure from './Failure.js';
@@ -15,51 +15,31 @@ class Task extends Component {
       taskName,
       totalTaskTime,
       totalBreakTime,
-      taskTimeArray,
-      breakTimeArray,
+      totalTaskTimeArray,
+      totalBreakTimeArray,
     } = this.props.task;
 
     this.state = {
+      isTimerVisible: false,
+      //isStopTaskVisible: false,
+      //isOutroVisible: false,
+      //isFailureVisible: false,
       taskName,
-      taskMinutes: taskTimeArray[0],
-      taskSeconds: taskTimeArray[1],
-      breakMinutes: breakTimeArray[0],
-      breakSeconds: breakTimeArray[1],
+      taskMinutes: totalTaskTimeArray[0],
+      taskSeconds: totalTaskTimeArray[1],
+      breakMinutes: totalBreakTimeArray[0],
+      breakSeconds: totalBreakTimeArray[1],
       totalTaskTime,
       totalBreakTime,
-      taskTimeArray,
-      breakTimeArray,
+      totalTaskTimeArray,
+      totalBreakTimeArray,
       isTaskNameEditMode: false,
       isTaskTimeEditMode: false,
       isBreakTimeEditMode: false,
       isTaskNameValid: true,
       isTaskTimeValid: true,
       isBreakTimeValid: true,
-      //isElapsedMode: true,
-      
-      //taskTimeElapsed: 0,
-      //taskTimeElapsedArray: ['00','00','00'],
-      //taskTimeRemaining: 0,
-      //taskTimeRemainingArray: ['00','00','00'],
-      //isTaskTimeActive: false,
-
-      //totalBreaks: 0,
-
-      //break
-      //isBreakTimeActive: false,
-      //breakTimeElapsed: 0,
-      //breakTimeElapsedArray: ['00','00','00'],
-      //timer
-      //previousTime: 0,
-      //percentElapsed: 0,
-      //percentRemaining: 100,
-      //overallTime: 0,
-      //overallTimeArray: ['00','00','00']
-
-      //isTimerVisible: false,
-      //isStopTaskVisible: false,
-      //isOutroVisible: false,
-      //isFailureVisible: false,
+      startTime: 0
     }
   }
   
@@ -77,38 +57,17 @@ class Task extends Component {
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
   }
-
-  /* handleStartButton = () => {
-    const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
-    const breakTimeElapsedResult = this.handleTimeArray(0);
-
-    if (isTaskTimePlannedValid && isBreakTimePlannedValid) {
-      this.setState({
-        isTimeVisible: false,
-        isTimerVisible: true,
-        isTaskTimeActive: true,
-        previousTime: Date.now(),
-        taskTimeElapsed: 0,
-        breaksTotal: 0,
-        breakTimeElapsed: 0,
-        breakTimeElapsedArray: breakTimeElapsedResult,
-        alertFlag: false
-      });
-    } else {
-      this.setState({ alertFlag: true });
-    }
-  } */
-
+  
   acceptEditChange = () => {
     const {
-      taskTimeArray,
-      breakTimeArray,
+      totalTaskTimeArray,
+      totalBreakTimeArray,
       isTaskNameValid,
       isTaskTimeValid,
       isBreakTimeValid
     } = this.state;
-    const [ taskMinutes, taskSeconds ] = taskTimeArray;
-    const [ breakMinutes, breakSeconds ] = breakTimeArray;
+    const [ taskMinutes, taskSeconds ] = totalTaskTimeArray;
+    const [ breakMinutes, breakSeconds ] = totalBreakTimeArray;
 
     if (isTaskNameValid && isTaskTimeValid && isBreakTimeValid) {
       this.setState({
@@ -131,43 +90,51 @@ class Task extends Component {
     if (type === 'task') {
       if (units === 'minutes') {
         const {
-          taskMinutes, totalTaskTime, taskTimeArray, isTaskTimeValid
+          taskMinutes, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
         } = object;
         this.setState({
-          taskMinutes, totalTaskTime, taskTimeArray, isTaskTimeValid
+          taskMinutes, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
         });
       } else if (units === 'seconds') {
         const {
-          taskSeconds, totalTaskTime, taskTimeArray, isTaskTimeValid
+          taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
         } = object;
         this.setState({
-          taskSeconds, totalTaskTime, taskTimeArray, isTaskTimeValid
+          taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
         });
       }
     } else if (type === 'break') {
       if (units === 'minutes') {
         const {
-          breakMinutes, totalBreakTime, breakTimeArray, isBreakTimeValid
+          breakMinutes, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
         } = object;
         this.setState({
-          breakMinutes, totalBreakTime, breakTimeArray, isBreakTimeValid
+          breakMinutes, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
         });
       } else if (units === 'seconds') {
         const {
-          breakSeconds, totalBreakTime, breakTimeArray, isBreakTimeValid
+          breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
         } = object;
         this.setState({
-          breakSeconds, totalBreakTime, breakTimeArray, isBreakTimeValid
+          breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
         });
       }
     }
     //this.setState({ alertTimeFlag });
   }
 
+  handleStartButton = () => {
+    this.setState({
+      isTimerVisible: true,
+      startTime: Date.now()
+    })
+  }
+
   render() {
 
-    const { id } = this.props;
+    const { id, onTimeArrayChange } = this.props;
     const {
+      isTimerVisible,
       taskName,
       taskMinutes,
       taskSeconds,
@@ -183,22 +150,26 @@ class Task extends Component {
     
     return (
       <section
-        className="Task"
+        className={`Task
+        ${ isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
+        ? "Task--editMode" : ""}`}
       >
         {/* TASK  NAME */}
         <EditableText
           className="taskName"
           output={taskName}
           isValid={isTaskNameValid}
+          isEditMode={isTaskNameEditMode}
           onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
           onTaskNameChange={this.handleTaskNameChange}
-          isEditMode={isTaskNameEditMode}
         />
 
         {/* TOTAL TASK TIME */}
         <EditableTime
+          labelName="Task Time"
           block="totalTime"
           modifier="taskTime"
+          id={id}
           minutes={taskMinutes}
           seconds={taskSeconds}
           isValid={isTaskTimeValid}
@@ -212,8 +183,10 @@ class Task extends Component {
         
         {/* TOTAL BREAK TIME */}
         <EditableTime
+          labelName="Break Time"
           block="totalTime"
           modifier="breakTime"
+          id={id}
           minutes={breakMinutes}
           seconds={breakSeconds}
           isValid={isBreakTimeValid}
@@ -227,6 +200,7 @@ class Task extends Component {
                 
         {/* EDIT BUTTONS */}
         <div className="Task__buttons">
+
           {/* ACCEPT */}
           <button
             className={`button Task__button Task__button--accept
@@ -238,6 +212,7 @@ class Task extends Component {
               <use href={`${icons}#tick`}/>
             </svg>
           </button>
+          
           {/* REMOVE */}
           <button
             className="button Task__button Task__button--remove"
@@ -250,21 +225,31 @@ class Task extends Component {
         </div>
 
         {/* START BUTTON */}
-        <button className="button Task__button Task__button--start">
+        <button
+          className={`button Task__button Task__button--start
+          ${ isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
+          ? "Task__button--disabled" : ""}`}
+          disabled={isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode}
+          onClick={this.handleStartButton}
+        >
           <svg className="Task__svg" viewBox="0 0 512 512">
             <use href={`${icons}#play`} />
           </svg>
         </button>
         
-        {/* TIMER SECTION */}
-        {/* <Timer
-          compClassName={isTimerVisible
-            ? "Timer--visible slideInRight" : "slideOutLeft"}
-          onStateChange={this.handleStateChange}
-          onDisplayModeChange={this.handleDisplayMode}
-          onTimeArrayChange={this.handleTimeArray}
-          state={this.state}
-        /> */}
+        {/* TIMER COMPONENT */}
+        {
+          this.state.isTimerVisible
+          ? <Timer
+              className={isTimerVisible
+                ? "Timer--visible" : ""}
+              onTaskStateChange={this.handleStateChange}
+              state={this.state}
+              onTimeArrayChange={onTimeArrayChange}
+            />
+          : <div></div>
+        }
+
         {/* STOP TASK SECTION */}
         {/* <StopTask
           compClassName={`StopTask ${isStopTaskVisible
@@ -292,3 +277,24 @@ class Task extends Component {
   }
 }
 export default Task;
+
+/* handleStartButton = () => {
+    const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
+    const breakTimeElapsedResult = this.handleTimeArray(0);
+
+    if (isTaskTimePlannedValid && isBreakTimePlannedValid) {
+      this.setState({
+        isTimeVisible: false,
+        isTimerVisible: true,
+        isTaskTimeActive: true,
+        previousTime: Date.now(),
+        taskTimeElapsed: 0,
+        breaksTotal: 0,
+        breakTimeElapsed: 0,
+        breakTimeElapsedArray: breakTimeElapsedResult,
+        alertFlag: false
+      });
+    } else {
+      this.setState({ alertFlag: true });
+    }
+  } */

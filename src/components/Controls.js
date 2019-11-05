@@ -1,69 +1,98 @@
-import React from 'react';
+import React, { Component } from 'react';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Controls.scss';
 
-const Controls = (props) => {
-  const {
-    isTaskTimeActive,
-    isBreakTimeActive,
-    onDisplayModeChange,
-    onStateChange,
-    breaksTotal
-  } = props;
+class Controls extends Component {
 
-  const incBreaksTotal = isTaskTimeActive ? breaksTotal + 1 : breaksTotal;
+  handlePlayPauseButton = () => {
+    //const incBreaksTotal = isTaskTimeActive ? breaksTotal + 1 : breaksTotal;
+    const {
+      isTaskTimeActive,
+      isBreakTimeActive,
+      onTimerStateChange } = this.props;
 
-  return (
-    <div className="Controls">
-      {/* PLAY / PAUSE BUTTON */}
-      <button
-        className="Controls__button Controls__button--playPause"
-        onClick={(isTaskTimeActive || isBreakTimeActive)
-          ? () => onStateChange({
-          isTaskTimeActive: !isTaskTimeActive,
-          isBreakTimeActive: !isBreakTimeActive,
-          breaksTotal: incBreaksTotal,
-          previousTime: Date.now() })
-          : () => false }
-      >
-        <svg
-          className={`Controls__svg ${isTaskTimeActive
-            ? "Controls__svg--hidden" : ""}`}
-          viewBox="0 0 512 512"
+    if (isTaskTimeActive || isBreakTimeActive) {
+      onTimerStateChange(prevState => ({
+        isTaskTimeActive: !prevState.isTaskTimeActive,
+        isBreakTimeActive: !prevState.isBreakTimeActive,
+        previousTime: Date.now()
+      }));
+    }
+    if (isTaskTimeActive) {
+      onTimerStateChange(prevState => ({
+        totalBreaks: prevState.totalBreaks + 1
+      }));
+    }
+  }
+
+  handleStopButton = () => {
+    const {
+      isTaskTimeActive,
+      isBreakTimeActive,
+      onTaskStateChange } = this.props;
+
+    if (isTaskTimeActive || isBreakTimeActive) {
+      onTaskStateChange({ isTimerVisible: false });
+    }
+  }
+
+  handleToggleButton = () => {
+    const { onDisplayModeChange } = this.props;
+    onDisplayModeChange();
+  }
+    
+
+  render() {
+
+    const {
+      isTaskTimeActive
+    } = this.props;
+  
+
+    return (
+      <div className="Controls">
+        {/* PLAY / PAUSE BUTTON */}
+        <button
+          className="Controls__button Controls__button--playPause"
+          onClick={this.handlePlayPauseButton}
         >
-          <use href={`${icons}#play`} />
-        </svg>
-        <svg
-          className={`Controls__svg ${isTaskTimeActive
-            ? "" : "Controls__svg--hidden"}`}
-          viewBox="0 0 512 512"
+          <svg
+            className={`Controls__svg ${isTaskTimeActive
+              ? "Controls__svg--hidden" : ""}`}
+            viewBox="0 0 512 512"
+          >
+            <use href={`${icons}#play`} />
+          </svg>
+          <svg
+            className={`Controls__svg ${isTaskTimeActive
+              ? "" : "Controls__svg--hidden"}`}
+            viewBox="0 0 512 512"
+          >
+            <use href={`${icons}#pause`} />
+          </svg>
+        </button>
+  
+        {/* STOP BUTTON */}
+        <button
+          className="Controls__button Controls__button--stop"
+          onClick={this.handleStopButton}
         >
-          <use href={`${icons}#pause`} />
-        </svg>
-      </button>
-
-      {/* STOP BUTTON */}
-      <button
-        className="Controls__button Controls__button--stop"
-        onClick={(isTaskTimeActive || isBreakTimeActive)
-          ? () => onStateChange({ isStopTaskVisible: true })
-          : () => false }
-      >
-        <svg className="Controls__svg" viewBox="0 0 512 512">
-          <use href={`${icons}#stop`} />
-        </svg>
-      </button>
-
-      {/* TOGGLE BUTTON */}
-      <button
-        className="Controls__button Controls__button--toggle"
-        onClick={() => onDisplayModeChange()}
-      >
-        <svg className="Controls__svg" viewBox="0 0 512 512">
-          <use href={`${icons}#toggle`} />
-        </svg>
-      </button>
-    </div>
-  );
+          <svg className="Controls__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#stop`} />
+          </svg>
+        </button>
+  
+        {/* TOGGLE BUTTON */}
+        <button
+          className="Controls__button Controls__button--toggle"
+          onClick={this.handleToggleButton}
+        >
+          <svg className="Controls__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#toggle`} />
+          </svg>
+        </button>
+      </div>
+    );
+  }
 }
 export default Controls;

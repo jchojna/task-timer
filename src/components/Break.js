@@ -1,23 +1,23 @@
 import React from 'react';
-import Display from './Display';
+import TimeDisplay from './TimeDisplay';
 import '../scss/Break.scss';
 
 const Break = (props) => {
   const {
     compClassName,
-    breaksTotal,
-    breakTimeElapsedArray
+    totalBreaks,
+    elapsedBreakTimeArray
   } = props;
   
   return (
     <div className={compClassName}>
       <h3 className="Break__counter">
-        {`${breaksTotal} ${breaksTotal === 1
+        {`${totalBreaks} ${totalBreaks === 1
         ? "break" : "breaks"}`}
       </h3>
-      <Display
-        compClassName="Break__display"
-        taskTimeArray={breakTimeElapsedArray}
+      <TimeDisplay
+        className="Break__display"
+        timeArray={elapsedBreakTimeArray}
       />
     </div>
   );
