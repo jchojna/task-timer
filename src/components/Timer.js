@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import TimeDisplay from './TimeDisplay.js';
 import Controls from './Controls';
-//import Break from './Break';
+import Break from './Break';
 //import Progress from './Progress';
 import '../scss/Timer.scss';
 
@@ -14,6 +14,7 @@ class Timer extends Component {
       isTaskTimeActive: true,
       isBreakTimeActive: false,
       taskTimeElapsed: 0,
+      breakTimeElapsed: 0,
       taskTimeRemaining: 0,
       //percentElapsed,
       //percentRemaining
@@ -56,7 +57,6 @@ class Timer extends Component {
     if (this.state.isTaskTimeActive) {
       const {
         totalTaskTime,
-        totalBreakTime,
         taskTimeElapsed,
         taskTimeRemaining,
         previousTime
@@ -106,36 +106,37 @@ class Timer extends Component {
   }
 
   handleBreakTimeTick = () => {
-    const {
-      taskTimeElapsed,
-      isBreakTimeActive,
-      breakTimeElapsed,
-      breakTimeTotal,
-      previousTime
-    } = this.props.state;
     
-    if (isBreakTimeActive) {
-      const { onTaskStateChange, onTimeArrayChange } = this.props;
+    if (this.state.isBreakTimeActive) {
+
+      const {
+        totalBreakTime,
+        breakTimeElapsed,
+        previousTime
+      } = this.state;
+
+      const { onTimeArrayChange, onTaskStateChange } = this.props;
+
       const now = Date.now();
-      const breakTimeElapsedResult = onTimeArrayChange(breakTimeElapsed);
-      const breakTimeTotalResult = onTimeArrayChange(breakTimeTotal);
+      const breakTimeElapsedArray = onTimeArrayChange(breakTimeElapsed);
+      //const breakTimeTotalResult = onTimeArrayChange(breakTimeTotal);
 
       // when break time finishes
-      if (breakTimeElapsed >= breakTimeTotal) {
+      if (breakTimeElapsed >= totalBreakTime) {
         onTaskStateChange({
-          isBreakTimeActive: false,
+          /* isBreakTimeActive: false,
           isTimerVisible: false,
           isFailureVisible: true,
           overallTime: taskTimeElapsed + breakTimeElapsed,
           breakTimeElapsed: breakTimeTotal,
-          breakTimeElapsedArray: breakTimeTotalResult
+          breakTimeElapsedArray: breakTimeTotalResult */
         })
       } else {
         // normal break time tick
-        onTaskStateChange({
+        this.setState({
+          previousTime: now,
           breakTimeElapsed: breakTimeElapsed + (now - previousTime),
-          breakTimeElapsedArray: breakTimeElapsedResult,
-          previousTime: now
+          breakTimeElapsedArray
         });
       }
     }
@@ -153,6 +154,7 @@ class Timer extends Component {
       isBreakTimeActive,
       taskTimeElapsedArray,
       taskTimeRemainingArray,
+      breakTimeElapsedArray,
       totalBreaks
     } = this.state;
 
@@ -192,15 +194,13 @@ class Timer extends Component {
             />
           </div>
 
-          {this.state.totalBreaks}
-
           {/* BREAK */}
-          {/* <Break
+          <Break
             compClassName={`Break ${isBreakTimeActive
             ? "Break--active" : ""}`}
-            breaksTotal={breaksTotal}
+            totalBreaks={totalBreaks}
             breakTimeElapsedArray={breakTimeElapsedArray}
-          /> */}
+          />
           {/* PROGRESS */}
           {/* <Progress
             isElapsedMode={isElapsedMode}
