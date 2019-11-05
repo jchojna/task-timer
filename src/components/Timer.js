@@ -66,7 +66,7 @@ class Timer extends Component {
     const { onTimeArrayChange } = this.props;
 
     if (isTaskTimeActive) {
-      const { onTimeArrayChange, onStateChange } = this.props;
+      const { onTimeArrayChange, onTaskStateChange } = this.props;
       const now = Date.now();
 
 
@@ -119,14 +119,14 @@ class Timer extends Component {
     } = this.props.state;
     
     if (isBreakTimeActive) {
-      const { onStateChange, onTimeArrayChange } = this.props;
+      const { onTaskStateChange, onTimeArrayChange } = this.props;
       const now = Date.now();
       const breakTimeElapsedResult = onTimeArrayChange(breakTimeElapsed);
       const breakTimeTotalResult = onTimeArrayChange(breakTimeTotal);
 
       // when break time finishes
       if (breakTimeElapsed >= breakTimeTotal) {
-        onStateChange({
+        onTaskStateChange({
           isBreakTimeActive: false,
           isTimerVisible: false,
           isFailureVisible: true,
@@ -136,7 +136,7 @@ class Timer extends Component {
         })
       } else {
         // normal break time tick
-        onStateChange({
+        onTaskStateChange({
           breakTimeElapsed: breakTimeElapsed + (now - previousTime),
           breakTimeElapsedArray: breakTimeElapsedResult,
           previousTime: now
@@ -162,7 +162,7 @@ class Timer extends Component {
 
     const {
       className,
-      onStateChange
+      onTaskStateChange
     } = this.props;
 
     return (
@@ -176,6 +176,7 @@ class Timer extends Component {
             totalBreaks={totalBreaks}
             onDisplayModeChange={this.handleDisplayMode}
             onTimerStateChange={this.handleStateChange}
+            onTaskStateChange={onTaskStateChange}
           />
 
           {/* TIMER DISPLAY */}

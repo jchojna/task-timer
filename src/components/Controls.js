@@ -25,10 +25,15 @@ class Controls extends Component {
     const {
       isTaskTimeActive,
       isBreakTimeActive,
+      onTaskStateChange,
       onTimerStateChange } = this.props;
 
     if (isTaskTimeActive || isBreakTimeActive) {
-      onTimerStateChange({ isStopTaskVisible: true });
+      onTaskStateChange({ isTimerVisible: false });
+      onTimerStateChange({
+        isTaskTimeActive: false,
+        isBreakTimeActive: false,
+      });
     }
   }
 

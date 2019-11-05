@@ -252,7 +252,7 @@ class Task extends Component {
           ref={this.timerRef}
           className={isTimerVisible
             ? "Timer--visible" : ""}
-          onStateChange={this.handleStateChange}
+          onTaskStateChange={this.handleStateChange}
           state={this.state}
           onTimeArrayChange={onTimeArrayChange}
         />
