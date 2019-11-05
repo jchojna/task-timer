@@ -174,29 +174,20 @@ class Timer extends Component {
           />
 
           {/* TIMER DISPLAY */}
-
-          <div className={`Timer__display`}>
-            <TimeDisplay
-              className={isElapsedMode
-              ? "TimeDisplay TimeDisplay--visible TimeDisplay--showUp"
-              : "TimeDisplay TimeDisplay--hideUp"}
-              timeArray={elapsedTaskTimeArray}
-            />
-            <TimeDisplay
-              className={isElapsedMode
-              ? "TimeDisplay TimeDisplay--hideUp"
-              : "TimeDisplay TimeDisplay--visible TimeDisplay--showUp"}
-              timeArray={remainingTaskTimeArray}
-            />
-          </div>
+          <TimeDisplay
+            isElapsedMode={isElapsedMode}
+            className="Timer__display"
+            elapsedTimeArray={elapsedTaskTimeArray}
+            remainingTimeArray={remainingTaskTimeArray}
+          />
 
           {/* BREAK */}
-          <Break
+          {/* <Break
             compClassName={`Break ${isBreakTimeActive
             ? "Break--active" : ""}`}
             totalBreaks={totalBreaks}
             elapsedBreakTimeArray={elapsedBreakTimeArray}
-          />
+          /> */}
 
           {/* PROGRESS */}
           <Progress
