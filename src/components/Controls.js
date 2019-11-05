@@ -12,12 +12,16 @@ class Controls extends Component {
       onTimerStateChange } = this.props;
 
     if (isTaskTimeActive || isBreakTimeActive) {
-      onTimerStateChange({
-        isTaskTimeActive: !isTaskTimeActive,
-        isBreakTimeActive: !isBreakTimeActive,
-        //breaksTotal: incBreaksTotal,
+      onTimerStateChange(prevState => ({
+        isTaskTimeActive: !prevState.isTaskTimeActive,
+        isBreakTimeActive: !prevState.isBreakTimeActive,
         previousTime: Date.now()
-      });
+      }));
+    }
+    if (isTaskTimeActive) {
+      onTimerStateChange(prevState => ({
+        totalBreaks: prevState.totalBreaks + 1
+      }));
     }
   }
 
@@ -25,15 +29,10 @@ class Controls extends Component {
     const {
       isTaskTimeActive,
       isBreakTimeActive,
-      onTaskStateChange,
-      onTimerStateChange } = this.props;
+      onTaskStateChange } = this.props;
 
     if (isTaskTimeActive || isBreakTimeActive) {
       onTaskStateChange({ isTimerVisible: false });
-      onTimerStateChange({
-        isTaskTimeActive: false,
-        isBreakTimeActive: false,
-      });
     }
   }
 

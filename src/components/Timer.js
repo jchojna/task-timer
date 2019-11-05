@@ -19,16 +19,14 @@ class Timer extends Component {
       //percentRemaining
       totalTaskTime,
       totalBreakTime,
+      totalBreaks: 0,
       
       taskTimeElapsedArray: ['00','00','00'],
       taskTimeRemainingArray: ['00','00','00'],
       breakTimeElapsedArray: ['00','00','00'],
 
-      totalBreaks: 0,
 
-      //break
       //breakTimeElapsed: 0,
-      //timer
       previousTime: startTime,
       //percentElapsed: 0,
       //percentRemaining: 100,
@@ -55,19 +53,16 @@ class Timer extends Component {
 
   handleTaskTimeTick = () => {
 
-    const {
-      totalTaskTime,
-      totalBreakTime,
-      isTaskTimeActive,
-      taskTimeElapsed,
-      taskTimeRemaining,
-      previousTime
-    } = this.state;
-
-    const { onTimeArrayChange } = this.props;
-
-    if (isTaskTimeActive) {
+    if (this.state.isTaskTimeActive) {
+      const {
+        totalTaskTime,
+        totalBreakTime,
+        taskTimeElapsed,
+        taskTimeRemaining,
+        previousTime
+      } = this.state;
       const { onTimeArrayChange, onTaskStateChange } = this.props;
+
       const now = Date.now();
 
 
@@ -196,6 +191,8 @@ class Timer extends Component {
               timeArray={taskTimeRemainingArray}
             />
           </div>
+
+          {this.state.totalBreaks}
 
           {/* BREAK */}
           {/* <Break
