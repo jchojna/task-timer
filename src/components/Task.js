@@ -150,7 +150,6 @@ class Task extends Component {
       taskSeconds,
       breakMinutes,
       breakSeconds,
-      isTaskActive,
       isTaskNameEditMode,
       isTaskTimeEditMode,
       isBreakTimeEditMode,
