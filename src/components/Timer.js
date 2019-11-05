@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import TimeDisplay from './TimeDisplay.js';
 import Controls from './Controls';
 import Break from './Break';
-//import Progress from './Progress';
+import Progress from './Progress';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
@@ -58,18 +58,14 @@ class Timer extends Component {
         remainingTaskTime,
         previousTime
       } = this.state;
-      const { onTimeArrayChange, onTaskStateChange } = this.props;
-
+      const { onTimeArrayChange } = this.props;
       const now = Date.now();
-
-
-
       const elapsedTaskTimeArray = onTimeArrayChange(elapsedTaskTime);
       const totalTaskTimeArray = onTimeArrayChange(totalTaskTime);
       const remainingTaskTimeArray = onTimeArrayChange(remainingTaskTime);
+      const elapsedTaskPercent = elapsedTaskTime / totalTaskTime * 100;
+      const remainingTaskPercent = remainingTaskTime / totalTaskTime * 100;
       //const overallTimeResult = onTimeArrayChange(taskTimeElapsed + breakTimeElapsed);
-      //const percentElapsed = taskTimeElapsed / taskTimeTotal * 100;
-      //const percentRemaining = taskTimeRemaining / taskTimeTotal * 100;
 
       // when task time finishes
       if (elapsedTaskTime >= totalTaskTime) {
@@ -95,8 +91,8 @@ class Timer extends Component {
           elapsedTaskTimeArray,
           remainingTaskTime: totalTaskTime - elapsedTaskTime,
           remainingTaskTimeArray,
-          //percentElapsed: percentElapsed,
-          //percentRemaining: percentRemaining
+          elapsedTaskPercent,
+          remainingTaskPercent
         });
       }
     }
@@ -150,8 +146,10 @@ class Timer extends Component {
       isTaskTimeActive,
       isBreakTimeActive,
       elapsedTaskTimeArray,
-      remainingTaskTimeArray,
+      elapsedTaskPercent,
       elapsedBreakTimeArray,
+      remainingTaskPercent,
+      remainingTaskTimeArray,
       totalBreaks
     } = this.state;
 
@@ -198,12 +196,13 @@ class Timer extends Component {
             totalBreaks={totalBreaks}
             elapsedBreakTimeArray={elapsedBreakTimeArray}
           />
+
           {/* PROGRESS */}
-          {/* <Progress
+          <Progress
             isElapsedMode={isElapsedMode}
-            percentElapsed={percentElapsed}
-            percentRemaining={percentRemaining}
-          /> */}
+            elapsedTaskPercent={elapsedTaskPercent}
+            remainingTaskPercent={remainingTaskPercent}
+          />
         </div>
       </section>
     );

@@ -4,7 +4,7 @@ import ProgressBar from './ProgressBar';
 import '../scss/Progress.scss';
 
 const Progress = (props) => {
-  const { isElapsedMode, percentElapsed, percentRemaining } = props;
+  const { isElapsedMode, elapsedTaskPercent, remainingTaskPercent } = props;
   
   return (
     <section className="Progress">
@@ -12,17 +12,17 @@ const Progress = (props) => {
         <Percentage
           compClassName={`Percentage ${isElapsedMode
           ? "Percentage--visible" : ""}`}
-          percent={percentElapsed}
+          percent={elapsedTaskPercent}
         />
         <Percentage
           compClassName={`Percentage ${isElapsedMode
           ? "" : "Percentage--visible"}`}
-          percent={percentRemaining}
+          percent={remainingTaskPercent}
         />
       </header>
       <ProgressBar
-        percentElapsed={percentElapsed}
-        percentRemaining={percentRemaining}
+        percentElapsed={elapsedTaskPercent}
+        percentRemaining={remainingTaskPercent}
         isElapsedMode={isElapsedMode}
       />
     </section>
