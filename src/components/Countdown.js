@@ -20,7 +20,6 @@ const Countdown = (props) => {
       {/* TIMER DISPLAY */}
       <TimeDisplay
         isElapsedMode={isElapsedMode}
-        className="Timer__display"
         elapsedTimeArray={elapsedTimeArray}
         remainingTimeArray={remainingTimeArray}
       />

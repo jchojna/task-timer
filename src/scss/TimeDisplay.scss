@@ -2,7 +2,7 @@
 @import "_mixins.scss";
 @import "_animations.scss";
 
-.TimeDisplay {
+.TimeDisplay__type {
   @include flex-center;
   position: absolute;
   top: 0;

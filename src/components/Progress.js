@@ -21,11 +21,12 @@ const Progress = (props) => {
   
   return (
     <section className="Progress">
+      {/* PROGRESS HEADER */}
       <header className="Progress__header">
         <p className={elapsedPercentClass}>{roundedElapsedPercent}</p>
         <p className={remainingPercentClass}>{roundedRemainingPercent}</p>
       </header>
-
+      {/* PROGRESS BAR */}
       <div className="Progress__bar">
         <div
           className="Progress__part Progress__part--loading"
