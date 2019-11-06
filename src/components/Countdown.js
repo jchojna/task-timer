@@ -28,8 +28,8 @@ const Countdown = (props) => {
       {/* PROGRESS */}
       <Progress
         isElapsedMode={isElapsedMode}
-        elapsedTaskPercent={elapsedTaskPercent}
-        remainingTaskPercent={remainingTaskPercent}
+        elapsedPercent={elapsedTaskPercent}
+        remainingPercent={remainingTaskPercent}
       />
     </div>
   );
