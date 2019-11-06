@@ -12,6 +12,10 @@
   visibility: hidden;
   transition: visibility 0s $time-display;
 
+
+
+  pointer-events: none;
+
   &--visible {
     transition: visibility 0s;
     visibility: inherit;

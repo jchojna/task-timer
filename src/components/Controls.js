@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Controls.scss';
 
 class Controls extends Component {
 
   handlePlayPauseButton = () => {
-    //const incBreaksTotal = isTaskTimeActive ? breaksTotal + 1 : breaksTotal;
     const {
       isTaskTimeActive,
       isBreakTimeActive,
@@ -36,18 +36,17 @@ class Controls extends Component {
     }
   }
 
-  handleToggleButton = () => {
-    const { onDisplayModeChange } = this.props;
-    onDisplayModeChange();
-  }
-    
+  handleToggleButton = () => this.props.onDisplayModeChange();
 
   render() {
 
-    const {
-      isTaskTimeActive
-    } = this.props;
-  
+    const { isTaskTimeActive } = this.props;
+    const svgPlayClass = classNames("Controls__svg", {
+      "Controls__svg--hidden": isTaskTimeActive
+    });
+    const svgPauseClass = classNames("Controls__svg", {
+      "Controls__svg--hidden": !isTaskTimeActive
+    });
 
     return (
       <div className="Controls">
@@ -56,18 +55,10 @@ class Controls extends Component {
           className="Controls__button Controls__button--playPause"
           onClick={this.handlePlayPauseButton}
         >
-          <svg
-            className={`Controls__svg ${isTaskTimeActive
-              ? "Controls__svg--hidden" : ""}`}
-            viewBox="0 0 512 512"
-          >
+          <svg className={svgPlayClass} viewBox="0 0 512 512">
             <use href={`${icons}#play`} />
           </svg>
-          <svg
-            className={`Controls__svg ${isTaskTimeActive
-              ? "" : "Controls__svg--hidden"}`}
-            viewBox="0 0 512 512"
-          >
+          <svg className={svgPauseClass} viewBox="0 0 512 512">
             <use href={`${icons}#pause`} />
           </svg>
         </button>

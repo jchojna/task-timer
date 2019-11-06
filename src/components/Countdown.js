@@ -1,6 +1,7 @@
 import React from 'react';
 import TimeDisplay from './TimeDisplay';
 import Progress from './Progress';
+import Controls from './Controls';
 import '../scss/Countdown.scss';
 
 const Countdown = (props) => {
@@ -11,7 +12,13 @@ const Countdown = (props) => {
     elapsedTimeArray,
     remainingTimeArray,
     elapsedTaskPercent,
-    remainingTaskPercent
+    remainingTaskPercent,
+    isTaskTimeActive,
+    isBreakTimeActive,
+    totalBreaks,
+    onDisplayModeChange,
+    onTimerStateChange,
+    onTaskStateChange
   } = props;
 
   return (
@@ -29,6 +36,16 @@ const Countdown = (props) => {
         isElapsedMode={isElapsedMode}
         elapsedPercent={elapsedTaskPercent}
         remainingPercent={remainingTaskPercent}
+      />
+      
+      {/* CONTROL BUTTONS */}
+      <Controls
+        isTaskTimeActive={isTaskTimeActive}
+        isBreakTimeActive={isBreakTimeActive}
+        totalBreaks={totalBreaks}
+        onDisplayModeChange={onDisplayModeChange}
+        onTimerStateChange={onTimerStateChange}
+        onTaskStateChange={onTaskStateChange}
       />
     </div>
   );
