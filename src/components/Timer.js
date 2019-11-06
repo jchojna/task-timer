@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import TimeDisplay from './TimeDisplay.js';
+import TimeDisplay from './TimeDisplay';
 import Controls from './Controls';
+import Countdown from './Countdown';
 import Break from './Break';
 import Progress from './Progress';
 import '../scss/Timer.scss';
@@ -172,6 +173,8 @@ class Timer extends Component {
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
           />
+
+          <Countdown />
 
           {/* TIMER DISPLAY */}
           <TimeDisplay
