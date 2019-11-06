@@ -1,17 +1,22 @@
 import React, {Component} from 'react';
-import TimeDisplay from './TimeDisplay';
 import Controls from './Controls';
 import Countdown from './Countdown';
 import Break from './Break';
-import Progress from './Progress';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
   constructor(props) {
     super(props);
-    const { startTime, totalTaskTime, totalBreakTime } = this.props.state;
+    const {
+      startTime,
+      totalTaskTime,
+      totalBreakTime,
+      totalTaskTimeArray,
+      totalBreakTimeArray } = this.props.state;
+
     this.state = {
-      isElapsedMode: true,
+      isTaskTimeElapsedMode: true,
+      isBreakTimeElapsedMode: true,
       isTaskTimeActive: true,
       isBreakTimeActive: false,
       // total
@@ -20,14 +25,18 @@ class Timer extends Component {
       totalBreaks: 0,
       // elapsed
       elapsedTaskTime: 0,
-      elapsedTaskTimeArray: ['00','00','00'],
       elapsedTaskPercent: 0,
+      elapsedTaskTimeArray: ['00','00','00'],
       elapsedBreakTime: 0,
+      elapsedBreakPercent: 0,
       elapsedBreakTimeArray: ['00','00','00'],
       //remaining
       remainingTaskTime: 0,
       remainingTaskPercent: 100,
-      remainingTaskTimeArray: ['00','00','00'],
+      remainingTaskTimeArray: totalTaskTimeArray,
+      remainingBreakTime: 0,
+      remainingBreakPercent: 100,
+      remainingBreakTimeArray: totalBreakTimeArray,
       // overall
       previousTime: startTime,
       //overallTime: 0,
@@ -47,8 +56,8 @@ class Timer extends Component {
 
   handleStateChange = (object) => this.setState(object);
   
-  handleDisplayMode = () => this.setState(prevState => ({
-    isElapsedMode: !prevState.isElapsedMode
+  handleTaskTimeDisplayMode = () => this.setState(prevState => ({
+    isTaskTimeElapsedMode: !prevState.isTaskTimeElapsedMode
   }));
 
   handleTaskTimeTick = () => {
@@ -60,6 +69,7 @@ class Timer extends Component {
         remainingTaskTime,
         previousTime
       } = this.state;
+
       const { onTimeArrayChange } = this.props;
       const now = Date.now();
       const elapsedTaskTimeArray = onTimeArrayChange(elapsedTaskTime);
@@ -107,14 +117,17 @@ class Timer extends Component {
       const {
         totalBreakTime,
         elapsedBreakTime,
+        remainingBreakTime,
         previousTime
       } = this.state;
 
       const { onTimeArrayChange } = this.props;
-
       const now = Date.now();
       const elapsedBreakTimeArray = onTimeArrayChange(elapsedBreakTime);
       const totalBreakTimeArray = onTimeArrayChange(totalBreakTime);
+      const remainingBreakTimeArray = onTimeArrayChange(remainingBreakTime);
+      const elapsedBreakPercent = elapsedBreakTime / totalBreakTime * 100;
+      const remainingBreakPercent = remainingBreakTime / totalBreakTime * 100;
 
       // when break time finishes
       if (elapsedBreakTime >= totalBreakTime) {
@@ -123,7 +136,11 @@ class Timer extends Component {
           //isFailureVisible: true,
           isBreakTimeActive: false,
           elapsedBreakTime: totalBreakTime,
-          elapsedBreakTimeArray: totalBreakTimeArray
+          elapsedBreakTimeArray: totalBreakTimeArray,
+          remainingBreakTimeArray: ['00','00','00'],
+          elapsedBreakPercent: 100,
+          remainingBreakTime: 0,
+          remainingBreakPercent: 0,
           //overallTime: taskTimeElapsed + breakTimeElapsed
         })
       } else {
@@ -131,7 +148,11 @@ class Timer extends Component {
         this.setState({
           previousTime: now,
           elapsedBreakTime: elapsedBreakTime + (now - previousTime),
-          elapsedBreakTimeArray
+          elapsedBreakTimeArray,
+          remainingBreakTime: totalBreakTime - elapsedBreakTime,
+          remainingBreakTimeArray,
+          elapsedBreakPercent,
+          remainingBreakPercent
         });
       }
     }
@@ -144,14 +165,18 @@ class Timer extends Component {
     } = this.props.state;
 
     const {
-      isElapsedMode,
+      isTaskTimeElapsedMode,
+      isBreakTimeElapsedMode,
       isTaskTimeActive,
       isBreakTimeActive,
-      elapsedTaskTimeArray,
       elapsedTaskPercent,
+      elapsedTaskTimeArray,
+      elapsedBreakPercent,
       elapsedBreakTimeArray,
       remainingTaskPercent,
       remainingTaskTimeArray,
+      remainingBreakPercent,
+      remainingBreakTimeArray,
       totalBreaks
     } = this.state;
 
@@ -169,19 +194,29 @@ class Timer extends Component {
             isTaskTimeActive={isTaskTimeActive}
             isBreakTimeActive={isBreakTimeActive}
             totalBreaks={totalBreaks}
-            onDisplayModeChange={this.handleDisplayMode}
+            onDisplayModeChange={this.handleTaskTimeDisplayMode}
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
           />
 
-          <Countdown />
-
-          {/* TIMER DISPLAY */}
-          <TimeDisplay
-            isElapsedMode={isElapsedMode}
-            className="Timer__display"
+          {/* TASK TIME COUNTDOWN */}
+          <Countdown
+            modifier="taskTime"
+            isElapsedMode={isTaskTimeElapsedMode}
             elapsedTimeArray={elapsedTaskTimeArray}
             remainingTimeArray={remainingTaskTimeArray}
+            elapsedTaskPercent={elapsedTaskPercent}
+            remainingTaskPercent={remainingTaskPercent}
+          />
+          
+          {/* BREAK TIME COUNTDOWN */}
+          <Countdown
+            modifier="breakTime"
+            isElapsedMode={isBreakTimeElapsedMode}
+            elapsedTimeArray={elapsedBreakTimeArray}
+            remainingTimeArray={remainingBreakTimeArray}
+            elapsedTaskPercent={elapsedBreakPercent}
+            remainingTaskPercent={remainingBreakPercent}
           />
 
           {/* BREAK */}
@@ -191,13 +226,6 @@ class Timer extends Component {
             totalBreaks={totalBreaks}
             elapsedBreakTimeArray={elapsedBreakTimeArray}
           /> */}
-
-          {/* PROGRESS */}
-          <Progress
-            isElapsedMode={isElapsedMode}
-            elapsedTaskPercent={elapsedTaskPercent}
-            remainingTaskPercent={remainingTaskPercent}
-          />
         </div>
       </section>
     );

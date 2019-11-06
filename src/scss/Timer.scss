@@ -25,13 +25,13 @@
     display: grid;
     font-weight: 600;
     grid-template-areas:
-      "heading"
-      "display"
-      "breaks "
-      "loading"
-      "control";
+      "heading  "
+      "taskTime "
+      "breakTime"
+      "loading  "
+      "control  ";
     grid-template-columns: 1fr;
-    grid-template-rows: 2fr 50px 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr 1fr 1fr 1fr;
     height: 100%;
     justify-items: center;
     row-gap: 1em;
@@ -44,20 +44,5 @@
     font-weight: 600;
     grid-area: heading;
     text-align: center;
-  }
-
-  &__display {
-    color: $color-tomato;
-    font-family: 'Inconsolata';
-    font-size: 3em;
-    font-weight: 700;
-    grid-area: display;
-    height: 100%;
-    position: relative;
-    width: 100%;
-
-    &--inactive {
-      color: #fff;
-    }
   }
 }
