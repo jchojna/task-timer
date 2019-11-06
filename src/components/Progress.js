@@ -4,7 +4,6 @@ import '../scss/Progress.scss';
 
 const Progress = (props) => {
   const { isElapsedMode, elapsedPercent, remainingPercent } = props;
-
   const elapsedPercentClass = classNames("Progress__percent", {
     "Progress__percent--visible": isElapsedMode
   });
@@ -13,6 +12,12 @@ const Progress = (props) => {
   });
   const roundedElapsedPercent = `${Math.round(elapsedPercent)}%`;
   const roundedRemainingPercent = `${Math.round(remainingPercent)}%`;
+  const loadingWidth = {
+    width: `${isElapsedMode ? elapsedPercent : remainingPercent}%`
+  };
+  const unloadingWidth = {
+    width: `${isElapsedMode ? remainingPercent : elapsedPercent}%`
+  };
   
   return (
     <section className="Progress">
@@ -24,15 +29,11 @@ const Progress = (props) => {
       <div className="Progress__bar">
         <div
           className="Progress__part Progress__part--loading"
-          style={{width: `${isElapsedMode
-            ? elapsedPercent
-            : remainingPercent}%`}}
+          style={loadingWidth}
         ></div>
         <div
           className="Progress__part Progress__part--unloading"
-          style={{width: `${isElapsedMode
-            ? remainingPercent
-            : elapsedPercent}%`}}
+          style={unloadingWidth}
         ></div>
       </div>
     </section>
