@@ -21,28 +21,32 @@ const Countdown = (props) => {
     onTaskStateChange
   } = props;
 
+  const breaksAmount = `${totalBreaks}
+    ${totalBreaks === 1 ? "break" : "breaks"}`;
+
   return (
     <div className={`Countdown Countdown--${modifier}`}>
-      
+
+      {/* BREAKS COUNTER */}
+      { modifier === 'taskTime'
+        ? <h3 className="Countdown__breaks">{breaksAmount}</h3>
+        : <div></div> }
       {/* TIMER DISPLAY */}
       <TimeDisplay
         isElapsedMode={isElapsedMode}
         elapsedTimeArray={elapsedTimeArray}
         remainingTimeArray={remainingTimeArray}
       />
-
       {/* PROGRESS */}
       <Progress
         isElapsedMode={isElapsedMode}
         elapsedPercent={elapsedTaskPercent}
         remainingPercent={remainingTaskPercent}
       />
-      
       {/* CONTROL BUTTONS */}
       <Controls
         isTaskTimeActive={isTaskTimeActive}
         isBreakTimeActive={isBreakTimeActive}
-        totalBreaks={totalBreaks}
         onDisplayModeChange={onDisplayModeChange}
         onTimerStateChange={onTimerStateChange}
         onTaskStateChange={onTaskStateChange}

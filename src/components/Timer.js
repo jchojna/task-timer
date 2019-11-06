@@ -174,14 +174,6 @@ class Timer extends Component {
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
           />
-
-          {/* BREAK */}
-          {/* <Break
-            compClassName={`Break ${isBreakTimeActive
-            ? "Break--active" : ""}`}
-            totalBreaks={totalBreaks}
-            elapsedBreakTimeArray={elapsedBreakTimeArray}
-          /> */}
         </div>
       </section>
     );
