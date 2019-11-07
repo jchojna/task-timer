@@ -41,7 +41,7 @@
     font-weight: 800;
   }
   
-  &__retry {
+  &__reset {
     @include button;
     fill: #fff;
     transition: $hover-icon;

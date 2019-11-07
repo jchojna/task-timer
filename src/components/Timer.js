@@ -196,6 +196,7 @@ class Timer extends Component {
           taskName={taskName}
           state={this.state}
           onTimerStateChange={this.handleStateChange}
+          onTaskStateChange={onTaskStateChange}
         />
         {/* BREAK TIME EXCEEDED */}
         {/* <Failure
