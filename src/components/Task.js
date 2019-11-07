@@ -238,6 +238,8 @@ class Task extends Component {
               isTimerVisible={isTimerVisible}
               onTaskStateChange={this.handleStateChange}
               state={this.state}
+              id={id}
+              onTaskRemove={this.handleTaskRemove}
               onTimeArrayChange={onTimeArrayChange}
             />
           : <div></div>

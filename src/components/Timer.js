@@ -143,7 +143,11 @@ class Timer extends Component {
       totalBreaks
     } = this.state;
 
-    const { isTimerVisible, onTaskStateChange } = this.props;
+    const {
+      id,
+      isTimerVisible,
+      onTaskStateChange,
+      onTaskRemove } = this.props;
 
     const timerClass = classNames("Timer", {
       "Timer--visible": isTimerVisible,
@@ -195,7 +199,7 @@ class Timer extends Component {
           onTaskStateChange={onTaskStateChange}
         />
         {/* TASK TIME EXCEEDED */}
-        { 
+        {
           isTaskFinished
           ? <Finish
             isTaskFinished={isTaskFinished}
@@ -203,11 +207,13 @@ class Timer extends Component {
             state={this.state}
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
+            onTaskRemove={onTaskRemove}
+            id={id}
           />
           : <div></div>
         }
         {/* BREAK TIME EXCEEDED */}
-        { 
+        {
           isBreakFinished
           ? <Finish
             isTaskFinished={isTaskFinished}
@@ -215,6 +221,8 @@ class Timer extends Component {
             state={this.state}
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
+            onTaskRemove={onTaskRemove}
+            id={id}
           />
           : <div></div>
         }

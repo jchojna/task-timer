@@ -35,7 +35,7 @@
   &__button {
     @include button;
     fill: #fff;
-    max-width: 40px;
+    max-width: $close-button;
     
     &:hover {
       border-color: $color-tomato;

@@ -30,7 +30,7 @@ class Finish extends Component {
 
   render() {
 
-    const { taskName, isTaskFinished } = this.props;
+    const { taskName, isTaskFinished, onTaskRemove, id } = this.props;
     const {
       isFinishVisible,
       totalBreaks,
@@ -103,11 +103,21 @@ class Finish extends Component {
         }
         {/* RESTART BUTTON */}
         <button
-          className="Finish__reset"
+          className="Finish__button Finish__button--restart"
           onClick={this.handleRestartTask}
         >
           <svg className="Finish__svg" viewBox="0 0 512 512">
             <use href={`${icons}#retry`}/>
+          </svg>
+        </button>
+
+        {/* REMOVE BUTTON */}
+        <button
+          className="Finish__button Finish__button--remove"
+          onClick={() => onTaskRemove(id)}
+        >
+          <svg className="Task__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#remove`}/>
           </svg>
         </button>
       </section>
