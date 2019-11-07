@@ -19,8 +19,7 @@ const Countdown = (props) => {
     isBreakTimeActive,
     totalBreaks,
     onDisplayModeChange,
-    onTimerStateChange,
-    onTaskStateChange
+    onTimerStateChange
   } = props;
 
   const breaksAmount = `${totalBreaks}
@@ -51,6 +50,7 @@ const Countdown = (props) => {
       <p className="Countdown__breaks">{breaksAmount}</p>
       {/* TIMER DISPLAY */}
       <TimeDisplay
+        type={modifier}
         isElapsedMode={isElapsedMode}
         elapsedTimeArray={elapsedTimeArray}
         remainingTimeArray={remainingTimeArray}

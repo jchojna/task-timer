@@ -126,7 +126,6 @@ class Timer extends Component {
 
     const {
       isStopTimerVisible,
-      isFinishVisible,
       isTaskTimeElapsedMode,
       isBreakTimeElapsedMode,
       isTaskFinished,
@@ -200,7 +199,6 @@ class Timer extends Component {
           isTaskFinished
           ? <Finish
             isTaskFinished={isTaskFinished}
-            isFinishVisible={isTaskFinished}
             taskName={taskName}
             state={this.state}
             onTimerStateChange={this.handleStateChange}
@@ -213,7 +211,6 @@ class Timer extends Component {
           isBreakFinished
           ? <Finish
             isTaskFinished={isTaskFinished}
-            isFinishVisible={isBreakFinished}
             taskName={taskName}
             state={this.state}
             onTimerStateChange={this.handleStateChange}

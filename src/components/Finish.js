@@ -21,31 +21,18 @@ class Finish extends Component {
     `
   }
 
-  handleResetTask = () => {
+  handleRestartTask = () => {
     const { onTaskStateChange } = this.props;
     onTaskStateChange({
       isTimerVisible: false
     });
   }
 
-  handleRestartTask = () => {
-    const { onTimerStateChange } = this.props;
-    onTimerStateChange({
-      isFinishVisible: false,
-      isTaskTimeActive: true,
-      //taskName: "",
-      //isTaskNameValid: false,
-      //taskTimePlanned: "",
-      //isTaskTimePlannedValid: false,
-      //breakTimePlanned: "",
-      //isBreakTimePlannedValid: false
-    });
-  }
-
   render() {
 
-    const { taskName, isTaskFinished, isFinishVisible } = this.props;
+    const { taskName, isTaskFinished } = this.props;
     const {
+      isFinishVisible,
       totalBreaks,
       elapsedBreakTime,
       elapsedBreakTimeArray,
@@ -114,25 +101,15 @@ class Finish extends Component {
             {totalBreaks ? " of all time." : "."}
           </p>
         }
-        {/* RESET BUTTON */}
+        {/* RESTART BUTTON */}
         <button
           className="Finish__reset"
-          onClick={this.handleResetTask}
+          onClick={this.handleRestartTask}
         >
           <svg className="Finish__svg" viewBox="0 0 512 512">
             <use href={`${icons}#retry`}/>
           </svg>
         </button>
-
-        {/* RESTART BUTTON */}
-        {/* <button
-          className="Finish__reset"
-          onClick={this.handleResetTask}
-        >
-          <svg className="Finish__svg" viewBox="0 0 512 512">
-            <use href={`${icons}#retry`}/>
-          </svg>
-        </button> */}
       </section>
     );
   }
