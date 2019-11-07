@@ -10,6 +10,7 @@
 
   &__header {
     position: relative;
+    height: 30px;
     width: 100%;
   }
 
@@ -21,7 +22,7 @@
     left: 50%;
     margin: 0;
     position: absolute;
-    top: -1.2em;
+    top: 0;
     transform: translateX(-50%);
     transition: visibility 0s;
     visibility: hidden;
@@ -32,7 +33,8 @@
   }
   
   &__bar {
-    height: 6px;
+    //margin-top: 1.2em;
+    height: 5px;
     position: relative;
     width: 100%;
   }
