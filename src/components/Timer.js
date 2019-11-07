@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Countdown from './Countdown';
 import StopTimer from './StopTimer.js';
+import Controls from './Controls';
 import Finish from './Finish.js';
 import '../scss/Timer.scss';
 
@@ -63,13 +64,21 @@ class Timer extends Component {
 
   handleStateChange = (object) => this.setState(object);
   
-  handleTaskTimeDisplayMode = () => this.setState(prevState => ({
+  handleTimeDisplayMode = () => {
+    const { isTaskTimeActive } = this.state;
+    const type = isTaskTimeActive ? "Task" : "Break";
+    this.setState(prevState => ({
+      [`is${type}TimeElapsedMode`]: !prevState[`is${type}TimeElapsedMode`]
+    }));
+  }
+  
+  /* handleTaskTimeDisplayMode = () => this.setState(prevState => ({
     isTaskTimeElapsedMode: !prevState.isTaskTimeElapsedMode
   }));
   
   handleBreakTimeDisplayMode = () => this.setState(prevState => ({
     isBreakTimeElapsedMode: !prevState.isBreakTimeElapsedMode
-  }));
+  })); */
 
   handleTimeTick = (type) => {
     if (this.state[`is${type}TimeActive`]) {
@@ -168,11 +177,7 @@ class Timer extends Component {
             elapsedTaskPercent={elapsedTaskPercent}
             remainingTaskPercent={remainingTaskPercent}
             isCountdownVisible={isTaskTimeActive}
-            isTaskTimeActive={isTaskTimeActive}
-            isBreakTimeActive={isBreakTimeActive}
             totalBreaks={totalBreaks}
-            onDisplayModeChange={this.handleTaskTimeDisplayMode}
-            onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
           />
           {/* BREAK TIME COUNTDOWN */}
@@ -184,14 +189,27 @@ class Timer extends Component {
             elapsedTaskPercent={elapsedBreakPercent}
             remainingTaskPercent={remainingBreakPercent}
             isCountdownVisible={isBreakTimeActive}
-            isTaskTimeActive={isTaskTimeActive}
-            isBreakTimeActive={isBreakTimeActive}
             totalBreaks={totalBreaks}
-            onDisplayModeChange={this.handleBreakTimeDisplayMode}
-            onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
           />
         </div>
+        {/* CONTROL BUTTONS */}
+        <Controls
+          isTaskTimeActive={isTaskTimeActive}
+          isBreakTimeActive={isBreakTimeActive}
+          onDisplayModeChange={this.handleTimeDisplayMode}
+          onTimerStateChange={this.handleStateChange}
+        />
+
+
+
+
+
+
+
+
+
+
         {/* STOP TASK SECTION */}
         <StopTimer
           isStopTimerVisible={isStopTimerVisible}

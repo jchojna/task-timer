@@ -19,8 +19,8 @@ class App extends Component {
           breakSeconds: 0,
           totalTaskTime: 30000,
           totalBreakTime: 10000,
-          totalTaskTimeArray: ["30","00","00"],
-          totalBreakTimeArray: ["10","00","00"],
+          totalTaskTimeArray: ["00","30","00"],
+          totalBreakTimeArray: ["00","10","00"],
           id: 6453654365346,
           dateCreated: 6453654365346
         },
