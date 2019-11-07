@@ -44,53 +44,76 @@ class Finish extends Component {
 
   render() {
 
+    const { taskName, isTaskFinished, isFinishVisible } = this.props;
     const {
-      isFinishVisible,
       totalBreaks,
       elapsedBreakTime,
       elapsedBreakTimeArray,
       overallTime,
       overallTimeArray
     } = this.props.state;
-    const { taskName } = this.props;
   
     const breaksAmount = totalBreaks > 1
       ? ` ${totalBreaks} breaks `
       : totalBreaks === 1 ? ` ${totalBreaks} break ` : " no brakes ";
+
     const breakPercent = totalBreaks
       ? ` ${Math.round(elapsedBreakTime / overallTime * 100)}%`
       : "";
+
     const overallTimeResult = this.handleTimeResult(overallTimeArray);
     const breakTimeResult = this.handleTimeResult(elapsedBreakTimeArray, elapsedBreakTime);
     const finishClass = classNames("Finish", {
-      "Finish--visible": isFinishVisible
+      "Finish--visible": isFinishVisible,
+      [`Finish--task`]: isTaskFinished,
+      [`Finish--break`]: !isTaskFinished
     });
 
     return (
       <section className={finishClass}>
   
         {/* FINISH HEADING */}
-        <h2 className="Finish__heading">
-          Congratulations!
-          <span className="Finish__emoji" role="img" aria-label="party"> 🎉</span>
-        </h2>
-        
-        {/* FINISH MESSAGE */}
-        <p className="Finish__message">
-          You have finished your task: <br />
-          <span className="Finish__accent">{`"${taskName}"`}</span><br />
-          in
-          <span className="Finish__accent">{overallTimeResult}</span>
-          {`${elapsedBreakTime > 0 ? " including break time." : "."}`} <br />
-          You had
-          <span className="Finish__accent">{breaksAmount}</span>
-          during this task
-          <span className="Finish__accent">{breakTimeResult}</span>
-          {totalBreaks ? " long, what makes it around" : ""}
-          <span className="Finish__accent">{breakPercent}</span>
-          {totalBreaks ? " of all time." : "."}
-        </p>
-  
+        { isTaskFinished
+          ?
+          <h2 className="Finish__heading">
+            Time is up!
+            <span className="Finish__emoji" role="img" aria-label="party"> 🎉</span>
+          </h2>
+          :
+          <h2 className="Finish__heading">
+            Too long break!
+            <span className="Finish__emoji" role="img" aria-label="party"> 🙁</span>
+          </h2>
+        }
+        {/* TASK FINISHED MESSAGE */}
+        { isTaskFinished
+          ?
+          <p className="Finish__message">
+            You have finished your task: <br />
+            <span className="Finish__accent">{`"${taskName}"`}</span><br />
+            in
+            <span className="Finish__accent">{overallTimeResult}</span>
+            {`${elapsedBreakTime > 0 ? " including break time." : "."}`} <br />
+            You had
+            <span className="Finish__accent">{breaksAmount}</span>
+            during this task
+            <span className="Finish__accent">{breakTimeResult}</span>
+            {totalBreaks ? " long, what makes it around" : ""}
+            <span className="Finish__accent">{breakPercent}</span>
+            {totalBreaks ? " of all time." : "."}
+          </p>
+          :
+          <p className="Finish__message">
+            You spent too much time on breaks! <br />
+            You had
+            <span className="Finish__accent">{breaksAmount}</span>
+            during this task
+            <span className="Finish__accent">{breakTimeResult}</span>
+            {totalBreaks ? " long, what makes it around" : ""}
+            <span className="Finish__accent">{breakPercent}</span>
+            {totalBreaks ? " of all time." : "."}
+          </p>
+        }
         {/* RESET BUTTON */}
         <button
           className="Finish__reset"

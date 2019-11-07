@@ -24,6 +24,8 @@ class Timer extends Component {
       isBreakTimeElapsedMode: true,
       isTaskTimeActive: true,
       isBreakTimeActive: false,
+      isTaskFinished: false,
+      isBreakFinished: false,
       // total
       totalTaskTime,
       totalBreakTime,
@@ -97,6 +99,7 @@ class Timer extends Component {
           [`elapsed${type}Percent`]: 100,
           [`remaining${type}Time`]: 0,
           [`remaining${type}Percent`]: 0,
+          [`is${type}Finished`]: true,
           isStopTimerVisible: false,
           isFinishVisible: true,
           overallTime,
@@ -126,6 +129,8 @@ class Timer extends Component {
       isFinishVisible,
       isTaskTimeElapsedMode,
       isBreakTimeElapsedMode,
+      isTaskFinished,
+      isBreakFinished,
       isTaskTimeActive,
       isBreakTimeActive,
       elapsedTaskPercent,
@@ -190,22 +195,32 @@ class Timer extends Component {
           onTimerStateChange={this.handleStateChange}
           onTaskStateChange={onTaskStateChange}
         />
-        {/* TASK FINISH */}
-        <Finish
-          isFinishVisible={isFinishVisible}
-          taskName={taskName}
-          state={this.state}
-          onTimerStateChange={this.handleStateChange}
-          onTaskStateChange={onTaskStateChange}
-        />
+        {/* TASK TIME EXCEEDED */}
+        { 
+          isTaskFinished
+          ? <Finish
+            isTaskFinished={isTaskFinished}
+            isFinishVisible={isTaskFinished}
+            taskName={taskName}
+            state={this.state}
+            onTimerStateChange={this.handleStateChange}
+            onTaskStateChange={onTaskStateChange}
+          />
+          : <div></div>
+        }
         {/* BREAK TIME EXCEEDED */}
-        {/* <Failure
-          compClassName={`Failure ${isFailureVisible
-          ? "Failure--visible slideInRight"
-          : "slideOutLeft"}`}
-          state={this.state}
-          onStateChange={this.handleStateChange}
-        /> */}
+        { 
+          isBreakFinished
+          ? <Finish
+            isTaskFinished={isTaskFinished}
+            isFinishVisible={isBreakFinished}
+            taskName={taskName}
+            state={this.state}
+            onTimerStateChange={this.handleStateChange}
+            onTaskStateChange={onTaskStateChange}
+          />
+          : <div></div>
+        }
       </section>
     );
   }

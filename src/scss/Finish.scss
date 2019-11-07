@@ -20,6 +20,14 @@
     visibility: visible;
   }
 
+  &--task {
+
+  }
+
+  &--break {
+    background-color: rgb(207, 182, 127);
+  }
+
   &__heading {
     font-size: 1.5em;
     font-weight: 600;
