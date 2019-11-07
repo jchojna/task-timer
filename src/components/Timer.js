@@ -16,11 +16,14 @@ class Timer extends Component {
       totalBreakTimeArray } = this.props.state;
 
     this.state = {
+      // visibility
+      isStopTimerVisible: false,
+      isFinishVisible: false,
+      // modes
       isTaskTimeElapsedMode: true,
       isBreakTimeElapsedMode: true,
       isTaskTimeActive: true,
       isBreakTimeActive: false,
-      isStopTimerVisible: false,
       // total
       totalTaskTime,
       totalBreakTime,
@@ -41,8 +44,8 @@ class Timer extends Component {
       remainingBreakTimeArray: totalBreakTimeArray,
       // overall
       previousTime: startTime,
-      //overallTime: 0,
-      //overallTimeArray: ['00','00','00']
+      overallTime: 0,
+      overallTimeArray: ['00','00','00']
     }
   }
 
@@ -69,26 +72,24 @@ class Timer extends Component {
   handleTimeTick = (type) => {
     if (this.state[`is${type}TimeActive`]) {
 
-      const { previousTime } = this.state;
+      const { previousTime, elapsedTaskTime, elapsedBreakTime } = this.state;
       const totalTime = this.state[`total${type}Time`];
       const elapsedTime = this.state[`elapsed${type}Time`];
       const remainingTime = this.state[`remaining${type}Time`];
+      const overallTime = elapsedTaskTime + elapsedBreakTime;
 
       const { onTimeArrayChange } = this.props;
       const now = Date.now();
-      const elapsedTimeArray = onTimeArrayChange(elapsedTime);
-      const totalTimeArray = onTimeArrayChange(totalTime);
+      const elapsedTimeArray   = onTimeArrayChange(elapsedTime);
+      const totalTimeArray     = onTimeArrayChange(totalTime);
       const remainingTimeArray = onTimeArrayChange(remainingTime);
-      const elapsedPercent = elapsedTime / totalTime * 100;
+      const overallTimeArray   = onTimeArrayChange(overallTime);
+      const elapsedPercent   = elapsedTime / totalTime * 100;
       const remainingPercent = remainingTime / totalTime * 100;
-      //const overallTimeResult = onTimeArrayChange(taskTimeElapsed + breakTimeElapsed);
 
       // when task time finishes
       if (elapsedTime >= totalTime) {
         this.setState({
-          //isStopTaskVisible: false,
-          //isTimerVisible: false,
-          //isOutroVisible: true,
           [`is${type}TimeActive`]: false,
           [`elapsed${type}Time`]: totalTime,
           [`elapsed${type}TimeArray`]: totalTimeArray,
@@ -96,9 +97,10 @@ class Timer extends Component {
           [`elapsed${type}Percent`]: 100,
           [`remaining${type}Time`]: 0,
           [`remaining${type}Percent`]: 0,
-          isStopTimerVisible: false
-          //overallTime: taskTimeElapsed + breakTimeElapsed,
-          //overallTimeArray: overallTimeResult
+          isStopTimerVisible: false,
+          isFinishVisible: true,
+          overallTime,
+          overallTimeArray,
         });
       // normal task time tick
       } else {
@@ -121,6 +123,7 @@ class Timer extends Component {
 
     const {
       isStopTimerVisible,
+      isFinishVisible,
       isTaskTimeElapsedMode,
       isBreakTimeElapsedMode,
       isTaskTimeActive,
@@ -189,6 +192,8 @@ class Timer extends Component {
         />
         {/* TASK FINISH */}
         <Finish
+          isFinishVisible={isFinishVisible}
+          taskName={taskName}
           state={this.state}
           onTimerStateChange={this.handleStateChange}
         />
