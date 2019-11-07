@@ -2,28 +2,30 @@
 @import "_mixins.scss";
 @import "_animations.scss";
 
-.Outro,
-.Failure {
+.Finish {
   @include flex-center;
-  background-color: $color-cyan;
+  flex-direction: column;
+  background-color: rgb(126, 177, 85);
   bottom: 0;
   left: 0;
   padding: $layout-padding;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
-  transition: visibility 0s $time-slide;
+  //transition: visibility 0s $time-slide;
   visibility: hidden;
 
   &--visible {
-    transition: visibility 0s;
+    //transition: visibility 0s;
     visibility: visible;
   }
 
-  &__container {
-    @include flex-center;
-    flex-direction: column;
-    max-width: 1000px;
+  &--task {
+
+  }
+
+  &--break {
+    background-color: rgb(207, 182, 127);
   }
 
   &__heading {
@@ -39,9 +41,15 @@
   &__message {
     font-size: 1em;
     line-height: 1.5;
+    text-align: center;
+  }
+
+  &__accent {
+    color: $color-tomato;
+    font-weight: 800;
   }
   
-  &__retry {
+  &__reset {
     @include button;
     fill: #fff;
     transition: $hover-icon;
@@ -57,22 +65,6 @@
   }
 
   @media only screen and (min-width: $media-md) {
-
-    & {
-      
-      &__heading {
-        font-size: 4em;
-      }
-
-      &__message {
-        font-size: 1.5em;
-        align-self: flex-start;
-      }
-
-      &__retry {
-        width: $size-controls-md;
-        align-self: flex-start;
-      }
-    }
+    & {}
   }
 }

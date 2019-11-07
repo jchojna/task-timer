@@ -2,14 +2,14 @@
 @import "_mixins.scss";
 @import "_animations.scss";
 
-.StopTask {
+.StopTimer {
   @include flex-center;
   background-color: rgba($color: #000000, $alpha: 0.4);
   bottom: 0;
   left: 0;
   opacity: 0;
   padding: $layout-padding;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
   transition: opacity $fade-stopTask, visibility 0s $fade-stopTask;
@@ -37,6 +37,7 @@
     font-weight: 600;
     grid-area: head;
     margin: 0;
+    text-align: center;
   }
 
   &__button {

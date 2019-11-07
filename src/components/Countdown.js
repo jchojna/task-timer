@@ -67,7 +67,6 @@ const Countdown = (props) => {
         isBreakTimeActive={isBreakTimeActive}
         onDisplayModeChange={onDisplayModeChange}
         onTimerStateChange={onTimerStateChange}
-        onTaskStateChange={onTaskStateChange}
       />
     </div>
   );
