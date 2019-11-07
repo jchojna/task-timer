@@ -3,7 +3,10 @@ import classNames from 'classnames';
 import '../scss/StopTimer.scss';
 
 const StopTimer = (props) => {
-  const { isStopTimerVisible, onStateChange } = props;
+  const {
+    isStopTimerVisible,
+    onTimerStateChange,
+    onTaskStateChange } = props;
 
   const stopClass = classNames("StopTimer", {
     "StopTimer--visible": isStopTimerVisible
@@ -17,26 +20,16 @@ const StopTimer = (props) => {
         </h2>
         <button
           className="StopTimer__button StopTimer__button--stop"
-          onClick={() => onStateChange({
-            isTaskVisible: true,
-            isStopTaskVisible: false,
-            isTimerVisible: false,
-            isTaskTimeActive: false,
-            isBreakTimeActive: false,
-            taskName: "",
-            isTaskNameValid: false,
-            taskTimePlanned: "",
-            isTaskTimePlannedValid: false,
-            breakTimePlanned: "",
-            isBreakTimePlannedValid: false
+          onClick={() => onTaskStateChange({
+            isTimerVisible: false
           })}
         >
           Yes
         </button>
         <button
           className="StopTimer__button StopTimer__button--cancel"
-          onClick={() => onStateChange({
-            isStopTaskVisible: false
+          onClick={() => onTimerStateChange({
+            isStopTimerVisible: false
           })}
         >
           Cancel

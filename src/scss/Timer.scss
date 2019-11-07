@@ -3,7 +3,6 @@
 @import "_animations.scss";
 
 .Timer {
-  @include card;
   display: flex;
   flex-direction: column;
   height: 100%;

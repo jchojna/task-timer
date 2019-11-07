@@ -9,7 +9,7 @@
   left: 0;
   opacity: 0;
   padding: $layout-padding;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
   transition: opacity $fade-stopTask, visibility 0s $fade-stopTask;
@@ -37,6 +37,7 @@
     font-weight: 600;
     grid-area: head;
     margin: 0;
+    text-align: center;
   }
 
   &__button {

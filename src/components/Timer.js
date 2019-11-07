@@ -95,6 +95,7 @@ class Timer extends Component {
           [`elapsed${type}Percent`]: 100,
           [`remaining${type}Time`]: 0,
           [`remaining${type}Percent`]: 0,
+          isStopTimerVisible: false
           //overallTime: taskTimeElapsed + breakTimeElapsed,
           //overallTimeArray: overallTimeResult
         });
@@ -178,12 +179,13 @@ class Timer extends Component {
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
           />
-          {/* STOP TASK SECTION */}
-          <StopTimer
-            isStopTimerVisible={isStopTimerVisible}
-            onTaskStateChange={onTaskStateChange}
-          />
         </div>
+        {/* STOP TASK SECTION */}
+        <StopTimer
+          isStopTimerVisible={isStopTimerVisible}
+          onTimerStateChange={this.handleStateChange}
+          onTaskStateChange={onTaskStateChange}
+        />
       </section>
     );
   }
