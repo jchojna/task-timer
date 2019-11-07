@@ -1,17 +1,22 @@
 import React from 'react';
-import '../scss/StopTask.scss';
+import classNames from 'classnames';
+import '../scss/StopTimer.scss';
 
-const StopTask = (props) => {
-  const { compClassName, onStateChange } = props;
+const StopTimer = (props) => {
+  const { isStopTimerVisible, onStateChange } = props;
+
+  const stopClass = classNames("StopTimer", {
+    "StopTimer--visible": isStopTimerVisible
+  });
 
   return (
-    <section className={compClassName}>
-      <div className="StopTask__container">
-        <h2 className="StopTask__heading">
+    <section className={stopClass}>
+      <div className="StopTimer__container">
+        <h2 className="StopTimer__heading">
           Are you sure you want to quit?
         </h2>
         <button
-          className="StopTask__button StopTask__button--stop"
+          className="StopTimer__button StopTimer__button--stop"
           onClick={() => onStateChange({
             isTaskVisible: true,
             isStopTaskVisible: false,
@@ -29,7 +34,7 @@ const StopTask = (props) => {
           Yes
         </button>
         <button
-          className="StopTask__button StopTask__button--cancel"
+          className="StopTimer__button StopTimer__button--cancel"
           onClick={() => onStateChange({
             isStopTaskVisible: false
           })}
@@ -40,4 +45,4 @@ const StopTask = (props) => {
     </section>
   );
 }
-export default StopTask;
+export default StopTimer;

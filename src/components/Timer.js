@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import Countdown from './Countdown';
+import StopTimer from './StopTimer.js';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
@@ -18,6 +19,7 @@ class Timer extends Component {
       isBreakTimeElapsedMode: true,
       isTaskTimeActive: true,
       isBreakTimeActive: false,
+      isStopTimerVisible: false,
       // total
       totalTaskTime,
       totalBreakTime,
@@ -116,6 +118,7 @@ class Timer extends Component {
     const { taskName } = this.props.state;
 
     const {
+      isStopTimerVisible,
       isTaskTimeElapsedMode,
       isBreakTimeElapsedMode,
       isTaskTimeActive,
@@ -173,6 +176,11 @@ class Timer extends Component {
             totalBreaks={totalBreaks}
             onDisplayModeChange={this.handleBreakTimeDisplayMode}
             onTimerStateChange={this.handleStateChange}
+            onTaskStateChange={onTaskStateChange}
+          />
+          {/* STOP TASK SECTION */}
+          <StopTimer
+            isStopTimerVisible={isStopTimerVisible}
             onTaskStateChange={onTaskStateChange}
           />
         </div>

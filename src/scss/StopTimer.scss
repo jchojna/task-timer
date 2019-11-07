@@ -2,7 +2,7 @@
 @import "_mixins.scss";
 @import "_animations.scss";
 
-.StopTask {
+.StopTimer {
   @include flex-center;
   background-color: rgba($color: #000000, $alpha: 0.4);
   bottom: 0;

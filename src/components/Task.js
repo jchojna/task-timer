@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import EditableText from './EditableText.js';
 import EditableTime from './EditableTime.js';
 import Timer from './Timer.js';
-//import StopTask from './StopTask.js';
 //import Outro from './Outro.js';
 //import Failure from './Failure.js';
 import icons from '../assets/svg/icons.svg';
@@ -21,7 +20,6 @@ class Task extends Component {
 
     this.state = {
       isTimerVisible: false,
-      //isStopTaskVisible: false,
       //isOutroVisible: false,
       //isFailureVisible: false,
       taskName,
@@ -248,13 +246,6 @@ class Task extends Component {
             />
           : <div></div>
         }
-
-        {/* STOP TASK SECTION */}
-        {/* <StopTask
-          compClassName={`StopTask ${isStopTaskVisible
-          ? "StopTask--visible" : ""}`}
-          onStateChange={this.handleStateChange}
-        /> */}
         {/* OUTRO SECTION */}
         {/* <Outro
           compClassName={`Outro ${isOutroVisible
