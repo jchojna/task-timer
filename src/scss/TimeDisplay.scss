@@ -3,25 +3,32 @@
 @import "_animations.scss";
 
 .TimeDisplay {
-  @include flex-center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  grid-area: display;
+  position: relative;
   height: 100%;
-  visibility: hidden;
-  transition: visibility 0s $time-display;
-
-  &--visible {
-    transition: visibility 0s;
-    visibility: inherit;
-  }
-
-  &--showUp {
-    animation: showUp $time-display forwards;
-  }
-
-  &--hideUp {
-    animation: hideUp $time-display forwards;
+  
+  &__type {
+    @include flex-center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 2em;
+    height: 100%;
+    visibility: hidden;
+    transition: visibility 0s $time-display;
+  
+    &--visible {
+      transition: visibility 0s;
+      visibility: inherit;
+    }
+  
+    &--showUp {
+      animation: showUp $time-display forwards;
+    }
+  
+    &--hideUp {
+      animation: hideUp $time-display forwards;
+    }
   }
 }

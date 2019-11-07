@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 const TimeInputs = (props) => {
   const {
@@ -13,11 +14,16 @@ const TimeInputs = (props) => {
     onSecondsChange
   } = props;
 
+  const fieldsetClass = classNames({
+    [`${block}__inputs`]: true,
+    [`${block}__inputs--${modifier}`]: true,
+    [`${block}__inputs--visible`]: isEditMode,
+    [`${block}__inputs--incorrect`]: !isValid 
+  })
+
   return (
     <fieldset
-      className={`${block}__inputs ${block}__inputs--${modifier}
-      ${isEditMode ? `${block}__inputs--visible` : ""}
-      ${isValid ? "" : `${block}__inputs--incorrect`}`}
+      className={fieldsetClass}
     >
       <input
         id={`${modifier}-${id}`}
