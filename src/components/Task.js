@@ -241,8 +241,7 @@ class Task extends Component {
         {
           this.state.isTimerVisible
           ? <Timer
-              className={isTimerVisible
-                ? "Timer--visible" : ""}
+              isTimerVisible={isTimerVisible}
               onTaskStateChange={this.handleStateChange}
               state={this.state}
               onTimeArrayChange={onTimeArrayChange}

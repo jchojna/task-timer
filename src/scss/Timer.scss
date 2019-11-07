@@ -14,7 +14,14 @@
   //transition: visibility 0s $time-slide;
   width: 100%;
   visibility: hidden;
-  border: 1px solid #000;
+
+  &--taskTime {
+    background-color: rgb(100, 194, 178);
+  }
+
+  &--breakTime {
+    background-color: rgb(92, 201, 110);
+  }
 
   &--visible {
     //transition: visibility 0s;

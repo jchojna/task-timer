@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
 import Countdown from './Countdown';
 import '../scss/Timer.scss';
 
@@ -112,9 +113,7 @@ class Timer extends Component {
 
   render() {
     
-    const {
-      taskName
-    } = this.props.state;
+    const { taskName } = this.props.state;
 
     const {
       isTaskTimeElapsedMode,
@@ -132,13 +131,16 @@ class Timer extends Component {
       totalBreaks
     } = this.state;
 
-    const {
-      className,
-      onTaskStateChange
-    } = this.props;
+    const { isTimerVisible, onTaskStateChange } = this.props;
+
+    const timerClass = classNames("Timer", {
+      "Timer--visible": isTimerVisible,
+      "Timer--taskTime": isTaskTimeActive,
+      "Timer--breakTime": isBreakTimeActive
+    });
 
     return (
-      <section className={`Timer ${className}`}>
+      <section className={timerClass}>
         <h2 className="Timer__heading">{`"${taskName}"`}</h2>
         <div className="Timer__container">
           {/* TASK TIME COUNTDOWN */}
