@@ -3,12 +3,9 @@
 @import "_animations.scss";
 
 .Progress {
-  align-items: center;
-  display: flex;
+  @include flex-center;
   flex-direction: column;
-  font-size: 0.7em;
-  //grid-area: progress;
-  justify-content: center;
+  grid-area: progress;
   width: 100%;
 
   &__header {

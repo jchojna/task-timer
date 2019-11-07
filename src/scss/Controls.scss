@@ -5,7 +5,7 @@
 .Controls {
   display: grid;
   gap: 20px;
-  grid-area: control;
+  grid-area: controls;
   grid-template-columns: repeat(3, 1fr);
 
   &__button {
@@ -26,7 +26,6 @@
   }
 
   &__svg {
-    pointer-events: none;
     width: 100%;
 
     &--hidden {

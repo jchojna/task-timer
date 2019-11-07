@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Countdown from './Countdown';
-import Break from './Break';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
@@ -140,9 +139,8 @@ class Timer extends Component {
 
     return (
       <section className={`Timer ${className}`}>
+        <h2 className="Timer__heading">{`"${taskName}"`}</h2>
         <div className="Timer__container">
-          <h2 className="Timer__heading">{`"${taskName}"`}</h2>
-
           {/* TASK TIME COUNTDOWN */}
           <Countdown
             modifier="taskTime"
@@ -151,6 +149,7 @@ class Timer extends Component {
             remainingTimeArray={remainingTaskTimeArray}
             elapsedTaskPercent={elapsedTaskPercent}
             remainingTaskPercent={remainingTaskPercent}
+            isCountdownVisible={isTaskTimeActive}
             isTaskTimeActive={isTaskTimeActive}
             isBreakTimeActive={isBreakTimeActive}
             totalBreaks={totalBreaks}
@@ -158,7 +157,6 @@ class Timer extends Component {
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
           />
-          
           {/* BREAK TIME COUNTDOWN */}
           <Countdown
             modifier="breakTime"
@@ -167,6 +165,7 @@ class Timer extends Component {
             remainingTimeArray={remainingBreakTimeArray}
             elapsedTaskPercent={elapsedBreakPercent}
             remainingTaskPercent={remainingBreakPercent}
+            isCountdownVisible={isBreakTimeActive}
             isTaskTimeActive={isTaskTimeActive}
             isBreakTimeActive={isBreakTimeActive}
             totalBreaks={totalBreaks}

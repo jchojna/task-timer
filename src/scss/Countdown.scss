@@ -3,23 +3,43 @@
 @import "_animations.scss";
 
 .Countdown {
-  color: $color-tomato;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  align-items: center;
+  display: grid;
   font-family: 'Inconsolata';
-  font-size: 3em;
+  font-size: 1.5em;
   font-weight: bold;
+  gap: 20px;
+  grid-template-rows: 1fr auto auto auto;
   height: 100%;
-  position: relative;
+  justify-items: center;
   width: 100%;
+  visibility: hidden;
+
+  &--visible {
+    visibility: visible;
+  }
 
   &--taskTime {
-    grid-area: taskTime;
+    grid-template-areas:
+      "display "
+      "heading "
+      "progress"
+      "controls";
   }
   
   &--breakTime {
-    grid-area: breakTime;
+    grid-template-areas:
+      "display "
+      "heading "
+      "progress"
+      "controls";
   }
 
-  &--inactive {
-    color: #fff;
+  &__heading {
+    grid-area: heading;
   }
 }

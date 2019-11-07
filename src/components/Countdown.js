@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import TimeDisplay from './TimeDisplay';
 import Progress from './Progress';
 import Controls from './Controls';
@@ -13,6 +14,7 @@ const Countdown = (props) => {
     remainingTimeArray,
     elapsedTaskPercent,
     remainingTaskPercent,
+    isCountdownVisible,
     isTaskTimeActive,
     isBreakTimeActive,
     totalBreaks,
@@ -24,12 +26,20 @@ const Countdown = (props) => {
   const breaksAmount = `${totalBreaks}
     ${totalBreaks === 1 ? "break" : "breaks"}`;
 
-  return (
-    <div className={`Countdown Countdown--${modifier}`}>
+  const countdownClass = classNames(`Countdown Countdown--${modifier}`, {
+    "Countdown--visible": isCountdownVisible
+  });
 
-      {/* BREAKS COUNTER */}
+  return (
+    <div className={countdownClass}>
+
+      {/* TASK TIME ACTIVE */}
       { modifier === 'taskTime'
-        ? <h3 className="Countdown__breaks">{breaksAmount}</h3>
+        ? <h3 className="Countdown__heading">Task Time Active</h3>
+        : <div></div> }
+      {/* BREAKS COUNTER */}
+      { modifier === 'breakTime'
+        ? <h3 className="Countdown__heading">{breaksAmount}</h3>
         : <div></div> }
       {/* TIMER DISPLAY */}
       <TimeDisplay
