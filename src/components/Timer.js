@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Countdown from './Countdown';
 import StopTimer from './StopTimer.js';
+import Finish from './Finish.js';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
@@ -186,6 +187,19 @@ class Timer extends Component {
           onTimerStateChange={this.handleStateChange}
           onTaskStateChange={onTaskStateChange}
         />
+        {/* TASK FINISH */}
+        <Finish
+          state={this.state}
+          onTimerStateChange={this.handleStateChange}
+        />
+        {/* BREAK TIME EXCEEDED */}
+        {/* <Failure
+          compClassName={`Failure ${isFailureVisible
+          ? "Failure--visible slideInRight"
+          : "slideOutLeft"}`}
+          state={this.state}
+          onStateChange={this.handleStateChange}
+        /> */}
       </section>
     );
   }

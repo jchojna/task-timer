@@ -2,14 +2,13 @@
 @import "_mixins.scss";
 @import "_animations.scss";
 
-.Outro,
-.Failure {
+.Finish {
   @include flex-center;
   background-color: $color-cyan;
   bottom: 0;
   left: 0;
   padding: $layout-padding;
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
   transition: visibility 0s $time-slide;

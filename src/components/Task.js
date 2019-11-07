@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import EditableText from './EditableText.js';
 import EditableTime from './EditableTime.js';
 import Timer from './Timer.js';
-//import Outro from './Outro.js';
-//import Failure from './Failure.js';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -20,8 +18,6 @@ class Task extends Component {
 
     this.state = {
       isTimerVisible: false,
-      //isOutroVisible: false,
-      //isFailureVisible: false,
       taskName,
       taskMinutes: totalTaskTimeArray[0],
       taskSeconds: totalTaskTimeArray[1],
@@ -246,45 +242,8 @@ class Task extends Component {
             />
           : <div></div>
         }
-        {/* OUTRO SECTION */}
-        {/* <Outro
-          compClassName={`Outro ${isOutroVisible
-          ? "Outro--visible slideInRight"
-          : "slideOutLeft"}`}
-          state={this.state}
-          onStateChange={this.handleStateChange}
-        /> */}
-        {/* BREAK TIME EXCEEDED */}
-        {/* <Failure
-          compClassName={`Failure ${isFailureVisible
-          ? "Failure--visible slideInRight"
-          : "slideOutLeft"}`}
-          state={this.state}
-          onStateChange={this.handleStateChange}
-        /> */}
       </section>
     );
   }
 }
 export default Task;
-
-/* handleStartButton = () => {
-    const { isTaskTimePlannedValid, isBreakTimePlannedValid } = this.state;
-    const breakTimeElapsedResult = this.handleTimeArray(0);
-
-    if (isTaskTimePlannedValid && isBreakTimePlannedValid) {
-      this.setState({
-        isTimeVisible: false,
-        isTimerVisible: true,
-        isTaskTimeActive: true,
-        previousTime: Date.now(),
-        taskTimeElapsed: 0,
-        breaksTotal: 0,
-        breakTimeElapsed: 0,
-        breakTimeElapsedArray: breakTimeElapsedResult,
-        alertFlag: false
-      });
-    } else {
-      this.setState({ alertFlag: true });
-    }
-  } */
