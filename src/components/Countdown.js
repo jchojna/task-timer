@@ -27,7 +27,9 @@ const Countdown = (props) => {
     ${totalBreaks === 1 ? "break" : "breaks"}`;
 
   const countdownClass = classNames(`Countdown Countdown--${modifier}`, {
-    "Countdown--visible": isCountdownVisible
+    "Countdown--visible": isCountdownVisible,
+    "showRight": isCountdownVisible,
+    "hideLeft": !isCountdownVisible,
   });
 
   return (

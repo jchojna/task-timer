@@ -5,8 +5,9 @@
 .TimeDisplay {
   grid-area: display;
   position: relative;
+  height: 100%;
   
-  .TimeDisplay__type {
+  &__type {
     @include flex-center;
     position: absolute;
     top: 0;

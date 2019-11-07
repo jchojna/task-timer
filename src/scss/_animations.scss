@@ -40,6 +40,16 @@
   }
 }
 
+@keyframes showRight {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes hideLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
 .slideInLeft {
   animation: slideInLeft $time-slide forwards;
 }
@@ -51,4 +61,11 @@
 }
 .slideOutRight {
   animation: slideOutRight $time-slide forwards;
+}
+
+.showRight {
+  animation: showRight $time-slide forwards;
+}
+.hideLeft {
+  animation: hideLeft $time-slide forwards;
 }
