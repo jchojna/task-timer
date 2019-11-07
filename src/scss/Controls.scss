@@ -3,9 +3,10 @@
 @import "_animations.scss";
 
 .Controls {
+  align-self: center;
   display: grid;
+  padding: $layout-padding;
   gap: 20px;
-  grid-area: controls;
   grid-template-columns: repeat(3, 1fr);
 
   &__button {

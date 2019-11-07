@@ -200,16 +200,6 @@ class Timer extends Component {
           onDisplayModeChange={this.handleTimeDisplayMode}
           onTimerStateChange={this.handleStateChange}
         />
-
-
-
-
-
-
-
-
-
-
         {/* STOP TASK SECTION */}
         <StopTimer
           isStopTimerVisible={isStopTimerVisible}

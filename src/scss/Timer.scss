@@ -28,11 +28,10 @@
   }
 
   &__heading {
-    margin: 20px 0;
     font-size: 1.2em;
     font-weight: 600;
-    grid-area: heading;
     text-align: center;
+    padding: $layout-padding;
   }
 
   &__container {
