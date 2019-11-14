@@ -182,8 +182,6 @@ class Creator extends Component {
     this.setState({ alertTimeFlag });
   }
 
-
-
   render() {
 
     const {

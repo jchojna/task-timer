@@ -3,9 +3,6 @@ import Board from './Board.js';
 import Creator from './Creator.js';
 import { 
   validateTaskName,
-  handleTaskTimeValidition,
-  handleBreakTimeValidition,
-  getTotalTime,
   handleTimeChange,
   getTimeArray
 } from '../lib/handlers';

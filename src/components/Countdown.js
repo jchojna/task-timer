@@ -18,7 +18,8 @@ const Countdown = (props) => {
   } = props;
 
   const breaksAmount = `${totalBreaks}
-    ${totalBreaks === 1 ? "break" : "breaks"} used`;
+    ${totalBreaks === 1 ? "break" : "breaks"} used
+  `;
 
   const countdownClass = classNames(`Countdown Countdown--${modifier}`, {
     "Countdown--visible": isCountdownVisible,

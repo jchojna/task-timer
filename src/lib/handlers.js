@@ -1,8 +1,8 @@
 export const validateTaskName = (name) => name.length > 0 ? true : false;
-export const validateTaskTime = (time, total) => /^\d*$/.test(time) && total > 0;
-export const validateBreakTime = (time) => /^\d*$/.test(time);
+const validateTaskTime = (time, total) => /^\d*$/.test(time) && total > 0;
+const validateBreakTime = (time) => /^\d*$/.test(time);
 
-export const getTotalTime = (minutes, seconds) => {
+const getTotalTime = (minutes, seconds) => {
   minutes = !minutes ? 0 : parseInt(minutes);
   seconds = !seconds ? 0 : parseInt(seconds);
   return (minutes * 60000) + (seconds * 1000);
@@ -58,4 +58,20 @@ export const handleTimeChange = (minutes, seconds, units, type) => {
       };
     }
   }
+}
+
+export const formatTimeResult = ([minutes, seconds], elapsedBreakTime) => {
+  minutes = parseInt(minutes);
+  seconds = parseInt(seconds);
+  return `
+    ${ minutes > 1
+    ? ` ${minutes} minutes` : minutes === 1
+    ? ` ${minutes} minute` : "" }
+    ${ minutes > 0 && (elapsedBreakTime ? elapsedBreakTime !== 0 : seconds !== 0)
+    ? "and" : "" }
+    ${ seconds > 1
+    ? ` ${seconds} seconds` : seconds === 1
+    ? ` ${seconds} second` : elapsedBreakTime && elapsedBreakTime !== 0
+    ? " a split second" : "" }
+  `;
 }
