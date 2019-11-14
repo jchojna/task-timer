@@ -79,7 +79,6 @@ class Task extends Component {
   handleTimeChange = (minutes, seconds, units, type) => {
     const { onTimeChange } = this.props;
     const object = onTimeChange(minutes, seconds, units, type);
-    console.log('object', object);
 
     if (type === 'task') {
       if (units === 'minutes') {
