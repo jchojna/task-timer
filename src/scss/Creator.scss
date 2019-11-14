@@ -6,7 +6,7 @@
 
 .Creator {
   align-items: start;
-  background-color: $color-cyan;
+  background-color: $color-white;
   bottom: 0;
   display: grid;
   font-weight: 400;
@@ -63,8 +63,8 @@
 
     &:focus {
       box-shadow:
-        0 0 0 5px rgba($color: $color-cyan-dark, $alpha: 0.7),
-        0 0 30px rgba($color: $color-cyan-dark, $alpha: 0.4);
+        0 0 0 5px rgba($color: $color-background, $alpha: 0.7),
+        0 0 30px rgba($color: $color-background, $alpha: 0.4);
     }
   }
 
@@ -124,8 +124,8 @@
     width: 100%;
 
     &:hover {
-      background-color: $color-tomato;
-      border-color: $color-tomato;
+      background-color: $color-warning;
+      border-color: $color-warning;
     }
 
     &--disabled {
@@ -142,14 +142,14 @@
       grid-area: cancel;
 
       &:hover {
-        background-color: $color-cyan-dark;
-        border-color: $color-cyan-dark;
+        background-color: $color-background;
+        border-color: $color-background;
       }
     }
   }
 
   &__alerts {
-    color: $color-tomato;
+    color: $color-warning;
     font-size: 0.9em;
     grid-area: messages;
   }

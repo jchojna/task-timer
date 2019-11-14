@@ -53,7 +53,7 @@
   }
 
   &__accent {
-    color: $color-tomato;
+    color: $color-warning;
     font-weight: 800;
   }
   
@@ -64,7 +64,7 @@
     width: $size-controls-xs;
 
     &:hover {
-      fill: $color-tomato;
+      fill: $color-warning;
     }
 
     &--restart {

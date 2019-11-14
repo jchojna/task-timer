@@ -20,7 +20,7 @@
   position: relative;
 
   &--editMode {
-    background-color: rgba($color: $color-cyan, $alpha: 0.4);
+    background-color: rgba($color: $color-white, $alpha: 0.4);
   }
 
   &__buttons {
@@ -34,12 +34,12 @@
 
   &__button {
     @include button;
-    fill: #fff;
-    max-width: $close-button;
+    fill: $color-primary;
+    width: $close-button;
+    outline: none;
     
     &:hover {
-      border-color: $color-tomato;
-      fill: $color-tomato;
+      fill: $color-black;
     }
 
     &--accept {
@@ -48,10 +48,21 @@
 
     &--start {
       @include flex-center;
-      border: 2px solid #fff;
+      border: 3px solid $color-primary;
       border-radius: 50%;
+      fill: none;
+      stroke: $color-primary;
+      stroke-width: 20;
       grid-area: startBtn;
-      max-width: 60px;
+      height: 80px;
+      width: 80px;
+
+      &:hover {
+        fill: $color-white;
+        background-color: $color-warning;
+        border-color: $color-warning;
+        stroke: $color-warning;
+      }
     }
         
     &--visible {
@@ -62,6 +73,10 @@
       opacity: 0.5;
       pointer-events: none;
     }
+  }
+
+  &__svg {
+    width: 100%;
   }
 
   &__totalTime {

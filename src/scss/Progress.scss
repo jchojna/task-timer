@@ -16,7 +16,7 @@
 
   &__percent {
     @include flex-center;
-    color: $color-tomato;
+    color: $color-warning;
     font-family: 'Inconsolata';
     font-weight: 600;
     left: 50%;
@@ -45,7 +45,7 @@
     top: 0;
 
     &--loading {
-      background-color: $color-tomato;
+      background-color: $color-warning;
       left: 0;
       width: 0;
     }

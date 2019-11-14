@@ -22,7 +22,7 @@
   }
 
   &__container {
-    background-color: $color-cyan;
+    background-color: $color-white;
     border-radius: 10px;
     display: grid;
     gap: 1em;
@@ -48,8 +48,8 @@
     transition: background-color $hover-icon, border-color $hover-icon;
 
     &:hover {
-      background-color: $color-tomato;
-      border-color: $color-tomato;
+      background-color: $color-warning;
+      border-color: $color-warning;
     }
 
     &--stop { grid-area: stop; };
