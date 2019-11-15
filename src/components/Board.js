@@ -42,7 +42,7 @@ class Board extends Component {
           className="button Board__createButton"
           onClick={this.handleCreateNewTaskButton}
         >
-          +
+          Add New Task
         </button>
       </section>
     );
