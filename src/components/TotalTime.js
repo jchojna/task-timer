@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import EditableTime from './EditableTime.js';
 import '../scss/TotalTime.scss';
 
@@ -11,15 +12,21 @@ const TotalTime = (props) => {
     minutes,
     seconds,
     isValid,
+    isDisabled,
     isEditMode,
     onEditModeChange,
     onMinutesChange,
     onSecondsChange
   } = props;
 
+  const totalTimeClass = classNames(`TotalTime TotalTime--${modifier}`, {
+    "TotalTime--disabled": isDisabled
+  })
 
   return (
-    <div className={`TotalTime TotalTime--${modifier}`}>
+    <div
+      className={totalTimeClass}
+    >
       {/* LABEL */}
       <label
         className="TotalTime__label"

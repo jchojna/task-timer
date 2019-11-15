@@ -22,6 +22,11 @@
     font-size: 2em;
     grid-area: breakTime;
   }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
   
   &:hover {
     cursor: text;

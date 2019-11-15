@@ -167,9 +167,9 @@ class Task extends Component {
       >
         {/* TASK  NAME */}
         <EditableText
-          className="taskName"
           output={taskName}
           isValid={isTaskNameValid}
+          isDisabled={isTaskTimeEditMode || isBreakTimeEditMode}
           isEditMode={isTaskNameEditMode}
           onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
           onTaskNameChange={this.handleTaskNameChange}
@@ -183,6 +183,7 @@ class Task extends Component {
           minutes={taskMinutes}
           seconds={taskSeconds}
           isValid={isTaskTimeValid}
+          isDisabled={isTaskNameEditMode || isBreakTimeEditMode}
           onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
           isEditMode={isTaskTimeEditMode}
           onMinutesChange={(value) => 
@@ -199,6 +200,7 @@ class Task extends Component {
           minutes={breakMinutes}
           seconds={breakSeconds}
           isValid={isBreakTimeValid}
+          isDisabled={isTaskNameEditMode || isTaskTimeEditMode}
           onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
           isEditMode={isBreakTimeEditMode}
           onMinutesChange={(value) => 
