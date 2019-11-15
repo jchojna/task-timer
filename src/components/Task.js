@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EditableText from './EditableText.js';
-import EditableTime from './EditableTime.js';
+import TotalTime from './TotalTime.js';
 import Timer from './Timer.js';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
@@ -158,9 +158,8 @@ class Task extends Component {
         />
 
         {/* TOTAL TASK TIME */}
-        <EditableTime
+        <TotalTime
           labelName="Task Time"
-          block="totalTime"
           modifier="taskTime"
           id={id}
           minutes={taskMinutes}
@@ -175,9 +174,8 @@ class Task extends Component {
         />
         
         {/* TOTAL BREAK TIME */}
-        <EditableTime
+        <TotalTime
           labelName="Break Time"
-          block="totalTime"
           modifier="breakTime"
           id={id}
           minutes={breakMinutes}
@@ -241,7 +239,7 @@ class Task extends Component {
               onTaskRemove={this.handleTaskRemove}
               onTimeArrayChange={onTimeArrayChange}
             />
-          : <div></div>
+          : <div className="empty"></div>
         }
       </section>
     );

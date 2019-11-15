@@ -3,75 +3,77 @@
 @import "_animations.scss";
 
 .Task {
-  @include card;
-  align-items: center;
+  align-items: start;
+  background: $color-primary;
+  box-shadow: $card-shadow;
+  border-radius: $radius-card;
   display: grid;
-  gap: 1em;
+  gap: 10px;
   grid-template-areas:
-    "buttons"
-    "taskName"
-    "taskTime"
+    "buttons  "
+    "taskName "
+    "taskTime "
     "breakTime"
-    "startBtn";
-  grid-template-rows: 40px auto auto auto;
+    "startBtn ";
   justify-items: center;
+  grid-template-rows: auto 1fr repeat(3, auto);
   overflow: hidden;
-  padding: 1em;
+  padding: 20px;
   position: relative;
 
   &--editMode {
-    background-color: rgba($color: $color-white, $alpha: 0.4);
+    background: $color-light-background;
   }
 
   &__buttons {
-    align-self: start;
     display: grid;
-    gap: 20px;
+    column-gap: 20px;
     grid-area: buttons;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, auto);
     justify-self: end;
   }
 
   &__button {
     @include button;
-    fill: $color-primary;
-    width: $close-button;
+    fill: $color-background;
     outline: none;
+    width: $close-button;
     
     &:hover {
-      fill: $color-black;
+      fill: $color-warning;
     }
 
     &--accept {
       visibility: hidden;
     }
+    
+    &--disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
 
     &--start {
       @include flex-center;
-      border: 3px solid $color-primary;
+      border: 3px solid $color-white;
       border-radius: 50%;
       fill: none;
-      stroke: $color-primary;
-      stroke-width: 20;
       grid-area: startBtn;
-      height: 80px;
-      width: 80px;
+      height: 70px;
+      margin: 5px;
+      stroke: $color-white;
+      stroke-width: 25;
+      width: 70px;
 
       &:hover {
-        fill: $color-white;
         background-color: $color-warning;
         border-color: $color-warning;
+        fill: $color-primary;
         stroke: $color-warning;
       }
     }
         
     &--visible {
       visibility: visible;
-    }
-    
-    &--disabled {
-      opacity: 0.5;
-      pointer-events: none;
     }
   }
 
