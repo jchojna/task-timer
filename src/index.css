@@ -13,6 +13,10 @@ html {
   box-sizing: inherit;
 }
 
+.empty {
+  position: absolute;
+}
+
 body {
   color: #fff;
   font-family: "Montserrat", Arial, sans-serif;
