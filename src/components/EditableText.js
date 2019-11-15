@@ -1,6 +1,5 @@
 import React from 'react';
-import '../scss/Editable.scss';
-//import TimeDisplay from './TimeDisplay.js';
+import '../scss/EditableText.scss';
 
 const EditableText = (props) => {
     
@@ -33,6 +32,7 @@ const EditableText = (props) => {
         ${isValid ? "" : `${className}__input--incorrect`}`}
         value={output}
         spellCheck="false"
+        maxLength="80"
         onChange={(e) => onTaskNameChange(e.target.value)}
       ></textarea>
     </div>
