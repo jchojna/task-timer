@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import EditableText from './EditableText.js';
 import TotalTime from './TotalTime.js';
 import Timer from './Timer.js';
@@ -140,12 +141,29 @@ class Task extends Component {
       isTaskTimeValid,
       isBreakTimeValid
     } = this.state;
+
+    const isEditMode = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
+
+    const taskClass = classNames("Task", {
+      "Task--editMode": isEditMode
+    });
+
+    const acceptButtonClass = classNames("button Task__button Task__button--accept", {
+      "Task__button--visible": isEditMode
+    });
+
+    const removeButtonClass = classNames("button Task__button Task__button--remove", {
+      "Task__button--disabled": isEditMode
+    });
+
+    const startButtonClass = classNames("button Task__button Task__button--start", {
+      "Task__button--disabled": isEditMode
+    });   
     
+
     return (
       <section
-        className={`Task
-        ${ isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
-        ? "Task--editMode" : ""}`}
+        className={taskClass}
       >
         {/* TASK  NAME */}
         <EditableText
@@ -191,12 +209,9 @@ class Task extends Component {
                 
         {/* EDIT BUTTONS */}
         <div className="Task__buttons">
-
           {/* ACCEPT */}
           <button
-            className={`button Task__button Task__button--accept
-            ${isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
-            ? "Task__button--visible" : ""}`}
+            className={acceptButtonClass}
             onClick={this.acceptEditChange}
           >
             <svg className="Task__svg" viewBox="0 0 512 512">
@@ -206,8 +221,9 @@ class Task extends Component {
           
           {/* REMOVE */}
           <button
-            className="button Task__button Task__button--remove"
+            className={removeButtonClass}
             onClick={() => this.handleTaskRemove(id)}
+            disabled={isEditMode}
           >
             <svg className="Task__svg" viewBox="0 0 512 512">
               <use href={`${icons}#remove`}/>
@@ -217,10 +233,8 @@ class Task extends Component {
 
         {/* START BUTTON */}
         <button
-          className={`button Task__button Task__button--start
-          ${ isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode
-          ? "Task__button--disabled" : ""}`}
-          disabled={isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode}
+          className={startButtonClass}
+          disabled={isEditMode}
           onClick={this.handleStartButton}
         >
           <svg className="Task__svg" viewBox="0 0 512 512">

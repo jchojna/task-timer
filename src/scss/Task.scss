@@ -36,7 +36,6 @@
   &__button {
     @include button;
     fill: $color-background;
-    outline: none;
     width: $close-button;
     
     &:hover {
@@ -44,6 +43,7 @@
     }
 
     &--accept {
+      fill: $color-white;
       visibility: hidden;
     }
     
@@ -54,22 +54,11 @@
 
     &--start {
       @include flex-center;
-      border: 3px solid $color-white;
       border-radius: 50%;
-      fill: none;
       grid-area: startBtn;
       height: 70px;
-      margin: 5px;
-      stroke: $color-white;
-      stroke-width: 25;
+      margin: 10px;
       width: 70px;
-
-      &:hover {
-        background-color: $color-warning;
-        border-color: $color-warning;
-        fill: $color-primary;
-        stroke: $color-warning;
-      }
     }
         
     &--visible {

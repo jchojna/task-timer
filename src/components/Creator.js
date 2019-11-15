@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TimeInputs from './TimeInputs.js';
+import EditableTime from './EditableTime.js';
 //import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
 
@@ -216,7 +216,7 @@ class Creator extends Component {
         />
           
         {/* TASK TIME INPUTS */}
-        <TimeInputs
+        {/* <TimeInput
           block="Creator"
           modifier="taskTime"
           minutes={creatorTaskMinutes}
@@ -225,10 +225,10 @@ class Creator extends Component {
             this.handleTimeChange(value, creatorTaskSeconds, 'minutes', 'task')}
           onSecondsChange={(value) =>
             this.handleTimeChange(creatorTaskMinutes, value, 'seconds', 'task')}
-        />
+        /> */}
 
         {/* BREAK TIME INPUTS */}
-        <TimeInputs
+        {/* <TimeInput
           block="Creator"
           modifier="breakTime"
           minutes={creatorBreakMinutes}
@@ -237,7 +237,7 @@ class Creator extends Component {
             this.handleTimeChange(value, creatorBreakSeconds, 'minutes', 'break')}
           onSecondsChange={(value) =>
             this.handleTimeChange(creatorBreakMinutes, value, 'seconds', 'break')}
-        />
+        /> */}
         
         {/* ADD BUTTON */}
         <button
