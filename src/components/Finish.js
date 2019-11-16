@@ -6,16 +6,14 @@ import '../scss/Finish.scss';
 
 class Finish extends Component {
 
-  handleRestartTask = () => {
-    const { onTaskStateChange } = this.props;
-    onTaskStateChange({
-      isTimerVisible: false
-    });
-  }
-
   render() {
 
-    const { taskName, isTaskFinished, onTaskRemove, id } = this.props;
+    const { taskName,
+      isTaskFinished,
+      onTaskRemove,
+      onTimerRestart,
+      id
+    } = this.props;
     const {
       isFinishVisible,
       totalBreaks,
@@ -89,7 +87,7 @@ class Finish extends Component {
         {/* RESTART BUTTON */}
         <button
           className="Finish__button Finish__button--restart"
-          onClick={this.handleRestartTask}
+          onClick={onTimerRestart}
         >
           <svg className="Finish__svg" viewBox="0 0 512 512">
             <use href={`${icons}#retry`}/>
