@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NewTaskInput from './NewTaskInput';
 import classNames from 'classnames';
 //import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
@@ -211,9 +212,6 @@ class Creator extends Component {
         //onSubmit={this.handleFormSubmit}
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >
-        {/* TASK HEADING */}
-        {/* <h2 className="Creator__heading">Create a new task</h2> */}
-        
         {/* ADD NEW TASK BUTTON */}
         <button
           className="button Creator__createTaskButton"
@@ -221,6 +219,16 @@ class Creator extends Component {
         >
           Add New Task
         </button>
+
+        {/* TASK HEADING */}
+        
+        <NewTaskInput
+
+        />
+        
+
+
+        
   
         {/* TASK NAME INPUT */}
         {/* <input
