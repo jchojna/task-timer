@@ -124,6 +124,10 @@ class Creator extends Component {
     }
   }
 
+  handleCreateTaskButton = (e) => {
+    e.preventDefault();
+  }
+
   /* handleKeyPress = (e) => {
     const { onStateChange } = this.props;
     const keyPressed = e.key || null;
@@ -194,31 +198,39 @@ class Creator extends Component {
 
     const { isCreatorVisible } = this.props;
 
-    const creatorClass = classNames("Creator", {
+    /* const creatorClass = classNames("Creator", {
       "Creator--visible slideInRight": isCreatorVisible,
       "slideOutLeft": !isCreatorVisible
-    });
+    }); */
 
     return (
       <form
-        className={creatorClass}
-        tabIndex="0"
-        autoFocus
-        onSubmit={this.handleFormSubmit}
+        className="Creator"
+        //tabIndex="0"
+        //autoFocus
+        //onSubmit={this.handleFormSubmit}
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >
         {/* TASK HEADING */}
-        <h2 className="Creator__heading">Create a new task</h2>
+        {/* <h2 className="Creator__heading">Create a new task</h2> */}
+        
+        {/* ADD NEW TASK BUTTON */}
+        <button
+          className="button Creator__createTaskButton"
+          onClick={this.handleCreateTaskButton}
+        >
+          Add New Task
+        </button>
   
         {/* TASK NAME INPUT */}
-        <input
+        {/* <input
           id="taskName"
           name="taskName"
           className="Creator__taskName"
           placeholder="What would be your next task?"
           value={creatorTaskName}
           onChange={(e) => this.handleTaskName(e)}
-        />
+        /> */}
           
         {/* TASK TIME INPUTS */}
         {/* <TimeInput
@@ -245,44 +257,44 @@ class Creator extends Component {
         /> */}
         
         {/* ADD BUTTON */}
-        <button
+        {/* <button
           type="submit"
           className="Creator__button Creator__button--add"
           //disabled = {isTimerActive}
         >
           Add Task
-        </button>
+        </button> */}
         {/* CANCEL BUTTON */}
-        <button
+        {/* <button
           className="Creator__button Creator__button--cancel"
           //disabled = {isTimerActive}
           onClick={this.handleCancelButton}
         >
           Cancel
-        </button>
+        </button> */}
 
         {/* TASK NAME LABEL */}
-        <label className="Creator__label Creator__label--task-name" htmlFor="taskName">
+        {/* <label className="Creator__label Creator__label--task-name" htmlFor="taskName">
           Your task name
-        </label>
+        </label> */}
         {/* TASK TIME LABEL */}
-        <label className="Creator__label Creator__label--task-time" htmlFor="taskTime">
+        {/* <label className="Creator__label Creator__label--task-time" htmlFor="taskTime">
           Task time
-        </label>
+        </label> */}
         {/* BREAK TIME LABEL */}
-        <label className="Creator__label Creator__label--break-time" htmlFor="breakTime">
+        {/* <label className="Creator__label Creator__label--break-time" htmlFor="breakTime">
           Max break time
-        </label>
+        </label> */}
 
         {/* ALERTS */}
-        <div className="Creator__alerts">
+        {/* <div className="Creator__alerts">
           <p className={`Creator__alert ${this.handleAlertVisibility('name')}`}>
             You have to enter your task name!
           </p>
           <p className={`Creator__alert ${this.handleAlertVisibility('time')}`}>
             Enter correct time for task!
           </p>
-        </div>
+        </div> */}
       </form>
     );
   }

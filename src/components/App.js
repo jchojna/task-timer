@@ -9,7 +9,6 @@ class App extends Component {
     this.state = {
       // visibility
       isBoardVisible: true,
-      isCreatorVisible: false,
       tasks: [
         {
           taskName: "Test task for preview purposes",
@@ -45,10 +44,6 @@ class App extends Component {
   }
 
   handleStateChange = (object) => this.setState(object);
-
-  handleCreateNewTaskButton = () => {
-    this.setState({ isCreatorVisible: true });
-  }
   
   handleTaskRemove = (id) => this.setState(prevState => ({
     tasks: prevState.tasks.filter(task => task.id !== id)
@@ -56,7 +51,7 @@ class App extends Component {
 
   render() {
 
-    const { isCreatorVisible, tasks } = this.state;
+    const { tasks } = this.state;
 
     return (
       <React.StrictMode>
@@ -64,7 +59,7 @@ class App extends Component {
           {/* APP HEADING */}
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
           {/* BOARD OF TASKS */}
-          <section className="board">
+          <section className="App__board">
             {/* TASK CARDS */}
             {tasks.map((task) => (
               <Task
@@ -74,21 +69,9 @@ class App extends Component {
                 onTaskRemove={this.handleTaskRemove}
               />
             ))}
-
-            {/* ADD NEW TASK BUTTON */}
-            <button
-              className="button board__createTask"
-              onClick={this.handleCreateNewTaskButton}
-            >
-              Add New Task
-            </button>
-
             {/* TASK CREATOR */}
             <Creator
-              isCreatorVisible={isCreatorVisible}
               onAppStateChange={this.handleStateChange}
-              //onTimeChange={handleTimeChange}
-              //validateTaskName={validateTaskName}
             />
           </section>
         </div>

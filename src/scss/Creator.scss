@@ -5,11 +5,10 @@
 ////////////////////////////////////////////////////////////////// TASK & TIME 
 
 .Creator {
-  align-items: start;
-  background-color: $color-white;
-  bottom: 0;
-  display: grid;
-  font-weight: 400;
+  //align-items: start;
+  //background-color: $color-white;
+  //display: grid;
+  //font-weight: 400;
   /* grid-template-areas:
     "heading"
     "tskName"
@@ -17,20 +16,35 @@
     "rButton"
     "message"; */
   //grid-template-columns: 1fr;
-  grid-template-rows: 3fr 50px 1fr 1fr 1fr;
-  justify-items: center;
-  max-width: $layout-max-width;
-  padding: 0 200px;
-  position: fixed;
-  text-align: center;
-  top: 0;
-  transition: visibility 0s $time-slide;
-  visibility: hidden;
-  width: 100%;
+  //grid-template-rows: 3fr 50px 1fr 1fr 1fr;
+  //justify-items: center;
+  //max-width: $layout-max-width;
+  //padding: 0 200px;
+  //text-align: center;
+  //width: 100%;
 
-  &--visible {
+  /* &--visible {
     transition: visibility 0s;
     visibility: visible;
+  } */
+
+  &__createTaskButton {
+    @include button;
+    @include flex-center;
+    border: 4px solid $color-primary;
+    border-radius: $radius-card;
+    color: $color-primary;
+    font-size: 2.5em;
+    font-weight: 600;
+    height: 100%;
+    padding: 10px;
+    width: 100%;
+
+    &:hover {
+      background-color: $color-primary;
+      box-shadow: $card-shadow;
+      color: $color-background;
+    }
   }
 
   &__heading {
