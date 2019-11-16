@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NewTaskInput from './NewTaskInput';
-import classNames from 'classnames';
+//import classNames from 'classnames';
 //import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
 
@@ -189,15 +189,15 @@ class Creator extends Component {
 
   render() {
 
-    const {
+    /* const {
       creatorTaskName,
       creatorTaskMinutes,
       creatorTaskSeconds,
       creatorBreakMinutes,
       creatorBreakSeconds
-    } = this.state;
+    } = this.state; */
 
-    const { isCreatorVisible } = this.props;
+    //const { isCreatorVisible } = this.props;
 
     /* const creatorClass = classNames("Creator", {
       "Creator--visible slideInRight": isCreatorVisible,
@@ -214,16 +214,15 @@ class Creator extends Component {
       >
         {/* ADD NEW TASK BUTTON */}
         <button
-          className="button Creator__createTaskButton"
+          className="Creator__createTaskButton"
           onClick={this.handleCreateTaskButton}
         >
           Add New Task
         </button>
 
-        {/* TASK HEADING */}
-        
         <NewTaskInput
-
+          label="Enter task name"
+          placeholder="Enter text here..."
         />
         
 
