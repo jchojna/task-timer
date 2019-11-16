@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import EditableTime from './EditableTime.js';
+import classNames from 'classnames';
 //import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
 
@@ -192,11 +192,16 @@ class Creator extends Component {
       creatorBreakSeconds
     } = this.state;
 
-    const { compClassName } = this.props;
+    const { isCreatorVisible } = this.props;
+
+    const creatorClass = classNames("Creator", {
+      "Creator--visible slideInRight": isCreatorVisible,
+      "slideOutLeft": !isCreatorVisible
+    });
 
     return (
       <form
-        className={`Creator ${compClassName}`}
+        className={creatorClass}
         tabIndex="0"
         autoFocus
         onSubmit={this.handleFormSubmit}

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Board from './Board.js';
+import Task from './Task.js';
+import Creator from './Creator.js';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -8,6 +9,7 @@ class App extends Component {
     this.state = {
       // visibility
       isBoardVisible: true,
+      isCreatorVisible: false,
       tasks: [
         {
           taskName: "Test task for preview purposes",
@@ -43,23 +45,52 @@ class App extends Component {
   }
 
   handleStateChange = (object) => this.setState(object);
+
+  handleCreateNewTaskButton = () => {
+    this.setState({ isCreatorVisible: true });
+  }
   
   handleTaskRemove = (id) => this.setState(prevState => ({
     tasks: prevState.tasks.filter(task => task.id !== id)
   }));
 
   render() {
+
+    const { isCreatorVisible, tasks } = this.state;
+
     return (
       <React.StrictMode>
         <div className="App">
           {/* APP HEADING */}
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
           {/* BOARD OF TASKS */}
-          <Board
-            state={this.state}
-            onAppStateChange={this.handleStateChange}
-            onTaskRemove={this.handleTaskRemove}
-          />
+          <section className="board">
+            {/* TASK CARDS */}
+            {tasks.map((task) => (
+              <Task
+                task={task}
+                id={task.dateCreated}
+                key={task.dateCreated}
+                onTaskRemove={this.handleTaskRemove}
+              />
+            ))}
+
+            {/* ADD NEW TASK BUTTON */}
+            <button
+              className="button board__createTask"
+              onClick={this.handleCreateNewTaskButton}
+            >
+              Add New Task
+            </button>
+
+            {/* TASK CREATOR */}
+            <Creator
+              isCreatorVisible={isCreatorVisible}
+              onAppStateChange={this.handleStateChange}
+              //onTimeChange={handleTimeChange}
+              //validateTaskName={validateTaskName}
+            />
+          </section>
         </div>
       </React.StrictMode>
     );
