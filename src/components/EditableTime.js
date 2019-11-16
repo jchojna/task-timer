@@ -1,57 +1,47 @@
 import React from 'react';
-import '../scss/Editable.scss';
-import TimeInputs from './TimeInputs.js';
+import classNames from 'classnames';
 
-const EditableDisplay = (props) => {
-    
+const EditableTime = (props) => {
   const {
-    labelName,
-    block,
-    modifier,
     id,
-    minutes,
-    seconds,
+    name,
+    unit,
+    time,
     isValid,
     isEditMode,
-    onEditModeChange,
-    onMinutesChange,
-    onSecondsChange
+    onTimeChange,
+    onEditModeChange
   } = props;
+  
+  const textClass = classNames("TotalTime__text", {
+    "TotalTime__text--visible": !isEditMode
+  });
+
+  const timeClass = classNames("TotalTime__input",
+    `TotalTime__input--${unit}`, {
+    "TotalTime__input--visible": isEditMode,
+    "TotalTime__input--incorrect": !isValid 
+  });
+
+  const placeholder = unit.slice(0,3);
 
   return (
-    <div className={`${block} ${block}--${modifier}`}>
-      {/* LABEL */}
-      <label
-        className={`${block}__label`}
-        htmlFor={`${modifier}-${id}`}
-        onClick={onEditModeChange}
-      >
-        {labelName}
-      </label>
-      
+    <div className={`TotalTime__unit TotalTime__unit--${unit}`}>
       {/* TEXT */}
-      <p
-        className={`${block}__text
-        ${isEditMode ? "" : `${block}__text--visible`}`}
-        onClick={onEditModeChange}
-      >
-        {`${minutes} : ${seconds}`}
+      <p className={textClass} onClick={onEditModeChange}>
+        {time}
       </p>
-
       {/* INPUT */}
-      <TimeInputs
-        labelName={labelName}
-        block={block}
-        modifier={modifier}
+      <input
         id={id}
-        minutes={minutes}
-        seconds={seconds}
-        isValid={isValid}
-        isEditMode={isEditMode}
-        onMinutesChange={(value) => onMinutesChange(value)}
-        onSecondsChange={(value) => onSecondsChange(value)}
+        name={name}
+        className={timeClass}
+        placeholder={placeholder}
+        maxLength="2"
+        value={time}
+        onChange={(e) => onTimeChange(e.target.value)}
       />
     </div>
   );
 }
-export default EditableDisplay;
+export default EditableTime;

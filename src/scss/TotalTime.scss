@@ -1,0 +1,98 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.TotalTime {
+  align-items: center;
+  display: grid;
+  grid-template-areas:
+    "label   label label  "
+    "minutes colon seconds";
+  grid-template-columns: 2.6em auto 2.6em;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  
+  &--taskTime {
+    font-size: 2.5em;
+    grid-area: taskTime;
+  }
+
+  &--breakTime {
+    font-size: 2em;
+    grid-area: breakTime;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  &:hover {
+    cursor: text;
+  }
+
+  &__label {
+    font-size: 0.8rem;
+    grid-area: label;
+  }
+
+  &__unit {
+    position: relative;
+    font-weight: 600;
+    font-size: 1.2em;
+
+    &--minutes {
+      grid-area: minutes;
+    }
+
+    &--seconds {
+      grid-area: seconds;
+    }
+  }
+
+  &__text {
+    border: 2px solid transparent;
+    grid-area: text;
+    margin: 0;
+    padding: 5px;
+    width: 100%;
+    word-break: break-word;
+    text-align: center;
+    visibility: hidden;
+
+    &--visible {
+      visibility: visible;
+    }
+  }
+  
+  &__input {
+    background-color: $color-background;
+    border: 2px solid $color-white;
+    color: $color-white;
+    font-weight: inherit;
+    height: 100%;
+    left: 0;
+    outline: none;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    visibility: hidden;
+
+    &--visible {
+      visibility: visible;
+    }
+
+    &--incorrect {
+      border-color: $color-warning;
+    }
+  }
+  
+  &__colon {
+    font-size: 1.2em;
+    font-weight: 600;
+    grid-area: colon;
+    user-select: none;
+  }
+}

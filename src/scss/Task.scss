@@ -3,65 +3,82 @@
 @import "_animations.scss";
 
 .Task {
-  @include card;
-  align-items: center;
-  display: grid;
-  gap: 1em;
-  grid-template-areas:
-    "buttons"
-    "taskName"
-    "taskTime"
-    "breakTime"
-    "startBtn";
-  grid-template-rows: 40px auto auto auto;
-  justify-items: center;
-  overflow: hidden;
-  padding: 1em;
-  position: relative;
+  perspective: 500px;
 
-  &--editMode {
-    background-color: rgba($color: $color-cyan, $alpha: 0.4);
+  .Task__container {
+    align-items: start;
+    background: $color-primary;
+    box-shadow: $card-shadow;
+    border-radius: $radius-card;
+    display: grid;
+    gap: 10px;
+    height: 100%;
+    grid-template-areas:
+      "buttons  "
+      "taskName "
+      "taskTime "
+      "breakTime"
+      "startBtn ";
+    justify-items: center;
+    grid-template-rows: auto 1fr repeat(3, auto);
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    transform: rotate3d(0, 1, 0, 0) scaleX(1);
+    transition: transform $card-rotation ease-in-out;
+
+    &--editMode {
+      background: $color-light-background;
+    }
+
+    &--flipped {
+      transform: rotate3d(0, 1, 0, 180deg) scaleX(-1);
+    }
   }
 
   &__buttons {
-    align-self: start;
     display: grid;
-    gap: 20px;
+    column-gap: 10px;
     grid-area: buttons;
-    grid-template-columns: auto auto;
+    grid-template-columns: repeat(2, auto);
     justify-self: end;
   }
 
   &__button {
     @include button;
-    fill: #fff;
-    max-width: 40px;
+    fill: $color-background;
+    width: $close-button;
     
     &:hover {
-      border-color: $color-tomato;
-      fill: $color-tomato;
+      fill: $color-warning;
     }
 
     &--accept {
+      fill: $color-white;
       visibility: hidden;
-    }
-
-    &--start {
-      @include flex-center;
-      border: 2px solid #fff;
-      border-radius: 50%;
-      grid-area: startBtn;
-      max-width: 60px;
-    }
-        
-    &--visible {
-      visibility: visible;
     }
     
     &--disabled {
       opacity: 0.5;
       pointer-events: none;
     }
+
+    &--start {
+      @include flex-center;
+      border-radius: 50%;
+      grid-area: startBtn;
+      height: 70px;
+      margin: 10px;
+      width: 70px;
+    }
+        
+    &--visible {
+      visibility: visible;
+    }
+  }
+
+  &__svg {
+    width: 100%;
   }
 
   &__totalTime {

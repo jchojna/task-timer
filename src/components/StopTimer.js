@@ -6,7 +6,8 @@ const StopTimer = (props) => {
   const {
     isStopTimerVisible,
     onTimerStateChange,
-    onTaskStateChange } = props;
+    onTimerStop
+  } = props;
 
   const stopClass = classNames("StopTimer", {
     "StopTimer--visible": isStopTimerVisible
@@ -20,9 +21,7 @@ const StopTimer = (props) => {
         </h2>
         <button
           className="StopTimer__button StopTimer__button--stop"
-          onClick={() => onTaskStateChange({
-            isTimerVisible: false
-          })}
+          onClick={onTimerStop}
         >
           Yes
         </button>

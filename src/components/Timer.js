@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Countdown from './Countdown';
 import StopTimer from './StopTimer.js';
+import Controls from './Controls';
 import Finish from './Finish.js';
 import '../scss/Timer.scss';
 
@@ -16,9 +17,12 @@ class Timer extends Component {
       totalBreakTimeArray } = this.props.state;
 
     this.state = {
+      isTimerStarted: false,
+      flipCardTime: 500,
       // visibility
       isStopTimerVisible: false,
       isFinishVisible: false,
+      isTimerVisible: false,
       // modes
       isTaskTimeElapsedMode: true,
       isBreakTimeElapsedMode: true,
@@ -54,25 +58,47 @@ class Timer extends Component {
   componentDidMount() {
     this.taskIntervalId = setInterval(() => this.handleTimeTick('Task'), 10);
     this.breakIntervalId = setInterval(() => this.handleTimeTick('Break'), 10);
+    this.timeoutIntroId = setTimeout(() => this.setState({
+      isTimerStarted: true,
+      isTimerVisible: true,
+      previousTime: Date.now()
+    }), this.state.flipCardTime/2);
   }
   
   componentWillUnmount() {
     clearInterval(this.taskIntervalId);
     clearInterval(this.breakIntervalId);
+    clearTimeout(this.timeoutIntroId);
+    clearTimeout(this.timeoutOutroId);
   }
 
   handleStateChange = (object) => this.setState(object);
   
-  handleTaskTimeDisplayMode = () => this.setState(prevState => ({
-    isTaskTimeElapsedMode: !prevState.isTaskTimeElapsedMode
-  }));
-  
-  handleBreakTimeDisplayMode = () => this.setState(prevState => ({
-    isBreakTimeElapsedMode: !prevState.isBreakTimeElapsedMode
-  }));
+  handleTimeDisplayMode = () => {
+    const { isTaskTimeActive } = this.state;
+    const type = isTaskTimeActive ? "Task" : "Break";
+    this.setState(prevState => ({
+      [`is${type}TimeElapsedMode`]: !prevState[`is${type}TimeElapsedMode`]
+    }));
+  }
+
+  handleTimerStop = () => {
+    const { onTaskStateChange } = this.props;
+    onTaskStateChange({ isCardFlippedMode: false });
+    this.setState({
+      isTimerStarted: false,
+      isStopTimerVisible: false
+    });
+    this.timeoutOutroId = setTimeout(() => {
+      onTaskStateChange({
+        isTimerVisible: false,
+        isTimerAppended: false
+      });
+    }, this.state.flipCardTime/2);
+  }
 
   handleTimeTick = (type) => {
-    if (this.state[`is${type}TimeActive`]) {
+    if (this.state[`is${type}TimeActive`] && this.state.isTimerStarted) {
 
       const { previousTime, elapsedTaskTime, elapsedBreakTime } = this.state;
       const totalTime = this.state[`total${type}Time`];
@@ -125,8 +151,8 @@ class Timer extends Component {
     const { taskName } = this.props.state;
 
     const {
+      isTimerVisible,
       isStopTimerVisible,
-      isFinishVisible,
       isTaskTimeElapsedMode,
       isBreakTimeElapsedMode,
       isTaskFinished,
@@ -144,7 +170,11 @@ class Timer extends Component {
       totalBreaks
     } = this.state;
 
-    const { isTimerVisible, onTaskStateChange } = this.props;
+    const {
+      id,
+      onTaskStateChange,
+      onTaskRemove
+    } = this.props;
 
     const timerClass = classNames("Timer", {
       "Timer--visible": isTimerVisible,
@@ -165,11 +195,7 @@ class Timer extends Component {
             elapsedTaskPercent={elapsedTaskPercent}
             remainingTaskPercent={remainingTaskPercent}
             isCountdownVisible={isTaskTimeActive}
-            isTaskTimeActive={isTaskTimeActive}
-            isBreakTimeActive={isBreakTimeActive}
             totalBreaks={totalBreaks}
-            onDisplayModeChange={this.handleTaskTimeDisplayMode}
-            onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
           />
           {/* BREAK TIME COUNTDOWN */}
@@ -181,43 +207,51 @@ class Timer extends Component {
             elapsedTaskPercent={elapsedBreakPercent}
             remainingTaskPercent={remainingBreakPercent}
             isCountdownVisible={isBreakTimeActive}
-            isTaskTimeActive={isTaskTimeActive}
-            isBreakTimeActive={isBreakTimeActive}
             totalBreaks={totalBreaks}
-            onDisplayModeChange={this.handleBreakTimeDisplayMode}
-            onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
           />
         </div>
+        {/* CONTROL BUTTONS */}
+        <Controls
+          isTaskTimeActive={isTaskTimeActive}
+          isBreakTimeActive={isBreakTimeActive}
+          onDisplayModeChange={this.handleTimeDisplayMode}
+          onTimerStateChange={this.handleStateChange}
+        />
         {/* STOP TASK SECTION */}
         <StopTimer
           isStopTimerVisible={isStopTimerVisible}
           onTimerStateChange={this.handleStateChange}
           onTaskStateChange={onTaskStateChange}
+          onTimerStop={this.handleTimerStop}
         />
         {/* TASK TIME EXCEEDED */}
-        { 
+        {
           isTaskFinished
           ? <Finish
             isTaskFinished={isTaskFinished}
-            isFinishVisible={isTaskFinished}
             taskName={taskName}
             state={this.state}
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
+            onTaskRemove={onTaskRemove}
+            onTimerRestart={this.handleTimerStop}
+            id={id}
           />
           : <div></div>
         }
         {/* BREAK TIME EXCEEDED */}
-        { 
+        {
           isBreakFinished
           ? <Finish
             isTaskFinished={isTaskFinished}
-            isFinishVisible={isBreakFinished}
             taskName={taskName}
             state={this.state}
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
+            onTaskRemove={onTaskRemove}
+            onTimerRestart={this.handleTimerStop}
+            id={id}
           />
           : <div></div>
         }

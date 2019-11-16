@@ -1,51 +1,21 @@
 import React, { Component } from 'react';
+import { formatTimeResult } from '../lib/handlers';
 import classNames from 'classnames';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Finish.scss';
 
 class Finish extends Component {
 
-  handleTimeResult = ([minutes, seconds], elapsedBreakTime) => {
-    minutes = parseInt(minutes);
-    seconds = parseInt(seconds);
-    return `
-      ${ minutes > 1
-      ? ` ${minutes} minutes` : minutes === 1
-      ? ` ${minutes} minute` : "" }
-      ${ minutes > 0 && (elapsedBreakTime ? elapsedBreakTime !== 0 : seconds !== 0)
-      ? "and" : "" }
-      ${ seconds > 1
-      ? ` ${seconds} seconds` : seconds === 1
-      ? ` ${seconds} second` : elapsedBreakTime && elapsedBreakTime !== 0
-      ? " a split second" : "" }
-    `
-  }
-
-  handleResetTask = () => {
-    const { onTaskStateChange } = this.props;
-    onTaskStateChange({
-      isTimerVisible: false
-    });
-  }
-
-  handleRestartTask = () => {
-    const { onTimerStateChange } = this.props;
-    onTimerStateChange({
-      isFinishVisible: false,
-      isTaskTimeActive: true,
-      //taskName: "",
-      //isTaskNameValid: false,
-      //taskTimePlanned: "",
-      //isTaskTimePlannedValid: false,
-      //breakTimePlanned: "",
-      //isBreakTimePlannedValid: false
-    });
-  }
-
   render() {
 
-    const { taskName, isTaskFinished, isFinishVisible } = this.props;
+    const { taskName,
+      isTaskFinished,
+      onTaskRemove,
+      onTimerRestart,
+      id
+    } = this.props;
     const {
+      isFinishVisible,
       totalBreaks,
       elapsedBreakTime,
       elapsedBreakTimeArray,
@@ -61,8 +31,8 @@ class Finish extends Component {
       ? ` ${Math.round(elapsedBreakTime / overallTime * 100)}%`
       : "";
 
-    const overallTimeResult = this.handleTimeResult(overallTimeArray);
-    const breakTimeResult = this.handleTimeResult(elapsedBreakTimeArray, elapsedBreakTime);
+    const overallTimeResult = formatTimeResult(overallTimeArray);
+    const breakTimeResult = formatTimeResult(elapsedBreakTimeArray, elapsedBreakTime);
     const finishClass = classNames("Finish", {
       "Finish--visible": isFinishVisible,
       [`Finish--task`]: isTaskFinished,
@@ -114,25 +84,25 @@ class Finish extends Component {
             {totalBreaks ? " of all time." : "."}
           </p>
         }
-        {/* RESET BUTTON */}
+        {/* RESTART BUTTON */}
         <button
-          className="Finish__reset"
-          onClick={this.handleResetTask}
+          className="Finish__button Finish__button--restart"
+          onClick={onTimerRestart}
         >
           <svg className="Finish__svg" viewBox="0 0 512 512">
             <use href={`${icons}#retry`}/>
           </svg>
         </button>
 
-        {/* RESTART BUTTON */}
-        {/* <button
-          className="Finish__reset"
-          onClick={this.handleResetTask}
+        {/* REMOVE BUTTON */}
+        <button
+          className="Finish__button Finish__button--remove"
+          onClick={() => onTaskRemove(id)}
         >
-          <svg className="Finish__svg" viewBox="0 0 512 512">
-            <use href={`${icons}#retry`}/>
+          <svg className="Task__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#remove`}/>
           </svg>
-        </button> */}
+        </button>
       </section>
     );
   }

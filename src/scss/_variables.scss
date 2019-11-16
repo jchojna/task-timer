@@ -5,19 +5,25 @@ $hover-icon: 0.3s;
 $focus-input: 0.2s;
 $fade-stopTask: 0.3s;
 $time-alert: 0.3s;
+$card-rotation: 0.5s;
 // COLORS
-$color-cyan: #B4CECF;
-$color-cyan-dark: rgb(116, 135, 136);
-$color-tomato: #C36565;
+$color-white: #e1edea;
+$color-black: rgb(31, 36, 37);
+$color-primary: #769599;
+$color-light-background: #50787c;
+$color-background: #305b60;
+$color-warning: #96343c;
 $color-disabled: #ddd;
+$card-shadow: 0 3px 12px rgba($color: $color-black, $alpha: 0.5);
 // MEDIA
 $media-sm: 480px;
 $media-md: 768px;
 $media-lg: 1200px;
 // LAYOUT
-$layout-padding: 1em;
+$layout-padding: 10px;
 $layout-max-width: 1200px;
 // SIZE
 $size-controls-xs: 50px;
 $size-controls-md: 70px;
 $radius-card: 10px;
+$close-button: 35px;

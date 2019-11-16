@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import TimeDisplay from './TimeDisplay';
 import Progress from './Progress';
-import Controls from './Controls';
 import '../scss/Countdown.scss';
 
 const Countdown = (props) => {
@@ -15,16 +14,12 @@ const Countdown = (props) => {
     elapsedTaskPercent,
     remainingTaskPercent,
     isCountdownVisible,
-    isTaskTimeActive,
-    isBreakTimeActive,
-    totalBreaks,
-    onDisplayModeChange,
-    onTimerStateChange,
-    onTaskStateChange
+    totalBreaks
   } = props;
 
   const breaksAmount = `${totalBreaks}
-    ${totalBreaks === 1 ? "break" : "breaks"} used`;
+    ${totalBreaks === 1 ? "break" : "breaks"} used
+  `;
 
   const countdownClass = classNames(`Countdown Countdown--${modifier}`, {
     "Countdown--visible": isCountdownVisible,
@@ -51,6 +46,7 @@ const Countdown = (props) => {
       <p className="Countdown__breaks">{breaksAmount}</p>
       {/* TIMER DISPLAY */}
       <TimeDisplay
+        type={modifier}
         isElapsedMode={isElapsedMode}
         elapsedTimeArray={elapsedTimeArray}
         remainingTimeArray={remainingTimeArray}
@@ -60,13 +56,6 @@ const Countdown = (props) => {
         isElapsedMode={isElapsedMode}
         elapsedPercent={elapsedTaskPercent}
         remainingPercent={remainingTaskPercent}
-      />
-      {/* CONTROL BUTTONS */}
-      <Controls
-        isTaskTimeActive={isTaskTimeActive}
-        isBreakTimeActive={isBreakTimeActive}
-        onDisplayModeChange={onDisplayModeChange}
-        onTimerStateChange={onTimerStateChange}
       />
     </div>
   );
