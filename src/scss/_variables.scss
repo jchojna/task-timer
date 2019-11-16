@@ -5,6 +5,7 @@ $hover-icon: 0.3s;
 $focus-input: 0.2s;
 $fade-stopTask: 0.3s;
 $time-alert: 0.3s;
+$card-rotation: 0.5s;
 // COLORS
 $color-white: #e1edea;
 $color-black: rgb(31, 36, 37);
@@ -13,7 +14,7 @@ $color-light-background: #50787c;
 $color-background: #305b60;
 $color-warning: #96343c;
 $color-disabled: #ddd;
-$card-shadow: 0 3px 12px rgba($color: $color-black, $alpha: 0.6);
+$card-shadow: 0 3px 12px rgba($color: $color-black, $alpha: 0.5);
 // MEDIA
 $media-sm: 480px;
 $media-md: 768px;

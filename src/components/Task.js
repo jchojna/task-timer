@@ -18,7 +18,8 @@ class Task extends Component {
     } = this.props.task;
 
     this.state = {
-      isTimerVisible: false,
+      isCardFlippedMode: false,
+      isTimerAppended: false,
       taskName,
       taskMinutes: totalTaskTimeArray[0],
       taskSeconds: totalTaskTimeArray[1],
@@ -33,8 +34,7 @@ class Task extends Component {
       isBreakTimeEditMode: false,
       isTaskNameValid: true,
       isTaskTimeValid: true,
-      isBreakTimeValid: true,
-      startTime: 0
+      isBreakTimeValid: true
     }
   }
   
@@ -52,7 +52,7 @@ class Task extends Component {
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
   }
-  
+
   acceptEditChange = () => {
     const {
       totalTaskTimeArray,
@@ -117,18 +117,16 @@ class Task extends Component {
     //this.setState({ alertTimeFlag });
   }
 
-  handleStartButton = () => {
-    this.setState({
-      isTimerVisible: true,
-      startTime: Date.now()
-    })
-  }
+  handleStartButton = () => this.setState({
+    isCardFlippedMode: true,
+    isTimerAppended: true
+  });
 
   render() {
 
     const { id, onTimeArrayChange } = this.props;
     const {
-      isTimerVisible,
+      isCardFlippedMode,
       taskName,
       taskMinutes,
       taskSeconds,
@@ -144,8 +142,9 @@ class Task extends Component {
 
     const isEditMode = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
 
-    const taskClass = classNames("Task", {
-      "Task--editMode": isEditMode
+    const taskContainerClass = classNames("Task__container", {
+      "Task__container--editMode": isEditMode,
+      "Task__container--flipped": isCardFlippedMode
     });
 
     const acceptButtonClass = classNames("button Task__button Task__button--accept", {
@@ -162,101 +161,98 @@ class Task extends Component {
     
 
     return (
-      <section
-        className={taskClass}
-      >
-        {/* TASK  NAME */}
-        <EditableText
-          output={taskName}
-          isValid={isTaskNameValid}
-          isDisabled={isTaskTimeEditMode || isBreakTimeEditMode}
-          isEditMode={isTaskNameEditMode}
-          onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
-          onTaskNameChange={this.handleTaskNameChange}
-        />
+      <section className="Task">
+        <div className={taskContainerClass}>
+          {/* TASK  NAME */}
+          <EditableText
+            output={taskName}
+            isValid={isTaskNameValid}
+            isDisabled={isTaskTimeEditMode || isBreakTimeEditMode}
+            isEditMode={isTaskNameEditMode}
+            onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
+            onTaskNameChange={this.handleTaskNameChange}
+          />
 
-        {/* TOTAL TASK TIME */}
-        <TotalTime
-          labelName="Task Time"
-          modifier="taskTime"
-          id={id}
-          minutes={taskMinutes}
-          seconds={taskSeconds}
-          isValid={isTaskTimeValid}
-          isDisabled={isTaskNameEditMode || isBreakTimeEditMode}
-          onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
-          isEditMode={isTaskTimeEditMode}
-          onMinutesChange={(value) => 
-            this.handleTimeChange(value, taskSeconds, 'minutes', 'task')}
-          onSecondsChange={(value) => 
-            this.handleTimeChange(taskMinutes, value, 'seconds', 'task')}
-        />
-        
-        {/* TOTAL BREAK TIME */}
-        <TotalTime
-          labelName="Break Time"
-          modifier="breakTime"
-          id={id}
-          minutes={breakMinutes}
-          seconds={breakSeconds}
-          isValid={isBreakTimeValid}
-          isDisabled={isTaskNameEditMode || isTaskTimeEditMode}
-          onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
-          isEditMode={isBreakTimeEditMode}
-          onMinutesChange={(value) => 
-            this.handleTimeChange(value, breakSeconds, 'minutes', 'break')}
-          onSecondsChange={(value) => 
-            this.handleTimeChange(breakMinutes, value, 'seconds', 'break')}
-        />
-                
-        {/* EDIT BUTTONS */}
-        <div className="Task__buttons">
-          {/* ACCEPT */}
+          {/* TOTAL TASK TIME */}
+          <TotalTime
+            labelName="Task Time"
+            modifier="taskTime"
+            id={id}
+            minutes={taskMinutes}
+            seconds={taskSeconds}
+            isValid={isTaskTimeValid}
+            isDisabled={isTaskNameEditMode || isBreakTimeEditMode}
+            onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
+            isEditMode={isTaskTimeEditMode}
+            onMinutesChange={(value) => 
+              this.handleTimeChange(value, taskSeconds, 'minutes', 'task')}
+            onSecondsChange={(value) => 
+              this.handleTimeChange(taskMinutes, value, 'seconds', 'task')}
+          />
+          
+          {/* TOTAL BREAK TIME */}
+          <TotalTime
+            labelName="Break Time"
+            modifier="breakTime"
+            id={id}
+            minutes={breakMinutes}
+            seconds={breakSeconds}
+            isValid={isBreakTimeValid}
+            isDisabled={isTaskNameEditMode || isTaskTimeEditMode}
+            onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
+            isEditMode={isBreakTimeEditMode}
+            onMinutesChange={(value) => 
+              this.handleTimeChange(value, breakSeconds, 'minutes', 'break')}
+            onSecondsChange={(value) => 
+              this.handleTimeChange(breakMinutes, value, 'seconds', 'break')}
+          />
+                  
+          {/* EDIT BUTTONS */}
+          <div className="Task__buttons">
+            {/* ACCEPT */}
+            <button
+              className={acceptButtonClass}
+              onClick={this.acceptEditChange}
+            >
+              <svg className="Task__svg" viewBox="0 0 512 512">
+                <use href={`${icons}#tick`}/>
+              </svg>
+            </button>
+            {/* REMOVE */}
+            <button
+              className={removeButtonClass}
+              onClick={() => this.handleTaskRemove(id)}
+              disabled={isEditMode}
+            >
+              <svg className="Task__svg" viewBox="0 0 512 512">
+                <use href={`${icons}#remove`}/>
+              </svg>
+            </button>
+          </div>
+          {/* START BUTTON */}
           <button
-            className={acceptButtonClass}
-            onClick={this.acceptEditChange}
+            className={startButtonClass}
+            disabled={isEditMode}
+            onClick={this.handleStartButton}
           >
             <svg className="Task__svg" viewBox="0 0 512 512">
-              <use href={`${icons}#tick`}/>
+              <use href={`${icons}#play`} />
             </svg>
           </button>
           
-          {/* REMOVE */}
-          <button
-            className={removeButtonClass}
-            onClick={() => this.handleTaskRemove(id)}
-            disabled={isEditMode}
-          >
-            <svg className="Task__svg" viewBox="0 0 512 512">
-              <use href={`${icons}#remove`}/>
-            </svg>
-          </button>
+          {/* TIMER COMPONENT */}
+          {
+            this.state.isTimerAppended
+            ? <Timer
+                onTaskStateChange={this.handleStateChange}
+                state={this.state}
+                id={id}
+                onTaskRemove={this.handleTaskRemove}
+                onTimeArrayChange={onTimeArrayChange}
+              />
+            : <div className="empty"></div>
+          }
         </div>
-
-        {/* START BUTTON */}
-        <button
-          className={startButtonClass}
-          disabled={isEditMode}
-          onClick={this.handleStartButton}
-        >
-          <svg className="Task__svg" viewBox="0 0 512 512">
-            <use href={`${icons}#play`} />
-          </svg>
-        </button>
-        
-        {/* TIMER COMPONENT */}
-        {
-          this.state.isTimerVisible
-          ? <Timer
-              isTimerVisible={isTimerVisible}
-              onTaskStateChange={this.handleStateChange}
-              state={this.state}
-              id={id}
-              onTaskRemove={this.handleTaskRemove}
-              onTimeArrayChange={onTimeArrayChange}
-            />
-          : <div className="empty"></div>
-        }
       </section>
     );
   }

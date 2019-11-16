@@ -17,9 +17,12 @@ class Timer extends Component {
       totalBreakTimeArray } = this.props.state;
 
     this.state = {
+      isTimerStarted: false,
+      flipCardTime: 500,
       // visibility
       isStopTimerVisible: false,
       isFinishVisible: false,
+      isTimerVisible: false,
       // modes
       isTaskTimeElapsedMode: true,
       isBreakTimeElapsedMode: true,
@@ -55,11 +58,18 @@ class Timer extends Component {
   componentDidMount() {
     this.taskIntervalId = setInterval(() => this.handleTimeTick('Task'), 10);
     this.breakIntervalId = setInterval(() => this.handleTimeTick('Break'), 10);
+    this.timeoutIntroId = setTimeout(() => this.setState({
+      isTimerStarted: true,
+      isTimerVisible: true,
+      previousTime: Date.now()
+    }), this.state.flipCardTime/2);
   }
   
   componentWillUnmount() {
     clearInterval(this.taskIntervalId);
     clearInterval(this.breakIntervalId);
+    clearTimeout(this.timeoutIntroId);
+    clearTimeout(this.timeoutOutroId);
   }
 
   handleStateChange = (object) => this.setState(object);
@@ -71,17 +81,24 @@ class Timer extends Component {
       [`is${type}TimeElapsedMode`]: !prevState[`is${type}TimeElapsedMode`]
     }));
   }
-  
-  /* handleTaskTimeDisplayMode = () => this.setState(prevState => ({
-    isTaskTimeElapsedMode: !prevState.isTaskTimeElapsedMode
-  }));
-  
-  handleBreakTimeDisplayMode = () => this.setState(prevState => ({
-    isBreakTimeElapsedMode: !prevState.isBreakTimeElapsedMode
-  })); */
+
+  handleTimerStop = () => {
+    const { onTaskStateChange } = this.props;
+    onTaskStateChange({ isCardFlippedMode: false });
+    this.setState({
+      isTimerStarted: false,
+      isStopTimerVisible: false
+    });
+    this.timeoutOutroId = setTimeout(() => {
+      onTaskStateChange({
+        isTimerVisible: false,
+        isTimerAppended: false
+      });
+    }, this.state.flipCardTime/2);
+  }
 
   handleTimeTick = (type) => {
-    if (this.state[`is${type}TimeActive`]) {
+    if (this.state[`is${type}TimeActive`] && this.state.isTimerStarted) {
 
       const { previousTime, elapsedTaskTime, elapsedBreakTime } = this.state;
       const totalTime = this.state[`total${type}Time`];
@@ -134,6 +151,7 @@ class Timer extends Component {
     const { taskName } = this.props.state;
 
     const {
+      isTimerVisible,
       isStopTimerVisible,
       isTaskTimeElapsedMode,
       isBreakTimeElapsedMode,
@@ -154,9 +172,9 @@ class Timer extends Component {
 
     const {
       id,
-      isTimerVisible,
       onTaskStateChange,
-      onTaskRemove } = this.props;
+      onTaskRemove
+    } = this.props;
 
     const timerClass = classNames("Timer", {
       "Timer--visible": isTimerVisible,
@@ -205,6 +223,7 @@ class Timer extends Component {
           isStopTimerVisible={isStopTimerVisible}
           onTimerStateChange={this.handleStateChange}
           onTaskStateChange={onTaskStateChange}
+          onTimerStop={this.handleTimerStop}
         />
         {/* TASK TIME EXCEEDED */}
         {
@@ -216,6 +235,7 @@ class Timer extends Component {
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
             onTaskRemove={onTaskRemove}
+            onTimerRestart={this.handleTimerStop}
             id={id}
           />
           : <div></div>
@@ -230,6 +250,7 @@ class Timer extends Component {
             onTimerStateChange={this.handleStateChange}
             onTaskStateChange={onTaskStateChange}
             onTaskRemove={onTaskRemove}
+            onTimerRestart={this.handleTimerStop}
             id={id}
           />
           : <div></div>

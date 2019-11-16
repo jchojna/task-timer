@@ -4,7 +4,7 @@ import EditableTime from './EditableTime.js';
 import '../scss/TotalTime.scss';
 
 const TotalTime = (props) => {
-    
+
   const {
     labelName,
     modifier,

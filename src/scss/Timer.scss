@@ -3,19 +3,17 @@
 @import "_animations.scss";
 
 .Timer {
-  display: flex;
+  display: none;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
   left: 0;
   position: absolute;
   top: 0;
-  //transition: visibility 0s $time-slide;
   width: 100%;
-  visibility: hidden;
 
   &--taskTime {
-    background-color: rgb(148, 202, 193);
+    background-color: $color-white;
   }
 
   &--breakTime {
@@ -23,8 +21,7 @@
   }
 
   &--visible {
-    //transition: visibility 0s;
-    visibility: visible;
+    display: flex;
   }
 
   &__heading {

@@ -3,31 +3,42 @@
 @import "_animations.scss";
 
 .Task {
-  align-items: start;
-  background: $color-primary;
-  box-shadow: $card-shadow;
-  border-radius: $radius-card;
-  display: grid;
-  gap: 10px;
-  grid-template-areas:
-    "buttons  "
-    "taskName "
-    "taskTime "
-    "breakTime"
-    "startBtn ";
-  justify-items: center;
-  grid-template-rows: auto 1fr repeat(3, auto);
-  overflow: hidden;
-  padding: 20px;
-  position: relative;
+  perspective: 500px;
 
-  &--editMode {
-    background: $color-light-background;
+  .Task__container {
+    align-items: start;
+    background: $color-primary;
+    box-shadow: $card-shadow;
+    border-radius: $radius-card;
+    display: grid;
+    gap: 10px;
+    height: 100%;
+    grid-template-areas:
+      "buttons  "
+      "taskName "
+      "taskTime "
+      "breakTime"
+      "startBtn ";
+    justify-items: center;
+    grid-template-rows: auto 1fr repeat(3, auto);
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    transform: rotate3d(0, 1, 0, 0) scaleX(1);
+    transition: transform $card-rotation ease-in-out;
+
+    &--editMode {
+      background: $color-light-background;
+    }
+
+    &--flipped {
+      transform: rotate3d(0, 1, 0, 180deg) scaleX(-1);
+    }
   }
 
   &__buttons {
     display: grid;
-    column-gap: 20px;
+    column-gap: 10px;
     grid-area: buttons;
     grid-template-columns: repeat(2, auto);
     justify-self: end;
