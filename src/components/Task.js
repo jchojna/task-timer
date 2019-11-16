@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import EditableText from './EditableText.js';
 import TotalTime from './TotalTime.js';
 import Timer from './Timer.js';
+import { validateTaskName, handleTimeChange } from '../lib/handlers';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -41,7 +42,6 @@ class Task extends Component {
   handleStateChange = (object) => this.setState(object);
 
   handleTaskNameChange = (value) => {
-    const { validateTaskName } = this.props;
     this.setState({
       taskName: value,
       isTaskNameValid: validateTaskName(value)
@@ -78,8 +78,7 @@ class Task extends Component {
   }
 
   handleTimeChange = (minutes, seconds, units, type) => {
-    const { onTimeChange } = this.props;
-    const object = onTimeChange(minutes, seconds, units, type);
+    const object = handleTimeChange(minutes, seconds, units, type);
 
     if (type === 'task') {
       if (units === 'minutes') {
@@ -124,7 +123,7 @@ class Task extends Component {
 
   render() {
 
-    const { id, onTimeArrayChange } = this.props;
+    const { id } = this.props;
     const {
       isCardFlippedMode,
       taskName,
@@ -248,7 +247,6 @@ class Task extends Component {
                 state={this.state}
                 id={id}
                 onTaskRemove={this.handleTaskRemove}
-                onTimeArrayChange={onTimeArrayChange}
               />
             : <div className="empty"></div>
           }

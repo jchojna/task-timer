@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
 import Board from './Board.js';
-import { 
-  validateTaskName,
-  handleTimeChange,
-  getTimeArray
-} from '../lib/handlers';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -62,11 +57,8 @@ class App extends Component {
           {/* BOARD OF TASKS */}
           <Board
             state={this.state}
-            onStateChange={this.handleStateChange}
+            onAppStateChange={this.handleStateChange}
             onTaskRemove={this.handleTaskRemove}
-            onTimeChange={handleTimeChange}
-            validateTaskName={validateTaskName}
-            onTimeArrayChange={getTimeArray}
           />
         </div>
       </React.StrictMode>

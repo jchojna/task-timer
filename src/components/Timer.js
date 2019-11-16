@@ -4,6 +4,7 @@ import Countdown from './Countdown';
 import StopTimer from './StopTimer.js';
 import Controls from './Controls';
 import Finish from './Finish.js';
+import { getTimeArray } from '../lib/handlers';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
@@ -106,12 +107,11 @@ class Timer extends Component {
       const remainingTime = this.state[`remaining${type}Time`];
       const overallTime = elapsedTaskTime + elapsedBreakTime;
 
-      const { onTimeArrayChange } = this.props;
       const now = Date.now();
-      const elapsedTimeArray   = onTimeArrayChange(elapsedTime);
-      const totalTimeArray     = onTimeArrayChange(totalTime);
-      const remainingTimeArray = onTimeArrayChange(remainingTime);
-      const overallTimeArray   = onTimeArrayChange(overallTime);
+      const elapsedTimeArray   = getTimeArray(elapsedTime);
+      const totalTimeArray     = getTimeArray(totalTime);
+      const remainingTimeArray = getTimeArray(remainingTime);
+      const overallTimeArray   = getTimeArray(overallTime);
       const elapsedPercent   = elapsedTime / totalTime * 100;
       const remainingPercent = remainingTime / totalTime * 100;
 
