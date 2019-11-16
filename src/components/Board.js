@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import Task from './Task.js';
+import Creator from './Creator.js';
+import { handleTimeChange } from '../lib/handlers';
 import '../scss/Board.scss';
 
 class Board extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isCreatorVisible: false
+    }
+  }
 
   handleCreateNewTaskButton = () => {
     const { onStateChange } = this.props;
@@ -20,6 +28,7 @@ class Board extends Component {
       onTimeArrayChange
     } = this.props;
     const { tasks } = state;
+    const { isCreatorVisible } = this.state;
 
     return (
       <section className="Board">
@@ -44,6 +53,15 @@ class Board extends Component {
         >
           Add New Task
         </button>
+
+        {/* TASK CREATOR */}
+        <Creator
+          compClassName={isCreatorVisible
+            ? "Creator--visible slideInRight" : "slideOutLeft"}
+          onStateChange={this.handleStateChange}
+          onTimeChange={handleTimeChange}
+          validateTaskName={validateTaskName}
+        />
       </section>
     );
   }
