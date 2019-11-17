@@ -35,7 +35,7 @@ class Creator extends Component {
     };
   }
 
-  handleStateChange = (object) => this.setState({ object });
+  handleStateChange = (object) => this.setState(object);
 
   handleTaskName = (value) => {
     this.setState({
@@ -299,6 +299,7 @@ class Creator extends Component {
           onBackButtonClick={this.handleBackButton}
           onNextButtonClick={this.handleNextButton}
           onTaskNameChange={this.handleTaskName}
+          onCreatorStateChange={this.handleStateChange}
         />
 
         {/* TASK TIME INPUT */}
@@ -312,6 +313,7 @@ class Creator extends Component {
           seconds={creatorTaskSeconds}
           onBackButtonClick={this.handleBackButton}
           onNextButtonClick={this.handleNextButton}
+          onCreatorStateChange={this.handleStateChange}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorTaskSeconds, 'minutes', 'task')}
           onSecondsChange={(value) =>
@@ -329,6 +331,7 @@ class Creator extends Component {
           seconds={creatorBreakSeconds}
           onBackButtonClick={this.handleBackButton}
           onNextButtonClick={this.handleNextButton}
+          onCreatorStateChange={this.handleStateChange}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorBreakSeconds, 'minutes', 'break')}
           onSecondsChange={(value) =>

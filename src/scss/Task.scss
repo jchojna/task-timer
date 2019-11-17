@@ -22,7 +22,7 @@
     justify-items: center;
     grid-template-rows: auto 1fr repeat(3, auto);
     overflow: hidden;
-    padding: 20px;
+    padding: $card-padding;
     position: relative;
     transform: rotate3d(0, 1, 0, 0) scaleX(1);
     transition: transform $card-rotation ease-in-out;

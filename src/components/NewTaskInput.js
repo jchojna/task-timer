@@ -18,7 +18,8 @@ const NewTaskInput = (props) => {
     onNextButtonClick,
     onTaskNameChange,
     onMinutesChange,
-    onSecondsChange
+    onSecondsChange,
+    onCreatorStateChange
   } = props;
 
   const handleBackButton = (e) => {
@@ -29,6 +30,20 @@ const NewTaskInput = (props) => {
   const handleNextButton = (e) => {
     e.preventDefault();
     onNextButtonClick(modifier);
+  }
+
+  const handleCloseButton = (e) => {
+    e.preventDefault();
+    onCreatorStateChange({
+      isTaskNameVisible: false,
+      isTaskTimeVisible: false,
+      isBreakTimeVisible: false,
+      creatorTaskName: "",
+      creatorTaskMinutes: "",
+      creatorTaskSeconds: "",
+      creatorBreakMinutes: "",
+      creatorBreakSeconds: ""
+    });
   }
 
   const newTaskInputClass = classNames("NewTaskInput", {
@@ -63,7 +78,7 @@ const NewTaskInput = (props) => {
           id={modifier}
           className="NewTaskInput__text"
           placeholder={placeholder}
-          spellcheck="false"
+          spellCheck="false"
           value={title}
           onChange={(e) => onTaskNameChange(e.target.value)}
         ></textarea>
@@ -108,6 +123,16 @@ const NewTaskInput = (props) => {
       >
         <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
           <use href={`${icons}#arrow-right`}></use>
+        </svg>
+      </button>
+
+      {/* CLOSE NEW TASK */}
+      <button
+        className="NewTaskInput__button NewTaskInput__button--close NewTaskInput__button--visible"
+        onClick={handleCloseButton}
+      >
+        <svg className="Task__svg" viewBox="0 0 512 512">
+          <use href={`${icons}#remove`}/>
         </svg>
       </button>
     </div>
