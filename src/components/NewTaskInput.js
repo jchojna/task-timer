@@ -19,7 +19,7 @@ const NewTaskInput = (props) => {
     onTaskNameChange,
     onMinutesChange,
     onSecondsChange,
-    onCreatorStateChange
+    onCreatorEnd
   } = props;
 
   const handleBackButton = (e) => {
@@ -34,16 +34,7 @@ const NewTaskInput = (props) => {
 
   const handleCloseButton = (e) => {
     e.preventDefault();
-    onCreatorStateChange({
-      isTaskNameVisible: false,
-      isTaskTimeVisible: false,
-      isBreakTimeVisible: false,
-      creatorTaskName: "",
-      creatorTaskMinutes: "",
-      creatorTaskSeconds: "",
-      creatorBreakMinutes: "",
-      creatorBreakSeconds: ""
-    });
+    onCreatorEnd();
   }
 
   const newTaskInputClass = classNames("NewTaskInput", {
