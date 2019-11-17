@@ -5,18 +5,35 @@ import '../scss/NewTaskInput.scss';
 
 const NewTaskInput = (props) => {
 
-  const { label, placeholder } = props;
+  const {
+    isVisible,
+    modifier,
+    label,
+    placeholder,
+    onBackClick,
+    onNextClick
+  } = props;
 
-  const handleButtonClick = (e) => {
+  const handleBackButtonClick = (e) => {
     e.preventDefault();
+    onBackClick();
+  }
+  
+  const handleNextButtonClick = (e) => {
+    e.preventDefault();
+    onNextClick();
   }
 
+  const newTaskInputClass = classNames("NewTaskInput", {
+    [`NewTaskInput--${modifier}`]: isVisible
+  });
+
   return (
-    <div className="NewTaskInput">
+    <div className={newTaskInputClass}>
 
       {/* INPUT LABEL */}
       <label
-        for=""
+        htmlFor={modifier}
         className="NewTaskInput__label"
       >
         {label}
@@ -24,6 +41,7 @@ const NewTaskInput = (props) => {
 
       {/* TEXT INPUT */}
       <textarea
+        id={modifier}
         className="NewTaskInput__text"
         placeholder={placeholder}
       ></textarea>
@@ -31,7 +49,7 @@ const NewTaskInput = (props) => {
       {/* GO BACK BUTTON */}
       <button
         className="NewTaskInput__button NewTaskInput__button--back"
-        onClick={handleButtonClick}
+        onClick={handleBackButtonClick}
       >
         <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
           <use href={`${icons}#arrow-left`}></use>
@@ -41,7 +59,7 @@ const NewTaskInput = (props) => {
       {/* GO NEXT BUTTON */}
       <button
         className="NewTaskInput__button NewTaskInput__button--next"
-        onClick={handleButtonClick}
+        onClick={handleNextButtonClick}
       >
         <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
           <use href={`${icons}#arrow-right`}></use>

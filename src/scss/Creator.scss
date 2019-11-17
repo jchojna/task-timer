@@ -15,7 +15,7 @@
     visibility: visible;
   } */
 
-  &__createTaskButton {
+  &__newTaskButton {
     @include button;
     @include flex-center;
     border: 4px solid $color-primary;

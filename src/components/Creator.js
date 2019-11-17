@@ -8,6 +8,11 @@ class Creator extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isTaskNameVisible: false,
+      isTaskTimeVisible: false,
+      isBreakTimeVisible: false,
+
+
       creatorTaskName: "",
       creatorTaskMinutes: "",
       creatorTaskSeconds: "",
@@ -125,8 +130,9 @@ class Creator extends Component {
     }
   }
 
-  handleCreateTaskButton = (e) => {
+  handleNewTaskButton = (e) => {
     e.preventDefault();
+    this.setState({ isTaskNameVisible: true });
   }
 
   /* handleKeyPress = (e) => {
@@ -187,6 +193,15 @@ class Creator extends Component {
     this.setState({ alertTimeFlag });
   }
 
+  showInputComponent = (component) => {
+    console.log('component', component);
+    this.setState({
+      isTaskNameVisible: component === "taskName" ? true : false,
+      isTaskTimeVisible: component === "taskTime" ? true : false,
+      isBreakTimeVisible: component === "breakTime" ? true : false
+    });
+  }
+
   render() {
 
     /* const {
@@ -204,6 +219,12 @@ class Creator extends Component {
       "slideOutLeft": !isCreatorVisible
     }); */
 
+    const {
+      isTaskNameVisible,
+      isTaskTimeVisible,
+      isBreakTimeVisible
+    } = this.state;
+
     return (
       <form
         className="Creator"
@@ -214,15 +235,40 @@ class Creator extends Component {
       >
         {/* ADD NEW TASK BUTTON */}
         <button
-          className="Creator__createTaskButton"
-          onClick={this.handleCreateTaskButton}
+          className="Creator__newTaskButton"
+          onClick={this.handleNewTaskButton}
         >
           Add New Task
         </button>
 
+        {/* TASK NAME INPUT */}
         <NewTaskInput
+          isVisible={isTaskNameVisible}
+          modifier="taskName"
           label="Enter task name"
           placeholder="Enter text here..."
+          onBackClick={this.showInputComponent}
+          onNextClick={() => this.showInputComponent('taskTime')}
+        />
+
+        {/* TASK TIME INPUT */}
+        <NewTaskInput
+          isVisible={isTaskTimeVisible}
+          modifier="taskTime"
+          label="Enter task time"
+          placeholder="Enter time here..."
+          onBackClick={() => this.showInputComponent('taskName')}
+          onNextClick={() => this.showInputComponent('breakTime')}
+        />
+        
+        {/* BREAK TIME INPUT */}
+        <NewTaskInput
+          isVisible={isBreakTimeVisible}
+          modifier="breakTime"
+          label="Enter break time"
+          placeholder="Enter time here..."
+          onBackClick={() => this.showInputComponent('taskTime')}
+          onNextClick={this.showInputComponent}
         />
         
 

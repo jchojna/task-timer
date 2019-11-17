@@ -17,8 +17,21 @@
   padding: $card-padding;
   position: absolute;
   top: 0;
-  width: 100%;
   user-select: none;
+  visibility: hidden;
+  width: 100%;
+
+  &--taskName {
+    visibility: visible;
+  }
+
+  &--taskTime {
+    visibility: visible;
+  }
+
+  &--breakTime {
+    visibility: visible;
+  }
 
   &__label {
     color: $color-white;
