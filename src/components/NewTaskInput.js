@@ -7,7 +7,7 @@ const NewTaskInput = (props) => {
 
   const {
     isVisible,
-    isInvalid,
+    isValid,
     modifier,
     title,
     label,
@@ -35,21 +35,15 @@ const NewTaskInput = (props) => {
     [`NewTaskInput--${modifier}`]: isVisible
   });
 
-  const alertClass = classNames("NewTaskInput__alert", {
-    "NewTaskInput__alert--visible": isInvalid
+  const backButtonClass = classNames("NewTaskInput__button",
+    "NewTaskInput__button--back", {
+    "NewTaskInput__button--visible": modifier !== "taskName"
   });
-
-  const alertText = (modifier) => {
-    switch (modifier) {
-      case 'taskName':
-        return "You have to enter your task name!";
-      case 'taskTime':
-        return "You have to enter correct task time!";
-      case 'breakTime':
-        return "Specify maximum time of all break correctly!";
-      default: return;
-    }
-  }
+  
+  const nextButtonClass = classNames("NewTaskInput__button",
+    "NewTaskInput__button--next", {
+    "NewTaskInput__button--visible": isValid
+  });
 
   return (
     <div className={newTaskInputClass}>
@@ -97,12 +91,9 @@ const NewTaskInput = (props) => {
         </div>
       }
 
-      {/* ALERT */}
-      <p className={alertClass}>{alertText(modifier)}</p>
-
       {/* GO BACK BUTTON */}
       <button
-        className="NewTaskInput__button NewTaskInput__button--back"
+        className={backButtonClass}
         onClick={handleBackButton}
       >
         <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
@@ -112,7 +103,7 @@ const NewTaskInput = (props) => {
 
       {/* GO NEXT BUTTON */}
       <button
-        className="NewTaskInput__button NewTaskInput__button--next"
+        className={nextButtonClass}
         onClick={handleNextButton}
       >
         <svg className="NewTaskInput__svg" viewBox="0 0 512 512">

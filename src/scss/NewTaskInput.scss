@@ -22,7 +22,6 @@
     grid-template-areas:
       "heading  heading "
       "textArea textArea"
-      "alert    alert   "
       "backBtn  nextBtn ";
   }
 
@@ -32,7 +31,6 @@
     grid-template-areas:
       "heading heading"
       "inputs  inputs "
-      "alert   alert  "
       "backBtn nextBtn";
   }
 
@@ -125,6 +123,7 @@
     @include button;
     align-self: end;
     stroke: $color-background;
+    visibility: hidden;
     width: 70px;
 
     &--back {
@@ -135,6 +134,10 @@
     &--next {
       grid-area: nextBtn;
       justify-self: end;
+    }
+
+    &--visible {
+      visibility: inherit;
     }
 
     &:hover {

@@ -31,8 +31,7 @@ class Creator extends Component {
       // validation
       isTaskNameValid: false,
       isTaskTimeValid: false,
-      isBreakTimeValid: false,
-      alertFlag: false
+      isBreakTimeValid: true
     };
   }
 
@@ -139,7 +138,8 @@ class Creator extends Component {
           creatorTaskMinutes: taskMinutes,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: totalTaskTimeArray,
-          isTaskTimeValid
+          isTaskTimeValid,
+          alertFlag: true
         });
       } else if (units === 'seconds') {
         const { taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid } = newTime;
@@ -147,7 +147,8 @@ class Creator extends Component {
           creatorTaskSeconds: taskSeconds,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: totalTaskTimeArray,
-          isTaskTimeValid
+          isTaskTimeValid,
+          alertFlag: true
         });
       }
     } else if (type === 'break') {
@@ -157,7 +158,8 @@ class Creator extends Component {
           creatorBreakMinutes: breakMinutes,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: totalBreakTimeArray,
-          isBreakTimeValid
+          isBreakTimeValid,
+          alertFlag: true
         });
       } else if (units === 'seconds') {
         const { breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid } = newTime;
@@ -165,7 +167,8 @@ class Creator extends Component {
           creatorBreakSeconds: breakSeconds,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: totalBreakTimeArray,
-          isBreakTimeValid
+          isBreakTimeValid,
+          alertFlag: true
         });
       }
     }
@@ -268,8 +271,7 @@ class Creator extends Component {
       // validation
       isTaskNameValid,
       isTaskTimeValid,
-      isBreakTimeValid,
-      alertFlag
+      isBreakTimeValid
     } = this.state;
 
     return (
@@ -289,7 +291,7 @@ class Creator extends Component {
         {/* TASK NAME INPUT */}
         <NewTaskInput
           isVisible={isTaskNameVisible}
-          isInvalid={!isTaskNameValid && alertFlag}
+          isValid={isTaskNameValid}
           modifier="taskName"
           title={creatorTaskName}
           label="Enter task name"
@@ -302,7 +304,7 @@ class Creator extends Component {
         {/* TASK TIME INPUT */}
         <NewTaskInput
           isVisible={isTaskTimeVisible}
-          isInvalid={!isTaskTimeValid && alertFlag}
+          isValid={isTaskTimeValid}
           modifier="taskTime"
           label="Enter task time"
           placeholder="Enter time here..."
@@ -319,7 +321,7 @@ class Creator extends Component {
         {/* BREAK TIME INPUT */}
         <NewTaskInput
           isVisible={isBreakTimeVisible}
-          isInvalid={!isBreakTimeValid && alertFlag}
+          isValid={isBreakTimeValid}
           modifier="breakTime"
           label="Enter max break time"
           placeholder="Enter time here..."
