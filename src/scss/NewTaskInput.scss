@@ -20,18 +20,20 @@
   &--taskName {
     visibility: visible;
     grid-template-areas:
-      "heading    heading   "
-      "textArea   textArea  "
-      "backButton nextButton";
+      "heading  heading "
+      "textArea textArea"
+      "alert    alert   "
+      "backBtn  nextBtn ";
   }
 
   &--taskTime,
   &--breakTime {
     visibility: visible;
     grid-template-areas:
-      "heading    heading   "
-      "inputs     inputs    "
-      "backButton nextButton";
+      "heading heading"
+      "inputs  inputs "
+      "alert   alert  "
+      "backBtn nextBtn";
   }
 
   &__label {
@@ -103,6 +105,22 @@
 
   }
 
+  &__alert {
+    color: $color-warning;
+    grid-area: alert;
+    margin: 0;
+    opacity: 0;
+    text-align: center;
+    transition: opacity $time-alert, visibility 0s $time-alert;
+    visibility: hidden;
+  
+    &--visible {
+      opacity: 1;
+      transition: opacity $time-alert, visibility 0s;
+      visibility: inherit;
+    }
+  }
+
   &__button {
     @include button;
     align-self: end;
@@ -110,12 +128,12 @@
     width: 70px;
 
     &--back {
-      grid-area: backButton;
+      grid-area: backBtn;
       justify-self: start;
     }
     
     &--next {
-      grid-area: nextButton;
+      grid-area: nextBtn;
       justify-self: end;
     }
 
@@ -159,15 +177,6 @@
   }
 }
 
-&__label {
-  font-size: 0.7em;
-  padding-top: 0.5em;
-
-  &--task-name { grid-area: labelName; }
-  &--task-time { grid-area: labelTime; }
-  &--break-time { grid-area: labelBreak; }
-}
-
 &__inputs {
   @include flex-center;
   border: 2px solid #fff;
@@ -195,10 +204,6 @@
   &--minutes {
     text-align: right;
   }
-}
-
-&__separator {
-  margin: 0 5px;
 }
 
 &__button {
@@ -238,24 +243,6 @@
       background-color: $color-background;
       border-color: $color-background;
     }
-  }
-}
-
-&__alerts {
-  color: $color-warning;
-  font-size: 0.9em;
-  grid-area: messages;
-}
-
-&__alert {
-  opacity: 0;
-  transition: opacity $time-alert, visibility 0s $time-alert;
-  visibility: hidden;
-
-  &--visible {
-    opacity: 1;
-    transition: opacity $time-alert, visibility 0s;
-    visibility: inherit;
   }
 }
 
