@@ -246,7 +246,7 @@ class Creator extends Component {
           isVisible={isTaskNameVisible}
           modifier="taskName"
           label="Enter task name"
-          placeholder="Enter text here..."
+          placeholder="What would be your next task?"
           onBackClick={this.showInputComponent}
           onNextClick={() => this.showInputComponent('taskTime')}
         />
@@ -259,31 +259,21 @@ class Creator extends Component {
           placeholder="Enter time here..."
           onBackClick={() => this.showInputComponent('taskName')}
           onNextClick={() => this.showInputComponent('breakTime')}
+          onTimeChange={this.handleTimeChange}
         />
         
         {/* BREAK TIME INPUT */}
         <NewTaskInput
           isVisible={isBreakTimeVisible}
           modifier="breakTime"
-          label="Enter break time"
+          label="Enter max break time"
           placeholder="Enter time here..."
           onBackClick={() => this.showInputComponent('taskTime')}
           onNextClick={this.showInputComponent}
+          onTimeChange={this.handleTimeChange}
         />
         
 
-
-        
-  
-        {/* TASK NAME INPUT */}
-        {/* <input
-          id="taskName"
-          name="taskName"
-          className="Creator__taskName"
-          placeholder="What would be your next task?"
-          value={creatorTaskName}
-          onChange={(e) => this.handleTaskName(e)}
-        /> */}
           
         {/* TASK TIME INPUTS */}
         {/* <TimeInput
@@ -325,19 +315,6 @@ class Creator extends Component {
         >
           Cancel
         </button> */}
-
-        {/* TASK NAME LABEL */}
-        {/* <label className="Creator__label Creator__label--task-name" htmlFor="taskName">
-          Your task name
-        </label> */}
-        {/* TASK TIME LABEL */}
-        {/* <label className="Creator__label Creator__label--task-time" htmlFor="taskTime">
-          Task time
-        </label> */}
-        {/* BREAK TIME LABEL */}
-        {/* <label className="Creator__label Creator__label--break-time" htmlFor="breakTime">
-          Max break time
-        </label> */}
 
         {/* ALERTS */}
         {/* <div className="Creator__alerts">
