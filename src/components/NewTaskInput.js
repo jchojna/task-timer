@@ -1,48 +1,24 @@
 import React from 'react';
 import classNames from 'classnames';
-import icons from '../assets/svg/icons.svg';
 import '../scss/NewTaskInput.scss';
 
 const NewTaskInput = (props) => {
 
   const {
     isVisible,
-    isValid,
     modifier,
     title,
     label,
     minutes,
     seconds,
     placeholder,
-    onBackButtonClick,
-    onNextButtonClick,
     onTaskNameChange,
     onMinutesChange,
     onSecondsChange
   } = props;
 
-  const handleBackButton = (e) => {
-    e.preventDefault();
-    onBackButtonClick(modifier);
-  }
-  
-  const handleNextButton = (e) => {
-    e.preventDefault();
-    onNextButtonClick(modifier);
-  }
-
   const newTaskInputClass = classNames("NewTaskInput", {
     [`NewTaskInput--${modifier}`]: isVisible
-  });
-
-  const backButtonClass = classNames("NewTaskInput__button",
-    "NewTaskInput__button--back", {
-    "NewTaskInput__button--visible": modifier !== "taskName"
-  });
-  
-  const nextButtonClass = classNames("NewTaskInput__button",
-    "NewTaskInput__button--next", {
-    "NewTaskInput__button--visible": isValid
   });
 
   return (
@@ -90,26 +66,6 @@ const NewTaskInput = (props) => {
           />
         </div>
       }
-
-      {/* GO BACK BUTTON */}
-      <button
-        className={backButtonClass}
-        onClick={handleBackButton}
-      >
-        <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
-          <use href={`${icons}#arrow-left`}></use>
-        </svg>
-      </button>
-
-      {/* GO NEXT BUTTON */}
-      <button
-        className={nextButtonClass}
-        onClick={handleNextButton}
-      >
-        <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
-          <use href={`${icons}#arrow-right`}></use>
-        </svg>
-      </button>
     </div>
   )
 }

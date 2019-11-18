@@ -142,65 +142,61 @@ class Creator extends Component {
     }
   }
 
-  handleBackButton = (input) => {
+  handleBackButton = (e) => {
+    e.preventDefault();
+    const {
+      isTaskNameVisible,
+      isTaskTimeVisible,
+      isBreakTimeVisible
+    } = this.state;
 
-    switch (input) {
+    if (isTaskNameVisible) {
+      this.setState({ isTaskNameVisible: false });
+    }
 
-      case 'taskName':
-        this.setState({ isTaskNameVisible: false });
-      break;
+    if (isTaskTimeVisible) {
+      this.setState({
+        isTaskNameVisible: true,
+        isTaskTimeVisible: false
+      });
+    }
 
-      case 'taskTime':
-        this.setState({
-          isTaskNameVisible: true,
-          isTaskTimeVisible: false
-        });
-
-      break;
-
-      case 'breakTime':
-        this.setState({
-          isTaskTimeVisible: true,
-          isBreakTimeVisible: false
-        });
-
-      break;
-
-      default: return;
+    if (isBreakTimeVisible) {
+      this.setState({
+        isTaskTimeVisible: true,
+        isBreakTimeVisible: false
+      });
     }
   }
   
-  handleNextButton = (input) => {
-    const { isTaskNameValid, isTaskTimeValid, isBreakTimeValid } = this.state;
+  handleNextButton = (e) => {
+    e.preventDefault();
+    const {
+      isTaskNameVisible,
+      isTaskTimeVisible,
+      isBreakTimeVisible,
+      isTaskNameValid,
+      isTaskTimeValid,
+      isBreakTimeValid
+    } = this.state;
 
-    switch (input) {
+    if (isTaskNameVisible && isTaskNameValid) {
+      this.setState({
+        isTaskNameVisible: false,
+        isTaskTimeVisible: true
+      });
+    }
 
-      case 'taskName':
-        if (isTaskNameValid) {
-          this.setState({
-            isTaskNameVisible: false,
-            isTaskTimeVisible: true
-          });
-        }
-        break;
+    if (isTaskTimeVisible && isTaskTimeValid) {
+      this.setState({
+        isTaskTimeVisible: false,
+        isBreakTimeVisible: true
+      });
+    }
 
-      case 'taskTime':
-        if (isTaskTimeValid) {
-          this.setState({
-            isTaskTimeVisible: false,
-            isBreakTimeVisible: true
-          });
-        }
-        break;
-
-      case 'breakTime':
-        if (isBreakTimeValid) {
-          this.setState({ isBreakTimeVisible: false });
-          this.addNewTask();
-        }
-        break;
-
-      default: return;
+    if (isBreakTimeVisible && isBreakTimeValid) {
+      this.setState({ isBreakTimeVisible: false });
+      this.addNewTask();
     }
   }
 
@@ -231,6 +227,22 @@ class Creator extends Component {
       isBreakTimeValid
     } = this.state;
 
+    const isNextButtonVisible = 
+    (isTaskNameVisible && isTaskNameValid) ||
+    (isTaskTimeVisible && isTaskTimeValid) ||
+    (isBreakTimeVisible && isBreakTimeValid);
+  
+
+    const backButtonClass = classNames("Creator__button",
+      "Creator__button--back", {
+      "Creator__button--visible": !isTaskNameVisible
+    });
+    
+    const nextButtonClass = classNames("Creator__button",
+      "Creator__button--next", {
+      "Creator__button--visible": isNextButtonVisible
+    });
+
     return (
       <form
         className="Creator"
@@ -245,8 +257,6 @@ class Creator extends Component {
           title={creatorTaskName}
           label="Enter task name"
           placeholder="What would be your next task?"
-          onBackButtonClick={this.handleBackButton}
-          onNextButtonClick={this.handleNextButton}
           onTaskNameChange={this.handleTaskName}
         />
 
@@ -259,8 +269,6 @@ class Creator extends Component {
           placeholder="Enter time here..."
           minutes={creatorTaskMinutes}
           seconds={creatorTaskSeconds}
-          onBackButtonClick={this.handleBackButton}
-          onNextButtonClick={this.handleNextButton}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorTaskSeconds, 'minutes', 'task')}
           onSecondsChange={(value) =>
@@ -276,13 +284,31 @@ class Creator extends Component {
           placeholder="Enter time here..."
           minutes={creatorBreakMinutes}
           seconds={creatorBreakSeconds}
-          onBackButtonClick={this.handleBackButton}
-          onNextButtonClick={this.handleNextButton}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorBreakSeconds, 'minutes', 'break')}
           onSecondsChange={(value) =>
             this.handleTimeChange(creatorBreakMinutes, value, 'seconds', 'break')}
         />
+
+        {/* GO BACK BUTTON */}
+        <button
+          className={backButtonClass}
+          onClick={this.handleBackButton}
+        >
+          <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#arrow-left`}></use>
+          </svg>
+        </button>
+  
+        {/* GO NEXT BUTTON */}
+        <button
+          className={nextButtonClass}
+          onClick={this.handleNextButton}
+        >
+          <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#arrow-right`}></use>
+          </svg>
+        </button>
 
         {/* CLOSE NEW TASK */}
         <button

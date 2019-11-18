@@ -5,17 +5,65 @@
 ////////////////////////////////////////////////////////////////// TASK & TIME 
 
 .Creator {
+  background-color: $color-light-background;
+  display: grid;
+  grid-template-areas:
+    ".       closeBtn"
+    "input   input   "
+    "backBtn nextBtn ";
+  grid-template-rows: $nav-button 1fr auto;
+  height: 100%;
+  left: 0;
+  padding: $card-padding;
+  position: absolute;
+  top: 0;
+  width: 100%;
 
   &__closeButton {
     @include button;
+    @include flex-center;
+    align-self: start;
     fill: $color-background;
-    position: absolute;
-    right: $card-padding;
-    top: $card-padding;
+    grid-area: closeBtn;
+    justify-self: end;
     width: $close-button;
 
     &:hover {
       fill: $color-warning;
     }
+  }
+
+  &__button {
+    @include button;
+    @include flex-center;
+    align-self: end;
+    fill: none;
+    stroke: $color-background;
+    stroke-linecap: round;
+    stroke-width: 30;
+    visibility: hidden;
+    width: $nav-button;
+
+    &--back {
+      grid-area: backBtn;
+      justify-self: start;
+    }
+    
+    &--next {
+      grid-area: nextBtn;
+      justify-self: end;
+    }
+
+    &--visible {
+      visibility: inherit;
+    }
+
+    &:hover {
+      stroke: $color-white;
+    }
+  }
+
+  &__svg {
+    width: 100%;
   }
 }
