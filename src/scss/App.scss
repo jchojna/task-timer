@@ -20,12 +20,13 @@
     min-height: 100vh;
     padding: 4em;
     width: 100%;
+
+    & > * {
+      perspective: 800px;
+    }
   }
 
   &__creator {
-    border-radius: $radius-card;
-    box-shadow: $card-shadow;
-    overflow: hidden;
     position: relative;
     width: 100%;
   }
@@ -40,7 +41,12 @@
     font-weight: 600;
     height: 100%;
     padding: 10px;
+    visibility: hidden;
     width: 100%;
+
+    &--visible {
+      visibility: visible;
+    }
 
     &:hover {
       background-color: $color-primary;

@@ -58,13 +58,18 @@ class Timer extends Component {
   }
 
   componentDidMount() {
+    const { onTaskStateChange } = this.props;
     this.taskIntervalId = setInterval(() => this.handleTimeTick('Task'), 10);
     this.breakIntervalId = setInterval(() => this.handleTimeTick('Break'), 10);
-    this.timeoutIntroId = setTimeout(() => this.setState({
-      isTimerStarted: true,
-      isTimerVisible: true,
-      previousTime: Date.now()
-    }), cardFlipTime/2);
+
+    this.timeoutIntroId = setTimeout(() => {
+      this.setState({
+        isTimerStarted: true,
+        isTimerVisible: true,
+        previousTime: Date.now()
+      });
+      onTaskStateChange({ isTaskRotatingOut: false })
+    }, cardFlipTime);
   }
   
   componentWillUnmount() {
@@ -86,17 +91,17 @@ class Timer extends Component {
 
   handleTimerStop = () => {
     const { onTaskStateChange } = this.props;
-    onTaskStateChange({ isCardFlippedMode: false });
+    onTaskStateChange({ isTaskRotatingOut: true });
     this.setState({
       isTimerStarted: false,
       isStopTimerVisible: false
     });
     this.timeoutOutroId = setTimeout(() => {
       onTaskStateChange({
-        isTimerVisible: false,
-        isTimerAppended: false
+        isTimerMounted: false,
+        isTaskRotatingOut: false
       });
-    }, cardFlipTime/2);
+    }, cardFlipTime);
   }
 
   handleTimeTick = (type) => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import NewTaskInput from './NewTaskInput';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
-import { cardFlipTime } from '../lib/globalVariables';
+import { cardFlipTime, animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
 
@@ -11,6 +11,7 @@ class Creator extends Component {
     super(props);
     this.state = {
       // visibility
+      isCreatorRotatingOut: false,
       isTaskNameVisible: true,
       isTaskTimeVisible: false,
       isBreakTimeVisible: false,
@@ -46,13 +47,6 @@ class Creator extends Component {
       alertFlag: true
     });
   }
- 
-  handleCancelButton = (e) => {
-    e.preventDefault();
-    const { onStateChange } = this.props;
-    // return to Board component
-    onStateChange({ isCreatorVisible: false });
-  }
 
   addNewTask = () => {
     const { onAppStateChange } = this.props;
@@ -65,34 +59,29 @@ class Creator extends Component {
       creatorTotalTaskTime,
       creatorTotalBreakTime,
       creatorTaskTimeArray,
-      creatorBreakTimeArray,
-      isTaskNameValid,
-      isTaskTimeValid
+      creatorBreakTimeArray
     } = this.state;
 
-    // validation
-    if (isTaskNameValid && isTaskTimeValid) {
-      const date = Date.now();
-      // new task data
-      const newTask = {
-        taskName: creatorTaskName,
-        taskMinutes: creatorTaskMinutes,
-        taskSeconds: creatorTaskSeconds,
-        breakMinutes: creatorBreakMinutes,
-        breakSeconds: creatorBreakSeconds,
-        totalTaskTime: creatorTotalTaskTime,
-        totalBreakTime: creatorTotalBreakTime,
-        totalTaskTimeArray: creatorTaskTimeArray,
-        totalBreakTimeArray: creatorBreakTimeArray,
-        dateCreated: date,
-        id: date
-      };
-      // add new task to app state
-      onAppStateChange(prevState => ({
-        isCreatorVisible: false,
-        tasks: [...prevState.tasks, newTask]
-      }));
-    }
+    const date = Date.now();
+    // new task data
+    const newTask = {
+      taskName: creatorTaskName,
+      taskMinutes: creatorTaskMinutes,
+      taskSeconds: creatorTaskSeconds,
+      breakMinutes: creatorBreakMinutes,
+      breakSeconds: creatorBreakSeconds,
+      totalTaskTime: creatorTotalTaskTime,
+      totalBreakTime: creatorTotalBreakTime,
+      totalTaskTimeArray: creatorTaskTimeArray,
+      totalBreakTimeArray: creatorBreakTimeArray,
+      dateCreated: date,
+      id: date
+    };
+    // add new task to app state
+    onAppStateChange(prevState => ({
+      isCreatorVisible: false,
+      tasks: [...prevState.tasks, newTask]
+    }));
   }
 
   /* handleKeyPress = (e) => {
@@ -183,6 +172,7 @@ class Creator extends Component {
   
   handleNextButton = (e) => {
     e.preventDefault();
+
     const {
       isTaskNameVisible,
       isTaskTimeVisible,
@@ -192,42 +182,30 @@ class Creator extends Component {
       isBreakTimeValid
     } = this.state;
 
-    if (isTaskNameVisible) {
-      if (isTaskNameValid) {
-        this.setState({
-          isTaskNameVisible: false,
-          isTaskTimeVisible: true,
-          alertFlag: false
-        });
-      } else {
-        this.setState({ alertFlag: true });
-      }
+    if (isTaskNameVisible && isTaskNameValid) {
+      this.setState({
+        isTaskNameVisible: false,
+        isTaskTimeVisible: true,
+        alertFlag: false
+      });
     }
 
-    if (isTaskTimeVisible) {
-      if (isTaskTimeValid) {
-        this.setState({
-          isTaskTimeVisible: false,
-          isBreakTimeVisible: true,
-          alertFlag: false
-        });
-      } else {
-        this.setState({ alertFlag: true });
-      }
+    if (isTaskTimeVisible && isTaskTimeValid) {
+      this.setState({
+        isTaskTimeVisible: false,
+        isBreakTimeVisible: true,
+        alertFlag: false
+      });
     }
 
-    if (isBreakTimeVisible) {
-      if (isBreakTimeValid) {
-        this.setState({
-          //isBreakTimeVisible: false,
-          isCreatorValid: true,
-          alertFlag: false
-        });
-        this.timeoutOutroId = setTimeout(() => this.addNewTask(),
-        cardFlipTime/2);
-      } else {
-        this.setState({ alertFlag: true });
-      }
+    if (isBreakTimeVisible && isBreakTimeValid) {
+      this.setState({
+        isCreatorValid: true,
+        alertFlag: false,
+        isCreatorRotatingOut: true
+      });
+      this.timeoutOutroId = setTimeout(() => this.addNewTask(),
+      cardFlipTime);
     }
   }
 
@@ -239,10 +217,9 @@ class Creator extends Component {
 
   render() {
 
-    const { isVisible } = this.props;
-
     const {
       // visibility
+      isCreatorRotatingOut,
       isTaskNameVisible,
       isTaskTimeVisible,
       isBreakTimeVisible,
@@ -264,6 +241,10 @@ class Creator extends Component {
     (isTaskNameVisible && isTaskNameValid) ||
     (isTaskTimeVisible && isTaskTimeValid) ||
     (isBreakTimeVisible && isBreakTimeValid);
+
+    const creatorClass = classNames("Creator", {
+      "Creator--rotateOut": isCreatorRotatingOut
+    });
   
     const backButtonClass = classNames("Creator__button",
       "Creator__button--back", {
@@ -284,7 +265,8 @@ class Creator extends Component {
 
     return (
       <form
-        className="Creator"
+        className={creatorClass}
+        style={animationStyle}
         //onSubmit={this.handleFormSubmit}
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >

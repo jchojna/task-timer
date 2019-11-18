@@ -1,1 +1,5 @@
-export const cardFlipTime = 500;
+export const cardFlipTime = 800;
+
+export const animationStyle = {
+  animationDuration: `${cardFlipTime}ms`
+}

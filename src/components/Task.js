@@ -4,7 +4,7 @@ import EditableText from './EditableText.js';
 import TotalTime from './TotalTime.js';
 import Timer from './Timer.js';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
-import { cardFlipTime } from '../lib/globalVariables';
+import { animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -20,8 +20,8 @@ class Task extends Component {
     } = this.props.task;
 
     this.state = {
-      isCardFlippedMode: false,
-      isTimerAppended: false,
+      isTaskRotatingOut: false,
+      isTimerMounted: false,
       taskName,
       taskMinutes: totalTaskTimeArray[0],
       taskSeconds: totalTaskTimeArray[1],
@@ -38,6 +38,12 @@ class Task extends Component {
       isTaskTimeValid: true,
       isBreakTimeValid: true
     }
+  }
+
+  componentDidMount = () => {
+    this.setState({
+      isTaskAppended: true
+    });
   }
   
   handleStateChange = (object) => this.setState(object);
@@ -118,15 +124,15 @@ class Task extends Component {
   }
 
   handleStartButton = () => this.setState({
-    isCardFlippedMode: true,
-    isTimerAppended: true
+    isTaskRotatingOut: true,
+    isTimerMounted: true
   });
 
   render() {
 
     const { id } = this.props;
     const {
-      isCardFlippedMode,
+      isTaskRotatingOut,
       taskName,
       taskMinutes,
       taskSeconds,
@@ -144,10 +150,9 @@ class Task extends Component {
 
     const taskContainerClass = classNames("Task__container", {
       "Task__container--editMode": isEditMode,
-      "Task__container--flipped": isCardFlippedMode
+      "Task__container--rotateIn": !isTaskRotatingOut,
+      "Task__container--rotateOut": isTaskRotatingOut
     });
-
-    const taskContainerStyle = { transitionDuration: `${cardFlipTime}ms` }
 
     const acceptButtonClass = classNames("button Task__button Task__button--accept", {
       "Task__button--visible": isEditMode
@@ -161,12 +166,11 @@ class Task extends Component {
       "Task__button--disabled": isEditMode
     });   
     
-
     return (
       <section className="Task">
         <div
           className={taskContainerClass}
-          style={taskContainerStyle}
+          style={animationStyle}
         >
           {/* TASK  NAME */}
           <EditableText
@@ -247,7 +251,7 @@ class Task extends Component {
           
           {/* TIMER COMPONENT */}
           {
-            this.state.isTimerAppended
+            this.state.isTimerMounted
             ? <Timer
                 onTaskStateChange={this.handleStateChange}
                 state={this.state}

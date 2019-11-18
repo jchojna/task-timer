@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import classNames from 'classnames';
 import Task from './Task.js';
 import Creator from './Creator.js';
 import '../scss/App.scss';
@@ -9,7 +10,7 @@ class App extends Component {
     this.state = {
       // visibility
       isBoardVisible: true,
-      isCreatorVisible: true,
+      isCreatorVisible: false,
       tasks: [
         {
           taskName: "Test task for preview purposes",
@@ -58,6 +59,10 @@ class App extends Component {
 
     const { isCreatorVisible, tasks } = this.state;
 
+    const newTaskButtonClass = classNames("App__newTaskButton", {
+      "App__newTaskButton--visible": !isCreatorVisible
+    });
+
     return (
       <React.StrictMode>
         <div className="App">
@@ -76,7 +81,7 @@ class App extends Component {
             {/* CREATE NEW TASK */}
             <section className="App__creator">
               <button
-                className="App__newTaskButton"
+                className={newTaskButtonClass}
                 onClick={this.handleNewTaskButton}
               >
                 Add New Task

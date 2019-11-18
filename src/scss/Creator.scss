@@ -6,6 +6,8 @@
 
 .Creator {
   background-color: $color-light-background;
+  border-radius: $radius-card;
+  box-shadow: $card-shadow;
   display: grid;
   grid-template-areas:
     ".        closeBtn"
@@ -14,10 +16,15 @@
   grid-template-rows: $nav-button 1fr auto;
   height: 100%;
   left: 0;
+  overflow: hidden;
   padding: $card-padding;
   position: absolute;
   top: 0;
   width: 100%;
+
+  &--rotateOut {
+    animation: rotateOut ease-in forwards;
+  }
 
   &__closeButton {
     @include button;

@@ -3,7 +3,6 @@
 @import "_animations.scss";
 
 .Task {
-  perspective: 500px;
 
   .Task__container {
     align-items: start;
@@ -24,15 +23,17 @@
     overflow: hidden;
     padding: $card-padding;
     position: relative;
-    transform: rotate3d(0, 1, 0, 0) scaleX(1);
-    transition: transform ease-in-out;
+
+    &--rotateIn {
+      animation: rotateIn ease-out forwards;
+    }
+
+    &--rotateOut {
+      animation: rotateOut ease-in forwards;
+    }
 
     &--editMode {
       background: $color-light-background;
-    }
-
-    &--flipped {
-      transform: rotate3d(0, 1, 0, 180deg) scaleX(-1);
     }
   }
 

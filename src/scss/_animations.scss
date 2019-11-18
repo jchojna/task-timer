@@ -50,6 +50,16 @@
   100% { transform: translateX(-100%); }
 }
 
+@keyframes rotateIn {
+  0% { transform: rotate3d(0, 1, 0, -90deg); }
+  100% { transform: rotate3d(0, 1, 0, 0deg); }
+}
+
+@keyframes rotateOut {
+  0% { transform: rotate3d(0, 1, 0, 0deg); }
+  100% { transform: rotate3d(0, 1, 0, 90deg); }
+}
+
 .slideInLeft {
   animation: slideInLeft $time-slide forwards;
 }
