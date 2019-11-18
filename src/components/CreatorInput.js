@@ -15,6 +15,7 @@ const CreatorInput = (props) => {
     seconds,
     placeholder,
     slideDirection,
+    taskNameLength,
     onTaskNameChange,
     onMinutesChange,
     onSecondsChange,
@@ -43,6 +44,10 @@ const CreatorInput = (props) => {
       "CreatorInput__input--invalid": !isValid && alertFlag
     });
 
+  const taskNameProgressStyle = {
+    width: `${taskNameLength / maxTaskNameLength * 100}%`
+  };
+
   return (
     <div className={creatorInputClass}>
 
@@ -57,15 +62,21 @@ const CreatorInput = (props) => {
       {
         modifier === "taskName"
         ? /* TEXT INPUT */
-        <textarea
-          id={modifier}
-          className={textInputClass}
-          placeholder={placeholder}
-          spellCheck="false"
-          maxLength={maxTaskNameLength}
-          value={title}
-          onChange={(e) => onTaskNameChange(e.target.value)}
-        ></textarea>
+        <div className="CreatorInput__textContainer">
+          <textarea
+            id={modifier}
+            className={textInputClass}
+            placeholder={placeholder}
+            spellCheck="false"
+            maxLength={maxTaskNameLength}
+            value={title}
+            onChange={(e) => onTaskNameChange(e.target.value)}
+          ></textarea>
+          <div
+            className="CreatorInput__progress"
+            style={taskNameProgressStyle}
+          ></div>
+        </div>
 
         : /* TIME INPUT */
         <div className="CreatorInput__inputs">

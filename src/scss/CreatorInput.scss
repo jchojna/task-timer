@@ -38,6 +38,12 @@
     width: 100%;
   }
 
+  &__textContainer {
+    display: flex;
+    flex-direction: column;
+    grid-area: input;
+  }
+
   &__text,
   &__input {
     background: none;
@@ -71,8 +77,8 @@
   }
 
   &__text {
-    grid-area: input;
     resize: none;
+    height: 100%;
   }
 
   &__inputs {
@@ -91,5 +97,12 @@
 
   &__colon {
     font-weight: bold;
+  }
+
+  &__progress {
+    background-color: $color-warning;
+    height: 4px;
+    margin-top: 4px;
+    width: 0;
   }
 }

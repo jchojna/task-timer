@@ -23,6 +23,7 @@ class Creator extends Component {
       creatorBreakSeconds: "",
       creatorTotalTaskTime: 0,
       creatorTotalBreakTime: 0,
+      taskNameLength: 0,
       creatorTaskTimeArray: ["",""],
       creatorBreakTimeArray: ["",""],
       // validation
@@ -45,6 +46,7 @@ class Creator extends Component {
   handleTaskName = (value) => {
     this.setState({
       creatorTaskName: value,
+      taskNameLength: value.length,
       isTaskNameValid: validateTaskName(value),
       alertFlag: true
     });
@@ -239,6 +241,7 @@ class Creator extends Component {
       creatorTaskSeconds,
       creatorBreakMinutes,
       creatorBreakSeconds,
+      taskNameLength,
       // validation
       isTaskNameValid,
       isTaskTimeValid,
@@ -293,6 +296,7 @@ class Creator extends Component {
           alertFlag={alertFlag}
           onTaskNameChange={this.handleTaskName}
           slideDirection={slideDirection}
+          taskNameLength={taskNameLength}
         />
 
         {/* TASK TIME INPUT */}
