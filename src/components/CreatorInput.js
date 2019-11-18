@@ -13,6 +13,7 @@ const CreatorInput = (props) => {
     minutes,
     seconds,
     placeholder,
+    slideDirection,
     onTaskNameChange,
     onMinutesChange,
     onSecondsChange,
@@ -20,7 +21,11 @@ const CreatorInput = (props) => {
   } = props;
 
   const creatorInputClass = classNames("CreatorInput", {
-    [`CreatorInput--${modifier}`]: isVisible
+    [`CreatorInput--${modifier}`]: isVisible,
+    "showFromRight": isVisible && slideDirection === 'toRight',
+    "hideToLeft": !isVisible && slideDirection === 'toRight',
+    "showFromLeft": isVisible && slideDirection === 'toLeft',
+    "hideToRight": !isVisible && slideDirection === 'toLeft'
   });
 
   const textInputClass = classNames("CreatorInput__text", {

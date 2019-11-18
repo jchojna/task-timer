@@ -11,16 +11,20 @@
     ".    ";
   grid-template-rows: 1fr 2fr 1fr;
   height: 100%;
+  transform: translate(0);
+  transition: transform $time-slide, visibility 0s $time-slide;
   user-select: none;
   visibility: hidden;
   width: 100%;
 
   &--taskName {
+    transition: transform $time-slide, visibility 0s;
     visibility: visible;
   }
 
   &--taskTime,
   &--breakTime {
+    transition: transform $time-slide, visibility 0s;
     visibility: visible;
   }
 
