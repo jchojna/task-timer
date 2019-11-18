@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import NewTaskInput from './NewTaskInput';
-import {
-  validateTaskName,
-  validateTaskTime,
-  validateBreakTime,
-  handleTimeChange
-} from '../lib/handlers';
-//import classNames from 'classnames';
-//import icons from '../assets/svg/icons.svg';
+import { validateTaskName, handleTimeChange } from '../lib/handlers';
+import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
 
 class Creator extends Component {
@@ -15,7 +10,7 @@ class Creator extends Component {
     super(props);
     this.state = {
       // visibility
-      isTaskNameVisible: false,
+      isTaskNameVisible: true,
       isTaskTimeVisible: false,
       isBreakTimeVisible: false,
       // inputs
@@ -89,14 +84,7 @@ class Creator extends Component {
         isCreatorVisible: false,
         tasks: [...prevState.tasks, newTask]
       }));
-      // clear inputs after submitting
-      this.handleCreatorEnd();
     }
-  }
-
-  handleNewTaskButton = (e) => {
-    e.preventDefault();
-    this.setState({ isTaskNameVisible: true });
   }
 
   /* handleKeyPress = (e) => {
@@ -216,23 +204,15 @@ class Creator extends Component {
     }
   }
 
-  handleCreatorEnd = () => {
-    this.setState({
-      isTaskNameVisible: false,
-      isTaskTimeVisible: false,
-      isBreakTimeVisible: false,
-      creatorTaskName: "",
-      creatorTaskMinutes: "",
-      creatorTaskSeconds: "",
-      creatorBreakMinutes: "",
-      creatorBreakSeconds: "",
-      isTaskNameValid: false,
-      isTaskTimeValid: false,
-      isBreakTimeValid: true
-    });
+  handleCreatorClose = (e) => {
+    e.preventDefault();
+    const { onAppStateChange } = this.props;
+    onAppStateChange({ isCreatorVisible: false });
   }
 
   render() {
+
+    const { isVisible } = this.props;
 
     const {
       // visibility
@@ -257,14 +237,6 @@ class Creator extends Component {
         //onSubmit={this.handleFormSubmit}
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >
-        {/* ADD NEW TASK BUTTON */}
-        <button
-          className="Creator__newTaskButton"
-          onClick={this.handleNewTaskButton}
-        >
-          Add New Task
-        </button>
-
         {/* TASK NAME INPUT */}
         <NewTaskInput
           isVisible={isTaskNameVisible}
@@ -276,7 +248,6 @@ class Creator extends Component {
           onBackButtonClick={this.handleBackButton}
           onNextButtonClick={this.handleNextButton}
           onTaskNameChange={this.handleTaskName}
-          onCreatorEnd={this.handleCreatorEnd}
         />
 
         {/* TASK TIME INPUT */}
@@ -290,7 +261,6 @@ class Creator extends Component {
           seconds={creatorTaskSeconds}
           onBackButtonClick={this.handleBackButton}
           onNextButtonClick={this.handleNextButton}
-          onCreatorEnd={this.handleCreatorEnd}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorTaskSeconds, 'minutes', 'task')}
           onSecondsChange={(value) =>
@@ -308,12 +278,21 @@ class Creator extends Component {
           seconds={creatorBreakSeconds}
           onBackButtonClick={this.handleBackButton}
           onNextButtonClick={this.handleNextButton}
-          onCreatorEnd={this.handleCreatorEnd}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorBreakSeconds, 'minutes', 'break')}
           onSecondsChange={(value) =>
             this.handleTimeChange(creatorBreakMinutes, value, 'seconds', 'break')}
         />
+
+        {/* CLOSE NEW TASK */}
+        <button
+          className="Creator__closeButton"
+          onClick={this.handleCreatorClose}
+        >
+          <svg className="Creator__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#remove`}/>
+          </svg>
+        </button>
       </form>
     );
   }

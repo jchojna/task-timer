@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Countdown from './Countdown';
 import StopTimer from './StopTimer.js';
+import Progress from './Progress';
 import Controls from './Controls';
 import Finish from './Finish.js';
 import { getTimeArray } from '../lib/handlers';

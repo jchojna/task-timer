@@ -22,6 +22,32 @@
     width: 100%;
   }
 
+  &__creator {
+    border-radius: $radius-card;
+    box-shadow: $card-shadow;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__newTaskButton {
+    @include button;
+    @include flex-center;
+    border: 4px solid $color-primary;
+    border-radius: $radius-card;
+    color: $color-primary;
+    font-size: 2.5em;
+    font-weight: 600;
+    height: 100%;
+    padding: 10px;
+    width: 100%;
+
+    &:hover {
+      background-color: $color-primary;
+      box-shadow: $card-shadow;
+      color: $color-background;
+    }
+  }
+
   @media only screen and (min-width: $media-md) {
 
     & {
