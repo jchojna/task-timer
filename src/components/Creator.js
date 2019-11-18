@@ -26,7 +26,8 @@ class Creator extends Component {
       // validation
       isTaskNameValid: false,
       isTaskTimeValid: false,
-      isBreakTimeValid: true
+      isBreakTimeValid: true,
+      alertFlag: false
     };
   }
 
@@ -35,7 +36,8 @@ class Creator extends Component {
   handleTaskName = (value) => {
     this.setState({
       creatorTaskName: value,
-      isTaskNameValid: validateTaskName(value)
+      isTaskNameValid: validateTaskName(value),
+      alertFlag: true
     });
   }
  
@@ -110,7 +112,8 @@ class Creator extends Component {
           creatorTaskMinutes: taskMinutes,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: totalTaskTimeArray,
-          isTaskTimeValid
+          isTaskTimeValid,
+          alertFlag: true
         });
       } else if (units === 'seconds') {
         const { taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid } = newTime;
@@ -118,7 +121,8 @@ class Creator extends Component {
           creatorTaskSeconds: taskSeconds,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: totalTaskTimeArray,
-          isTaskTimeValid
+          isTaskTimeValid,
+          alertFlag: true
         });
       }
     } else if (type === 'break') {
@@ -128,7 +132,8 @@ class Creator extends Component {
           creatorBreakMinutes: breakMinutes,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: totalBreakTimeArray,
-          isBreakTimeValid
+          isBreakTimeValid,
+          alertFlag: true
         });
       } else if (units === 'seconds') {
         const { breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid } = newTime;
@@ -136,7 +141,8 @@ class Creator extends Component {
           creatorBreakSeconds: breakSeconds,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: totalBreakTimeArray,
-          isBreakTimeValid
+          isBreakTimeValid,
+          alertFlag: true
         });
       }
     }
@@ -180,23 +186,40 @@ class Creator extends Component {
       isBreakTimeValid
     } = this.state;
 
-    if (isTaskNameVisible && isTaskNameValid) {
-      this.setState({
-        isTaskNameVisible: false,
-        isTaskTimeVisible: true
-      });
+    if (isTaskNameVisible) {
+      if (isTaskNameValid) {
+        this.setState({
+          isTaskNameVisible: false,
+          isTaskTimeVisible: true,
+          alertFlag: false
+        });
+      } else {
+        this.setState({ alertFlag: true });
+      }
     }
 
-    if (isTaskTimeVisible && isTaskTimeValid) {
-      this.setState({
-        isTaskTimeVisible: false,
-        isBreakTimeVisible: true
-      });
+    if (isTaskTimeVisible) {
+      if (isTaskTimeValid) {
+        this.setState({
+          isTaskTimeVisible: false,
+          isBreakTimeVisible: true,
+          alertFlag: false
+        });
+      } else {
+        this.setState({ alertFlag: true });
+      }
     }
 
-    if (isBreakTimeVisible && isBreakTimeValid) {
-      this.setState({ isBreakTimeVisible: false });
-      this.addNewTask();
+    if (isBreakTimeVisible) {
+      if (isBreakTimeValid) {
+        this.setState({
+          isBreakTimeVisible: false,
+          alertFlag: false
+        });
+        this.addNewTask();
+      } else {
+        this.setState({ alertFlag: true });
+      }
     }
   }
 
@@ -224,7 +247,8 @@ class Creator extends Component {
       // validation
       isTaskNameValid,
       isTaskTimeValid,
-      isBreakTimeValid
+      isBreakTimeValid,
+      alertFlag
     } = this.state;
 
     const isNextButtonVisible = 
@@ -257,6 +281,7 @@ class Creator extends Component {
           title={creatorTaskName}
           label="Enter task name"
           placeholder="What would be your next task?"
+          alertFlag={alertFlag}
           onTaskNameChange={this.handleTaskName}
         />
 
@@ -269,6 +294,7 @@ class Creator extends Component {
           placeholder="Enter time here..."
           minutes={creatorTaskMinutes}
           seconds={creatorTaskSeconds}
+          alertFlag={alertFlag}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorTaskSeconds, 'minutes', 'task')}
           onSecondsChange={(value) =>
@@ -284,6 +310,7 @@ class Creator extends Component {
           placeholder="Enter time here..."
           minutes={creatorBreakMinutes}
           seconds={creatorBreakSeconds}
+          alertFlag={alertFlag}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorBreakSeconds, 'minutes', 'break')}
           onSecondsChange={(value) =>

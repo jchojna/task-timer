@@ -6,6 +6,7 @@ const NewTaskInput = (props) => {
 
   const {
     isVisible,
+    isValid,
     modifier,
     title,
     label,
@@ -14,12 +15,27 @@ const NewTaskInput = (props) => {
     placeholder,
     onTaskNameChange,
     onMinutesChange,
-    onSecondsChange
+    onSecondsChange,
+    alertFlag
   } = props;
 
   const newTaskInputClass = classNames("NewTaskInput", {
     [`NewTaskInput--${modifier}`]: isVisible
   });
+
+  const textInputClass = classNames("NewTaskInput__text", {
+    "NewTaskInput__text--invalid": !isValid && alertFlag
+  });
+
+  const minutesInputClass = classNames("NewTaskInput__input",
+    "NewTaskInput__input--minutes", {
+      "NewTaskInput__input--invalid": !isValid && alertFlag
+    });
+
+  const secondsInputClass = classNames("NewTaskInput__input",
+    "NewTaskInput__input--seconds", {
+      "NewTaskInput__input--invalid": !isValid && alertFlag
+    });
 
   return (
     <div className={newTaskInputClass}>
@@ -37,7 +53,7 @@ const NewTaskInput = (props) => {
         ? /* TEXT INPUT */
         <textarea
           id={modifier}
-          className="NewTaskInput__text"
+          className={textInputClass}
           placeholder={placeholder}
           spellCheck="false"
           value={title}
@@ -49,7 +65,7 @@ const NewTaskInput = (props) => {
           <input
             id={modifier}
             name={`${modifier}Minutes`}
-            className="NewTaskInput__input NewTaskInput__input--minutes"
+            className={minutesInputClass}
             placeholder="min"
             maxLength="2"
             value={minutes}
@@ -58,7 +74,7 @@ const NewTaskInput = (props) => {
           <span className="NewTaskInput__colon">:</span>
           <input
             name={`${modifier}Seconds`}
-            className="NewTaskInput__input NewTaskInput__input--seconds"
+            className={secondsInputClass}
             placeholder="sec"
             maxLength="2"
             value={seconds}

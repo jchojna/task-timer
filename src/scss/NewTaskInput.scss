@@ -34,14 +34,13 @@
     width: 100%;
   }
 
-  &__text {
+  &__text,
+  &__input {
     background: none;
     border: 3px solid $color-background;
     color: $color-white;
     font-size: 1.2em;
-    grid-area: input;
-    resize: none;
-    padding: 10px;
+    padding: 15px;
     width: 100%;
 
     &::placeholder {
@@ -57,6 +56,19 @@
         color: $color-primary;
       }
     }
+
+    &--invalid {
+      border-color: $color-warning;
+
+      &:focus {
+        border-color: $color-warning;
+      }
+    }
+  }
+
+  &__text {
+    grid-area: input;
+    resize: none;
   }
 
   &__inputs {
@@ -69,26 +81,8 @@
   }
 
   &__input {
-    background: none;
-    border: 3px solid $color-background;
-    color: $color-white;
-    padding: 15px;
     text-align: center;
     width: 45%;
-    
-    &::placeholder {
-      color: $color-background;
-      opacity: 1;
-    }
-
-    &:focus {
-      background-color: $color-background;
-      border-color: $color-white;
-
-      &::placeholder {
-        color: $color-primary;
-      }
-    }
   }
 
   &__colon {
