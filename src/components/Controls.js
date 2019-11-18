@@ -25,22 +25,11 @@ class Controls extends Component {
     }
   }
 
-  handleStopButton = () => {
-    const {
-      isTaskTimeActive,
-      isBreakTimeActive,
-      onTimerStateChange } = this.props;
-
-    if (isTaskTimeActive || isBreakTimeActive) {
-      onTimerStateChange({ isStopTimerVisible: true });
-    }
-  }
-
   handleToggleButton = () => this.props.onDisplayModeChange();
 
   render() {
 
-    const { isTaskTimeActive } = this.props;
+    const { isTaskTimeActive, onStopButtonClick } = this.props;
     const svgPlayClass = classNames("Controls__svg", {
       "Controls__svg--hidden": isTaskTimeActive
     });
@@ -66,7 +55,7 @@ class Controls extends Component {
         {/* STOP BUTTON */}
         <button
           className="Controls__button Controls__button--stop"
-          onClick={this.handleStopButton}
+          onClick={onStopButtonClick}
         >
           <svg className="Controls__svg" viewBox="0 0 512 512">
             <use href={`${icons}#stop`} />

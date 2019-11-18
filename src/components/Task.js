@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import EditableText from './EditableText.js';
 import TotalTime from './TotalTime.js';
 import Timer from './Timer.js';
+import StopAlert from './StopAlert.js';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
 import { animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
@@ -23,6 +24,7 @@ class Task extends Component {
       isTaskRotatingOut: false,
       isTaskMounted: false,
       isTimerMounted: false,
+      isStopAlertVisible: false,
       taskName,
       taskMinutes: totalTaskTimeArray[0],
       taskSeconds: totalTaskTimeArray[1],
@@ -52,7 +54,14 @@ class Task extends Component {
     });
   }
 
-  handleTaskRemove = (id) => {
+  handleAlertVisibility = () => {
+    this.setState(prevState => ({
+      isStopAlertVisible: !prevState.isStopAlertVisible
+    }));
+  }
+  
+  handleTaskRemove = () => {
+    const { id } = this.props;
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
   }
@@ -131,6 +140,7 @@ class Task extends Component {
     const {
       isTaskMounted,
       isTaskRotatingOut,
+      isStopAlertVisible,
       taskName,
       taskMinutes,
       taskSeconds,
@@ -229,7 +239,7 @@ class Task extends Component {
             {/* REMOVE */}
             <button
               className={removeButtonClass}
-              onClick={() => this.handleTaskRemove(id)}
+              onClick={this.handleAlertVisibility}
               disabled={isEditMode}
             >
               <svg className="Task__svg" viewBox="0 0 512 512">
@@ -259,6 +269,13 @@ class Task extends Component {
               />
             : <div className="empty"></div>
           }
+
+          {/* REMOVE TASK ALERT */}
+          <StopAlert
+            isStopAlertVisible={isStopAlertVisible}
+            onStopCancel={this.handleAlertVisibility}
+            onStopConfirm={(id) => this.handleTaskRemove(id)}
+          />
         </div>
       </section>
     );
