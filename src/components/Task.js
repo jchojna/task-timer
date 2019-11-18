@@ -4,6 +4,7 @@ import EditableText from './EditableText.js';
 import TotalTime from './TotalTime.js';
 import Timer from './Timer.js';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
+import { cardFlipTime } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -146,6 +147,8 @@ class Task extends Component {
       "Task__container--flipped": isCardFlippedMode
     });
 
+    const taskContainerStyle = { transitionDuration: `${cardFlipTime}ms` }
+
     const acceptButtonClass = classNames("button Task__button Task__button--accept", {
       "Task__button--visible": isEditMode
     });
@@ -161,7 +164,10 @@ class Task extends Component {
 
     return (
       <section className="Task">
-        <div className={taskContainerClass}>
+        <div
+          className={taskContainerClass}
+          style={taskContainerStyle}
+        >
           {/* TASK  NAME */}
           <EditableText
             output={taskName}

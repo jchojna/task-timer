@@ -6,6 +6,7 @@ import Progress from './Progress';
 import Controls from './Controls';
 import Finish from './Finish.js';
 import { getTimeArray } from '../lib/handlers';
+import { cardFlipTime } from '../lib/globalVariables';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
@@ -20,7 +21,6 @@ class Timer extends Component {
 
     this.state = {
       isTimerStarted: false,
-      flipCardTime: 500,
       // visibility
       isStopTimerVisible: false,
       isFinishVisible: false,
@@ -64,7 +64,7 @@ class Timer extends Component {
       isTimerStarted: true,
       isTimerVisible: true,
       previousTime: Date.now()
-    }), this.state.flipCardTime/2);
+    }), cardFlipTime/2);
   }
   
   componentWillUnmount() {
@@ -96,7 +96,7 @@ class Timer extends Component {
         isTimerVisible: false,
         isTimerAppended: false
       });
-    }, this.state.flipCardTime/2);
+    }, cardFlipTime/2);
   }
 
   handleTimeTick = (type) => {

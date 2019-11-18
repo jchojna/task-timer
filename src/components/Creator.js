@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import NewTaskInput from './NewTaskInput';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
+import { cardFlipTime } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
 
@@ -30,6 +31,10 @@ class Creator extends Component {
       isCreatorValid: false,
       alertFlag: false
     };
+  }
+
+  componentWillUnmount = () => {
+    clearTimeout(this.timeoutOutroId);
   }
 
   handleStateChange = (object) => this.setState(object);
@@ -218,8 +223,8 @@ class Creator extends Component {
           isCreatorValid: true,
           alertFlag: false
         });
-        this.timeoutOutroId = setTimeout
-        this.addNewTask();
+        this.timeoutOutroId = setTimeout(() => this.addNewTask(),
+        cardFlipTime/2);
       } else {
         this.setState({ alertFlag: true });
       }
