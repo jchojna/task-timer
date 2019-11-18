@@ -46,9 +46,11 @@
     @include flex-center;
     align-self: start;
     fill: none;
+    opacity: 0;
     stroke: $color-background;
     stroke-linecap: round;
     stroke-width: 30;
+    transition: opacity $toggle-button, visibility 0s $toggle-button;
     visibility: hidden;
     width: $nav-button;
 
@@ -63,6 +65,8 @@
     }
 
     &--visible {
+      opacity: 1;
+      transition: opacity $toggle-button, visibility;
       visibility: inherit;
     }
 
