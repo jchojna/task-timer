@@ -1,0 +1,91 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.NewTaskInput {
+  display: grid;
+  grid-area: input;
+  grid-template-areas:
+    "label"
+    "input"
+    ".    ";
+  grid-template-rows: 1fr 2fr 1fr;
+  height: 100%;
+  user-select: none;
+  visibility: hidden;
+  width: 100%;
+
+  &--taskName {
+    visibility: visible;
+  }
+
+  &--taskTime,
+  &--breakTime {
+    visibility: visible;
+  }
+
+  &__label {
+    color: $color-white;
+    font-size: 2em;
+    font-weight: 600;
+    grid-area: label;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  &__text,
+  &__input {
+    background: none;
+    border: 3px solid $color-background;
+    color: $color-white;
+    font-size: 1.2em;
+    padding: 15px;
+    width: 100%;
+
+    &::placeholder {
+      color: $color-background;
+      opacity: 1;
+    }
+
+    &:focus {
+      background-color: $color-background;
+      border-color: $color-white;
+
+      &::placeholder {
+        color: $color-primary;
+      }
+    }
+
+    &--invalid {
+      border-color: $color-warning;
+
+      &:focus {
+        border-color: $color-warning;
+      }
+    }
+  }
+
+  &__text {
+    grid-area: input;
+    resize: none;
+  }
+
+  &__inputs {
+    align-items: center;
+    display: flex;
+    font-size: 1.5em;
+    grid-area: input;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__input {
+    text-align: center;
+    width: 45%;
+  }
+
+  &__colon {
+    font-weight: bold;
+  }
+}

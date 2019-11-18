@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import EditableText from './EditableText.js';
 import TotalTime from './TotalTime.js';
 import Timer from './Timer.js';
+import { validateTaskName, handleTimeChange } from '../lib/handlers';
+import { animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -18,8 +20,8 @@ class Task extends Component {
     } = this.props.task;
 
     this.state = {
-      isCardFlippedMode: false,
-      isTimerAppended: false,
+      isTaskRotatingOut: false,
+      isTimerMounted: false,
       taskName,
       taskMinutes: totalTaskTimeArray[0],
       taskSeconds: totalTaskTimeArray[1],
@@ -37,11 +39,16 @@ class Task extends Component {
       isBreakTimeValid: true
     }
   }
+
+  componentDidMount = () => {
+    this.setState({
+      isTaskAppended: true
+    });
+  }
   
   handleStateChange = (object) => this.setState(object);
 
   handleTaskNameChange = (value) => {
-    const { validateTaskName } = this.props;
     this.setState({
       taskName: value,
       isTaskNameValid: validateTaskName(value)
@@ -78,8 +85,7 @@ class Task extends Component {
   }
 
   handleTimeChange = (minutes, seconds, units, type) => {
-    const { onTimeChange } = this.props;
-    const object = onTimeChange(minutes, seconds, units, type);
+    const object = handleTimeChange(minutes, seconds, units, type);
 
     if (type === 'task') {
       if (units === 'minutes') {
@@ -118,15 +124,15 @@ class Task extends Component {
   }
 
   handleStartButton = () => this.setState({
-    isCardFlippedMode: true,
-    isTimerAppended: true
+    isTaskRotatingOut: true,
+    isTimerMounted: true
   });
 
   render() {
 
-    const { id, onTimeArrayChange } = this.props;
+    const { id } = this.props;
     const {
-      isCardFlippedMode,
+      isTaskRotatingOut,
       taskName,
       taskMinutes,
       taskSeconds,
@@ -144,7 +150,8 @@ class Task extends Component {
 
     const taskContainerClass = classNames("Task__container", {
       "Task__container--editMode": isEditMode,
-      "Task__container--flipped": isCardFlippedMode
+      "Task__container--rotateIn": !isTaskRotatingOut,
+      "Task__container--rotateOut": isTaskRotatingOut
     });
 
     const acceptButtonClass = classNames("button Task__button Task__button--accept", {
@@ -159,10 +166,12 @@ class Task extends Component {
       "Task__button--disabled": isEditMode
     });   
     
-
     return (
       <section className="Task">
-        <div className={taskContainerClass}>
+        <div
+          className={taskContainerClass}
+          style={animationStyle}
+        >
           {/* TASK  NAME */}
           <EditableText
             output={taskName}
@@ -242,13 +251,12 @@ class Task extends Component {
           
           {/* TIMER COMPONENT */}
           {
-            this.state.isTimerAppended
+            this.state.isTimerMounted
             ? <Timer
                 onTaskStateChange={this.handleStateChange}
                 state={this.state}
                 id={id}
                 onTaskRemove={this.handleTaskRemove}
-                onTimeArrayChange={onTimeArrayChange}
               />
             : <div className="empty"></div>
           }

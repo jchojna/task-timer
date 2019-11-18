@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
-import EditableTime from './EditableTime.js';
-//import icons from '../assets/svg/icons.svg';
+import classNames from 'classnames';
+import NewTaskInput from './NewTaskInput';
+import { validateTaskName, handleTimeChange } from '../lib/handlers';
+import { cardFlipTime, animationStyle } from '../lib/globalVariables';
+import icons from '../assets/svg/icons.svg';
 import '../scss/Creator.scss';
 
 class Creator extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // visibility
+      isCreatorRotatingOut: false,
+      isTaskNameVisible: true,
+      isTaskTimeVisible: false,
+      isBreakTimeVisible: false,
+      // inputs
       creatorTaskName: "",
       creatorTaskMinutes: "",
       creatorTaskSeconds: "",
@@ -19,54 +28,28 @@ class Creator extends Component {
       // validation
       isTaskNameValid: false,
       isTaskTimeValid: false,
-      isBreakTimeValid: false,
-      alertNameFlag: false,
-      alertTimeFlag: false,
+      isBreakTimeValid: true,
+      isCreatorValid: false,
+      alertFlag: false
     };
   }
 
-  handleTaskName = (e) => {
-    const {value } = e.target;
-    const { validateTaskName } = this.props;
+  componentWillUnmount = () => {
+    clearTimeout(this.timeoutOutroId);
+  }
+
+  handleStateChange = (object) => this.setState(object);
+
+  handleTaskName = (value) => {
     this.setState({
       creatorTaskName: value,
       isTaskNameValid: validateTaskName(value),
-      alertNameFlag: true
+      alertFlag: true
     });
   }
-  
-  handleAlertVisibility = (alert) => {
-    const {
-      alertNameFlag,
-      alertTimeFlag,
-      isTaskNameValid,
-      isTaskTimeValid,
-      isBreakTimeValid
-     } = this.state;
 
-    switch (alert) {
-      case 'name':
-        return alertNameFlag && !isTaskNameValid
-        ? "Creator__alert--visible" : "";
-
-      case 'time':
-        return alertTimeFlag && (!isTaskTimeValid || !isBreakTimeValid)
-        ? "Creator__alert--visible" : "";
-
-      default: break;
-    }
-  }
- 
-  handleCancelButton = (e) => {
-    e.preventDefault();
-    const { onStateChange } = this.props;
-    // return to Board component
-    onStateChange({ isCreatorVisible: false });
-  }
-
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-    const { onStateChange } = this.props;
+  addNewTask = () => {
+    const { onAppStateChange } = this.props;
     const {
       creatorTaskName,
       creatorTaskMinutes,
@@ -76,52 +59,29 @@ class Creator extends Component {
       creatorTotalTaskTime,
       creatorTotalBreakTime,
       creatorTaskTimeArray,
-      creatorBreakTimeArray,
-      isTaskNameValid,
-      isTaskTimeValid
+      creatorBreakTimeArray
     } = this.state;
 
-    this.setState({
-      alertNameFlag: true,
-      alertTimeFlag: true
-    })    
-    // validation
-    if (isTaskNameValid && isTaskTimeValid) {
-      const date = Date.now();
-      // new task data
-      const newTask = {
-        taskName: creatorTaskName,
-        taskMinutes: creatorTaskMinutes,
-        taskSeconds: creatorTaskSeconds,
-        breakMinutes: creatorBreakMinutes,
-        breakSeconds: creatorBreakSeconds,
-        totalTaskTime: creatorTotalTaskTime,
-        totalBreakTime: creatorTotalBreakTime,
-        totalTaskTimeArray: creatorTaskTimeArray,
-        totalBreakTimeArray: creatorBreakTimeArray,
-        dateCreated: date,
-        id: date
-      };
-      // add new task to app state
-      onStateChange(prevState => ({
-        isCreatorVisible: false,
-        tasks: [...prevState.tasks, newTask]
-      }));
-      // clear inputs after submitting
-      this.setState({
-        creatorTaskName: "",
-        creatorTaskMinutes: "",
-        creatorTaskSeconds: "",
-        creatorBreakMinutes: "",
-        creatorBreakSeconds: "",
-        creatorTotalTaskTime: 0,
-        creatorTotalBreakTime: 0,
-        isTaskNameValid: false,
-        isTimeInputValid: false,
-        alertNameFlag: false,
-        alertTimeFlag: false,
-      })
-    }
+    const date = Date.now();
+    // new task data
+    const newTask = {
+      taskName: creatorTaskName,
+      taskMinutes: creatorTaskMinutes,
+      taskSeconds: creatorTaskSeconds,
+      breakMinutes: creatorBreakMinutes,
+      breakSeconds: creatorBreakSeconds,
+      totalTaskTime: creatorTotalTaskTime,
+      totalBreakTime: creatorTotalBreakTime,
+      totalTaskTimeArray: creatorTaskTimeArray,
+      totalBreakTimeArray: creatorBreakTimeArray,
+      dateCreated: date,
+      id: date
+    };
+    // add new task to app state
+    onAppStateChange(prevState => ({
+      isCreatorVisible: false,
+      tasks: [...prevState.tasks, newTask]
+    }));
   }
 
   /* handleKeyPress = (e) => {
@@ -138,145 +98,258 @@ class Creator extends Component {
   } */
 
   handleTimeChange = (minutes, seconds, units, type) => {
-    const { onTimeChange } = this.props;
-    const object = onTimeChange(minutes, seconds, units, type);
-    const { alertTimeFlag } = object;
+    const newTime = handleTimeChange(minutes, seconds, units, type);
 
     if (type === 'task') {
       if (units === 'minutes') {
-        const { taskMinutes, totalTaskTime, totalTaskTimeArray, isTaskTimeValid } = object;
+        const { taskMinutes, totalTaskTime, totalTaskTimeArray, isTaskTimeValid } = newTime;
         this.setState({
           creatorTaskMinutes: taskMinutes,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: totalTaskTimeArray,
-          isTaskTimeValid
+          isTaskTimeValid,
+          alertFlag: true
         });
       } else if (units === 'seconds') {
-        const { taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid } = object;
+        const { taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid } = newTime;
         this.setState({
           creatorTaskSeconds: taskSeconds,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: totalTaskTimeArray,
-          isTaskTimeValid
+          isTaskTimeValid,
+          alertFlag: true
         });
       }
     } else if (type === 'break') {
       if (units === 'minutes') {
-        const { breakMinutes, totalBreakTime, totalBreakTimeArray, isBreakTimeValid } = object;
+        const { breakMinutes, totalBreakTime, totalBreakTimeArray, isBreakTimeValid } = newTime;
         this.setState({
           creatorBreakMinutes: breakMinutes,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: totalBreakTimeArray,
-          isBreakTimeValid
+          isBreakTimeValid,
+          alertFlag: true
         });
       } else if (units === 'seconds') {
-        const { breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid } = object;
+        const { breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid } = newTime;
         this.setState({
           creatorBreakSeconds: breakSeconds,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: totalBreakTimeArray,
-          isBreakTimeValid
+          isBreakTimeValid,
+          alertFlag: true
         });
       }
     }
-    this.setState({ alertTimeFlag });
+  }
+
+  handleBackButton = (e) => {
+    e.preventDefault();
+    const {
+      isTaskNameVisible,
+      isTaskTimeVisible,
+      isBreakTimeVisible
+    } = this.state;
+
+    if (isTaskNameVisible) {
+      this.setState({ isTaskNameVisible: false });
+    }
+
+    if (isTaskTimeVisible) {
+      this.setState({
+        isTaskNameVisible: true,
+        isTaskTimeVisible: false
+      });
+    }
+
+    if (isBreakTimeVisible) {
+      this.setState({
+        isTaskTimeVisible: true,
+        isBreakTimeVisible: false
+      });
+    }
+  }
+  
+  handleNextButton = (e) => {
+    e.preventDefault();
+
+    const {
+      isTaskNameVisible,
+      isTaskTimeVisible,
+      isBreakTimeVisible,
+      isTaskNameValid,
+      isTaskTimeValid,
+      isBreakTimeValid
+    } = this.state;
+
+    if (isTaskNameVisible && isTaskNameValid) {
+      this.setState({
+        isTaskNameVisible: false,
+        isTaskTimeVisible: true,
+        alertFlag: false
+      });
+    }
+
+    if (isTaskTimeVisible && isTaskTimeValid) {
+      this.setState({
+        isTaskTimeVisible: false,
+        isBreakTimeVisible: true,
+        alertFlag: false
+      });
+    }
+
+    if (isBreakTimeVisible && isBreakTimeValid) {
+      this.setState({
+        isCreatorValid: true,
+        alertFlag: false,
+        isCreatorRotatingOut: true
+      });
+      this.timeoutOutroId = setTimeout(() => this.addNewTask(),
+      cardFlipTime);
+    }
+  }
+
+  handleCreatorClose = (e) => {
+    e.preventDefault();
+    const { onAppStateChange } = this.props;
+    onAppStateChange({ isCreatorVisible: false });
   }
 
   render() {
 
     const {
+      // visibility
+      isCreatorRotatingOut,
+      isTaskNameVisible,
+      isTaskTimeVisible,
+      isBreakTimeVisible,
+      // inputs
       creatorTaskName,
       creatorTaskMinutes,
       creatorTaskSeconds,
       creatorBreakMinutes,
-      creatorBreakSeconds
+      creatorBreakSeconds,
+      // validation
+      isTaskNameValid,
+      isTaskTimeValid,
+      isBreakTimeValid,
+      isCreatorValid,
+      alertFlag
     } = this.state;
 
-    const { compClassName } = this.props;
+    const isNextButtonVisible = 
+    (isTaskNameVisible && isTaskNameValid) ||
+    (isTaskTimeVisible && isTaskTimeValid) ||
+    (isBreakTimeVisible && isBreakTimeValid);
+
+    const creatorClass = classNames("Creator", {
+      "Creator--rotateOut": isCreatorRotatingOut
+    });
+  
+    const backButtonClass = classNames("Creator__button",
+      "Creator__button--back", {
+      "Creator__button--visible": !isTaskNameVisible
+    });
+    
+    const nextButtonClass = classNames("Creator__button",
+      "Creator__button--next", {
+      "Creator__button--visible": isNextButtonVisible
+    });
+
+    const progressBarLoadedStyle = {
+      width: isTaskTimeVisible ? `${1/3 * 100}%`
+      : isBreakTimeVisible ?
+        isCreatorValid ? "100%" : `${2/3 * 100}%`
+      : 0
+    }
 
     return (
       <form
-        className={`Creator ${compClassName}`}
-        tabIndex="0"
-        autoFocus
-        onSubmit={this.handleFormSubmit}
+        className={creatorClass}
+        style={animationStyle}
+        //onSubmit={this.handleFormSubmit}
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >
-        {/* TASK HEADING */}
-        <h2 className="Creator__heading">Create a new task</h2>
-  
         {/* TASK NAME INPUT */}
-        <input
-          id="taskName"
-          name="taskName"
-          className="Creator__taskName"
+        <NewTaskInput
+          isVisible={isTaskNameVisible}
+          isValid={isTaskNameValid}
+          modifier="taskName"
+          title={creatorTaskName}
+          label="Enter task name"
           placeholder="What would be your next task?"
-          value={creatorTaskName}
-          onChange={(e) => this.handleTaskName(e)}
+          alertFlag={alertFlag}
+          onTaskNameChange={this.handleTaskName}
         />
-          
-        {/* TASK TIME INPUTS */}
-        {/* <TimeInput
-          block="Creator"
+
+        {/* TASK TIME INPUT */}
+        <NewTaskInput
+          isVisible={isTaskTimeVisible}
+          isValid={isTaskTimeValid}
           modifier="taskTime"
+          label="Enter task time"
+          placeholder="Enter time here..."
           minutes={creatorTaskMinutes}
           seconds={creatorTaskSeconds}
+          alertFlag={alertFlag}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorTaskSeconds, 'minutes', 'task')}
           onSecondsChange={(value) =>
             this.handleTimeChange(creatorTaskMinutes, value, 'seconds', 'task')}
-        /> */}
-
-        {/* BREAK TIME INPUTS */}
-        {/* <TimeInput
-          block="Creator"
+        />
+        
+        {/* BREAK TIME INPUT */}
+        <NewTaskInput
+          isVisible={isBreakTimeVisible}
+          isValid={isBreakTimeValid}
           modifier="breakTime"
+          label="Enter max break time"
+          placeholder="Enter time here..."
           minutes={creatorBreakMinutes}
           seconds={creatorBreakSeconds}
+          alertFlag={alertFlag}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorBreakSeconds, 'minutes', 'break')}
           onSecondsChange={(value) =>
             this.handleTimeChange(creatorBreakMinutes, value, 'seconds', 'break')}
-        /> */}
-        
-        {/* ADD BUTTON */}
+        />
+
+        {/* GO BACK BUTTON */}
         <button
-          type="submit"
-          className="Creator__button Creator__button--add"
-          //disabled = {isTimerActive}
+          className={backButtonClass}
+          onClick={this.handleBackButton}
         >
-          Add Task
+          <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#arrow-left`}></use>
+          </svg>
         </button>
-        {/* CANCEL BUTTON */}
+  
+        {/* GO NEXT BUTTON */}
         <button
-          className="Creator__button Creator__button--cancel"
-          //disabled = {isTimerActive}
-          onClick={this.handleCancelButton}
+          className={nextButtonClass}
+          onClick={this.handleNextButton}
         >
-          Cancel
+          <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#arrow-right`}></use>
+          </svg>
         </button>
 
-        {/* TASK NAME LABEL */}
-        <label className="Creator__label Creator__label--task-name" htmlFor="taskName">
-          Your task name
-        </label>
-        {/* TASK TIME LABEL */}
-        <label className="Creator__label Creator__label--task-time" htmlFor="taskTime">
-          Task time
-        </label>
-        {/* BREAK TIME LABEL */}
-        <label className="Creator__label Creator__label--break-time" htmlFor="breakTime">
-          Max break time
-        </label>
+        {/* CLOSE NEW TASK */}
+        <button
+          className="Creator__closeButton"
+          onClick={this.handleCreatorClose}
+        >
+          <svg className="Creator__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#remove`}/>
+          </svg>
+        </button>
 
-        {/* ALERTS */}
-        <div className="Creator__alerts">
-          <p className={`Creator__alert ${this.handleAlertVisibility('name')}`}>
-            You have to enter your task name!
-          </p>
-          <p className={`Creator__alert ${this.handleAlertVisibility('time')}`}>
-            Enter correct time for task!
-          </p>
+        {/* PROGRESS BAR */}
+        <div className="progressBar">
+          <div
+            className="progressBar__loaded"
+            style={progressBarLoadedStyle}
+          ></div>
         </div>
       </form>
     );

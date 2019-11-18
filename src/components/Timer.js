@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Countdown from './Countdown';
 import StopTimer from './StopTimer.js';
+import Progress from './Progress';
 import Controls from './Controls';
 import Finish from './Finish.js';
+import { getTimeArray } from '../lib/handlers';
+import { cardFlipTime } from '../lib/globalVariables';
 import '../scss/Timer.scss';
 
 class Timer extends Component {
@@ -18,7 +21,6 @@ class Timer extends Component {
 
     this.state = {
       isTimerStarted: false,
-      flipCardTime: 500,
       // visibility
       isStopTimerVisible: false,
       isFinishVisible: false,
@@ -56,13 +58,18 @@ class Timer extends Component {
   }
 
   componentDidMount() {
+    const { onTaskStateChange } = this.props;
     this.taskIntervalId = setInterval(() => this.handleTimeTick('Task'), 10);
     this.breakIntervalId = setInterval(() => this.handleTimeTick('Break'), 10);
-    this.timeoutIntroId = setTimeout(() => this.setState({
-      isTimerStarted: true,
-      isTimerVisible: true,
-      previousTime: Date.now()
-    }), this.state.flipCardTime/2);
+
+    this.timeoutIntroId = setTimeout(() => {
+      this.setState({
+        isTimerStarted: true,
+        isTimerVisible: true,
+        previousTime: Date.now()
+      });
+      onTaskStateChange({ isTaskRotatingOut: false })
+    }, cardFlipTime);
   }
   
   componentWillUnmount() {
@@ -84,17 +91,17 @@ class Timer extends Component {
 
   handleTimerStop = () => {
     const { onTaskStateChange } = this.props;
-    onTaskStateChange({ isCardFlippedMode: false });
+    onTaskStateChange({ isTaskRotatingOut: true });
     this.setState({
       isTimerStarted: false,
       isStopTimerVisible: false
     });
     this.timeoutOutroId = setTimeout(() => {
       onTaskStateChange({
-        isTimerVisible: false,
-        isTimerAppended: false
+        isTimerMounted: false,
+        isTaskRotatingOut: false
       });
-    }, this.state.flipCardTime/2);
+    }, cardFlipTime);
   }
 
   handleTimeTick = (type) => {
@@ -106,12 +113,11 @@ class Timer extends Component {
       const remainingTime = this.state[`remaining${type}Time`];
       const overallTime = elapsedTaskTime + elapsedBreakTime;
 
-      const { onTimeArrayChange } = this.props;
       const now = Date.now();
-      const elapsedTimeArray   = onTimeArrayChange(elapsedTime);
-      const totalTimeArray     = onTimeArrayChange(totalTime);
-      const remainingTimeArray = onTimeArrayChange(remainingTime);
-      const overallTimeArray   = onTimeArrayChange(overallTime);
+      const elapsedTimeArray   = getTimeArray(elapsedTime);
+      const totalTimeArray     = getTimeArray(totalTime);
+      const remainingTimeArray = getTimeArray(remainingTime);
+      const overallTimeArray   = getTimeArray(overallTime);
       const elapsedPercent   = elapsedTime / totalTime * 100;
       const remainingPercent = remainingTime / totalTime * 100;
 

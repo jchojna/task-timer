@@ -13,11 +13,11 @@
   width: 100%;
 
   &--taskTime {
-    background-color: $color-white;
+    background-color: $color-primary;
   }
 
   &--breakTime {
-    background-color: rgb(114, 184, 126);
+    background-color: $color-background;
   }
 
   &--visible {

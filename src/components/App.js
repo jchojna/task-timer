@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-import Board from './Board.js';
+import classNames from 'classnames';
+import Task from './Task.js';
 import Creator from './Creator.js';
-import { 
-  validateTaskName,
-  handleTimeChange,
-  getTimeArray
-} from '../lib/handlers';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -51,40 +47,55 @@ class App extends Component {
 
   handleStateChange = (object) => this.setState(object);
   
-  handleTaskRemove = (id) => {
-    console.log(id);
-    this.setState(prevState => ({
-      tasks: prevState.tasks.filter(task => task.id !== id)
-    }))
+  handleTaskRemove = (id) => this.setState(prevState => ({
+    tasks: prevState.tasks.filter(task => task.id !== id)
+  }));
+  
+  handleNewTaskButton = () => {
+    this.setState({ isCreatorVisible: true });
   }
 
   render() {
-    const { isCreatorVisible } = this.state;
+
+    const { isCreatorVisible, tasks } = this.state;
+
+    const newTaskButtonClass = classNames("App__newTaskButton", {
+      "App__newTaskButton--visible": !isCreatorVisible
+    });
 
     return (
       <React.StrictMode>
         <div className="App">
-          {/* APP HEADING */}
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
-
           {/* BOARD OF TASKS */}
-          <Board
-            state={this.state}
-            onStateChange={this.handleStateChange}
-            onTaskRemove={this.handleTaskRemove}
-            onTimeChange={handleTimeChange}
-            validateTaskName={validateTaskName}
-            onTimeArrayChange={getTimeArray}
-          />
-
-          {/* TASK CREATOR */}
-          <Creator
-            compClassName={isCreatorVisible
-              ? "Creator--visible slideInRight" : "slideOutLeft"}
-            onStateChange={this.handleStateChange}
-            onTimeChange={handleTimeChange}
-            validateTaskName={validateTaskName}
-          />
+          <section className="App__board">
+            {/* TASK CARDS */}
+            {tasks.map((task) => (
+              <Task
+                task={task}
+                id={task.dateCreated}
+                key={task.dateCreated}
+                onTaskRemove={this.handleTaskRemove}
+              />
+            ))}
+            {/* CREATE NEW TASK */}
+            <section className="App__creator">
+              <button
+                className={newTaskButtonClass}
+                onClick={this.handleNewTaskButton}
+              >
+                Add New Task
+              </button>
+              {
+                isCreatorVisible
+                ? <Creator
+                    isVisible={isCreatorVisible}
+                    onAppStateChange={this.handleStateChange}
+                  />
+                : <div className="empty"></div>
+              }
+            </section>
+          </section>
         </div>
       </React.StrictMode>
     );

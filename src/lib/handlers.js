@@ -1,6 +1,6 @@
 export const validateTaskName = (name) => name.length > 0 ? true : false;
-const validateTaskTime = (time, total) => /^\d*$/.test(time) && total > 0;
-const validateBreakTime = (time) => /^\d*$/.test(time);
+export const validateTaskTime = (time, total) => /^\d*$/.test(time) && total > 0;
+export const validateBreakTime = (time) => /^\d*$/.test(time);
 
 const getTotalTime = (minutes, seconds) => {
   minutes = !minutes ? 0 : parseInt(minutes);
@@ -26,16 +26,14 @@ export const handleTimeChange = (minutes, seconds, units, type) => {
         taskMinutes: minutes,
         totalTaskTime,
         totalTaskTimeArray: getTimeArray(totalTaskTime),
-        isTaskTimeValid: validateTaskTime(minutes, totalTaskTime),
-        alertTimeFlag: true
+        isTaskTimeValid: validateTaskTime(minutes, totalTaskTime)
       };
     } else if (units === 'seconds') {
       return {
         taskSeconds: seconds,
         totalTaskTime,
         totalTaskTimeArray: getTimeArray(totalTaskTime),
-        isTaskTimeValid: validateTaskTime(seconds, totalTaskTime),
-        alertTimeFlag: true
+        isTaskTimeValid: validateTaskTime(seconds, totalTaskTime)
       };
     }
   } else if (type === 'break') {
@@ -45,16 +43,14 @@ export const handleTimeChange = (minutes, seconds, units, type) => {
         breakMinutes: minutes,
         totalBreakTime,
         totalBreakTimeArray: getTimeArray(totalBreakTime),
-        isBreakTimeValid: validateBreakTime(minutes),
-        alertTimeFlag: true
+        isBreakTimeValid: validateBreakTime(minutes)
       };
     } else if (units === 'seconds') {
       return {
         breakSeconds: seconds,
         totalBreakTime,
         totalBreakTimeArray: getTimeArray(totalBreakTime),
-        isBreakTimeValid: validateBreakTime(seconds),
-        alertTimeFlag: true
+        isBreakTimeValid: validateBreakTime(seconds)
       };
     }
   }
