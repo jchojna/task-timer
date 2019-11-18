@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import '../scss/CreatorInput.scss';
+import { maxTaskNameLength } from '../lib/globalVariables';
 
 const CreatorInput = (props) => {
 
@@ -61,6 +62,7 @@ const CreatorInput = (props) => {
           className={textInputClass}
           placeholder={placeholder}
           spellCheck="false"
+          maxLength={maxTaskNameLength}
           value={title}
           onChange={(e) => onTaskNameChange(e.target.value)}
         ></textarea>

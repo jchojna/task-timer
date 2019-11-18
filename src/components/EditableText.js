@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { maxTaskNameLength } from '../lib/globalVariables';
 import '../scss/EditableText.scss';
 
 const EditableText = (props) => {
@@ -37,7 +38,7 @@ const EditableText = (props) => {
         className={inputClass}
         value={output}
         spellCheck="false"
-        maxLength="80"
+        maxLength={maxTaskNameLength}
         onChange={(e) => onTaskNameChange(e.target.value)}
       ></textarea>
     </div>
