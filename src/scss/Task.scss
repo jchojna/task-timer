@@ -23,6 +23,12 @@
     overflow: hidden;
     padding: $card-padding;
     position: relative;
+    visibility: hidden;
+    transform: rotate3d(0, 1, 0, -90deg);
+
+    &--visible {
+      visibility: visible;
+    }
 
     &--rotateIn {
       animation: rotateIn ease-out forwards;

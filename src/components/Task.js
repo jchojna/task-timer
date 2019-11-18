@@ -21,6 +21,7 @@ class Task extends Component {
 
     this.state = {
       isTaskRotatingOut: false,
+      isTaskMounted: false,
       isTimerMounted: false,
       taskName,
       taskMinutes: totalTaskTimeArray[0],
@@ -40,11 +41,7 @@ class Task extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.setState({
-      isTaskAppended: true
-    });
-  }
+  componentDidMount = () => this.setState({ isTaskMounted: true });
   
   handleStateChange = (object) => this.setState(object);
 
@@ -132,6 +129,7 @@ class Task extends Component {
 
     const { id } = this.props;
     const {
+      isTaskMounted,
       isTaskRotatingOut,
       taskName,
       taskMinutes,
@@ -149,9 +147,10 @@ class Task extends Component {
     const isEditMode = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
 
     const taskContainerClass = classNames("Task__container", {
+      "Task__container--visible": isTaskMounted,
       "Task__container--editMode": isEditMode,
-      "Task__container--rotateIn": !isTaskRotatingOut,
-      "Task__container--rotateOut": isTaskRotatingOut
+      "Task__container--rotateIn": !isTaskRotatingOut && isTaskMounted,
+      "Task__container--rotateOut": isTaskRotatingOut && isTaskMounted
     });
 
     const acceptButtonClass = classNames("button Task__button Task__button--accept", {

@@ -13,11 +13,12 @@
     ".        closeBtn"
     "input    input   "
     "backBtn  nextBtn ";
-  grid-template-rows: $nav-button 1fr auto;
+  grid-template-rows: $nav-button 1fr $nav-button;
   height: 100%;
   left: 0;
   overflow: hidden;
   padding: $card-padding;
+  padding-bottom: $card-padding + $progressBar-height;
   position: absolute;
   top: 0;
   width: 100%;
@@ -43,7 +44,7 @@
   &__button {
     @include button;
     @include flex-center;
-    align-self: end;
+    align-self: start;
     fill: none;
     stroke: $color-background;
     stroke-linecap: round;
@@ -79,7 +80,7 @@
   background-color: $color-primary;
   bottom: 0;
   left: 0;
-  height: 16px;
+  height: $progressBar-height;
   position: absolute;
   width: 100%;
 
@@ -90,5 +91,6 @@
     position: absolute;
     top: 0;
     width: 0;
+    transition: width 0.5s;
   }
 }
