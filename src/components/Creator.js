@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import NewTaskInput from './NewTaskInput';
+import CreatorInput from './CreatorInput';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
 import { cardFlipTime, animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
@@ -271,7 +271,7 @@ class Creator extends Component {
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >
         {/* TASK NAME INPUT */}
-        <NewTaskInput
+        <CreatorInput
           isVisible={isTaskNameVisible}
           isValid={isTaskNameValid}
           modifier="taskName"
@@ -283,7 +283,7 @@ class Creator extends Component {
         />
 
         {/* TASK TIME INPUT */}
-        <NewTaskInput
+        <CreatorInput
           isVisible={isTaskTimeVisible}
           isValid={isTaskTimeValid}
           modifier="taskTime"
@@ -299,7 +299,7 @@ class Creator extends Component {
         />
         
         {/* BREAK TIME INPUT */}
-        <NewTaskInput
+        <CreatorInput
           isVisible={isBreakTimeVisible}
           isValid={isBreakTimeValid}
           modifier="breakTime"

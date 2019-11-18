@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import '../scss/NewTaskInput.scss';
+import '../scss/CreatorInput.scss';
 
-const NewTaskInput = (props) => {
+const CreatorInput = (props) => {
 
   const {
     isVisible,
@@ -19,31 +19,31 @@ const NewTaskInput = (props) => {
     alertFlag
   } = props;
 
-  const newTaskInputClass = classNames("NewTaskInput", {
-    [`NewTaskInput--${modifier}`]: isVisible
+  const creatorInputClass = classNames("CreatorInput", {
+    [`CreatorInput--${modifier}`]: isVisible
   });
 
-  const textInputClass = classNames("NewTaskInput__text", {
-    "NewTaskInput__text--invalid": !isValid && alertFlag
+  const textInputClass = classNames("CreatorInput__text", {
+    "CreatorInput__text--invalid": !isValid && alertFlag
   });
 
-  const minutesInputClass = classNames("NewTaskInput__input",
-    "NewTaskInput__input--minutes", {
-      "NewTaskInput__input--invalid": !isValid && alertFlag
+  const minutesInputClass = classNames("CreatorInput__input",
+    "CreatorInput__input--minutes", {
+      "CreatorInput__input--invalid": !isValid && alertFlag
     });
 
-  const secondsInputClass = classNames("NewTaskInput__input",
-    "NewTaskInput__input--seconds", {
-      "NewTaskInput__input--invalid": !isValid && alertFlag
+  const secondsInputClass = classNames("CreatorInput__input",
+    "CreatorInput__input--seconds", {
+      "CreatorInput__input--invalid": !isValid && alertFlag
     });
 
   return (
-    <div className={newTaskInputClass}>
+    <div className={creatorInputClass}>
 
       {/* INPUT LABEL */}
       <label
         htmlFor={modifier}
-        className="NewTaskInput__label"
+        className="CreatorInput__label"
       >
         {label}
       </label>
@@ -61,7 +61,7 @@ const NewTaskInput = (props) => {
         ></textarea>
 
         : /* TIME INPUT */
-        <div className="NewTaskInput__inputs">
+        <div className="CreatorInput__inputs">
           <input
             id={modifier}
             name={`${modifier}Minutes`}
@@ -71,7 +71,7 @@ const NewTaskInput = (props) => {
             value={minutes}
             onChange={(e) => onMinutesChange(e.target.value)}
           />
-          <span className="NewTaskInput__colon">:</span>
+          <span className="CreatorInput__colon">:</span>
           <input
             name={`${modifier}Seconds`}
             className={secondsInputClass}
@@ -85,4 +85,4 @@ const NewTaskInput = (props) => {
     </div>
   )
 }
-export default NewTaskInput;
+export default CreatorInput;
