@@ -8,9 +8,9 @@
   background-color: $color-light-background;
   display: grid;
   grid-template-areas:
-    ".       closeBtn"
-    "input   input   "
-    "backBtn nextBtn ";
+    ".        closeBtn"
+    "input    input   "
+    "backBtn  nextBtn ";
   grid-template-rows: $nav-button 1fr auto;
   height: 100%;
   left: 0;
@@ -65,5 +65,23 @@
 
   &__svg {
     width: 100%;
+  }
+}
+
+.progressBar {
+  background-color: $color-primary;
+  bottom: 0;
+  left: 0;
+  height: 16px;
+  position: absolute;
+  width: 100%;
+
+  &__loaded {
+    background-color: $color-warning;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
   }
 }

@@ -27,6 +27,7 @@ class Creator extends Component {
       isTaskNameValid: false,
       isTaskTimeValid: false,
       isBreakTimeValid: true,
+      isCreatorValid: false,
       alertFlag: false
     };
   }
@@ -213,9 +214,11 @@ class Creator extends Component {
     if (isBreakTimeVisible) {
       if (isBreakTimeValid) {
         this.setState({
-          isBreakTimeVisible: false,
+          //isBreakTimeVisible: false,
+          isCreatorValid: true,
           alertFlag: false
         });
+        this.timeoutOutroId = setTimeout
         this.addNewTask();
       } else {
         this.setState({ alertFlag: true });
@@ -248,6 +251,7 @@ class Creator extends Component {
       isTaskNameValid,
       isTaskTimeValid,
       isBreakTimeValid,
+      isCreatorValid,
       alertFlag
     } = this.state;
 
@@ -256,7 +260,6 @@ class Creator extends Component {
     (isTaskTimeVisible && isTaskTimeValid) ||
     (isBreakTimeVisible && isBreakTimeValid);
   
-
     const backButtonClass = classNames("Creator__button",
       "Creator__button--back", {
       "Creator__button--visible": !isTaskNameVisible
@@ -266,6 +269,13 @@ class Creator extends Component {
       "Creator__button--next", {
       "Creator__button--visible": isNextButtonVisible
     });
+
+    const progressBarLoadedStyle = {
+      width: isTaskTimeVisible ? `${1/3 * 100}%`
+      : isBreakTimeVisible ?
+        isCreatorValid ? "100%" : `${2/3 * 100}%`
+      : 0
+    }
 
     return (
       <form
@@ -346,6 +356,14 @@ class Creator extends Component {
             <use href={`${icons}#remove`}/>
           </svg>
         </button>
+
+        {/* PROGRESS BAR */}
+        <div className="progressBar">
+          <div
+            className="progressBar__loaded"
+            style={progressBarLoadedStyle}
+          ></div>
+        </div>
       </form>
     );
   }
