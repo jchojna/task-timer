@@ -24,8 +24,11 @@ const EditableText = (props) => {
     "taskName__text--visible": !isEditMode
   })
 
+  const inputContainerClass = classNames("taskName__inputContainer", {
+    "taskName__inputContainer--visible": isEditMode
+  })
+
   const inputClass = classNames("taskName__input", {
-    "taskName__input--visible": isEditMode,
     "taskName__input--incorrect": !isValid
   })
 
@@ -39,18 +42,23 @@ const EditableText = (props) => {
       <h2 className={textClass} onClick={onEditModeChange}>
         {`"${output}"`}
       </h2>
-      {/* INPUT */}
-      <textarea
-        className={inputClass}
-        value={output}
-        spellCheck="false"
-        maxLength={maxTaskNameLength}
-        onChange={(e) => onTaskNameChange(e.target.value)}
-      ></textarea>
-      <div
-        className={progressClass}
-        style={taskNameProgressStyle(taskNameLength)}
-      ></div>
+      {/* TEXT CONTAINER */}
+      <div className={inputContainerClass}>
+        {/* INPUT */}
+        <textarea
+          className={inputClass}
+          value={output}
+          spellCheck="false"
+          maxLength={maxTaskNameLength}
+          onChange={(e) => onTaskNameChange(e.target.value)}
+        ></textarea>
+        {/* TEXT PROGRESS */}
+        <div
+          className={progressClass}
+          style={taskNameProgressStyle(taskNameLength)}
+        ></div>
+
+      </div>
     </div>
   );
 }

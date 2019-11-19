@@ -26,7 +26,7 @@ class Task extends Component {
       isTimerMounted: false,
       isStopAlertVisible: false,
       taskName,
-      taskNameLength: 0,
+      taskNameLength: taskName.length,
       taskMinutes: totalTaskTimeArray[0],
       taskSeconds: totalTaskTimeArray[1],
       breakMinutes: totalBreakTimeArray[0],

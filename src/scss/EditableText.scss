@@ -38,20 +38,13 @@
     }
   }
 
-  &__input {
-    background-color: $color-background;
-    border: 2px solid $color-white;
-    color: $color-white;
-    font-weight: 600;
-    font-size: 1.2em;
+  &__inputContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     height: 100%;
     left: 0;
-    outline: none;
-    overflow: hidden;
-    padding: 15px;
     position: absolute;
-    resize: none;
-    text-align: center;
     top: 0;
     visibility: hidden;
     width: 100%;
@@ -59,6 +52,21 @@
     &--visible {
       visibility: visible;
     }
+  }
+
+  &__input {
+    background-color: $color-background;
+    border: 2px solid $color-white;
+    color: $color-white;
+    font-weight: 600;
+    font-size: 1.2em;
+    height: 100%;
+    outline: none;
+    overflow: hidden;
+    padding: 15px;
+    resize: none;
+    text-align: center;
+    width: 100%;
 
     &--incorrect {
       border-color: $color-warning;
