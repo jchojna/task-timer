@@ -20,24 +20,22 @@ const Countdown = (props) => {
 
   const countdownClass = classNames(`Countdown Countdown--${modifier}`, {
     "Countdown--visible": isCountdownVisible,
-    "showRight": isCountdownVisible,
-    "hideLeft": !isCountdownVisible,
+    "showFromRight": isCountdownVisible,
+    "hideToLeft": !isCountdownVisible,
   });
 
   return (
     <div className={countdownClass}>
 
-      {/* ACTIVE MODE */}
-      {
+      { /* ACTIVE MODE */
         modifier === 'taskTime'
         ? <h3 className="Countdown__heading">Working Mode</h3>
         : <h3 className="Countdown__heading">Break Mode</h3>
       }
-      {/* ELAPSED / REMAINING TIME */}
-      {
+      { /* ELAPSED / REMAINING TIME */
         isElapsedMode
-        ? <p className="TimeDisplay__timeType">Elapsed Time</p>
-        : <p className="TimeDisplay__timeType">Remaining Time</p>
+        ? <p className="Countdown__timeType">Elapsed Time</p>
+        : <p className="Countdown__timeType">Remaining Time</p>
       }
       {/* BREAKS COUNTER */}
       <p className="Countdown__breaks">{breaksAmount}</p>

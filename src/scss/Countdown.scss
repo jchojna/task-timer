@@ -3,17 +3,11 @@
 @import "_animations.scss";
 
 .Countdown {
-  align-items: center;
-  position: absolute;
-  left: 0;
-  top: 0;
+  align-content: center;
   align-items: center;
   display: grid;
-  font-family: 'Inconsolata';
-  font-size: 1.5em;
   font-weight: bold;
   gap: 20px;
-  //grid-template-rows: 1fr auto auto auto;
   height: 100%;
   justify-items: center;
   width: 100%;
@@ -30,32 +24,35 @@
       "heading "
       "display "
       "timeType"
-      "breaks  "
-      "progress"
-      "controls";
+      "breaks  ";
   }
   
   &--breakTime {
+    position: absolute;
+    left: 0;
+    top: 0;
     grid-template-areas:
       "heading "
       "display "
       "timeType"
-      "breaks  "
-      "progress"
-      "controls";
+      "breaks  ";
   }
 
   &__heading {
+    font-weight: normal;
     grid-area: heading;
     margin: 0;
   }
 
-  &__breaks {
-    grid-area: breaks;
+  &__timeType {
+    font-weight: normal;
     margin: 0;
   }
 
-  &__timeType {
-    grid-area: timeType;
+  &__breaks {
+    font-size: 1.6em;
+    font-weight: 600;
+    grid-area: breaks;
+    margin: 0;
   }
 }

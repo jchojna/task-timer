@@ -3,13 +3,20 @@
 @import "_animations.scss";
 
 .Timer {
+  align-items: stretch;
   display: none;
-  flex-direction: column;
+  grid-template-areas:
+    "heading"
+    "countdown"
+    "controls"
+    "progress";
+  grid-template-rows: 150px 1fr auto auto;
   height: 100%;
-  overflow: hidden;
+  justify-items: stretch;
   left: 0;
   position: absolute;
   top: 0;
+  bottom: 0;
   width: 100%;
 
   &--taskTime {
@@ -17,28 +24,34 @@
   }
 
   &--breakTime {
-    background-color: $color-background;
+    background-color: $color-primary;
   }
 
   &--visible {
-    display: flex;
+    display: grid;
   }
 
   &__heading {
+    @include flex-center;
     font-size: 1.2em;
     font-weight: 600;
+    grid-area: heading;
+    margin: 0;
+    padding: 40px $layout-padding 0;
     text-align: center;
-    padding: $layout-padding;
+    word-break: break-word;
   }
 
   &__container {
-    flex-grow: 1;
     font-weight: 600;
+    grid-area: countdown;
     height: 100%;
     position: relative;
   }
 
   &__progress {
+    font-size: 1.5em;
+    grid-area: progress;
     position: relative;
   }
 }

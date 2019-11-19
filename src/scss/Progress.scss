@@ -27,7 +27,7 @@
 
   &__header {
     position: relative;
-    height: 30px;
+    height: 1.2em;
     width: 100%;
   }
 
@@ -35,7 +35,6 @@
     @include flex-center;
     color: $color-warning;
     font-family: 'Inconsolata';
-    font-size: 1.5em;
     font-weight: 600;
     left: 50%;
     margin: 0;

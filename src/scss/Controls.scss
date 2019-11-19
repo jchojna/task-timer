@@ -3,11 +3,12 @@
 @import "_animations.scss";
 
 .Controls {
-  align-self: center;
   display: grid;
-  padding: $layout-padding;
   gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, auto);
+  grid-area: controls;
+  justify-content: center;
+  padding: $layout-padding;
 
   &__button {
     @include button;
