@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
     this.state = {
       // visibility
-      isBoardVisible: true,
+      isBoardVisible: false,
       isCreatorVisible: false,
       tasks: [
         {
@@ -45,6 +45,10 @@ class App extends Component {
     };
   }
 
+  componentDidMount = () => {
+    this.setState({isBoardVisible: true});
+  }
+
   handleStateChange = (object) => this.setState(object);
   
   handleTaskRemove = (id) => this.setState(prevState => ({
@@ -57,7 +61,15 @@ class App extends Component {
 
   render() {
 
-    const { isCreatorVisible, tasks } = this.state;
+    const {
+      isBoardVisible,
+      isCreatorVisible,
+      tasks
+    } = this.state;
+
+    const boardClass = classNames("App__board", {
+      "App__board--visible": isBoardVisible
+    });
 
     const newTaskButtonClass = classNames("App__newTaskButton", {
       "App__newTaskButton--visible": !isCreatorVisible
@@ -68,7 +80,7 @@ class App extends Component {
         <div className="App">
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
           {/* BOARD OF TASKS */}
-          <section className="App__board">
+          <section className={boardClass}>
             {/* TASK CARDS */}
             {tasks.map((task) => (
               <Task

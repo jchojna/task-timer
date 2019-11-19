@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import EditableText from './EditableText.js';
 import TotalTime from './TotalTime.js';
 import Timer from './Timer.js';
+import StopAlert from './StopAlert.js';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
 import { animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
@@ -21,8 +22,11 @@ class Task extends Component {
 
     this.state = {
       isTaskRotatingOut: false,
+      isTaskMounted: false,
       isTimerMounted: false,
+      isStopAlertVisible: false,
       taskName,
+      taskNameLength: taskName.length,
       taskMinutes: totalTaskTimeArray[0],
       taskSeconds: totalTaskTimeArray[1],
       breakMinutes: totalBreakTimeArray[0],
@@ -40,22 +44,26 @@ class Task extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.setState({
-      isTaskAppended: true
-    });
-  }
+  componentDidMount = () => this.setState({ isTaskMounted: true });
   
   handleStateChange = (object) => this.setState(object);
 
   handleTaskNameChange = (value) => {
     this.setState({
       taskName: value,
+      taskNameLength: value.length,
       isTaskNameValid: validateTaskName(value)
     });
   }
 
-  handleTaskRemove = (id) => {
+  handleAlertVisibility = () => {
+    this.setState(prevState => ({
+      isStopAlertVisible: !prevState.isStopAlertVisible
+    }));
+  }
+  
+  handleTaskRemove = () => {
+    const { id } = this.props;
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
   }
@@ -132,8 +140,11 @@ class Task extends Component {
 
     const { id } = this.props;
     const {
+      isTaskMounted,
       isTaskRotatingOut,
+      isStopAlertVisible,
       taskName,
+      taskNameLength,
       taskMinutes,
       taskSeconds,
       breakMinutes,
@@ -149,9 +160,10 @@ class Task extends Component {
     const isEditMode = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
 
     const taskContainerClass = classNames("Task__container", {
+      "Task__container--visible": isTaskMounted,
       "Task__container--editMode": isEditMode,
-      "Task__container--rotateIn": !isTaskRotatingOut,
-      "Task__container--rotateOut": isTaskRotatingOut
+      "Task__container--rotateIn": !isTaskRotatingOut && isTaskMounted,
+      "Task__container--rotateOut": isTaskRotatingOut && isTaskMounted
     });
 
     const acceptButtonClass = classNames("button Task__button Task__button--accept", {
@@ -176,6 +188,7 @@ class Task extends Component {
           <EditableText
             output={taskName}
             isValid={isTaskNameValid}
+            taskNameLength={taskNameLength}
             isDisabled={isTaskTimeEditMode || isBreakTimeEditMode}
             isEditMode={isTaskNameEditMode}
             onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
@@ -230,7 +243,7 @@ class Task extends Component {
             {/* REMOVE */}
             <button
               className={removeButtonClass}
-              onClick={() => this.handleTaskRemove(id)}
+              onClick={this.handleAlertVisibility}
               disabled={isEditMode}
             >
               <svg className="Task__svg" viewBox="0 0 512 512">
@@ -260,6 +273,13 @@ class Task extends Component {
               />
             : <div className="empty"></div>
           }
+
+          {/* REMOVE TASK ALERT */}
+          <StopAlert
+            isStopAlertVisible={isStopAlertVisible}
+            onStopCancel={this.handleAlertVisibility}
+            onStopConfirm={(id) => this.handleTaskRemove(id)}
+          />
         </div>
       </section>
     );

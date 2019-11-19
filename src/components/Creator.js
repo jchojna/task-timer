@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import NewTaskInput from './NewTaskInput';
+import CreatorInput from './CreatorInput';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
 import { cardFlipTime, animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
@@ -23,6 +23,7 @@ class Creator extends Component {
       creatorBreakSeconds: "",
       creatorTotalTaskTime: 0,
       creatorTotalBreakTime: 0,
+      taskNameLength: 0,
       creatorTaskTimeArray: ["",""],
       creatorBreakTimeArray: ["",""],
       // validation
@@ -30,7 +31,9 @@ class Creator extends Component {
       isTaskTimeValid: false,
       isBreakTimeValid: true,
       isCreatorValid: false,
-      alertFlag: false
+      alertFlag: false,
+
+      slideDirection: null
     };
   }
 
@@ -43,6 +46,7 @@ class Creator extends Component {
   handleTaskName = (value) => {
     this.setState({
       creatorTaskName: value,
+      taskNameLength: value.length,
       isTaskNameValid: validateTaskName(value),
       alertFlag: true
     });
@@ -152,20 +156,25 @@ class Creator extends Component {
     } = this.state;
 
     if (isTaskNameVisible) {
-      this.setState({ isTaskNameVisible: false });
+      this.setState({
+        isTaskNameVisible: false,
+        slideDirection: "toLeft"
+      });
     }
 
     if (isTaskTimeVisible) {
       this.setState({
         isTaskNameVisible: true,
-        isTaskTimeVisible: false
+        isTaskTimeVisible: false,
+        slideDirection: "toLeft"
       });
     }
 
     if (isBreakTimeVisible) {
       this.setState({
         isTaskTimeVisible: true,
-        isBreakTimeVisible: false
+        isBreakTimeVisible: false,
+        slideDirection: "toLeft"
       });
     }
   }
@@ -186,7 +195,8 @@ class Creator extends Component {
       this.setState({
         isTaskNameVisible: false,
         isTaskTimeVisible: true,
-        alertFlag: false
+        alertFlag: false,
+        slideDirection: "toRight"
       });
     }
 
@@ -194,7 +204,8 @@ class Creator extends Component {
       this.setState({
         isTaskTimeVisible: false,
         isBreakTimeVisible: true,
-        alertFlag: false
+        alertFlag: false,
+        slideDirection: "toRight"
       });
     }
 
@@ -202,7 +213,8 @@ class Creator extends Component {
       this.setState({
         isCreatorValid: true,
         alertFlag: false,
-        isCreatorRotatingOut: true
+        isCreatorRotatingOut: true,
+        slideDirection: "toRight"
       });
       this.timeoutOutroId = setTimeout(() => this.addNewTask(),
       cardFlipTime);
@@ -229,12 +241,15 @@ class Creator extends Component {
       creatorTaskSeconds,
       creatorBreakMinutes,
       creatorBreakSeconds,
+      taskNameLength,
       // validation
       isTaskNameValid,
       isTaskTimeValid,
       isBreakTimeValid,
       isCreatorValid,
-      alertFlag
+      alertFlag,
+      
+      slideDirection
     } = this.state;
 
     const isNextButtonVisible = 
@@ -271,7 +286,7 @@ class Creator extends Component {
         //onKeyDown={(e) => this.handleKeyboard(e)}
       >
         {/* TASK NAME INPUT */}
-        <NewTaskInput
+        <CreatorInput
           isVisible={isTaskNameVisible}
           isValid={isTaskNameValid}
           modifier="taskName"
@@ -280,10 +295,12 @@ class Creator extends Component {
           placeholder="What would be your next task?"
           alertFlag={alertFlag}
           onTaskNameChange={this.handleTaskName}
+          slideDirection={slideDirection}
+          taskNameLength={taskNameLength}
         />
 
         {/* TASK TIME INPUT */}
-        <NewTaskInput
+        <CreatorInput
           isVisible={isTaskTimeVisible}
           isValid={isTaskTimeValid}
           modifier="taskTime"
@@ -292,6 +309,7 @@ class Creator extends Component {
           minutes={creatorTaskMinutes}
           seconds={creatorTaskSeconds}
           alertFlag={alertFlag}
+          slideDirection={slideDirection}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorTaskSeconds, 'minutes', 'task')}
           onSecondsChange={(value) =>
@@ -299,7 +317,7 @@ class Creator extends Component {
         />
         
         {/* BREAK TIME INPUT */}
-        <NewTaskInput
+        <CreatorInput
           isVisible={isBreakTimeVisible}
           isValid={isBreakTimeValid}
           modifier="breakTime"
@@ -308,6 +326,7 @@ class Creator extends Component {
           minutes={creatorBreakMinutes}
           seconds={creatorBreakSeconds}
           alertFlag={alertFlag}
+          slideDirection={slideDirection}
           onMinutesChange={(value) =>
             this.handleTimeChange(value, creatorBreakSeconds, 'minutes', 'break')}
           onSecondsChange={(value) =>

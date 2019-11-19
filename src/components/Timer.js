@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import Countdown from './Countdown';
-import StopTimer from './StopTimer.js';
+import StopAlert from './StopAlert.js';
 import Progress from './Progress';
 import Controls from './Controls';
 import Finish from './Finish.js';
@@ -22,7 +22,7 @@ class Timer extends Component {
     this.state = {
       isTimerStarted: false,
       // visibility
-      isStopTimerVisible: false,
+      isStopAlertVisible: false,
       isFinishVisible: false,
       isTimerVisible: false,
       // modes
@@ -89,12 +89,18 @@ class Timer extends Component {
     }));
   }
 
+  handleAlertVisibility = () => {
+    this.setState(prevState => ({
+      isStopAlertVisible: !prevState.isStopAlertVisible
+    }));
+  }
+
   handleTimerStop = () => {
     const { onTaskStateChange } = this.props;
     onTaskStateChange({ isTaskRotatingOut: true });
     this.setState({
       isTimerStarted: false,
-      isStopTimerVisible: false
+      isStopAlertVisible: false
     });
     this.timeoutOutroId = setTimeout(() => {
       onTaskStateChange({
@@ -132,7 +138,7 @@ class Timer extends Component {
           [`remaining${type}Time`]: 0,
           [`remaining${type}Percent`]: 0,
           [`is${type}Finished`]: true,
-          isStopTimerVisible: false,
+          isStopAlertVisible: false,
           isFinishVisible: true,
           overallTime,
           overallTimeArray,
@@ -158,7 +164,7 @@ class Timer extends Component {
 
     const {
       isTimerVisible,
-      isStopTimerVisible,
+      isStopAlertVisible,
       isTaskTimeElapsedMode,
       isBreakTimeElapsedMode,
       isTaskFinished,
@@ -223,13 +229,13 @@ class Timer extends Component {
           isBreakTimeActive={isBreakTimeActive}
           onDisplayModeChange={this.handleTimeDisplayMode}
           onTimerStateChange={this.handleStateChange}
+          onStopButtonClick={this.handleAlertVisibility}
         />
         {/* STOP TASK SECTION */}
-        <StopTimer
-          isStopTimerVisible={isStopTimerVisible}
-          onTimerStateChange={this.handleStateChange}
-          onTaskStateChange={onTaskStateChange}
-          onTimerStop={this.handleTimerStop}
+        <StopAlert
+          isStopAlertVisible={isStopAlertVisible}
+          onStopCancel={this.handleAlertVisibility}
+          onStopConfirm={this.handleTimerStop}
         />
         {/* TASK TIME EXCEEDED */}
         {

@@ -1,5 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
+import { maxTaskNameLength } from '../lib/globalVariables';
+import { taskNameProgressStyle } from '../lib/handlers';
 import '../scss/EditableText.scss';
 
 const EditableText = (props) => {
@@ -7,6 +9,7 @@ const EditableText = (props) => {
   const {
     output,
     isValid,
+    taskNameLength,
     isDisabled,
     isEditMode,
     onTaskNameChange,
@@ -21,9 +24,16 @@ const EditableText = (props) => {
     "taskName__text--visible": !isEditMode
   })
 
+  const inputContainerClass = classNames("taskName__inputContainer", {
+    "taskName__inputContainer--visible": isEditMode
+  })
+
   const inputClass = classNames("taskName__input", {
-    "taskName__input--visible": isEditMode,
     "taskName__input--incorrect": !isValid
+  })
+
+  const progressClass = classNames("taskName__progress", {
+    "taskName__progress--visible": isEditMode
   })
 
   return (
@@ -32,14 +42,23 @@ const EditableText = (props) => {
       <h2 className={textClass} onClick={onEditModeChange}>
         {`"${output}"`}
       </h2>
-      {/* INPUT */}
-      <textarea
-        className={inputClass}
-        value={output}
-        spellCheck="false"
-        maxLength="80"
-        onChange={(e) => onTaskNameChange(e.target.value)}
-      ></textarea>
+      {/* TEXT CONTAINER */}
+      <div className={inputContainerClass}>
+        {/* INPUT */}
+        <textarea
+          className={inputClass}
+          value={output}
+          spellCheck="false"
+          maxLength={maxTaskNameLength}
+          onChange={(e) => onTaskNameChange(e.target.value)}
+        ></textarea>
+        {/* TEXT PROGRESS */}
+        <div
+          className={progressClass}
+          style={taskNameProgressStyle(taskNameLength)}
+        ></div>
+
+      </div>
     </div>
   );
 }

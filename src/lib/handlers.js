@@ -1,3 +1,5 @@
+import { maxTaskNameLength } from './globalVariables';
+
 export const validateTaskName = (name) => name.length > 0 ? true : false;
 export const validateTaskTime = (time, total) => /^\d*$/.test(time) && total > 0;
 export const validateBreakTime = (time) => /^\d*$/.test(time);
@@ -71,3 +73,7 @@ export const formatTimeResult = ([minutes, seconds], elapsedBreakTime) => {
     ? " a split second" : "" }
   `;
 }
+
+export const taskNameProgressStyle = (length) => {
+  return { width: `${length / maxTaskNameLength * 100}%` };
+};
