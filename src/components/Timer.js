@@ -231,6 +231,23 @@ class Timer extends Component {
           onTimerStateChange={this.handleStateChange}
           onStopButtonClick={this.handleAlertVisibility}
         />
+        {/* PROGRESS BAR */}
+        <div className="Timer__progress">
+          <Progress
+            modifier="taskTime"
+            isVisible={isTaskTimeActive}
+            isElapsedMode={isTaskTimeElapsedMode}
+            elapsedPercent={elapsedTaskPercent}
+            remainingPercent={remainingTaskPercent}
+          />
+          <Progress
+            modifier="breakTime"
+            isVisible={isBreakTimeActive}
+            isElapsedMode={isBreakTimeElapsedMode}
+            elapsedPercent={elapsedBreakPercent}
+            remainingPercent={remainingBreakPercent}
+          />
+        </div>
         {/* STOP TASK SECTION */}
         <StopAlert
           isStopAlertVisible={isStopAlertVisible}

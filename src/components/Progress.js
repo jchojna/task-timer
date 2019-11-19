@@ -3,7 +3,20 @@ import classNames from 'classnames';
 import '../scss/Progress.scss';
 
 const Progress = (props) => {
-  const { isElapsedMode, elapsedPercent, remainingPercent } = props;
+  const {
+    modifier,
+    isVisible,
+    isElapsedMode,
+    elapsedPercent,
+    remainingPercent
+  } = props;
+
+  const progressClass = classNames("Progress", {
+    "Progress--visible": isVisible,
+    "Progress--taskTime": modifier === "taskTime",
+    "Progress--breakTime": modifier === "breakTime"
+  });
+
   const elapsedPercentClass = classNames("Progress__percent", {
     "Progress__percent--visible": isElapsedMode
   });
@@ -20,7 +33,7 @@ const Progress = (props) => {
   };
   
   return (
-    <section className="Progress">
+    <section className={progressClass}>
       {/* PROGRESS HEADER */}
       <header className="Progress__header">
         <p className={elapsedPercentClass}>{roundedElapsedPercent}</p>

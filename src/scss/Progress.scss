@@ -5,8 +5,25 @@
 .Progress {
   @include flex-center;
   flex-direction: column;
-  grid-area: progress;
+  visibility: hidden;
   width: 100%;
+  height: 100%;
+
+  &--taskTime {
+    
+  }
+  
+  &--breakTime {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  &--visible {
+    visibility: visible;
+  }
 
   &__header {
     position: relative;
@@ -18,6 +35,7 @@
     @include flex-center;
     color: $color-warning;
     font-family: 'Inconsolata';
+    font-size: 1.5em;
     font-weight: 600;
     left: 50%;
     margin: 0;
@@ -33,8 +51,7 @@
   }
   
   &__bar {
-    //margin-top: 1.2em;
-    height: 5px;
+    height: $progressBar-height;
     position: relative;
     width: 100%;
   }

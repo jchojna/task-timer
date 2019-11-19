@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import TimeDisplay from './TimeDisplay';
-import Progress from './Progress';
 import '../scss/Countdown.scss';
 
 const Countdown = (props) => {
@@ -11,8 +10,6 @@ const Countdown = (props) => {
     isElapsedMode,
     elapsedTimeArray,
     remainingTimeArray,
-    elapsedTaskPercent,
-    remainingTaskPercent,
     isCountdownVisible,
     totalBreaks
   } = props;
@@ -50,12 +47,6 @@ const Countdown = (props) => {
         isElapsedMode={isElapsedMode}
         elapsedTimeArray={elapsedTimeArray}
         remainingTimeArray={remainingTimeArray}
-      />
-      {/* PROGRESS */}
-      <Progress
-        isElapsedMode={isElapsedMode}
-        elapsedPercent={elapsedTaskPercent}
-        remainingPercent={remainingTaskPercent}
       />
     </div>
   );
