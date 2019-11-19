@@ -26,6 +26,7 @@ class Task extends Component {
       isTimerMounted: false,
       isStopAlertVisible: false,
       taskName,
+      taskNameLength: 0,
       taskMinutes: totalTaskTimeArray[0],
       taskSeconds: totalTaskTimeArray[1],
       breakMinutes: totalBreakTimeArray[0],
@@ -50,6 +51,7 @@ class Task extends Component {
   handleTaskNameChange = (value) => {
     this.setState({
       taskName: value,
+      taskNameLength: value.length,
       isTaskNameValid: validateTaskName(value)
     });
   }
@@ -142,6 +144,7 @@ class Task extends Component {
       isTaskRotatingOut,
       isStopAlertVisible,
       taskName,
+      taskNameLength,
       taskMinutes,
       taskSeconds,
       breakMinutes,
@@ -185,6 +188,7 @@ class Task extends Component {
           <EditableText
             output={taskName}
             isValid={isTaskNameValid}
+            taskNameLength={taskNameLength}
             isDisabled={isTaskTimeEditMode || isBreakTimeEditMode}
             isEditMode={isTaskNameEditMode}
             onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}

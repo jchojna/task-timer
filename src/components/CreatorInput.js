@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import '../scss/CreatorInput.scss';
 import { maxTaskNameLength } from '../lib/globalVariables';
+import { taskNameProgressStyle } from '../lib/handlers';
 
 const CreatorInput = (props) => {
 
@@ -44,10 +45,6 @@ const CreatorInput = (props) => {
       "CreatorInput__input--invalid": !isValid && alertFlag
     });
 
-  const taskNameProgressStyle = {
-    width: `${taskNameLength / maxTaskNameLength * 100}%`
-  };
-
   return (
     <div className={creatorInputClass}>
 
@@ -74,7 +71,7 @@ const CreatorInput = (props) => {
           ></textarea>
           <div
             className="CreatorInput__progress"
-            style={taskNameProgressStyle}
+            style={taskNameProgressStyle(taskNameLength)}
           ></div>
         </div>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { maxTaskNameLength } from '../lib/globalVariables';
+import { taskNameProgressStyle } from '../lib/handlers';
 import '../scss/EditableText.scss';
 
 const EditableText = (props) => {
@@ -8,6 +9,7 @@ const EditableText = (props) => {
   const {
     output,
     isValid,
+    taskNameLength,
     isDisabled,
     isEditMode,
     onTaskNameChange,
@@ -27,6 +29,10 @@ const EditableText = (props) => {
     "taskName__input--incorrect": !isValid
   })
 
+  const progressClass = classNames("taskName__progress", {
+    "taskName__progress--visible": isEditMode
+  })
+
   return (
     <div className={editableTextClass}>
       {/* TEXT TITLE */}
@@ -41,6 +47,10 @@ const EditableText = (props) => {
         maxLength={maxTaskNameLength}
         onChange={(e) => onTaskNameChange(e.target.value)}
       ></textarea>
+      <div
+        className={progressClass}
+        style={taskNameProgressStyle(taskNameLength)}
+      ></div>
     </div>
   );
 }
