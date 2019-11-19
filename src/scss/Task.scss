@@ -5,7 +5,7 @@
 .Task {
 
   .Task__container {
-    border: 5px solid transparent;
+    border: $card-border;
     align-items: start;
     background: $color-primary;
     box-shadow: $card-shadow;

@@ -12,6 +12,7 @@
   
   &__type {
     @include flex-center;
+    color: $color-white;
     width: 100%;
     font-size: 2em;
     height: 100%;

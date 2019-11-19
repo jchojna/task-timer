@@ -23,8 +23,7 @@
     grid-template-areas:
       "heading "
       "display "
-      "timeType"
-      "breaks  ";
+      "timeType";
   }
   
   &--breakTime {
@@ -34,8 +33,7 @@
     grid-template-areas:
       "heading "
       "display "
-      "timeType"
-      "breaks  ";
+      "timeType";
   }
 
   &__heading {
@@ -46,13 +44,6 @@
 
   &__timeType {
     font-weight: normal;
-    margin: 0;
-  }
-
-  &__breaks {
-    font-size: 1.6em;
-    font-weight: 600;
-    grid-area: breaks;
     margin: 0;
   }
 }

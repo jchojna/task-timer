@@ -8,15 +8,15 @@
   grid-template-columns: repeat(3, auto);
   grid-area: controls;
   justify-content: center;
-  padding: $layout-padding;
+  padding: 20px $card-padding;
 
   &__button {
     @include button;
-    border: 2px solid #fff;
+    border: 2px solid $color-background;
     border-radius: 50%;
     fill: none;
     height: $size-controls-xs;
-    stroke: #fff;
+    stroke: $color-background;
     stroke-width: 25;
     width: $size-controls-xs;
     //transition: border-color $hover-icon, stroke $hover-icon;

@@ -10,13 +10,8 @@ const Countdown = (props) => {
     isElapsedMode,
     elapsedTimeArray,
     remainingTimeArray,
-    isCountdownVisible,
-    totalBreaks
+    isCountdownVisible
   } = props;
-
-  const breaksAmount = `${totalBreaks}
-    ${totalBreaks === 1 ? "break" : "breaks"} used
-  `;
 
   const countdownClass = classNames(`Countdown Countdown--${modifier}`, {
     "Countdown--visible": isCountdownVisible,
@@ -37,8 +32,6 @@ const Countdown = (props) => {
         ? <p className="Countdown__timeType">Elapsed Time</p>
         : <p className="Countdown__timeType">Remaining Time</p>
       }
-      {/* BREAKS COUNTER */}
-      <p className="Countdown__breaks">{breaksAmount}</p>
       {/* TIMER DISPLAY */}
       <TimeDisplay
         type={modifier}

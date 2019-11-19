@@ -5,7 +5,7 @@ import StopAlert from './StopAlert.js';
 import Progress from './Progress';
 import Controls from './Controls';
 import Finish from './Finish.js';
-import { getTimeArray } from '../lib/handlers';
+import { getTimeArray, breaksAmount } from '../lib/handlers';
 import { cardFlipTime } from '../lib/globalVariables';
 import '../scss/Timer.scss';
 
@@ -207,7 +207,6 @@ class Timer extends Component {
             elapsedTaskPercent={elapsedTaskPercent}
             remainingTaskPercent={remainingTaskPercent}
             isCountdownVisible={isTaskTimeActive}
-            totalBreaks={totalBreaks}
             onTaskStateChange={onTaskStateChange}
           />
           {/* BREAK TIME COUNTDOWN */}
@@ -219,10 +218,13 @@ class Timer extends Component {
             elapsedTaskPercent={elapsedBreakPercent}
             remainingTaskPercent={remainingBreakPercent}
             isCountdownVisible={isBreakTimeActive}
-            totalBreaks={totalBreaks}
             onTaskStateChange={onTaskStateChange}
           />
         </div>
+        {/* BREAKS COUNTER */}
+        <p className="Timer__breaks">
+          {breaksAmount(totalBreaks)}
+        </p>
         {/* CONTROL BUTTONS */}
         <Controls
           isTaskTimeActive={isTaskTimeActive}
