@@ -77,3 +77,7 @@ export const formatTimeResult = ([minutes, seconds], elapsedBreakTime) => {
 export const taskNameProgressStyle = (length) => {
   return { width: `${length / maxTaskNameLength * 100}%` };
 };
+
+export const breaksAmount = (totalBreaks) => `${totalBreaks}
+${totalBreaks === 1 ? "break" : "breaks"} used
+`;

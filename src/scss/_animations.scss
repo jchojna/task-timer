@@ -43,17 +43,6 @@
   animation: slideOutRight $time-slide forwards;
 }
 
-//!
-.showRight {
-  animation: showRight $time-slide forwards;
-}
-.hideLeft {
-  animation: hideLeft $time-slide forwards;
-}
-//!
-
-
-
 @keyframes showFromRight {
   0% { transform: translateX(120%); }
   100% { transform: translateX(0); }
@@ -72,6 +61,11 @@
 @keyframes hideToRight {
   0% { transform: translateX(0); }
   100% { transform: translateX(120%); }
+}
+
+@keyframes showToBottom {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(0); }
 }
 
 .showFromRight {

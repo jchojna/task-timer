@@ -5,7 +5,7 @@ import StopAlert from './StopAlert.js';
 import Progress from './Progress';
 import Controls from './Controls';
 import Finish from './Finish.js';
-import { getTimeArray } from '../lib/handlers';
+import { getTimeArray, breaksAmount } from '../lib/handlers';
 import { cardFlipTime } from '../lib/globalVariables';
 import '../scss/Timer.scss';
 
@@ -23,7 +23,6 @@ class Timer extends Component {
       isTimerStarted: false,
       // visibility
       isStopAlertVisible: false,
-      isFinishVisible: false,
       isTimerVisible: false,
       // modes
       isTaskTimeElapsedMode: true,
@@ -190,8 +189,8 @@ class Timer extends Component {
 
     const timerClass = classNames("Timer", {
       "Timer--visible": isTimerVisible,
-      "Timer--taskTime": isTaskTimeActive,
-      "Timer--breakTime": isBreakTimeActive
+      "Timer--taskTime": isTaskTimeActive || isTaskFinished,
+      "Timer--breakTime": isBreakTimeActive || isBreakFinished
     });
 
     return (
@@ -206,9 +205,9 @@ class Timer extends Component {
             remainingTimeArray={remainingTaskTimeArray}
             elapsedTaskPercent={elapsedTaskPercent}
             remainingTaskPercent={remainingTaskPercent}
-            isCountdownVisible={isTaskTimeActive}
-            totalBreaks={totalBreaks}
+            isCountdownVisible={isTaskTimeActive || isTaskFinished}
             onTaskStateChange={onTaskStateChange}
+            totalBreaks={totalBreaks}
           />
           {/* BREAK TIME COUNTDOWN */}
           <Countdown
@@ -218,11 +217,15 @@ class Timer extends Component {
             remainingTimeArray={remainingBreakTimeArray}
             elapsedTaskPercent={elapsedBreakPercent}
             remainingTaskPercent={remainingBreakPercent}
-            isCountdownVisible={isBreakTimeActive}
-            totalBreaks={totalBreaks}
+            isCountdownVisible={isBreakTimeActive || isBreakFinished}
             onTaskStateChange={onTaskStateChange}
+            totalBreaks={totalBreaks}
           />
         </div>
+        {/* BREAKS COUNTER */}
+        <p className="Timer__breaks">
+          {breaksAmount(totalBreaks)}
+        </p>
         {/* CONTROL BUTTONS */}
         <Controls
           isTaskTimeActive={isTaskTimeActive}
@@ -231,6 +234,23 @@ class Timer extends Component {
           onTimerStateChange={this.handleStateChange}
           onStopButtonClick={this.handleAlertVisibility}
         />
+        {/* PROGRESS BAR */}
+        <div className="Timer__progress">
+          <Progress
+            modifier="taskTime"
+            isVisible={isTaskTimeActive || isTaskFinished}
+            isElapsedMode={isTaskTimeElapsedMode}
+            elapsedPercent={elapsedTaskPercent}
+            remainingPercent={remainingTaskPercent}
+          />
+          <Progress
+            modifier="breakTime"
+            isVisible={isBreakTimeActive || isBreakFinished}
+            isElapsedMode={isBreakTimeElapsedMode}
+            elapsedPercent={elapsedBreakPercent}
+            remainingPercent={remainingBreakPercent}
+          />
+        </div>
         {/* STOP TASK SECTION */}
         <StopAlert
           isStopAlertVisible={isStopAlertVisible}

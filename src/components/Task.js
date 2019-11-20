@@ -176,13 +176,15 @@ class Task extends Component {
 
     const startButtonClass = classNames("button Task__button Task__button--start", {
       "Task__button--disabled": isEditMode
-    });   
+    });
     
     return (
       <section className="Task">
         <div
           className={taskContainerClass}
           style={animationStyle}
+          draggable="true"
+          onDragStart={(e) => e.dataTransfer.setData('text/plain',null)}
         >
           {/* TASK  NAME */}
           <EditableText
