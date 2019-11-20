@@ -167,7 +167,8 @@ class Task extends Component {
     });
 
     const acceptButtonClass = classNames("button Task__button Task__button--accept", {
-      "Task__button--visible": isEditMode
+      "Task__button--visible": isEditMode,
+      "Task__button--disabled": !isTaskNameValid || !isTaskTimeValid || !isBreakTimeValid
     });
 
     const removeButtonClass = classNames("button Task__button Task__button--remove", {
