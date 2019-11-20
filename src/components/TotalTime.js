@@ -21,7 +21,12 @@ const TotalTime = (props) => {
 
   const totalTimeClass = classNames(`TotalTime TotalTime--${modifier}`, {
     "TotalTime--disabled": isDisabled
-  })
+  });
+
+  const displayClass = classNames("TotalTime__display", {
+    "TotalTime__display--editMode": isEditMode,
+    "TotalTime__display--incorrect": !isValid
+  });
 
   return (
     <div
@@ -35,29 +40,29 @@ const TotalTime = (props) => {
       >
         {labelName}
       </label>
-      {/* MINUTES */}
-      <EditableTime
-        id={`${modifier}-${id}`}
-        name={`${modifier}Minutes`}
-        unit="minutes"
-        time={minutes}
-        isValid={isValid}
-        isEditMode={isEditMode}
-        onTimeChange={(value) => onMinutesChange(value)}
-        onEditModeChange={onEditModeChange}
-      />
-      {/* SEPARATOR */}
-      <span className="TotalTime__colon">{` : `}</span>
-      {/* SECONDS */}
-      <EditableTime
-        name={`${modifier}Seconds`}
-        unit="seconds"
-        time={seconds}
-        isValid={isValid}
-        isEditMode={isEditMode}
-        onTimeChange={(value) => onSecondsChange(value)}
-        onEditModeChange={onEditModeChange}
-      />
+      <div className={displayClass}>
+        {/* MINUTES */}
+        <EditableTime
+          id={`${modifier}-${id}`}
+          name={`${modifier}Minutes`}
+          unit="minutes"
+          time={minutes}
+          isEditMode={isEditMode}
+          onTimeChange={(value) => onMinutesChange(value)}
+          onEditModeChange={onEditModeChange}
+        />
+        {/* SEPARATOR */}
+        <span className="TotalTime__colon">{` : `}</span>
+        {/* SECONDS */}
+        <EditableTime
+          name={`${modifier}Seconds`}
+          unit="seconds"
+          time={seconds}
+          isEditMode={isEditMode}
+          onTimeChange={(value) => onSecondsChange(value)}
+          onEditModeChange={onEditModeChange}
+        />
+      </div>
     </div>
   );
 }

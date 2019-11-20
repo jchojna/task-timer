@@ -3,13 +3,6 @@
 @import "_animations.scss";
 
 .TotalTime {
-  align-items: center;
-  display: grid;
-  grid-template-areas:
-    "label   label label  "
-    "minutes colon seconds";
-  grid-template-columns: 2.6em auto 2.6em;
-  justify-content: center;
   text-align: center;
   transition: opacity $card-edit;
   width: 100%;
@@ -17,12 +10,10 @@
   &--taskTime {
     color: $color-white;
     font-size: 2.5em;
-    grid-area: taskTime;
   }
 
   &--breakTime {
     font-size: 2em;
-    grid-area: breakTime;
   }
 
   &--disabled {
@@ -36,73 +27,71 @@
 
   &__label {
     font-size: 0.8rem;
-    grid-area: label;
   }
 
-  &__unit {
-    position: relative;
-    font-weight: 600;
-    font-size: 1.2em;
-
-    &--minutes {
-      grid-area: minutes;
-    }
-
-    &--seconds {
-      grid-area: seconds;
-    }
-  }
-
-  &__text {
+  &__display {
+    @include flex-center;
     border: 2px solid transparent;
-    grid-area: text;
-    margin: 0;
-    opacity: 0;
-    padding: 5px;
+    transition:
+      background-color $card-edit,
+      border-color $card-edit,
+      color $card-edit;
     width: 100%;
-    word-break: break-word;
-    text-align: center;
-    transition: opacity $card-edit, visibility 0s $card-edit;
-    visibility: hidden;
 
-    &--visible {
-      opacity: 1;
-      transition: opacity $card-edit, visibility 0s;
-      visibility: visible;
-    }
-  }
-  
-  &__input {
-    background-color: $color-background;
-    border: 2px solid $color-white;
-    color: $color-white;
-    font-weight: inherit;
-    height: 100%;
-    left: 0;
-    outline: none;
-    opacity: 0;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    transition: opacity $card-edit, visibility 0s $card-edit;
-    width: 100%;
-    visibility: hidden;
-
-    &--visible {
-      opacity: 1;
-      transition: opacity $card-edit, visibility 0s;
-      visibility: visible;
+    &--editMode {
+      background-color: $color-background;
+      border-color: $color-white;
+      color: $color-white;
     }
 
     &--incorrect {
       border-color: $color-warning;
     }
   }
+
+  &__unit {
+    font-weight: 600;
+    font-size: 1.2em;
+    position: relative;
+  }
+
+  &__text {
+    margin: 0;
+    opacity: 0;
+    padding: 5px;
+    text-align: center;
+    visibility: hidden;
+    width: 100%;
+    word-break: break-word;
+
+    &--visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  
+  &__input {
+    background: none;
+    border: none;
+    color: inherit;
+    font-weight: inherit;
+    height: 100%;
+    left: 0;
+    outline: none;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+
+    &--visible {
+      visibility: visible;
+    }
+  }
   
   &__colon {
     font-size: 1.2em;
     font-weight: 600;
-    grid-area: colon;
-    user-select: none;
+    margin: 0 0.1em;
   }
 }
