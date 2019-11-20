@@ -136,6 +136,17 @@ class Task extends Component {
     isTimerMounted: true
   });
 
+  handleKeyPress = (key) => {
+    const {
+      isTaskNameEditMode,
+      isTaskTimeEditMode,
+      isBreakTimeEditMode
+    } = this.state;
+    const isEditMode = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
+    
+    if (key === "Enter" && isEditMode) this.acceptEditChange();
+  }
+
   render() {
 
     const { id } = this.props;
@@ -209,6 +220,7 @@ class Task extends Component {
             isDisabled={isTaskNameEditMode || isBreakTimeEditMode}
             onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
             isEditMode={isTaskTimeEditMode}
+            onKeyPress={this.handleKeyPress}
             onMinutesChange={(value) => 
               this.handleTimeChange(value, taskSeconds, 'minutes', 'task')}
             onSecondsChange={(value) => 
@@ -226,6 +238,7 @@ class Task extends Component {
             isDisabled={isTaskNameEditMode || isTaskTimeEditMode}
             onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
             isEditMode={isBreakTimeEditMode}
+            onKeyPress={this.handleKeyPress}
             onMinutesChange={(value) => 
               this.handleTimeChange(value, breakSeconds, 'minutes', 'break')}
             onSecondsChange={(value) => 

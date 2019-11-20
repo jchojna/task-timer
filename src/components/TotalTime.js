@@ -16,7 +16,8 @@ const TotalTime = (props) => {
     isEditMode,
     onEditModeChange,
     onMinutesChange,
-    onSecondsChange
+    onSecondsChange,
+    onKeyPress
   } = props;
 
   const totalTimeClass = classNames(`TotalTime TotalTime--${modifier}`, {
@@ -33,9 +34,7 @@ const TotalTime = (props) => {
   });
 
   return (
-    <div
-      className={totalTimeClass}
-    >
+    <div className={totalTimeClass}>
       {/* LABEL */}
       <label
         className={labelClass}
@@ -44,7 +43,11 @@ const TotalTime = (props) => {
       >
         {labelName}
       </label>
-      <div className={displayClass}>
+      <div
+        className={displayClass}
+        onKeyDown={(e) => onKeyPress(e.key)}
+        tabIndex="0"
+      >
         {/* MINUTES */}
         <EditableTime
           id={`${modifier}-${id}`}
