@@ -10,12 +10,13 @@ const Countdown = (props) => {
     isElapsedMode,
     elapsedTimeArray,
     remainingTimeArray,
-    isCountdownVisible
+    isCountdownVisible,
+    totalBreaks
   } = props;
 
   const countdownClass = classNames(`Countdown Countdown--${modifier}`, {
     "Countdown--visible": isCountdownVisible,
-    "showFromRight": isCountdownVisible,
+    "showFromRight": isCountdownVisible && totalBreaks > 0,
     "hideToLeft": !isCountdownVisible,
   });
 

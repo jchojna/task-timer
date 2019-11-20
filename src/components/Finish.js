@@ -8,14 +8,14 @@ class Finish extends Component {
 
   render() {
 
-    const { taskName,
+    const {
+      taskName,
       isTaskFinished,
       onTaskRemove,
       onTimerRestart,
       id
     } = this.props;
     const {
-      isFinishVisible,
       totalBreaks,
       elapsedBreakTime,
       elapsedBreakTimeArray,
@@ -34,9 +34,8 @@ class Finish extends Component {
     const overallTimeResult = formatTimeResult(overallTimeArray);
     const breakTimeResult = formatTimeResult(elapsedBreakTimeArray, elapsedBreakTime);
     const finishClass = classNames("Finish", {
-      "Finish--visible": isFinishVisible,
-      [`Finish--task`]: isTaskFinished,
-      [`Finish--break`]: !isTaskFinished
+      [`Finish--success`]: isTaskFinished,
+      [`Finish--failure`]: !isTaskFinished
     });
 
     return (

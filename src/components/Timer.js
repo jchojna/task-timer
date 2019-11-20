@@ -23,7 +23,6 @@ class Timer extends Component {
       isTimerStarted: false,
       // visibility
       isStopAlertVisible: false,
-      isFinishVisible: false,
       isTimerVisible: false,
       // modes
       isTaskTimeElapsedMode: true,
@@ -190,8 +189,8 @@ class Timer extends Component {
 
     const timerClass = classNames("Timer", {
       "Timer--visible": isTimerVisible,
-      "Timer--taskTime": isTaskTimeActive,
-      "Timer--breakTime": isBreakTimeActive
+      "Timer--taskTime": isTaskTimeActive || isTaskFinished,
+      "Timer--breakTime": isBreakTimeActive || isBreakFinished
     });
 
     return (
@@ -206,8 +205,9 @@ class Timer extends Component {
             remainingTimeArray={remainingTaskTimeArray}
             elapsedTaskPercent={elapsedTaskPercent}
             remainingTaskPercent={remainingTaskPercent}
-            isCountdownVisible={isTaskTimeActive}
+            isCountdownVisible={isTaskTimeActive || isTaskFinished}
             onTaskStateChange={onTaskStateChange}
+            totalBreaks={totalBreaks}
           />
           {/* BREAK TIME COUNTDOWN */}
           <Countdown
@@ -217,8 +217,9 @@ class Timer extends Component {
             remainingTimeArray={remainingBreakTimeArray}
             elapsedTaskPercent={elapsedBreakPercent}
             remainingTaskPercent={remainingBreakPercent}
-            isCountdownVisible={isBreakTimeActive}
+            isCountdownVisible={isBreakTimeActive || isBreakFinished}
             onTaskStateChange={onTaskStateChange}
+            totalBreaks={totalBreaks}
           />
         </div>
         {/* BREAKS COUNTER */}
@@ -237,14 +238,14 @@ class Timer extends Component {
         <div className="Timer__progress">
           <Progress
             modifier="taskTime"
-            isVisible={isTaskTimeActive}
+            isVisible={isTaskTimeActive || isTaskFinished}
             isElapsedMode={isTaskTimeElapsedMode}
             elapsedPercent={elapsedTaskPercent}
             remainingPercent={remainingTaskPercent}
           />
           <Progress
             modifier="breakTime"
-            isVisible={isBreakTimeActive}
+            isVisible={isBreakTimeActive || isBreakFinished}
             isElapsedMode={isBreakTimeElapsedMode}
             elapsedPercent={elapsedBreakPercent}
             remainingPercent={remainingBreakPercent}
