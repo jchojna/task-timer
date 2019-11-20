@@ -1,10 +1,22 @@
 import React from 'react';
+import icons from '../assets/svg/icons.svg';
 import '../scss/Spinners.scss';
 
-const Spinners = () => {
+const Spinners = (props) => {
   return (
-    <div>
-      spinners
+    <div className="Spinners">
+      {/* INCREASE BUTTON */}
+      <button className="Spinners__button Spinners__button--increase">
+        <svg className="Spinners__svg" viewBox="0 0 512 512">
+          <use href={`${icons}#arrow-up`}></use>
+        </svg>
+      </button>
+      {/* DECREASE BUTTON */}
+      <button className="Spinners__button Spinners__button--decrease">
+        <svg className="Spinners__svg" viewBox="0 0 512 512">
+          <use href={`${icons}#arrow-down`}></use>
+        </svg>
+      </button>
     </div>
   );
 }

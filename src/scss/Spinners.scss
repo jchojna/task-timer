@@ -1,3 +1,24 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
 .Spinners {
-  
+
+  &__button {
+    @include button;
+    @include flex-center;
+    fill: none;
+    stroke: $color-white;
+    stroke-width: 25;
+    stroke-linecap: round;
+    width: 40px;
+
+    &:hover {
+      background-color: $color-light-background;
+    }
+  }
+
+  &__svg {
+    width: 100%;
+  }
 }
