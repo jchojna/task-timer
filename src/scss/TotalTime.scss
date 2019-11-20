@@ -3,6 +3,8 @@
 @import "_animations.scss";
 
 .TotalTime {
+  display: flex;
+  flex-direction: column;
   text-align: center;
   transition: opacity $card-edit;
   width: 100%;
@@ -27,6 +29,12 @@
 
   &__label {
     font-size: 0.8rem;
+    transition: font-size $card-edit, margin-bottom $card-edit;
+
+    &--editMode {
+      font-size: 1.5rem;
+      margin-bottom: 1em;
+    }
   }
 
   &__display {

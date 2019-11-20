@@ -23,6 +23,10 @@ const TotalTime = (props) => {
     "TotalTime--disabled": isDisabled
   });
 
+  const labelClass = classNames("TotalTime__label", {
+    "TotalTime__label--editMode": isEditMode
+  });
+
   const displayClass = classNames("TotalTime__display", {
     "TotalTime__display--editMode": isEditMode,
     "TotalTime__display--incorrect": !isValid
@@ -34,7 +38,7 @@ const TotalTime = (props) => {
     >
       {/* LABEL */}
       <label
-        className="TotalTime__label"
+        className={labelClass}
         htmlFor={`${modifier}-${id}`}
         onClick={onEditModeChange}
       >
