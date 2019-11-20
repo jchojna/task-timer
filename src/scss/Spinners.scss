@@ -1,0 +1,47 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.Spinners {
+  opacity: 0;
+  transition: opacity $card-edit, visibility 0s $card-edit;
+  visibility: hidden;
+
+  &--visible {
+    opacity: 1;
+    transition: opacity $card-edit, visibility 0s;
+    visibility: visible;
+  }
+
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  &--minutes {
+    justify-self: start;
+  }
+
+  &--seconds {
+    justify-self: end;
+  }
+
+  &__button {
+    @include button;
+    @include flex-center;
+    fill: none;
+    padding: 5px;
+    stroke: $color-white;
+    stroke-width: 30;
+    stroke-linecap: round;
+    width: 40px;
+
+    &:hover {
+      background-color: $color-light-background;
+    }
+  }
+
+  &__svg {
+    width: 100%;
+  }
+}

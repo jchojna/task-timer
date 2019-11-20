@@ -7,7 +7,6 @@ const EditableTime = (props) => {
     name,
     unit,
     time,
-    isValid,
     isEditMode,
     onTimeChange,
     onEditModeChange
@@ -19,8 +18,7 @@ const EditableTime = (props) => {
 
   const timeClass = classNames("TotalTime__input",
     `TotalTime__input--${unit}`, {
-    "TotalTime__input--visible": isEditMode,
-    "TotalTime__input--incorrect": !isValid 
+    "TotalTime__input--visible": isEditMode
   });
 
   const placeholder = unit.slice(0,3);

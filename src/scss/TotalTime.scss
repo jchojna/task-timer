@@ -3,24 +3,19 @@
 @import "_animations.scss";
 
 .TotalTime {
-  align-items: center;
-  display: grid;
-  grid-template-areas:
-    "label   label label  "
-    "minutes colon seconds";
-  grid-template-columns: 2.6em auto 2.6em;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  transition: opacity $card-edit;
   width: 100%;
   
   &--taskTime {
+    color: $color-white;
     font-size: 2.5em;
-    grid-area: taskTime;
   }
 
   &--breakTime {
     font-size: 2em;
-    grid-area: breakTime;
   }
 
   &--disabled {
@@ -34,42 +29,71 @@
 
   &__label {
     font-size: 0.8rem;
-    grid-area: label;
+    transition:
+      color $card-edit,
+      font-size $card-edit,
+      margin-bottom $card-edit;
+
+    &--editMode {
+      color: $color-white;
+      font-size: 1.5rem;
+      margin-bottom: 1em;
+    }
+  }
+
+  &__display {
+    align-items: center;
+    border: 2px solid transparent;
+    display: grid;
+    font-family: "Inconsolata";
+    grid-template-columns: repeat(2, 1fr) auto repeat(2, 1fr);
+    justify-items: center;
+    transition:
+      background-color $card-edit,
+      border-color $card-edit,
+      color $card-edit;
+    width: 100%;
+
+    &--editMode {
+      background-color: $color-background;
+      border-color: $color-white;
+      color: $color-white;
+    }
+
+    &--incorrect {
+      border-color: $color-warning;
+    }
   }
 
   &__unit {
-    position: relative;
+    align-items: center;
+    display: flex;
     font-weight: 600;
     font-size: 1.2em;
-
-    &--minutes {
-      grid-area: minutes;
-    }
-
-    &--seconds {
-      grid-area: seconds;
-    }
+    height: 100%;
+    position: relative;
+    width: 100%;
   }
 
   &__text {
-    border: 2px solid transparent;
-    grid-area: text;
     margin: 0;
+    opacity: 0;
     padding: 5px;
-    width: 100%;
-    word-break: break-word;
     text-align: center;
     visibility: hidden;
+    width: 100%;
+    word-break: break-word;
 
     &--visible {
+      opacity: 1;
       visibility: visible;
     }
   }
   
   &__input {
-    background-color: $color-background;
-    border: 2px solid $color-white;
-    color: $color-white;
+    background: none;
+    border: none;
+    color: inherit;
     font-weight: inherit;
     height: 100%;
     left: 0;
@@ -77,22 +101,21 @@
     position: absolute;
     text-align: center;
     top: 0;
-    width: 100%;
     visibility: hidden;
+    width: 100%;
 
     &--visible {
       visibility: visible;
     }
 
-    &--incorrect {
-      border-color: $color-warning;
+    &::placeholder {
+      font-family: "Montserrat";
+      font-size: 0.3em;
     }
   }
   
   &__colon {
     font-size: 1.2em;
     font-weight: 600;
-    grid-area: colon;
-    user-select: none;
   }
 }
