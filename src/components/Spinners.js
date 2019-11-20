@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import icons from '../assets/svg/icons.svg';
+import { getNumFromRange } from '../lib/handlers';
 import '../scss/Spinners.scss';
 
 const Spinners = (props) => {
@@ -13,22 +14,9 @@ const Spinners = (props) => {
     onTimeChange
   } = props;
 
-  const increaseValue = (value) => {
-    let incValue = parseInt(value) + 1;
-    incValue = incValue <= 99
-    ? incValue >= 10
-      ? incValue.toString() : `0${incValue}`
-    : "99";
-    onTimeChange(incValue);
-  }
-
-  const decreaseValue = (value) => {
-    let decValue = parseInt(value) - 1;
-    decValue = decValue >= 0
-    ? decValue >= 10
-      ? decValue.toString() : `0${decValue}`
-    : "00";
-    onTimeChange(decValue);
+  const handleValueChange = (value, operation) => {
+    const newValue = getNumFromRange(value, operation, 0, 99);
+    onTimeChange(newValue);
   }
 
   const spinnersClass = classNames("Spinners", [`Spinners--${modifier}`], {
@@ -41,7 +29,7 @@ const Spinners = (props) => {
       {/* INCREASE BUTTON */}
       <button
         className="Spinners__button Spinners__button--increase"
-        onClick={() => increaseValue(value)}
+        onClick={() => handleValueChange(value, "increase")}
         disabled={!isValid}
       >
         <svg className="Spinners__svg" viewBox="0 0 512 512">
@@ -51,7 +39,7 @@ const Spinners = (props) => {
       {/* DECREASE BUTTON */}
       <button
         className="Spinners__button Spinners__button--decrease"
-        onClick={() => decreaseValue(value)}
+        onClick={() => handleValueChange(value, "decrease")}
         disabled={!isValid}
       >
         <svg className="Spinners__svg" viewBox="0 0 512 512">

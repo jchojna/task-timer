@@ -10,8 +10,20 @@ const getTotalTime = (minutes, seconds) => {
   return (minutes * 60000) + (seconds * 1000);
 }
 
+const makeTwoDigits = (value) => value < 10 ? `0${value}` : `${value}`;
+
+export const getNumFromRange = (value, operation, lowerLimit, upperLimit) => {
+  const newValue = operation === "increase"
+  ? parseInt(value) + 1 : parseInt(value) - 1;
+
+  return newValue >= lowerLimit && newValue <= upperLimit
+  ? makeTwoDigits(newValue)
+  : newValue < lowerLimit
+    ? makeTwoDigits(lowerLimit)
+    : makeTwoDigits(upperLimit);
+}
+
 export const getTimeArray = (time) => {
-  const makeTwoDigits = (number) => number < 10 ? `0${number}` : `${number}`;
   return [
     makeTwoDigits(Math.floor(time / 60000)),
     makeTwoDigits(Math.floor(time / 1000 % 60)),
