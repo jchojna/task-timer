@@ -42,10 +42,11 @@
   }
 
   &__display {
-    display: flex;
     align-items: center;
-    justify-content: space-between;
     border: 2px solid transparent;
+    display: grid;
+    grid-template-columns: 1fr repeat(3, auto) 1fr;
+    justify-items: center;
     transition:
       background-color $card-edit,
       border-color $card-edit,
@@ -106,6 +107,5 @@
   &__colon {
     font-size: 1.2em;
     font-weight: 600;
-    margin: 0 0.1em;
   }
 }

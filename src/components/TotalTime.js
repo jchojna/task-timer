@@ -49,7 +49,10 @@ const TotalTime = (props) => {
         onKeyDown={(e) => onKeyPress(e.key)}
         tabIndex="0"
       >
-        <Spinners />
+        <Spinners
+          isEditMode={isEditMode}
+          modifier="minutes"
+        />
         {/* MINUTES */}
         <EditableTime
           id={`${modifier}-${id}`}
@@ -71,7 +74,10 @@ const TotalTime = (props) => {
           onTimeChange={(value) => onSecondsChange(value)}
           onEditModeChange={onEditModeChange}
         />
-        <Spinners />
+        <Spinners
+          isEditMode={isEditMode}
+          modifier="seconds"
+        />
       </div>
     </div>
   );
