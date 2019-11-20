@@ -183,8 +183,8 @@ class Task extends Component {
         <div
           className={taskContainerClass}
           style={animationStyle}
-          draggable="true"
-          onDragStart={(e) => e.dataTransfer.setData('text/plain',null)}
+          //draggable="true"
+          //onDragStart={(e) => e.dataTransfer.setData('text/plain',null)}
         >
           {/* TASK  NAME */}
           <EditableText

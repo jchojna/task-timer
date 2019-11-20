@@ -11,9 +11,11 @@
   grid-template-columns: 2.6em auto 2.6em;
   justify-content: center;
   text-align: center;
+  transition: opacity $card-edit;
   width: 100%;
   
   &--taskTime {
+    color: $color-white;
     font-size: 2.5em;
     grid-area: taskTime;
   }
@@ -55,13 +57,17 @@
     border: 2px solid transparent;
     grid-area: text;
     margin: 0;
+    opacity: 0;
     padding: 5px;
     width: 100%;
     word-break: break-word;
     text-align: center;
+    transition: opacity $card-edit, visibility 0s $card-edit;
     visibility: hidden;
 
     &--visible {
+      opacity: 1;
+      transition: opacity $card-edit, visibility 0s;
       visibility: visible;
     }
   }
@@ -74,13 +80,17 @@
     height: 100%;
     left: 0;
     outline: none;
+    opacity: 0;
     position: absolute;
     text-align: center;
     top: 0;
+    transition: opacity $card-edit, visibility 0s $card-edit;
     width: 100%;
     visibility: hidden;
 
     &--visible {
+      opacity: 1;
+      transition: opacity $card-edit, visibility 0s;
       visibility: visible;
     }
 
