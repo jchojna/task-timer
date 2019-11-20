@@ -45,11 +45,20 @@
     font-size: 2.5em;
     font-weight: 600;
     height: 100%;
+    opacity: 0;
     padding: 10px;
+    transition: opacity $new-task-button, visibility 0s $new-task-button;
     visibility: hidden;
     width: 100%;
 
     &--visible {
+      opacity: 1;
+      transition:
+        background-color $hover-icon,
+        box-shadow $hover-icon,
+        color $hover-icon,
+        opacity $new-task-button,
+        visibility 0s;
       visibility: visible;
     }
 

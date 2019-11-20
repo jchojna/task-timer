@@ -18,12 +18,16 @@
     height: $size-controls-xs;
     stroke: $color-background;
     stroke-width: 25;
+    transition:
+      background-color $hover-icon,
+      border-color $hover-icon,
+      stroke $hover-icon;
     width: $size-controls-xs;
-    //transition: border-color $hover-icon, stroke $hover-icon;
 
     &:hover {
-      stroke: $color-warning;
+      background-color: $color-warning;
       border-color: $color-warning;
+      stroke: $color-primary;
     }
   }
 
