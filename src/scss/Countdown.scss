@@ -16,7 +16,7 @@
 
   &--visible {
     transition: visibility 0s;
-    visibility: visible;
+    visibility: inherit;
   }
 
   &--taskTime {

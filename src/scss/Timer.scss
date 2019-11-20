@@ -4,7 +4,7 @@
 
 .Timer {
   align-items: stretch;
-  display: none;
+  display: grid;
   grid-template-areas:
     "heading  "
     "countdown"
@@ -17,7 +17,8 @@
   left: 0;
   position: absolute;
   top: 0;
-  bottom: 0;
+  transition: background-color $hover-card;
+  visibility: hidden;
   width: 100%;
 
   &--taskTime {
@@ -29,7 +30,7 @@
   }
 
   &--visible {
-    display: grid;
+    visibility: visible;
   }
 
   &__heading {

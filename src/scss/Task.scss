@@ -5,27 +5,28 @@
 .Task {
 
   .Task__container {
-    border: $card-border;
     align-items: start;
     background: $color-primary;
-    box-shadow: $card-shadow;
+    //border: $card-border;
     border-radius: $radius-card;
+    box-shadow: $card-shadow;
     display: grid;
     gap: 10px;
-    height: 100%;
     grid-template-areas:
       "buttons  "
       "taskName "
       "taskTime "
       "breakTime"
       "startBtn ";
-    justify-items: center;
     grid-template-rows: auto 1fr repeat(3, auto);
+    height: 100%;
+    justify-items: center;
     overflow: hidden;
     padding: $card-padding;
     position: relative;
-    visibility: hidden;
     transform: rotate3d(0, 1, 0, -90deg);
+    user-select: none;
+    visibility: hidden;
 
     &--visible {
       visibility: visible;
@@ -45,8 +46,8 @@
   }
 
   &__buttons {
-    display: grid;
     column-gap: 10px;
+    display: grid;
     grid-area: buttons;
     grid-template-columns: repeat(2, auto);
     justify-self: end;
@@ -54,6 +55,7 @@
 
   &__button {
     @include button;
+    @include flex-center;
     fill: $color-background;
     width: $close-button;
     
@@ -73,11 +75,26 @@
 
     &--start {
       @include flex-center;
+      border: 3px solid $color-background;
       border-radius: 50%;
+      fill: none;
       grid-area: startBtn;
       height: 70px;
       margin: 10px;
+      stroke: $color-background;
+      stroke-width: 25;
+      transition:
+        background-color $hover-icon,
+        border-color $hover-icon,
+        stroke $hover-icon;
       width: 70px;
+    
+      &:hover {
+        fill: none;
+        background-color: $color-warning;
+        border-color: $color-warning;
+        stroke: $color-primary;
+      }
     }
         
     &--visible {
