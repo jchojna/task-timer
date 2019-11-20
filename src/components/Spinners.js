@@ -15,6 +15,7 @@ const Spinners = (props) => {
   } = props;
 
   const handleValueChange = (value, operation) => {
+    value = value === "" ? 0 : value;
     const newValue = getNumFromRange(value, operation, 0, 99);
     onTimeChange(newValue);
   }
