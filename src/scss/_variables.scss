@@ -15,9 +15,14 @@ $color-black: rgb(31, 36, 37);
 $color-primary: #769599;
 $color-light-background: #50787c;
 $color-background: #305b60;
+
 //$color-work: #71b4c0;
 $color-work: #629a9c;
-$color-break: #4f948b;
+//$color-break: #4f948b;
+$color-break: rgb(126, 177, 85);
+$color-success: rgb(126, 177, 85);
+$color-fail: rgb(182, 161, 94);
+
 $color-warning: #96343c;
 $color-disabled: #ddd;
 $card-shadow: 0 3px 8px rgba($color: $color-black, $alpha: 0.6);

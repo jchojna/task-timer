@@ -4,41 +4,37 @@
 
 .Finish {
   align-items: center;
-  background-color: rgb(126, 177, 85);
+  animation: showToBottom $time-slide forwards;
+  bottom: 0;
   display: grid;
   grid-template-areas:
     "remove "
     "heading"
     "message"
     "restart";
+  grid-template-rows: auto auto 1fr auto;
   justify-items: center;
-  bottom: 0;
   left: 0;
-  padding: $layout-padding;
+  padding: $card-padding;
   position: absolute;
   right: 0;
   top: 0;
-  //transition: visibility 0s $time-slide;
-  visibility: hidden;
 
-  &--visible {
-    //transition: visibility 0s;
-    visibility: visible;
+  &--success {
+    background-color: $color-success;
+    fill: $color-success;
   }
 
-  &--task {
-
-  }
-
-  &--break {
-    background-color: rgb(207, 182, 127);
+  &--failure {
+    background-color: $color-fail;
+    fill: $color-fail;
   }
 
   &__heading {
     font-size: 1.5em;
     font-weight: 600;
-    margin: 0.8em 0;
     grid-area: heading;
+    margin: 1em 0;
   }
 
   &__emoji {
@@ -50,6 +46,7 @@
     line-height: 1.5;
     text-align: center;
     grid-area: message;
+    margin: 0;
   }
 
   &__accent {
@@ -58,9 +55,9 @@
   }
   
   &__button {
+    @include flex-center;
     @include button;
-    fill: #fff;
-    transition: $hover-icon;
+    fill: $color-background;
     width: $size-controls-xs;
 
     &:hover {
@@ -68,7 +65,22 @@
     }
 
     &--restart {
+      border: 3px solid $color-background;
+      border-radius: 50%;
       grid-area: restart;
+      margin: 10px;
+      padding: 7px 9px 11px;
+      transition:
+        background-color $hover-icon,
+        border-color $hover-icon,
+        fill $hover-icon;
+      width: $nav-button;
+      
+      &:hover {
+        fill: inherit;
+        background-color: $color-warning;
+        border-color: $color-warning;
+      }
     }
    
     &--remove {
