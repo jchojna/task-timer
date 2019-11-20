@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import EditableTime from './EditableTime.js';
+import EditableTime from './EditableTime';
+import Spinners from './Spinners'
 import '../scss/TotalTime.scss';
 
 const TotalTime = (props) => {
@@ -48,6 +49,7 @@ const TotalTime = (props) => {
         onKeyDown={(e) => onKeyPress(e.key)}
         tabIndex="0"
       >
+        <Spinners />
         {/* MINUTES */}
         <EditableTime
           id={`${modifier}-${id}`}
@@ -69,6 +71,7 @@ const TotalTime = (props) => {
           onTimeChange={(value) => onSecondsChange(value)}
           onEditModeChange={onEditModeChange}
         />
+        <Spinners />
       </div>
     </div>
   );
