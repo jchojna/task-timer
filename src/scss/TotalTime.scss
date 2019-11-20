@@ -45,6 +45,7 @@
     align-items: center;
     border: 2px solid transparent;
     display: grid;
+    font-family: "Inconsolata";
     grid-template-columns: 1fr repeat(3, auto) 1fr;
     justify-items: center;
     transition:

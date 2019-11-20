@@ -13,6 +13,11 @@
     visibility: visible;
   }
 
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
   &--minutes {
     justify-self: start;
   }

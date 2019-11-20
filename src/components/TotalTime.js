@@ -50,8 +50,11 @@ const TotalTime = (props) => {
         tabIndex="0"
       >
         <Spinners
-          isEditMode={isEditMode}
           modifier="minutes"
+          value={minutes}
+          isValid={isValid}
+          isEditMode={isEditMode}
+          onTimeChange={(value) => onMinutesChange(value)}
         />
         {/* MINUTES */}
         <EditableTime
@@ -75,8 +78,11 @@ const TotalTime = (props) => {
           onEditModeChange={onEditModeChange}
         />
         <Spinners
-          isEditMode={isEditMode}
           modifier="seconds"
+          value={seconds}
+          isValid={isValid}
+          isEditMode={isEditMode}
+          onTimeChange={(value) => onSecondsChange(value)}
         />
       </div>
     </div>
