@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-import Task from './Task.js';
-import Creator from './Creator.js';
+import Task from './Task';
+import Creator from './Creator';
+import Logo from './Logo';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -79,6 +80,10 @@ class App extends Component {
       <React.StrictMode>
         <div className="App">
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
+
+          {/* LOGO ANIMATION */}
+          <Logo />
+
           {/* BOARD OF TASKS */}
           <section className={boardClass}>
             {/* TASK CARDS */}
