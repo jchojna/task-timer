@@ -6,7 +6,7 @@ const Intro = () => {
     <div className="Intro">
       <svg className="logo" viewBox="0 0 600 600">
         {/* MASK */}
-        <mask id="mask">
+        <mask id="mask" className="logo__mask">
           <rect width="600" height="600" fill="#fff"/>
           <rect
             x="200"

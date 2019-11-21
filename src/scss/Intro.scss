@@ -26,14 +26,14 @@
   }
 
   &__shadow {
-    transform: translate(10px, 10px);
-    fill: $color-black;
+    animation: clockShadow $intro-time ease-out;
+    fill: rgba($color: #000, $alpha: 0.7);
   }
 
-  .logo__clockHand {
+  &__clockHand {
+    animation: clockHand $intro-time;
     transform: rotate(180deg);
     transform-origin: center;
-    animation: clock 7s;
   }
 
   &__foreground {

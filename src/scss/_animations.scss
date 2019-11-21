@@ -81,7 +81,12 @@
   animation: hideToRight $time-slide forwards;
 }
 
-@keyframes clock {
+@keyframes clockShadow {
+  0% { transform: translate(0, 0) rotate(0.01deg); }
+  100% { transform: translate(18px, 18px) rotate(0.01deg); }
+}
+
+@keyframes clockHand {
   0% { transform: rotate(180deg); }
-  100% { transform: rotate(180deg * 3); }
+  100% { transform: rotate(180deg * 17); }
 }
