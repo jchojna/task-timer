@@ -81,12 +81,69 @@
   animation: hideToRight $time-slide forwards;
 }
 
+/////////////////////////////////////////////////////////////// LOGO ANIMATION 
+
 @keyframes clockShadow {
-  0% { transform: translate(0, 0) rotate(0.01deg); }
-  100% { transform: translate(18px, 18px) rotate(0.01deg); }
+  0% { 
+    transform: translate(0, 0) rotate(0.01deg);
+    opacity: 0;
+  }
+  25% {
+    transform: translate(-1%, 1%) rotate(0.01deg);
+  }
+  50% {
+    transform: translate(-2%, -2%) rotate(0.01deg);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(3%, -3%) rotate(0.01deg);
+  }
+  100% {
+    transform: translate(4%, 4%) rotate(0.01deg);
+    opacity: 1;
+  }
 }
 
 @keyframes clockHand {
-  0% { transform: rotate(180deg); }
-  100% { transform: rotate(180deg * 17); }
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(180deg * 13);
+  }
+}
+
+@keyframes clockFadeIn {
+  0% {
+    transform: scale(3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes clockLetter {
+  0% {
+    fill: $color-background;
+    opacity: 0;
+  }
+  85% {
+    fill: $color-background;
+    opacity: 1;
+  }
+  100% {
+    fill: $color-warning;
+    opacity: 1;
+  }
+}
+
+@keyframes clockBackground {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

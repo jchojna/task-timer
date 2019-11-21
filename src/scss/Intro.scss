@@ -4,7 +4,7 @@
 
 .Intro {
   @include flex-center;
-  background-color: $color-background;
+  background-color: $color-light-background;
   bottom: 0;
   left: 0;
   position: fixed;
@@ -16,27 +16,30 @@
 .logo {
   height: $logo-size;
   width: $logo-size;
+  animation: clockFadeIn $intro-time / 3 forwards;
 
   &__background {
-    fill: $color-primary;
+    fill: $color-background;
+    animation: clockBackground $intro-time * 2/3 forwards;
   }
 
   &__letter {
-    fill: $color-warning;
+    fill: $color-background;
+    animation: clockLetter $intro-time forwards;
   }
 
   &__shadow {
-    animation: clockShadow $intro-time ease-out;
-    fill: rgba($color: #000, $alpha: 0.7);
+    animation: clockShadow $intro-time ease-out forwards;
+    fill: rgba($color: #000, $alpha: 0.5);
   }
 
   &__clockHand {
-    animation: clockHand $intro-time;
+    animation: clockHand $intro-time ease-out forwards;
     transform: rotate(180deg);
     transform-origin: center;
   }
 
   &__foreground {
-    fill: $color-background;
+    fill: $color-light-background;
   }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import '../scss/Intro.scss';
 
 const Intro = () => {
+
   return (
     <div className="Intro">
       <svg className="logo" viewBox="0 0 600 600">
@@ -32,13 +33,18 @@ const Intro = () => {
         </mask>
         {/* ELEMENTS */}
         <rect width="600" height="600" className="logo__background"/>
-        <rect x="199" y="49" width="202" height="37" className="logo__letter"/>
         <rect
-          x="281.5"
-          y="281.5"
-          width="37"
-          height="127"
-          className="logo__letter logo__clockHand"
+          x="199"
+          y="49"
+          width="202"
+          height="37"
+          className="logo__letter logo__letter--top"
+        />
+        <circle
+          cx="300"
+          cy="300"
+          r="140"
+          className="logo__letter logo__letter--circle"
         />
         <rect width="600" height="600" className="logo__shadow" mask="url(#mask)"/>
         <rect width="600" height="600" className="logo__foreground" mask="url(#mask)"/>
