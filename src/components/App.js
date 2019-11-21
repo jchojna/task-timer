@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Task from './Task';
 import Creator from './Creator';
-import Logo from './Logo';
+import Intro from './Intro';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -82,21 +82,21 @@ class App extends Component {
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
 
           {/* LOGO ANIMATION */}
-          <Logo />
+          <Intro />
 
           {/* BOARD OF TASKS */}
-          <section className={boardClass}>
+          {/* <section className={boardClass}> */}
             {/* TASK CARDS */}
-            {tasks.map((task) => (
+            {/* {tasks.map((task) => (
               <Task
                 task={task}
                 id={task.dateCreated}
                 key={task.dateCreated}
                 onTaskRemove={this.handleTaskRemove}
               />
-            ))}
+            ))} */}
             {/* CREATE NEW TASK */}
-            <section className="App__creator">
+            {/* <section className="App__creator">
               <button
                 className={newTaskButtonClass}
                 onClick={this.handleNewTaskButton}
@@ -112,7 +112,7 @@ class App extends Component {
                 : <div className="empty"></div>
               }
             </section>
-          </section>
+          </section> */}
         </div>
       </React.StrictMode>
     );

@@ -80,3 +80,8 @@
 .hideToRight {
   animation: hideToRight $time-slide forwards;
 }
+
+@keyframes clock {
+  0% { transform: rotate(180deg); }
+  100% { transform: rotate(180deg * 3); }
+}

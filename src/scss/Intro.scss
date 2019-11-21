@@ -1,0 +1,42 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.Intro {
+  @include flex-center;
+  background-color: $color-background;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.logo {
+  height: $logo-size;
+  width: $logo-size;
+
+  &__background {
+    fill: $color-primary;
+  }
+
+  &__letter {
+    fill: $color-warning;
+  }
+
+  &__shadow {
+    transform: translate(10px, 10px);
+    fill: $color-black;
+  }
+
+  .logo__clockHand {
+    transform: rotate(180deg);
+    transform-origin: center;
+    animation: clock 7s;
+  }
+
+  &__foreground {
+    fill: $color-background;
+  }
+}
