@@ -11,8 +11,15 @@ const CardButtons = (props) => {
     inputInvalid,
     cardRotatingMode,
     onAcceptButtonClick,
-    onRemoveButtonClick
+    onRemoveButtonClick,
+    onTaskStateChange
   } = props;
+
+  const handleMinMaxButtons = () => {
+    onTaskStateChange(prevState => ({
+      isMaximized: !prevState.isMaximized
+    }));
+  }
 
   const acceptButtonClass = classNames("CardButtons__button",
   "CardButtons__button--accept", {
@@ -53,7 +60,7 @@ const CardButtons = (props) => {
         {/* MINIMIZE BUTTON */}
         <button
           className={minimizeButtonClass}
-          //onClick={this.handleAlertVisibility}
+          onClick={handleMinMaxButtons}
           //disabled={editModeActive}
         >
           <svg className="Task__svg" viewBox="0 0 512 512">
@@ -63,7 +70,7 @@ const CardButtons = (props) => {
         {/* MAXIMIZE BUTTON */}
         <button
           className={maximizeButtonClass}
-          //onClick={this.handleAlertVisibility}
+          onClick={handleMinMaxButtons}
           //disabled={editModeActive}
         >
           <svg className="Task__svg" viewBox="0 0 512 512">

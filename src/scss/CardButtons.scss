@@ -37,8 +37,13 @@
     &--disabled {
       @include disabled;
     }
+
+    &--minimize {
+      opacity: 0;
+    }
     
     &--maximize {
+      opacity: 0;
       position: absolute;
       top: 0;
       left: 0;

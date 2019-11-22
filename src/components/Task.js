@@ -265,6 +265,7 @@ class Task extends Component {
             cardRotatingMode={cardRotatingMode}
             onAcceptButtonClick={this.acceptEditChange}
             onRemoveButtonClick={this.handleAlertVisibility}
+            onTaskStateChange={this.handleStateChange}
           />
 
           {/* START BUTTON */}
