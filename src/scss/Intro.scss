@@ -28,7 +28,7 @@
   width: $logo-size;
 
   &__background {
-    animation: clockBackground $intro-time * 2/3 forwards;
+    animation: clockBackground $intro-time forwards;
     fill: $color-background;
   }
 

@@ -21,6 +21,7 @@
     transition:
       background-color $hover-icon,
       border-color $hover-icon,
+      opacity $card-edit,
       stroke $hover-icon;
     width: $size-controls-xs;
 
@@ -28,6 +29,11 @@
       background-color: $color-warning;
       border-color: $color-warning;
       stroke: $color-primary;
+    }
+    
+    &--disabled {
+      opacity: 0.5;
+      pointer-events: none;
     }
   }
 
