@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import EditableText from './EditableText.js';
 import TotalTime from './TotalTime.js';
+import CardButtons from './CardButtons';
 import Timer from './Timer.js';
 import StopAlert from './StopAlert.js';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
@@ -182,7 +183,7 @@ class Task extends Component {
     } = this.state;
 
     const editModeActive = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
-    const someInvalid = !isTaskNameValid || !isTaskTimeValid || !isBreakTimeValid;
+    const inputInvalid = !isTaskNameValid || !isTaskTimeValid || !isBreakTimeValid;
     const cardRotatingMode = isTaskRotatingIn || isTaskRotatingOut;
     const taskNameDisabled = isTaskTimeEditMode || isBreakTimeEditMode || cardRotatingMode;
     const taskTimeDisabled = isTaskNameEditMode || isBreakTimeEditMode || cardRotatingMode;
@@ -195,20 +196,8 @@ class Task extends Component {
       "Task__container--rotateOut": isTaskRotatingOut && isTaskMounted
     });
 
-    const acceptButtonClass = classNames("button Task__button Task__button--accept", {
-      "Task__button--visible": editModeActive,
-      "Task__button--disabled": someInvalid || cardRotatingMode
-    });
-
-    const maximizeButtonClass = classNames("button Task__button Task__button--maximize", {
-      "Task__button--disabled": editModeActive || cardRotatingMode
-    });
-
-    const removeButtonClass = classNames("button Task__button Task__button--remove", {
-      "Task__button--disabled": editModeActive || cardRotatingMode
-    });
-
-    const startButtonClass = classNames("button Task__button Task__button--start", {
+    const startButtonClass = classNames("button Task__button",
+    "Task__button--start", "Task__button--visible", {
       "Task__button--disabled": editModeActive || cardRotatingMode
     });
     
@@ -266,49 +255,15 @@ class Task extends Component {
             onSecondsChange={(value) => 
               this.handleTimeChange(breakMinutes, value, 'seconds', 'break')}
           />
-                  
-          {/* EDIT BUTTONS */}
-          <div className="Task__buttons">
-            {/* ACCEPT */}
-            <button
-              className={acceptButtonClass}
-              onClick={this.acceptEditChange}
-            >
-              <svg className="Task__svg" viewBox="0 0 512 512">
-                <use href={`${icons}#tick`}/>
-              </svg>
-            </button>
-            {/* MINIMIZE BUTTON */}
-            <button
-              className={maximizeButtonClass}
-              //onClick={this.handleAlertVisibility}
-              //disabled={editModeActive}
-            >
-              <svg className="Task__svg" viewBox="0 0 512 512">
-                <use href={`${icons}#minimize`}/>
-              </svg>
-            </button>
-            {/* MAXIMIZE BUTTON */}
-            <button
-              className={maximizeButtonClass}
-              //onClick={this.handleAlertVisibility}
-              //disabled={editModeActive}
-            >
-              <svg className="Task__svg" viewBox="0 0 512 512">
-                <use href={`${icons}#maximize`}/>
-              </svg>
-            </button>
-            {/* REMOVE */}
-            <button
-              className={removeButtonClass}
-              onClick={this.handleAlertVisibility}
-              disabled={editModeActive || cardRotatingMode}
-            >
-              <svg className="Task__svg" viewBox="0 0 512 512">
-                <use href={`${icons}#remove`}/>
-              </svg>
-            </button>
-          </div>
+
+          {/* CARD BUTTONS */}
+          <CardButtons
+            editModeActive={editModeActive}
+            inputInvalid={inputInvalid}
+            cardRotatingMode={cardRotatingMode}
+            onAcceptButtonClick={this.acceptEditChange}
+            onRemoveButtonClick={this.handleAlertVisibility}
+          />
 
           {/* START BUTTON */}
           <button

@@ -62,17 +62,12 @@
     stroke-width: 10;
     stroke-linejoin: round;
     stroke-linecap: round;
-    transition: opacity $card-edit;
+    transition: opacity $card-edit, visibility 0s $card-edit;
     width: $close-button;
+    visibility: hidden;
     
     &:hover {
       stroke: $color-warning;
-    }
-
-    &--accept {
-      //opacity: 0;
-      transition: opacity $card-edit, visibility 0s $card-edit;
-      //visibility: hidden;
     }
     
     &--visible {
@@ -84,6 +79,14 @@
     &--disabled {
       opacity: 0.5;
       pointer-events: none;
+    }
+
+    &--accept {
+      opacity: 0;
+      stroke: $color-white;
+    }
+    
+    &--maximize {
     }
 
     &--start {
