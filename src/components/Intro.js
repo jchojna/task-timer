@@ -1,21 +1,66 @@
 import React, { Component } from 'react';
 import '../scss/Intro.scss';
+import { clearInterval } from 'timers';
 
 class Intro extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      totalTime: 5000,
+      maxDistance: 4,
+      elapsedDistance: 0,
+      elapsedAngle: 120,
+      elapsedTime: 0,
+      xTranslation: 0,
+      yTranslation: 0
     }
   }
 
-  handleShadowTranslation = () => {
+  componentDidMount() {
+    const { totalTime, maxDistance } = this.state;
 
+    const timeInterval = 10;
+    const totalIntervals = totalTime / timeInterval
+    const distanceIncrement = maxDistance / totalIntervals;
+    const factor = 3;
 
+    /* INTERVAL */
+    this.intervalId = setInterval(() => {
+      const { elapsedTime, elapsedDistance, elapsedAngle } = this.state;
+      const easeOut = factor / Math.pow(factor, 2 * (elapsedTime / totalTime));
+      const angleIncrement = 360 / totalIntervals * easeOut; // ! to fix
 
+      const radians = elapsedAngle * (Math.PI / 180);
+      const x = Math.sin(radians) * (elapsedDistance);
+      const y = Math.cos(radians) * (elapsedDistance);
+
+      if ( elapsedTime < totalTime ) {
+  
+        this.setState(prevState => ({
+          elapsedTime: elapsedTime + timeInterval,
+          elapsedDistance: prevState.elapsedDistance + distanceIncrement,
+          elapsedAngle: prevState.elapsedAngle - angleIncrement,
+          xTranslation: x,
+          yTranslation: y
+        }));
+      }
+    }, timeInterval);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   render() {
+    const { xTranslation, yTranslation } = this.state;
+
+    const styleObject = {
+      transform: `
+        translate(${xTranslation}%, ${yTranslation}%)
+        rotate(0.01deg)
+      `
+    };
+
     return (
       <div className="Intro">
         <svg className="logo" viewBox="0 0 600 600">
@@ -64,7 +109,7 @@ class Intro extends Component {
             height="600"
             className="logo__shadow"
             mask="url(#mask)"
-            //style={this.handleShadowTranslation}
+            style={styleObject}
           />
           <rect
             width="600"

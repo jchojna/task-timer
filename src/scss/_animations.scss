@@ -84,24 +84,8 @@
 /////////////////////////////////////////////////////////////// LOGO ANIMATION 
 
 @keyframes clockShadow {
-  0% { 
-    transform: translate(0, 0) rotate(0.01deg);
-    opacity: 0;
-  }
-  25% {
-    transform: translate(-1%, 1%) rotate(0.01deg);
-  }
-  50% {
-    transform: translate(-2%, -2%) rotate(0.01deg);
-    opacity: 1;
-  }
-  75% {
-    transform: translate(3%, -3%) rotate(0.01deg);
-  }
-  100% {
-    transform: translate(4%, 4%) rotate(0.01deg);
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes clockHand {

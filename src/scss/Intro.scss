@@ -16,7 +16,7 @@
 .logo {
   height: $logo-size;
   width: $logo-size;
-  animation: clockFadeIn $intro-time / 3 forwards;
+  animation: clockFadeIn $intro-time forwards;
 
   &__background {
     fill: $color-background;
@@ -29,7 +29,7 @@
   }
 
   &__shadow {
-    //animation: clockShadow $intro-time ease-out forwards;
+    animation: clockShadow $intro-time forwards;
     fill: rgba($color: #000, $alpha: 0.5);
   }
 
