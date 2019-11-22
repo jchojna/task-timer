@@ -292,6 +292,7 @@ class Task extends Component {
 
           {/* REMOVE TASK ALERT */}
           <StopAlert
+            alertText="Do you really want to remove this task?"
             isStopAlertVisible={isStopAlertVisible}
             onStopCancel={this.handleAlertVisibility}
             onStopConfirm={(id) => this.handleTaskRemove(id)}

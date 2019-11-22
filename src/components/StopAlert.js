@@ -4,6 +4,7 @@ import '../scss/StopAlert.scss';
 
 const StopAlert = (props) => {
   const {
+    alertText,
     isStopAlertVisible,
     onStopCancel,
     onStopConfirm
@@ -16,9 +17,7 @@ const StopAlert = (props) => {
   return (
     <section className={stopAlertClass}>
       <div className="StopAlert__container">
-        <h2 className="StopAlert__heading">
-          Are you sure you want to quit?
-        </h2>
+        <h2 className="StopAlert__heading">{alertText}</h2>
         <button
           className="StopAlert__button StopAlert__button--stop"
           onClick={onStopConfirm}

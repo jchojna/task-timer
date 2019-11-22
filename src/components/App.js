@@ -84,13 +84,13 @@ class App extends Component {
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
 
           { /* LOGO ANIMATION */
-            isIntroVisible
+            /* isIntroVisible
             ?
             <Intro
               isIntroVisible={isIntroVisible}
               onAppStateChange={this.handleStateChange}
             />
-            : <div className="empty"></div>
+            : <div className="empty"></div> */
           }
 
           {/* BOARD OF TASKS */}

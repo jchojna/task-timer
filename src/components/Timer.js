@@ -253,6 +253,7 @@ class Timer extends Component {
         </div>
         {/* STOP TASK SECTION */}
         <StopAlert
+          alertText="Do you really want to stop this task?"
           isStopAlertVisible={isStopAlertVisible}
           onStopCancel={this.handleAlertVisibility}
           onStopConfirm={this.handleTimerStop}
