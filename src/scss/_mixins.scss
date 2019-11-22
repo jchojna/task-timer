@@ -12,3 +12,8 @@
   outline: none;
   padding: 0;
 }
+
+@mixin disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

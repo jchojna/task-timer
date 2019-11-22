@@ -6,6 +6,7 @@ import '../scss/CardButtons.scss';
 const CardButtons = (props) => {
 
   const {
+    isMaximized,
     editModeActive,
     inputInvalid,
     cardRotatingMode,
@@ -13,26 +14,32 @@ const CardButtons = (props) => {
     onRemoveButtonClick
   } = props;
 
-  const acceptButtonClass = classNames("button Task__button Task__button--accept", {
-    "Task__button--visible": editModeActive,
-    "Task__button--disabled": inputInvalid || cardRotatingMode
+  const acceptButtonClass = classNames("CardButtons__button",
+  "CardButtons__button--accept", {
+    "CardButtons__button--visible": editModeActive,
+    "CardButtons__button--disabled": inputInvalid || cardRotatingMode
   });
 
-  const minimizeButtonClass = classNames("button Task__button Task__button--minimize", {
-    "Task__button--disabled": editModeActive || cardRotatingMode
+  const minimizeButtonClass = classNames("CardButtons__button",
+  "CardButtons__button--minimize", {
+    "CardButtons__button--disabled": editModeActive || cardRotatingMode,
+    "CardButtons__button--visible": isMaximized
   });
 
-  const maximizeButtonClass = classNames("button Task__button Task__button--maximize", {
-    "Task__button--disabled": editModeActive || cardRotatingMode
+  const maximizeButtonClass = classNames("CardButtons__button",
+  "CardButtons__button--maximize", {
+    "CardButtons__button--disabled": editModeActive || cardRotatingMode,
+    "CardButtons__button--visible": !isMaximized
   });
 
-  const removeButtonClass = classNames("button Task__button Task__button--remove", "Task__button--visible", {
-    "Task__button--disabled": editModeActive || cardRotatingMode
+  const removeButtonClass = classNames("CardButtons__button",
+  "CardButtons__button--remove", "CardButtons__button--visible", {
+    "CardButtons__button--disabled": editModeActive || cardRotatingMode
   });
   
   return (
     <div className="CardButtons">
-      {/* ACCEPT */}
+      {/* ACCEPT BUTTON */}
       <button
         className={acceptButtonClass}
         onClick={onAcceptButtonClick}
@@ -42,7 +49,7 @@ const CardButtons = (props) => {
         </svg>
       </button>
 
-      <div>
+      <div className="CardButtons__minmax">
         {/* MINIMIZE BUTTON */}
         <button
           className={minimizeButtonClass}
@@ -65,7 +72,7 @@ const CardButtons = (props) => {
         </button>
       </div>
       
-      {/* REMOVE */}
+      {/* REMOVE BUTTON */}
       <button
         className={removeButtonClass}
         onClick={onRemoveButtonClick}

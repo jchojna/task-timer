@@ -22,6 +22,7 @@ class Task extends Component {
     } = this.props.task;
 
     this.state = {
+      isMaximized: false,
       isTaskRotatingIn: true,
       isTaskRotatingOut: false,
       isTaskMounted: false,
@@ -164,6 +165,7 @@ class Task extends Component {
 
     const { id } = this.props;
     const {
+      isMaximized,
       isTaskMounted,
       isTaskRotatingIn,
       isTaskRotatingOut,
@@ -196,9 +198,8 @@ class Task extends Component {
       "Task__container--rotateOut": isTaskRotatingOut && isTaskMounted
     });
 
-    const startButtonClass = classNames("button Task__button",
-    "Task__button--start", "Task__button--visible", {
-      "Task__button--disabled": editModeActive || cardRotatingMode
+    const startButtonClass = classNames("Task__startButton", {
+      "Task__startButton--disabled": editModeActive || cardRotatingMode
     });
     
     return (
@@ -258,6 +259,7 @@ class Task extends Component {
 
           {/* CARD BUTTONS */}
           <CardButtons
+            isMaximized={isMaximized}
             editModeActive={editModeActive}
             inputInvalid={inputInvalid}
             cardRotatingMode={cardRotatingMode}
