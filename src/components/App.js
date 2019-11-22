@@ -10,6 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       // visibility
+      isIntroVisible: true,
       isBoardVisible: false,
       isCreatorVisible: false,
       tasks: [
@@ -63,6 +64,7 @@ class App extends Component {
   render() {
 
     const {
+      isIntroVisible,
       isBoardVisible,
       isCreatorVisible,
       tasks
@@ -81,22 +83,30 @@ class App extends Component {
         <div className="App">
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
 
-          {/* LOGO ANIMATION */}
-          <Intro />
+          { /* LOGO ANIMATION */
+            isIntroVisible
+            ?
+            <Intro
+              isIntroVisible={isIntroVisible}
+              onAppStateChange={this.handleStateChange}
+            />
+            : <div className="empty"></div>
+          }
 
           {/* BOARD OF TASKS */}
-          {/* <section className={boardClass}> */}
+          <section className={boardClass}>
             {/* TASK CARDS */}
-            {/* {tasks.map((task) => (
+            {tasks.map((task) => (
               <Task
                 task={task}
                 id={task.dateCreated}
                 key={task.dateCreated}
                 onTaskRemove={this.handleTaskRemove}
               />
-            ))} */}
+            ))}
+
             {/* CREATE NEW TASK */}
-            {/* <section className="App__creator">
+            <section className="App__creator">
               <button
                 className={newTaskButtonClass}
                 onClick={this.handleNewTaskButton}
@@ -112,7 +122,7 @@ class App extends Component {
                 : <div className="empty"></div>
               }
             </section>
-          </section> */}
+          </section>
         </div>
       </React.StrictMode>
     );

@@ -1,32 +1,47 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import '../scss/Intro.scss';
-import { clearInterval } from 'timers';
 
 class Intro extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalTime: 5000,
+      totalTime: 4000,
+      timeInterval: 10,
       maxDistance: 4,
       elapsedDistance: 0,
       elapsedAngle: 120,
       elapsedTime: 0,
       xTranslation: 0,
-      yTranslation: 0
+      yTranslation: 0,
+      isIntroFadingOut: false
     }
   }
 
   componentDidMount() {
-    const { totalTime, maxDistance } = this.state;
+    const { timeInterval } = this.state;
+    this.intervalId = setInterval(this.handleShadowPostion, timeInterval);
+  }
 
-    const timeInterval = 10;
-    const totalIntervals = totalTime / timeInterval
-    const distanceIncrement = maxDistance / totalIntervals;
-    const factor = 3;
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+    clearTimeout(this.timeoutId);
+  }
 
-    /* INTERVAL */
-    this.intervalId = setInterval(() => {
-      const { elapsedTime, elapsedDistance, elapsedAngle } = this.state;
+  handleShadowPostion = () => {
+    if (this.props.isIntroVisible) {
+      const {
+        totalTime,
+        timeInterval,
+        elapsedTime,
+        maxDistance,
+        elapsedDistance,
+        elapsedAngle
+      } = this.state;
+
+      const totalIntervals = totalTime / timeInterval;
+      const distanceIncrement = maxDistance / totalIntervals;
+      const factor = 3;
       const easeOut = factor / Math.pow(factor, 2 * (elapsedTime / totalTime));
       const angleIncrement = 360 / totalIntervals * easeOut; // ! to fix
 
@@ -34,25 +49,30 @@ class Intro extends Component {
       const x = Math.sin(radians) * (elapsedDistance);
       const y = Math.cos(radians) * (elapsedDistance);
 
-      if ( elapsedTime < totalTime ) {
-  
-        this.setState(prevState => ({
-          elapsedTime: elapsedTime + timeInterval,
-          elapsedDistance: prevState.elapsedDistance + distanceIncrement,
-          elapsedAngle: prevState.elapsedAngle - angleIncrement,
-          xTranslation: x,
-          yTranslation: y
-        }));
-      }
-    }, timeInterval);
-  }
+      this.setState(prevState => ({
+        elapsedTime: elapsedTime + timeInterval,
+        elapsedDistance: prevState.elapsedDistance + distanceIncrement,
+        elapsedAngle: prevState.elapsedAngle - angleIncrement,
+        xTranslation: x,
+        yTranslation: y
+      }));
 
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
+      if ( this.state.elapsedTime >= this.state.totalTime ) {
+        const { onAppStateChange } = this.props;
+        this.setState({ isIntroFadingOut: true });
+        this.timeoutId = setTimeout(() => {
+          onAppStateChange({ isIntroVisible: false });
+        }, 1000);
+      }
+    }
   }
 
   render() {
-    const { xTranslation, yTranslation } = this.state;
+    const { isIntroFadingOut, xTranslation, yTranslation } = this.state;
+
+    const introClass = classNames("Intro", {
+      "Intro--visible": !isIntroFadingOut
+    });
 
     const styleObject = {
       transform: `
@@ -62,7 +82,7 @@ class Intro extends Component {
     };
 
     return (
-      <div className="Intro">
+      <div className={introClass}>
         <svg className="logo" viewBox="0 0 600 600">
           {/* MASK */}
           <mask id="mask" className="logo__mask">
