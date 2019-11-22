@@ -50,28 +50,31 @@
     column-gap: 10px;
     display: grid;
     grid-area: buttons;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(3, auto);
     justify-self: end;
   }
 
   &__button {
     @include button;
     @include flex-center;
-    fill: $color-background;
+    fill: none;
+    stroke: $color-background;
+    stroke-width: 10;
+    stroke-linejoin: round;
+    stroke-linecap: round;
     transition: opacity $card-edit;
     width: $close-button;
     
     &:hover {
-      fill: $color-warning;
+      stroke: $color-warning;
     }
 
     &--accept {
-      fill: $color-white;
-      opacity: 0;
+      //opacity: 0;
       transition: opacity $card-edit, visibility 0s $card-edit;
-      visibility: hidden;
+      //visibility: hidden;
     }
-        
+    
     &--visible {
       opacity: 1;
       transition: opacity $card-edit, visibility 0s;

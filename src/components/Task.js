@@ -200,6 +200,10 @@ class Task extends Component {
       "Task__button--disabled": someInvalid || cardRotatingMode
     });
 
+    const maximizeButtonClass = classNames("button Task__button Task__button--maximize", {
+      "Task__button--disabled": editModeActive || cardRotatingMode
+    });
+
     const removeButtonClass = classNames("button Task__button Task__button--remove", {
       "Task__button--disabled": editModeActive || cardRotatingMode
     });
@@ -274,21 +278,42 @@ class Task extends Component {
                 <use href={`${icons}#tick`}/>
               </svg>
             </button>
+            {/* MINIMIZE BUTTON */}
+            <button
+              className={maximizeButtonClass}
+              //onClick={this.handleAlertVisibility}
+              //disabled={editModeActive}
+            >
+              <svg className="Task__svg" viewBox="0 0 512 512">
+                <use href={`${icons}#minimize`}/>
+              </svg>
+            </button>
+            {/* MAXIMIZE BUTTON */}
+            <button
+              className={maximizeButtonClass}
+              //onClick={this.handleAlertVisibility}
+              //disabled={editModeActive}
+            >
+              <svg className="Task__svg" viewBox="0 0 512 512">
+                <use href={`${icons}#maximize`}/>
+              </svg>
+            </button>
             {/* REMOVE */}
             <button
               className={removeButtonClass}
               onClick={this.handleAlertVisibility}
-              disabled={editModeActive}
+              disabled={editModeActive || cardRotatingMode}
             >
               <svg className="Task__svg" viewBox="0 0 512 512">
                 <use href={`${icons}#remove`}/>
               </svg>
             </button>
           </div>
+
           {/* START BUTTON */}
           <button
             className={startButtonClass}
-            disabled={editModeActive}
+            disabled={editModeActive || cardRotatingMode}
             onClick={this.handleStartButton}
           >
             <svg className="Task__svg" viewBox="0 0 512 512">
