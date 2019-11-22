@@ -80,3 +80,54 @@
 .hideToRight {
   animation: hideToRight $time-slide forwards;
 }
+
+/////////////////////////////////////////////////////////////// LOGO ANIMATION 
+
+@keyframes clockShadow {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes clockHand {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(180deg * 11);
+  }
+}
+
+@keyframes clockFadeIn {
+  0% {
+    transform: scale(3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes clockLetter {
+  0% {
+    fill: $color-background;
+    opacity: 0;
+  }
+  85% {
+    fill: $color-background;
+    opacity: 1;
+  }
+  100% {
+    fill: $color-warning;
+    opacity: 1;
+  }
+}
+
+@keyframes clockBackground {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

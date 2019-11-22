@@ -1,0 +1,54 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.Intro {
+  @include flex-center;
+  background-color: $color-light-background;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: opacity 1s, visibility 0s 1s;
+  visibility: hidden;
+  z-index: 1;
+
+  &--visible {
+    opacity: 1;
+    transition: opacity 1s, visibility 0s;
+    visibility: visible;
+  }
+}
+
+.logo {
+  animation: clockFadeIn $intro-time * 1/2 forwards;
+  height: $logo-size;
+  width: $logo-size;
+
+  &__background {
+    animation: clockBackground $intro-time * 2/3 forwards;
+    fill: $color-background;
+  }
+
+  &__letter {
+    animation: clockLetter $intro-time forwards;
+    fill: $color-background;
+  }
+
+  &__shadow {
+    animation: clockShadow $intro-time forwards;
+    fill: rgba($color: #000, $alpha: 0.5);
+  }
+
+  &__clockHand {
+    animation: clockHand $intro-time ease-out forwards;
+    transform: rotate(180deg);
+    transform-origin: center;
+  }
+
+  &__foreground {
+    fill: $color-light-background;
+  }
+}
