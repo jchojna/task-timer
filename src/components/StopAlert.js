@@ -13,10 +13,14 @@ const StopAlert = (props) => {
   const stopAlertClass = classNames("StopAlert", {
     "StopAlert--visible": isStopAlertVisible
   });
+  
+  const containerClass = classNames("StopAlert__container", {
+    "StopAlert__container--visible": isStopAlertVisible
+  });
 
   return (
     <section className={stopAlertClass}>
-      <div className="StopAlert__container">
+      <div className={containerClass}>
         <h2 className="StopAlert__heading">{alertText}</h2>
         <button
           className="StopAlert__button StopAlert__button--stop"
