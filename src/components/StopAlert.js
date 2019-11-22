@@ -4,6 +4,7 @@ import '../scss/StopAlert.scss';
 
 const StopAlert = (props) => {
   const {
+    alertText,
     isStopAlertVisible,
     onStopCancel,
     onStopConfirm
@@ -12,13 +13,15 @@ const StopAlert = (props) => {
   const stopAlertClass = classNames("StopAlert", {
     "StopAlert--visible": isStopAlertVisible
   });
+  
+  const containerClass = classNames("StopAlert__container", {
+    "StopAlert__container--visible": isStopAlertVisible
+  });
 
   return (
     <section className={stopAlertClass}>
-      <div className="StopAlert__container">
-        <h2 className="StopAlert__heading">
-          Are you sure you want to quit?
-        </h2>
+      <div className={containerClass}>
+        <h2 className="StopAlert__heading">{alertText}</h2>
         <button
           className="StopAlert__button StopAlert__button--stop"
           onClick={onStopConfirm}

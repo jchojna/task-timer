@@ -56,26 +56,58 @@ class Timer extends Component {
     }
   }
 
-  componentDidMount() {
+  handleRotatingStatus = () => {
     const { onTaskStateChange } = this.props;
+    setTimeout(() => {
+      onTaskStateChange({
+        isTaskRotatingIn: true,
+        isTaskRotatingOut: false
+      })
+    }, cardFlipTime);
+
+    setTimeout(() => {
+      onTaskStateChange({
+        isTaskRotatingIn: false
+      })
+    }, cardFlipTime * 2)
+  };
+
+  componentDidMount() {
     this.taskIntervalId = setInterval(() => this.handleTimeTick('Task'), 10);
     this.breakIntervalId = setInterval(() => this.handleTimeTick('Break'), 10);
 
-    this.timeoutIntroId = setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.setState({
         isTimerStarted: true,
         isTimerVisible: true,
         previousTime: Date.now()
       });
-      onTaskStateChange({ isTaskRotatingOut: false })
     }, cardFlipTime);
+
+    this.handleRotatingStatus();
   }
   
   componentWillUnmount() {
     clearInterval(this.taskIntervalId);
     clearInterval(this.breakIntervalId);
-    clearTimeout(this.timeoutIntroId);
-    clearTimeout(this.timeoutOutroId);
+    clearTimeout(this.timeoutId);
+  }
+
+  handleTimerStop = () => {
+    const { onTaskStateChange } = this.props;
+
+    onTaskStateChange({ isTaskRotatingOut: true });
+
+    this.setState({
+      isTimerStarted: false,
+      isStopAlertVisible: false
+    });
+
+    this.timeoutId = setTimeout(() => {
+      onTaskStateChange({ isTimerMounted: false });
+    }, cardFlipTime);
+
+    this.handleRotatingStatus();
   }
 
   handleStateChange = (object) => this.setState(object);
@@ -92,21 +124,6 @@ class Timer extends Component {
     this.setState(prevState => ({
       isStopAlertVisible: !prevState.isStopAlertVisible
     }));
-  }
-
-  handleTimerStop = () => {
-    const { onTaskStateChange } = this.props;
-    onTaskStateChange({ isTaskRotatingOut: true });
-    this.setState({
-      isTimerStarted: false,
-      isStopAlertVisible: false
-    });
-    this.timeoutOutroId = setTimeout(() => {
-      onTaskStateChange({
-        isTimerMounted: false,
-        isTaskRotatingOut: false
-      });
-    }, cardFlipTime);
   }
 
   handleTimeTick = (type) => {
@@ -184,7 +201,8 @@ class Timer extends Component {
     const {
       id,
       onTaskStateChange,
-      onTaskRemove
+      onTaskRemove,
+      cardRotatingMode
     } = this.props;
 
     const timerClass = classNames("Timer", {
@@ -230,6 +248,7 @@ class Timer extends Component {
         <Controls
           isTaskTimeActive={isTaskTimeActive}
           isBreakTimeActive={isBreakTimeActive}
+          cardRotatingMode={cardRotatingMode}
           onDisplayModeChange={this.handleTimeDisplayMode}
           onTimerStateChange={this.handleStateChange}
           onStopButtonClick={this.handleAlertVisibility}
@@ -253,6 +272,7 @@ class Timer extends Component {
         </div>
         {/* STOP TASK SECTION */}
         <StopAlert
+          alertText="Do you really want to stop this task?"
           isStopAlertVisible={isStopAlertVisible}
           onStopCancel={this.handleAlertVisibility}
           onStopConfirm={this.handleTimerStop}

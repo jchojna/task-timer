@@ -3,27 +3,24 @@
 @import "_animations.scss";
 
 .StopAlert {
-  @include flex-center;
-  background-color: rgba($color: #000000, $alpha: 0.4);
+  background-color: none;
   bottom: 0;
+  color: $color-white;
   left: 0;
-  opacity: 0;
-  padding: $layout-padding;
   position: absolute;
   right: 0;
   top: 0;
-  transition: opacity $fade-stopTask, visibility 0s $fade-stopTask;
+  transition: background-color $fade-stopTask, visibility 0s $fade-stopTask;
   visibility: hidden;
 
   &--visible {
-    opacity: 1;
-    transition: opacity $fade-stopTask, visibility 0s;
+    background-color: rgba($color: $color-background, $alpha: 0.8);
+    transition: background-color $fade-stopTask, visibility 0s;
     visibility: visible;
   }
 
   &__container {
-    background-color: $color-white;
-    border-radius: 10px;
+    background-color: $color-warning;
     display: grid;
     gap: 1em;
     grid-template-areas:
@@ -31,6 +28,12 @@
       "stop exit";
     grid-template-columns: repeat(2, 1fr);
     padding: 2em;
+    transform: translateY(-100%);
+    transition: transform $fade-stopTask;
+
+    &--visible {
+      transform: translateY(0);
+    }
   }
 
   &__heading {
@@ -42,14 +45,15 @@
 
   &__button {
     @include button;
-    border: 2px solid #fff;
+    border: 2px solid $color-white;
     border-radius: 5px;
+    font-weight: 600;
     padding: 0.75em 2em;
-    transition: background-color $hover-icon, border-color $hover-icon;
+    transition: background-color $hover-icon, color $hover-icon;
 
     &:hover {
-      background-color: $color-warning;
-      border-color: $color-warning;
+      background-color: $color-white;
+      color: $color-warning;
     }
 
     &--stop { grid-area: stop; };

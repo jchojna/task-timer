@@ -5,7 +5,7 @@ import TotalTime from './TotalTime.js';
 import Timer from './Timer.js';
 import StopAlert from './StopAlert.js';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
-import { animationStyle } from '../lib/globalVariables';
+import { cardFlipTime, animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -21,6 +21,7 @@ class Task extends Component {
     } = this.props.task;
 
     this.state = {
+      isTaskRotatingIn: true,
       isTaskRotatingOut: false,
       isTaskMounted: false,
       isTimerMounted: false,
@@ -44,7 +45,16 @@ class Task extends Component {
     }
   }
 
-  componentDidMount = () => this.setState({ isTaskMounted: true });
+  componentDidMount = () => {
+    this.setState({ isTaskMounted: true });
+    this.timeoutId = setTimeout(() => this.setState({
+      isTaskRotatingIn: false
+    }), cardFlipTime);
+  }
+
+  componentWillUnmount = () => {
+    clearTimeout(this.timeoutId);
+  }
   
   handleStateChange = (object) => this.setState(object);
 
@@ -131,10 +141,12 @@ class Task extends Component {
     //this.setState({ alertTimeFlag });
   }
 
-  handleStartButton = () => this.setState({
-    isTaskRotatingOut: true,
-    isTimerMounted: true
-  });
+  handleStartButton = () => {
+    this.setState({
+      isTaskRotatingOut: true,
+      isTimerMounted: true
+    });
+  }
 
   handleKeyPress = (key) => {
     const {
@@ -142,9 +154,9 @@ class Task extends Component {
       isTaskTimeEditMode,
       isBreakTimeEditMode
     } = this.state;
-    const isEditMode = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
+    const editModeActive = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
     
-    if (key === "Enter" && isEditMode) this.acceptEditChange();
+    if (key === "Enter" && editModeActive) this.acceptEditChange();
   }
 
   render() {
@@ -152,6 +164,7 @@ class Task extends Component {
     const { id } = this.props;
     const {
       isTaskMounted,
+      isTaskRotatingIn,
       isTaskRotatingOut,
       isStopAlertVisible,
       taskName,
@@ -168,26 +181,31 @@ class Task extends Component {
       isBreakTimeValid
     } = this.state;
 
-    const isEditMode = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
+    const editModeActive = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
+    const someInvalid = !isTaskNameValid || !isTaskTimeValid || !isBreakTimeValid;
+    const cardRotatingMode = isTaskRotatingIn || isTaskRotatingOut;
+    const taskNameDisabled = isTaskTimeEditMode || isBreakTimeEditMode || cardRotatingMode;
+    const taskTimeDisabled = isTaskNameEditMode || isBreakTimeEditMode || cardRotatingMode;
+    const breakTimeDisabled = isTaskNameEditMode || isTaskTimeEditMode || cardRotatingMode;
 
     const taskContainerClass = classNames("Task__container", {
       "Task__container--visible": isTaskMounted,
-      "Task__container--editMode": isEditMode,
+      "Task__container--editMode": editModeActive,
       "Task__container--rotateIn": !isTaskRotatingOut && isTaskMounted,
       "Task__container--rotateOut": isTaskRotatingOut && isTaskMounted
     });
 
     const acceptButtonClass = classNames("button Task__button Task__button--accept", {
-      "Task__button--visible": isEditMode,
-      "Task__button--disabled": !isTaskNameValid || !isTaskTimeValid || !isBreakTimeValid
+      "Task__button--visible": editModeActive,
+      "Task__button--disabled": someInvalid || cardRotatingMode
     });
 
     const removeButtonClass = classNames("button Task__button Task__button--remove", {
-      "Task__button--disabled": isEditMode
+      "Task__button--disabled": editModeActive || cardRotatingMode
     });
 
     const startButtonClass = classNames("button Task__button Task__button--start", {
-      "Task__button--disabled": isEditMode
+      "Task__button--disabled": editModeActive || cardRotatingMode
     });
     
     return (
@@ -203,7 +221,7 @@ class Task extends Component {
             output={taskName}
             isValid={isTaskNameValid}
             taskNameLength={taskNameLength}
-            isDisabled={isTaskTimeEditMode || isBreakTimeEditMode}
+            isDisabled={taskNameDisabled}
             isEditMode={isTaskNameEditMode}
             onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
             onTaskNameChange={this.handleTaskNameChange}
@@ -217,7 +235,7 @@ class Task extends Component {
             minutes={taskMinutes}
             seconds={taskSeconds}
             isValid={isTaskTimeValid}
-            isDisabled={isTaskNameEditMode || isBreakTimeEditMode}
+            isDisabled={taskTimeDisabled}
             onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
             isEditMode={isTaskTimeEditMode}
             onKeyPress={this.handleKeyPress}
@@ -235,7 +253,7 @@ class Task extends Component {
             minutes={breakMinutes}
             seconds={breakSeconds}
             isValid={isBreakTimeValid}
-            isDisabled={isTaskNameEditMode || isTaskTimeEditMode}
+            isDisabled={breakTimeDisabled}
             onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
             isEditMode={isBreakTimeEditMode}
             onKeyPress={this.handleKeyPress}
@@ -260,7 +278,7 @@ class Task extends Component {
             <button
               className={removeButtonClass}
               onClick={this.handleAlertVisibility}
-              disabled={isEditMode}
+              disabled={editModeActive}
             >
               <svg className="Task__svg" viewBox="0 0 512 512">
                 <use href={`${icons}#remove`}/>
@@ -270,7 +288,7 @@ class Task extends Component {
           {/* START BUTTON */}
           <button
             className={startButtonClass}
-            disabled={isEditMode}
+            disabled={editModeActive}
             onClick={this.handleStartButton}
           >
             <svg className="Task__svg" viewBox="0 0 512 512">
@@ -286,12 +304,14 @@ class Task extends Component {
                 state={this.state}
                 id={id}
                 onTaskRemove={this.handleTaskRemove}
+                cardRotatingMode={cardRotatingMode}
               />
             : <div className="empty"></div>
           }
 
           {/* REMOVE TASK ALERT */}
           <StopAlert
+            alertText="Do you really want to remove this task?"
             isStopAlertVisible={isStopAlertVisible}
             onStopCancel={this.handleAlertVisibility}
             onStopConfirm={(id) => this.handleTaskRemove(id)}

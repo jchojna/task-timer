@@ -29,7 +29,12 @@ class Controls extends Component {
 
   render() {
 
-    const { isTaskTimeActive, onStopButtonClick } = this.props;
+    const {
+      isTaskTimeActive,
+      onStopButtonClick,
+      cardRotatingMode
+    } = this.props;
+
     const svgPlayClass = classNames("Controls__svg", {
       "Controls__svg--hidden": isTaskTimeActive
     });
@@ -37,12 +42,28 @@ class Controls extends Component {
       "Controls__svg--hidden": !isTaskTimeActive
     });
 
+    const playPauseButtonClass = classNames("Controls__button",
+    "Controls__button--playPause", {
+      "Controls__button--disabled": cardRotatingMode
+    });
+
+    const stopButtonClass = classNames("Controls__button",
+    "Controls__button--stop", {
+      "Controls__button--disabled": cardRotatingMode
+    });
+
+    const toggleButtonClass = classNames("Controls__button",
+    "Controls__button--toggle", {
+      "Controls__button--disabled": cardRotatingMode
+    });
+
     return (
       <div className="Controls">
         {/* PLAY / PAUSE BUTTON */}
         <button
-          className="Controls__button Controls__button--playPause"
+          className={playPauseButtonClass}
           onClick={this.handlePlayPauseButton}
+          disabled={cardRotatingMode}
         >
           <svg className={svgPlayClass} viewBox="0 0 512 512">
             <use href={`${icons}#play`} />
@@ -54,8 +75,9 @@ class Controls extends Component {
   
         {/* STOP BUTTON */}
         <button
-          className="Controls__button Controls__button--stop"
+          className={stopButtonClass}
           onClick={onStopButtonClick}
+          disabled={cardRotatingMode}
         >
           <svg className="Controls__svg" viewBox="0 0 512 512">
             <use href={`${icons}#stop`} />
@@ -64,8 +86,9 @@ class Controls extends Component {
   
         {/* TOGGLE BUTTON */}
         <button
-          className="Controls__button Controls__button--toggle"
+          className={toggleButtonClass}
           onClick={this.handleToggleButton}
+          disabled={cardRotatingMode}
         >
           <svg className="Controls__svg" viewBox="0 0 512 512">
             <use href={`${icons}#toggle`} />

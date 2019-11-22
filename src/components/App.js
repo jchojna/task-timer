@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Task from './Task';
 import Creator from './Creator';
-import Intro from './Intro';
+//import Intro from './Intro';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -64,7 +64,7 @@ class App extends Component {
   render() {
 
     const {
-      isIntroVisible,
+      //isIntroVisible,
       isBoardVisible,
       isCreatorVisible,
       tasks
@@ -84,13 +84,13 @@ class App extends Component {
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
 
           { /* LOGO ANIMATION */
-            isIntroVisible
+            /* isIntroVisible
             ?
             <Intro
               isIntroVisible={isIntroVisible}
               onAppStateChange={this.handleStateChange}
             />
-            : <div className="empty"></div>
+            : <div className="empty"></div> */
           }
 
           {/* BOARD OF TASKS */}
