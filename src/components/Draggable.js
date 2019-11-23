@@ -17,7 +17,7 @@ class Draggable extends Component {
       lastTranslateX: 0,
       lastTranslateY: 0
     }
-  }
+  };
 
   handleMouseDown = ({ clientX, clientY }) => {
     window.addEventListener('mousemove', this.handleMouseMove);
@@ -32,7 +32,26 @@ class Draggable extends Component {
       originalY: clientY,
       isDragging: true
     });
-  }
+  };
+
+  handleMouseMove = ({ clientX, clientY }) => {
+    const { isDragging } = this.state;
+    const { onDrag } = this.props;
+
+    if (!isDragging) return;
+
+    this.setState(prevState => ({
+      translateX: clientX - prevState.originalX + prevState.lastTranslateX,
+      translateY: clientY - prevState.originalY + prevState.lastTranslateY
+    }), () => {
+      if (onDrag) {
+        onDrag({
+          translateX: this.state.translateX,
+          translateY: this.state.translateY
+        });
+      }
+    });
+  };
 
   render() {
     const { children } = this.props;
