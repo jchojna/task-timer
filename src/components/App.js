@@ -15,6 +15,32 @@ class App extends Component {
       isCreatorVisible: false,
       tasks: [
         {
+          taskName: "Add some feature to TaskTimer App",
+          taskMinutes: 20,
+          taskSeconds: 0,
+          breakMinutes: 5,
+          breakSeconds: 0,
+          totalTaskTime: 2000000,
+          totalBreakTime: 500000,
+          totalTaskTimeArray: ["20","00","00"],
+          totalBreakTimeArray: ["05","00","00"],
+          id: 87654564554,
+          dateCreated: 87654564554
+        },
+        {
+          taskName: "Do exercices",
+          taskMinutes: 0,
+          taskSeconds: 1,
+          breakMinutes: 0,
+          breakSeconds: 1,
+          totalTaskTime: 1000,
+          totalBreakTime: 1000,
+          totalTaskTimeArray: ["00","01","00"],
+          totalBreakTimeArray: ["00","01","00"],
+          id: 6543563456543,
+          dateCreated: 6543563456543
+        },
+        {
           taskName: "Test task for preview purposes",
           taskMinutes: 30,
           taskSeconds: 0,
@@ -24,8 +50,8 @@ class App extends Component {
           totalBreakTime: 100000,
           totalTaskTimeArray: ["05","00","00"],
           totalBreakTimeArray: ["01","00","00"],
-          id: 6453654365346,
-          dateCreated: 6453654365346
+          id: 76456456435,
+          dateCreated: 76456456435
         },
         {
           taskName: "Another task for testing",
@@ -37,8 +63,8 @@ class App extends Component {
           totalBreakTime: 1000,
           totalTaskTimeArray: ["00","01","00"],
           totalBreakTimeArray: ["00","01","00"],
-          id: 543254234523,
-          dateCreated: 543254234523
+          id: 3245356498,
+          dateCreated: 3245356498
         },
       ],
       // validity

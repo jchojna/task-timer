@@ -193,12 +193,14 @@ class Task extends Component {
 
     const taskContainerClass = classNames("Task__container", {
       "Task__container--visible": isTaskMounted,
+      "Task__container--maximized": isMaximized,
       "Task__container--editMode": editModeActive,
       "Task__container--rotateIn": !isTaskRotatingOut && isTaskMounted,
       "Task__container--rotateOut": isTaskRotatingOut && isTaskMounted
     });
 
     const startButtonClass = classNames("Task__startButton", {
+      "Task__startButton--maximized": isMaximized,
       "Task__startButton--disabled": editModeActive || cardRotatingMode
     });
     
@@ -226,6 +228,7 @@ class Task extends Component {
             labelName="Task Time"
             modifier="taskTime"
             id={id}
+            isMaximized={isMaximized}
             minutes={taskMinutes}
             seconds={taskSeconds}
             isValid={isTaskTimeValid}
@@ -244,6 +247,7 @@ class Task extends Component {
             labelName="Break Time"
             modifier="breakTime"
             id={id}
+            isMaximized={isMaximized}
             minutes={breakMinutes}
             seconds={breakSeconds}
             isValid={isBreakTimeValid}

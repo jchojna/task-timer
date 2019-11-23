@@ -9,6 +9,10 @@
   grid-template-columns: repeat(3, auto);
   justify-self: end;
 
+  &--maximized {
+    
+  }
+
   &__minmax {
     position: relative;
   }
@@ -55,6 +59,13 @@
       opacity: 1;
       transition: opacity $card-edit, visibility 0s;
       visibility: visible;
+    }
+  }
+
+  @media only screen and (min-width: $media-md) {
+
+    & {
+      display: grid;
     }
   }
 }

@@ -8,7 +8,7 @@
   grid-template-columns: repeat(3, auto);
   grid-area: controls;
   justify-content: center;
-  padding: 20px $card-padding;
+  padding: 20px $card-padding-md;
 
   &__button {
     @include button;

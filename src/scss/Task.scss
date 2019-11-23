@@ -4,30 +4,37 @@
 
 .Task {
 
-  .Task__container {
+  &__container {
     align-items: start;
     background-color: $color-primary;
     //border: $card-border;
     border-radius: $radius-card;
-    box-shadow: $card-shadow;
+    box-shadow: $card-shadow-xs;
     display: grid;
-    gap: 10px;
-    grid-template-areas:
+      grid-template-areas:
       "buttons  "
-      "taskName "
-      "taskTime "
-      "breakTime"
-      "startBtn ";
-    grid-template-rows: auto 1fr repeat(3, auto);
-    height: 100%;
+      "taskName ";
     justify-items: center;
     overflow: hidden;
-    padding: $card-padding;
+    padding: $card-padding-xs;
     position: relative;
     transform: rotate3d(0, 1, 0, -90deg);
     transition: background-color $card-edit;
     user-select: none;
     visibility: hidden;
+
+    &--maximized {
+      gap: 10px;
+      grid-template-areas:
+        "buttons  "
+        "taskName "
+        "taskTime "
+        "breakTime"
+        "startBtn ";
+      height: 100%;
+      min-height: 540px;
+      grid-template-rows: auto 1fr repeat(3, auto);
+    }
 
     &--visible {
       visibility: visible;
@@ -48,12 +55,14 @@
 
   &__startButton {
     @include button;
-    @include flex-center;
+    align-items: center;
     border: 3px solid $color-background;
     border-radius: 50%;
+    display: none;
     fill: none;
     grid-area: startBtn;
     height: 70px;
+    justify-content: center;
     margin: 10px;
     stroke: $color-background;
     stroke-width: 25;
@@ -68,25 +77,24 @@
       border-color: $color-warning;
       stroke: $color-primary;
     }
+
+    &--maximized {
+      display: flex;
+    }
       
     &--disabled {
       @include disabled;
     }
   }
 
-  &__totalTime {
-    font-family: 'Inconsolata';
-    font-size: 2em;
-    font-weight: 800;
-    margin: 0;
+  @media only screen and (min-width: $media-md) {
 
-    &--task {
-      font-size: 2.5em;
-      grid-area: taskTime;
-    }
+    & {
 
-    &--break {
-      grid-area: breakTime;
+      &__container {
+        box-shadow: $card-shadow-md;
+        //padding: $card-padding-md;
+      }
     }
   }
 }

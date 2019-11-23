@@ -90,4 +90,11 @@
       visibility: visible;
     }
   }
+
+  @media only screen and (min-width: $media-md) {
+
+    & {
+      
+    }
+  }
 }
