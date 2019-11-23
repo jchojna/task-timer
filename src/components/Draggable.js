@@ -25,6 +25,7 @@ class Draggable extends Component {
 
     if (this.props.onDragStart) {
       this.props.onDragStart();
+      console.log('test');
     }
 
     this.setState({
@@ -43,12 +44,31 @@ class Draggable extends Component {
     this.setState(prevState => ({
       translateX: clientX - prevState.originalX + prevState.lastTranslateX,
       translateY: clientY - prevState.originalY + prevState.lastTranslateY
-    }), () => {
+    }),
+    () => {
       if (onDrag) {
         onDrag({
           translateX: this.state.translateX,
           translateY: this.state.translateY
         });
+      }
+    });
+  };
+
+  handleMouseUp = () => {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('mouseup', this.handleMouseUp);
+
+    this.setState({
+      originalX: 0,
+      originalY: 0,
+      lastTranslateX: this.state.translateX,
+      lastTranslateY: this.state.translateY,
+      isDragging: false
+    },
+    () => {
+      if (this.props.onDragEnd) {
+        this.props.onDragEnd();
       }
     });
   };
