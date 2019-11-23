@@ -10,6 +10,7 @@
     //border: $card-border;
     border-radius: $radius-card;
     box-shadow: $card-shadow-xs;
+    cursor: pointer;
     display: grid;
       grid-template-areas:
       "buttons  "
@@ -24,6 +25,7 @@
     visibility: hidden;
 
     &--maximized {
+      cursor: initial;
       gap: 10px;
       grid-template-areas:
         "buttons  "

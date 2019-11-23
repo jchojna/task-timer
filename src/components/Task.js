@@ -80,6 +80,13 @@ class Task extends Component {
     onTaskRemove(id);
   }
 
+  handleEditMode = (input) => {
+    const { isMaximized } = this.state;
+    if (isMaximized) {
+      this.setState({ [`is${input}EditMode`]: true });
+    }
+  }
+
   acceptEditChange = () => {
     const {
       totalTaskTimeArray,
@@ -216,10 +223,11 @@ class Task extends Component {
           <EditableText
             output={taskName}
             isValid={isTaskNameValid}
+            isMaximized={isMaximized}
             taskNameLength={taskNameLength}
             isDisabled={taskNameDisabled}
             isEditMode={isTaskNameEditMode}
-            onEditModeChange={() => this.setState({ isTaskNameEditMode: true })}
+            onEditModeChange={() => this.handleEditMode('TaskName')}
             onTaskNameChange={this.handleTaskNameChange}
           />
 
@@ -233,7 +241,7 @@ class Task extends Component {
             seconds={taskSeconds}
             isValid={isTaskTimeValid}
             isDisabled={taskTimeDisabled}
-            onEditModeChange={() => this.setState({ isTaskTimeEditMode: true })}
+            onEditModeChange={() => this.handleEditMode('TaskTime')}
             isEditMode={isTaskTimeEditMode}
             onKeyPress={this.handleKeyPress}
             onMinutesChange={(value) => 
@@ -252,7 +260,7 @@ class Task extends Component {
             seconds={breakSeconds}
             isValid={isBreakTimeValid}
             isDisabled={breakTimeDisabled}
-            onEditModeChange={() => this.setState({ isBreakTimeEditMode: true })}
+            onEditModeChange={() => this.handleEditMode('BreakTime')}
             isEditMode={isBreakTimeEditMode}
             onKeyPress={this.handleKeyPress}
             onMinutesChange={(value) => 
