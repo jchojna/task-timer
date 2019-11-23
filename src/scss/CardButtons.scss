@@ -4,13 +4,13 @@
 
 .CardButtons {
   column-gap: 10px;
-  display: grid;
+  display: none;
   grid-area: buttons;
   grid-template-columns: repeat(3, auto);
   justify-self: end;
 
   &--maximized {
-    
+    display: grid;
   }
 
   &__minmax {
@@ -65,7 +65,7 @@
   @media only screen and (min-width: $media-md) {
 
     & {
-      display: grid;
+
     }
   }
 }

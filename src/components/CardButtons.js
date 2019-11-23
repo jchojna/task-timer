@@ -21,6 +21,10 @@ const CardButtons = (props) => {
     }));
   }
 
+  const cardButtonsClass = classNames("CardButtons", {
+    "CardButtons--maximized": isMaximized
+  });
+
   const acceptButtonClass = classNames("CardButtons__button",
   "CardButtons__button--accept", {
     "CardButtons__button--visible": editModeActive,
@@ -45,7 +49,7 @@ const CardButtons = (props) => {
   });
   
   return (
-    <div className="CardButtons">
+    <div className={cardButtonsClass}>
       {/* ACCEPT BUTTON */}
       <button
         className={acceptButtonClass}

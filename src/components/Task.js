@@ -168,6 +168,13 @@ class Task extends Component {
     if (key === "Enter" && editModeActive) this.acceptEditChange();
   }
 
+  handleMaximizeCard = () => {
+    const { isMaximized } = this.state;
+    if (!isMaximized) {
+      this.setState({ isMaximized: true });
+    }
+  }
+
   render() {
 
     const { id } = this.props;
@@ -216,6 +223,7 @@ class Task extends Component {
         <div
           className={taskContainerClass}
           style={animationStyle}
+          onClick={this.handleMaximizeCard}
           //draggable="true"
           //onDragStart={(e) => e.dataTransfer.setData('text/plain',null)}
         >
