@@ -62,6 +62,10 @@
     }
   }
 
+  &__svg {
+    width: 100%;
+  }
+
   @media only screen and (min-width: $media-md) {
 
     & {

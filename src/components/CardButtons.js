@@ -55,7 +55,7 @@ const CardButtons = (props) => {
         className={acceptButtonClass}
         onClick={onAcceptButtonClick}
       >
-        <svg className="Task__svg" viewBox="0 0 512 512">
+        <svg className="CardButtons__svg" viewBox="0 0 512 512">
           <use href={`${icons}#tick`}/>
         </svg>
       </button>
@@ -67,7 +67,7 @@ const CardButtons = (props) => {
           onClick={handleMinMaxButtons}
           //disabled={editModeActive}
         >
-          <svg className="Task__svg" viewBox="0 0 512 512">
+          <svg className="CardButtons__svg" viewBox="0 0 512 512">
             <use href={`${icons}#minimize`}/>
           </svg>
         </button>
@@ -77,7 +77,7 @@ const CardButtons = (props) => {
           onClick={handleMinMaxButtons}
           //disabled={editModeActive}
         >
-          <svg className="Task__svg" viewBox="0 0 512 512">
+          <svg className="CardButtons__svg" viewBox="0 0 512 512">
             <use href={`${icons}#maximize`}/>
           </svg>
         </button>
@@ -89,7 +89,7 @@ const CardButtons = (props) => {
         onClick={onRemoveButtonClick}
         disabled={editModeActive || cardRotatingMode}
       >
-        <svg className="Task__svg" viewBox="0 0 512 512">
+        <svg className="CardButtons__svg" viewBox="0 0 512 512">
           <use href={`${icons}#remove`}/>
         </svg>
       </button>

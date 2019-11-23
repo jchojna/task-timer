@@ -89,13 +89,17 @@
     }
   }
 
+  &__svg {
+    width: 100%;
+  }
+
   @media only screen and (min-width: $media-md) {
 
     & {
 
       &__container {
         box-shadow: $card-shadow-md;
-        //padding: $card-padding-md;
+        padding: $card-padding-md;
       }
     }
   }
