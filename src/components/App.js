@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Task from './Task';
 import Creator from './Creator';
+import Draggable from './Draggable';
 //import Intro from './Intro';
 import '../scss/App.scss';
 
@@ -123,12 +124,14 @@ class App extends Component {
           <section className={boardClass}>
             {/* TASK CARDS */}
             {tasks.map((task) => (
-              <Task
-                task={task}
-                id={task.dateCreated}
-                key={task.dateCreated}
-                onTaskRemove={this.handleTaskRemove}
-              />
+              <Draggable>
+                <Task
+                  task={task}
+                  id={task.dateCreated}
+                  key={task.dateCreated}
+                  onTaskRemove={this.handleTaskRemove}
+                />
+              </Draggable>
             ))}
 
             {/* CREATE NEW TASK */}

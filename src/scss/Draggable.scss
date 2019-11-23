@@ -1,3 +1,7 @@
 .Draggable {
   
+  &--dragging {
+    cursor: move;
+    opacity: 0.5;
+  }
 }
