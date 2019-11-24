@@ -79,6 +79,16 @@ class App extends Component {
   }
 
   handleStateChange = (object) => this.setState(object);
+
+  handleTaskOrder = (dragIndex, dropIndex) => {
+    const { tasks } = this.state;
+    this.setState(prevState => {
+      const newTasks = [...prevState.tasks];
+      newTasks.splice(dragIndex, 1, tasks[dropIndex]);
+      newTasks.splice(dropIndex, 1, tasks[dragIndex]);
+      return { tasks: newTasks };
+    });
+  };
   
   handleTaskRemove = (id) => this.setState(prevState => ({
     tasks: prevState.tasks.filter(task => task.id !== id)
@@ -127,7 +137,8 @@ class App extends Component {
               <Draggable
                 id={`dnd-${task.dateCreated}`}
                 key={`dnd-${task.dateCreated}`}
-                index={index}
+                dragIndex={index}
+                onTaskOrderChange={this.handleTaskOrder}
               >
                 <Task
                   task={task}

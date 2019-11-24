@@ -27,15 +27,18 @@ class Draggable extends Component {
   }
 
   handleCardCollision = (x, y) => {
+    const { dragIndex, onTaskOrderChange } = this.props;
     const { cardsSizes } = this.state;
-    return [...cardsSizes].forEach((card, index) => {
+
+    return [...cardsSizes].forEach((card, dropIndex) => {
       const { height, width, left, top } = card;
       if (x >= left && x <= left + width && y >= top && y <= top + height) {
-        console.log(index);
+
+        if (dragIndex === dropIndex) return;
+        onTaskOrderChange(dragIndex, dropIndex);
       }
     });
   }
-  
 
   handleMouseDown = ({ clientX, clientY }) => {
     window.addEventListener('mousemove', this.handleMouseMove);
@@ -93,8 +96,10 @@ class Draggable extends Component {
     this.setState({
       originalX: 0,
       originalY: 0,
-      lastTranslateX: this.state.translateX,
-      lastTranslateY: this.state.translateY,
+      translateX: 0,
+      translateY: 0,
+      //lastTranslateX: this.state.translateX,
+      //lastTranslateY: this.state.translateY,
       isDragging: false
     },
     () => {
