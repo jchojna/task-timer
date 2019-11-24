@@ -205,12 +205,12 @@ class Task extends Component {
     const taskTimeDisabled = isTaskNameEditMode || isBreakTimeEditMode || cardRotatingMode;
     const breakTimeDisabled = isTaskNameEditMode || isTaskTimeEditMode || cardRotatingMode;
 
-    const taskContainerClass = classNames("Task__container", {
-      "Task__container--visible": isTaskMounted,
-      "Task__container--maximized": isMaximized,
-      "Task__container--editMode": editModeActive,
-      "Task__container--rotateIn": !isTaskRotatingOut && isTaskMounted,
-      "Task__container--rotateOut": isTaskRotatingOut && isTaskMounted
+    const taskClass = classNames("Task", {
+      "Task--visible": isTaskMounted,
+      "Task--maximized": isMaximized,
+      "Task--editMode": editModeActive,
+      "Task--rotateIn": !isTaskRotatingOut && isTaskMounted,
+      "Task--rotateOut": isTaskRotatingOut && isTaskMounted
     });
 
     const startButtonClass = classNames("Task__startButton", {
@@ -219,107 +219,103 @@ class Task extends Component {
     });
     
     return (
-      <section className="Task">
-        <div
-          className={taskContainerClass}
-          style={animationStyle}
-          onClick={this.handleMaximizeCard}
-          //draggable="true"
-          //onDragStart={(e) => e.dataTransfer.setData('text/plain',null)}
+      <section
+        className={taskClass}
+        style={animationStyle}
+        onClick={this.handleMaximizeCard}
+      >
+        {/* TASK  NAME */}
+        <EditableText
+          output={taskName}
+          isValid={isTaskNameValid}
+          isMaximized={isMaximized}
+          taskNameLength={taskNameLength}
+          isDisabled={taskNameDisabled}
+          isEditMode={isTaskNameEditMode}
+          onEditModeChange={() => this.handleEditMode('TaskName')}
+          onTaskNameChange={this.handleTaskNameChange}
+        />
+
+        {/* TOTAL TASK TIME */}
+        <TotalTime
+          labelName="Task Time"
+          modifier="taskTime"
+          id={id}
+          isMaximized={isMaximized}
+          minutes={taskMinutes}
+          seconds={taskSeconds}
+          isValid={isTaskTimeValid}
+          isDisabled={taskTimeDisabled}
+          onEditModeChange={() => this.handleEditMode('TaskTime')}
+          isEditMode={isTaskTimeEditMode}
+          onKeyPress={this.handleKeyPress}
+          onMinutesChange={(value) => 
+            this.handleTimeChange(value, taskSeconds, 'minutes', 'task')}
+          onSecondsChange={(value) => 
+            this.handleTimeChange(taskMinutes, value, 'seconds', 'task')}
+        />
+        
+        {/* TOTAL BREAK TIME */}
+        <TotalTime
+          labelName="Break Time"
+          modifier="breakTime"
+          id={id}
+          isMaximized={isMaximized}
+          minutes={breakMinutes}
+          seconds={breakSeconds}
+          isValid={isBreakTimeValid}
+          isDisabled={breakTimeDisabled}
+          onEditModeChange={() => this.handleEditMode('BreakTime')}
+          isEditMode={isBreakTimeEditMode}
+          onKeyPress={this.handleKeyPress}
+          onMinutesChange={(value) => 
+            this.handleTimeChange(value, breakSeconds, 'minutes', 'break')}
+          onSecondsChange={(value) => 
+            this.handleTimeChange(breakMinutes, value, 'seconds', 'break')}
+        />
+
+        {/* CARD BUTTONS */}
+        <CardButtons
+          isMaximized={isMaximized}
+          editModeActive={editModeActive}
+          inputInvalid={inputInvalid}
+          cardRotatingMode={cardRotatingMode}
+          onAcceptButtonClick={this.acceptEditChange}
+          onRemoveButtonClick={this.handleAlertVisibility}
+          onTaskStateChange={this.handleStateChange}
+        />
+
+        {/* START BUTTON */}
+        <button
+          className={startButtonClass}
+          disabled={editModeActive || cardRotatingMode}
+          onClick={this.handleStartButton}
         >
-          {/* TASK  NAME */}
-          <EditableText
-            output={taskName}
-            isValid={isTaskNameValid}
-            isMaximized={isMaximized}
-            taskNameLength={taskNameLength}
-            isDisabled={taskNameDisabled}
-            isEditMode={isTaskNameEditMode}
-            onEditModeChange={() => this.handleEditMode('TaskName')}
-            onTaskNameChange={this.handleTaskNameChange}
-          />
+          <svg className="Task__svg" viewBox="0 0 512 512">
+            <use href={`${icons}#play`} />
+          </svg>
+        </button>
+        
+        {/* TIMER COMPONENT */}
+        {
+          this.state.isTimerMounted
+          ? <Timer
+              onTaskStateChange={this.handleStateChange}
+              state={this.state}
+              id={id}
+              onTaskRemove={this.handleTaskRemove}
+              cardRotatingMode={cardRotatingMode}
+            />
+          : <div className="empty"></div>
+        }
 
-          {/* TOTAL TASK TIME */}
-          <TotalTime
-            labelName="Task Time"
-            modifier="taskTime"
-            id={id}
-            isMaximized={isMaximized}
-            minutes={taskMinutes}
-            seconds={taskSeconds}
-            isValid={isTaskTimeValid}
-            isDisabled={taskTimeDisabled}
-            onEditModeChange={() => this.handleEditMode('TaskTime')}
-            isEditMode={isTaskTimeEditMode}
-            onKeyPress={this.handleKeyPress}
-            onMinutesChange={(value) => 
-              this.handleTimeChange(value, taskSeconds, 'minutes', 'task')}
-            onSecondsChange={(value) => 
-              this.handleTimeChange(taskMinutes, value, 'seconds', 'task')}
-          />
-          
-          {/* TOTAL BREAK TIME */}
-          <TotalTime
-            labelName="Break Time"
-            modifier="breakTime"
-            id={id}
-            isMaximized={isMaximized}
-            minutes={breakMinutes}
-            seconds={breakSeconds}
-            isValid={isBreakTimeValid}
-            isDisabled={breakTimeDisabled}
-            onEditModeChange={() => this.handleEditMode('BreakTime')}
-            isEditMode={isBreakTimeEditMode}
-            onKeyPress={this.handleKeyPress}
-            onMinutesChange={(value) => 
-              this.handleTimeChange(value, breakSeconds, 'minutes', 'break')}
-            onSecondsChange={(value) => 
-              this.handleTimeChange(breakMinutes, value, 'seconds', 'break')}
-          />
-
-          {/* CARD BUTTONS */}
-          <CardButtons
-            isMaximized={isMaximized}
-            editModeActive={editModeActive}
-            inputInvalid={inputInvalid}
-            cardRotatingMode={cardRotatingMode}
-            onAcceptButtonClick={this.acceptEditChange}
-            onRemoveButtonClick={this.handleAlertVisibility}
-            onTaskStateChange={this.handleStateChange}
-          />
-
-          {/* START BUTTON */}
-          <button
-            className={startButtonClass}
-            disabled={editModeActive || cardRotatingMode}
-            onClick={this.handleStartButton}
-          >
-            <svg className="Task__svg" viewBox="0 0 512 512">
-              <use href={`${icons}#play`} />
-            </svg>
-          </button>
-          
-          {/* TIMER COMPONENT */}
-          {
-            this.state.isTimerMounted
-            ? <Timer
-                onTaskStateChange={this.handleStateChange}
-                state={this.state}
-                id={id}
-                onTaskRemove={this.handleTaskRemove}
-                cardRotatingMode={cardRotatingMode}
-              />
-            : <div className="empty"></div>
-          }
-
-          {/* REMOVE TASK ALERT */}
-          <StopAlert
-            alertText="Do you really want to remove this task?"
-            isStopAlertVisible={isStopAlertVisible}
-            onStopCancel={this.handleAlertVisibility}
-            onStopConfirm={(id) => this.handleTaskRemove(id)}
-          />
-        </div>
+        {/* REMOVE TASK ALERT */}
+        <StopAlert
+          alertText="Do you really want to remove this task?"
+          isStopAlertVisible={isStopAlertVisible}
+          onStopCancel={this.handleAlertVisibility}
+          onStopConfirm={(id) => this.handleTaskRemove(id)}
+        />
       </section>
     );
   }

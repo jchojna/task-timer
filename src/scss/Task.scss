@@ -3,56 +3,53 @@
 @import "_animations.scss";
 
 .Task {
+  align-items: start;
+  background-color: $color-primary;
+  //border: $card-border;
+  border-radius: $radius-card;
+  box-shadow: $card-shadow-xs;
+  cursor: pointer;
+  display: grid;
+    grid-template-areas:
+    "buttons  "
+    "taskName ";
+  justify-items: center;
+  overflow: hidden;
+  padding: $card-padding-xs;
+  position: relative;
+  transform: rotate3d(0, 1, 0, -90deg);
+  transition: background-color $card-edit;
+  user-select: none;
+  visibility: hidden;
 
-  &__container {
-    align-items: start;
-    background-color: $color-primary;
-    //border: $card-border;
-    border-radius: $radius-card;
-    box-shadow: $card-shadow-xs;
-    cursor: pointer;
-    display: grid;
-      grid-template-areas:
+  &--maximized {
+    cursor: initial;
+    gap: 10px;
+    grid-template-areas:
       "buttons  "
-      "taskName ";
-    justify-items: center;
-    overflow: hidden;
-    padding: $card-padding-xs;
-    position: relative;
-    transform: rotate3d(0, 1, 0, -90deg);
-    transition: background-color $card-edit;
-    user-select: none;
-    visibility: hidden;
+      "taskName "
+      "taskTime "
+      "breakTime"
+      "startBtn ";
+    height: 100%;
+    min-height: 540px;
+    grid-template-rows: auto 1fr repeat(3, auto);
+  }
 
-    &--maximized {
-      cursor: initial;
-      gap: 10px;
-      grid-template-areas:
-        "buttons  "
-        "taskName "
-        "taskTime "
-        "breakTime"
-        "startBtn ";
-      height: 100%;
-      min-height: 540px;
-      grid-template-rows: auto 1fr repeat(3, auto);
-    }
+  &--visible {
+    visibility: visible;
+  }
 
-    &--visible {
-      visibility: visible;
-    }
+  &--rotateIn {
+    animation: rotateIn ease-out forwards;
+  }
 
-    &--rotateIn {
-      animation: rotateIn ease-out forwards;
-    }
+  &--rotateOut {
+    animation: rotateOut ease-in forwards;
+  }
 
-    &--rotateOut {
-      animation: rotateOut ease-in forwards;
-    }
-
-    &--editMode {
-      background-color: $color-light-background;
-    }
+  &--editMode {
+    background-color: $color-light-background;
   }
 
   &__startButton {
@@ -79,7 +76,7 @@
       border-color: $color-warning;
       stroke: $color-primary;
     }
-
+  
     &--maximized {
       display: flex;
     }
@@ -88,7 +85,7 @@
       @include disabled;
     }
   }
-
+  
   &__svg {
     width: 100%;
   }
@@ -96,11 +93,8 @@
   @media only screen and (min-width: $media-md) {
 
     & {
-
-      &__container {
-        box-shadow: $card-shadow-md;
-        padding: $card-padding-md;
-      }
+      box-shadow: $card-shadow-md;
+      padding: $card-padding-md;
     }
   }
 }

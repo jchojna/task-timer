@@ -86,10 +86,9 @@ class Draggable extends Component {
         });
       }
     });
-    this.handleCardCollision(clientX, clientY);
   };
 
-  handleMouseUp = () => {
+  handleMouseUp = ({ clientX, clientY }) => {
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
 
@@ -107,6 +106,7 @@ class Draggable extends Component {
         this.props.onDragEnd();
       }
     });
+    this.handleCardCollision(clientX, clientY);
   };
 
   render() {
