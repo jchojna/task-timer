@@ -14,6 +14,9 @@ class App extends Component {
       isIntroVisible: true,
       isBoardVisible: false,
       isCreatorVisible: false,
+      cardOffsetX: 0,
+      cardOffsetY: 0,
+      cardOffsetIndex: null,
       tasks: [
         {
           taskName: "Add some feature to TaskTimer App",
@@ -90,6 +93,14 @@ class App extends Component {
     });
   };
   
+  /* handleDropTransition = (cardOffsetIndex, cardOffsetX, cardOffsetY) => {
+    this.setState({
+      cardOffsetIndex,
+      cardOffsetX: cardOffsetX * -1,
+      cardOffsetY: cardOffsetY * -1
+    });
+  }; */
+  
   handleTaskRemove = (id) => this.setState(prevState => ({
     tasks: prevState.tasks.filter(task => task.id !== id)
   }));
@@ -104,7 +115,10 @@ class App extends Component {
       //isIntroVisible,
       isBoardVisible,
       isCreatorVisible,
-      tasks
+      tasks,
+      cardOffsetIndex,
+      cardOffsetX,
+      cardOffsetY
     } = this.state;
 
     const boardClass = classNames("App__board", {
@@ -140,6 +154,9 @@ class App extends Component {
                   key={`dnd-${task.dateCreated}`}
                   dragIndex={index}
                   onTaskOrderChange={this.handleTaskOrder}
+                  onCardDrop={this.handleDropTransition}
+                  cardOffsetX={index === cardOffsetIndex ? cardOffsetX : 0}
+                  cardOffsetY={index === cardOffsetIndex ? cardOffsetY : 0}
                 >
                   <Task
                     task={task}

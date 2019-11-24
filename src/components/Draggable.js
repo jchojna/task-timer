@@ -9,17 +9,26 @@ class Draggable extends Component {
     this.state = {
       cardsSizes: [],
       isDragging: false,
+      
+      clientX: 0,
+      clientY: 0,
     
       originalX: 0,
       originalY: 0,
     
+      //translateX: this.props.cardOffsetX,
+      //translateY: this.props.cardOffsetY
       translateX: 0,
-      translateY: 0,
-    
-      lastTranslateX: 0,
-      lastTranslateY: 0
+      translateY: 0
     }
   };
+
+  componentDidMount() {
+    /* setTimeout(() => this.setState({
+      translateX: 0,
+      translateY: 0
+    }), 1); */
+  }
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove);
@@ -27,7 +36,7 @@ class Draggable extends Component {
   }
 
   handleCardCollision = (x, y) => {
-    const { dragIndex, onTaskOrderChange } = this.props;
+    const { dragIndex, onCardDrop, onTaskOrderChange } = this.props;
     const { cardsSizes } = this.state;
 
     return [...cardsSizes].forEach((card, dropIndex) => {
@@ -35,7 +44,48 @@ class Draggable extends Component {
       if (x >= left && x <= left + width && y >= top && y <= top + height) {
 
         if (dragIndex === dropIndex) return;
-        onTaskOrderChange(dragIndex, dropIndex);
+
+        const offsetX = left - cardsSizes[dragIndex].left;
+        const offsetY = top - cardsSizes[dragIndex].top;
+
+        this.setState({
+          translateX: offsetX,
+          translateY: offsetY
+        });
+        //onCardDrop(dropIndex, offsetX, offsetY);
+
+        // DOM manipulation
+        // in order to apply translation style on sibling component
+        // for visual animation effect before react overrides
+        // component's style through props after changing components order
+        const appNodes = this.draggable.current.parentNode.parentNode.children;
+        const cards = [...appNodes]
+          .filter(node => node.firstElementChild.classList.contains('Draggable'));
+        const replacedCard = cards[dropIndex].firstElementChild;
+        replacedCard.style.transform = `translate(${-1 * offsetX}px, ${-1 * offsetY}px)`;
+        // DOM manipulation
+
+        // timeout
+        setTimeout(() => {
+          onTaskOrderChange(dragIndex, dropIndex);
+        }, 300);
+        
+        //onTaskOrderChange(dragIndex, dropIndex);
+      }
+    });
+  }
+
+  handleDrag = (x, y) => {
+    const { dragIndex } = this.props;
+    const { cardsSizes } = this.state;
+
+    return [...cardsSizes].forEach((card, dropIndex) => {
+      const { height, width, left, top } = card;
+      if (x >= left && x <= left + width && y >= top && y <= top + height) {
+
+        if (dragIndex === dropIndex) return;
+
+        // do something
       }
     });
   }
@@ -75,8 +125,8 @@ class Draggable extends Component {
     if (!isDragging) return;
 
     this.setState(prevState => ({
-      translateX: clientX - prevState.originalX + prevState.lastTranslateX,
-      translateY: clientY - prevState.originalY + prevState.lastTranslateY
+      translateX: clientX - prevState.originalX,
+      translateY: clientY - prevState.originalY,
     }),
     () => {
       if (onDrag) {
@@ -86,6 +136,7 @@ class Draggable extends Component {
         });
       }
     });
+    this.handleDrag(clientX, clientY);
   };
 
 
@@ -106,8 +157,6 @@ class Draggable extends Component {
       originalY: 0,
       translateX: 0,
       translateY: 0,
-      //lastTranslateX: this.state.translateX,
-      //lastTranslateY: this.state.translateY,
       isDragging: false
     },
     () => {
@@ -116,14 +165,30 @@ class Draggable extends Component {
       }
     });
     this.handleCardCollision(clientX, clientY);
+
+
+
+
+
+
+
+
+
+
+
+
+
   };
 
   render() {
-    const { children } = this.props;
-    const { isDragging, translateX, translateY } = this.state;
+    const { children, cardOffsetX, cardOffsetY  } = this.props;
+    const { isDragging, translateX, translateY} = this.state;
+
 
     const draggableStyle = {
-      transform: `translate(${translateX}px, ${translateY}px)`
+      transform: `
+        translate(${translateX + cardOffsetX}px, ${translateY + cardOffsetY}px)
+      `
     }
 
     const draggableClass = classNames("Draggable", {
@@ -131,7 +196,8 @@ class Draggable extends Component {
     });
 
     return (
-      <div className={draggableClass}
+      <div
+        className={draggableClass}
         onMouseDown={this.handleMouseDown}
         style={draggableStyle}
         ref={this.draggable}
