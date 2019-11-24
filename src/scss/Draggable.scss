@@ -1,7 +1,11 @@
 .Draggable {
+  position: relative;
+  //border: 1px solid #000;
   
   &--dragging {
     cursor: move;
     opacity: 0.5;
+    z-index: 99;
+    //position: absolute;
   }
 }

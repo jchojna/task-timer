@@ -22,7 +22,7 @@ class Task extends Component {
     } = this.props.task;
 
     this.state = {
-      isMaximized: false,
+      isMaximized: true,
       isTaskRotatingIn: true,
       isTaskRotatingOut: false,
       isTaskMounted: false,

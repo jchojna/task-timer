@@ -124,7 +124,10 @@ class App extends Component {
           <section className={boardClass}>
             {/* TASK CARDS */}
             {tasks.map((task) => (
-              <Draggable>
+              <Draggable
+                id={`dnd-${task.dateCreated}`}
+                key={`dnd-${task.dateCreated}`}
+              >
                 <Task
                   task={task}
                   id={task.dateCreated}

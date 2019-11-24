@@ -5,6 +5,7 @@ import '../scss/Draggable.scss';
 class Draggable extends Component {
   constructor(props) {
     super(props);
+    this.draggable = React.createRef();
     this.state = {
       isDragging: false,
     
@@ -19,14 +20,33 @@ class Draggable extends Component {
     }
   };
 
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('mouseup', this.handleMouseUp);
+  }
+  
+
   handleMouseDown = ({ clientX, clientY }) => {
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
 
-    if (this.props.onDragStart) {
-      this.props.onDragStart();
-      console.log('test');
-    }
+    if (this.props.onDragStart) this.props.onDragStart();
+
+    // get array of objects containing each card size and offset
+    const appNodes = this.draggable.current.parentNode.children;
+    const draggableCards = [...appNodes]
+      .filter(card => card.classList.contains('Draggable'))
+      .map(card => {
+        const { offsetHeight, offsetLeft, offsetTop, offsetWidth } = card;
+        return {
+          height: offsetHeight,
+          width: offsetWidth,
+          left: offsetLeft,
+          top: offsetTop
+        };
+      });
+
+    console.log('draggableCards', draggableCards);
 
     this.setState({
       originalX: clientX,
@@ -92,6 +112,7 @@ class Draggable extends Component {
         //y={translateY}
         isDragging={isDragging}
         style={draggableStyle}
+        ref={this.draggable}
       >
         {children}
       </div>
