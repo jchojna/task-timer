@@ -134,19 +134,21 @@ class App extends Component {
           <section className={boardClass}>
             {/* TASK CARDS */}
             {tasks.map((task, index) => (
-              <Draggable
-                id={`dnd-${task.dateCreated}`}
-                key={`dnd-${task.dateCreated}`}
-                dragIndex={index}
-                onTaskOrderChange={this.handleTaskOrder}
-              >
-                <Task
-                  task={task}
-                  id={task.dateCreated}
-                  key={task.dateCreated}
-                  onTaskRemove={this.handleTaskRemove}
-                />
-              </Draggable>
+              <div className="App__card">
+                <Draggable
+                  id={`dnd-${task.dateCreated}`}
+                  key={`dnd-${task.dateCreated}`}
+                  dragIndex={index}
+                  onTaskOrderChange={this.handleTaskOrder}
+                >
+                  <Task
+                    task={task}
+                    id={task.dateCreated}
+                    key={task.dateCreated}
+                    onTaskRemove={this.handleTaskRemove}
+                  />
+                </Draggable>
+              </div>
             ))}
 
             {/* CREATE NEW TASK */}

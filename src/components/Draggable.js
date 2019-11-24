@@ -47,9 +47,9 @@ class Draggable extends Component {
     if (this.props.onDragStart) this.props.onDragStart();
 
     // get array of objects containing each card size and offset
-    const appNodes = this.draggable.current.parentNode.children;
+    const appNodes = this.draggable.current.parentNode.parentNode.children;
     const cardsSizes = [...appNodes]
-      .filter(card => card.classList.contains('Draggable'))
+      .filter(node => node.firstElementChild.classList.contains('Draggable'))
       .map(card => {
         const { offsetHeight, offsetLeft, offsetTop, offsetWidth } = card;
         return {
@@ -87,6 +87,15 @@ class Draggable extends Component {
       }
     });
   };
+
+
+
+
+
+
+
+
+
 
   handleMouseUp = ({ clientX, clientY }) => {
     window.removeEventListener('mousemove', this.handleMouseMove);
