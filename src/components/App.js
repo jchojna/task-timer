@@ -123,10 +123,11 @@ class App extends Component {
           {/* BOARD OF TASKS */}
           <section className={boardClass}>
             {/* TASK CARDS */}
-            {tasks.map((task) => (
+            {tasks.map((task, index) => (
               <Draggable
                 id={`dnd-${task.dateCreated}`}
                 key={`dnd-${task.dateCreated}`}
+                index={index}
               >
                 <Task
                   task={task}

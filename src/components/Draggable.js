@@ -7,6 +7,7 @@ class Draggable extends Component {
     super(props);
     this.draggable = React.createRef();
     this.state = {
+      cardsSizes: [],
       isDragging: false,
     
       originalX: 0,
@@ -24,6 +25,16 @@ class Draggable extends Component {
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
   }
+
+  handleCardCollision = (x, y) => {
+    const { cardsSizes } = this.state;
+    return [...cardsSizes].forEach((card, index) => {
+      const { height, width, left, top } = card;
+      if (x >= left && x <= left + width && y >= top && y <= top + height) {
+        console.log(index);
+      }
+    });
+  }
   
 
   handleMouseDown = ({ clientX, clientY }) => {
@@ -34,7 +45,7 @@ class Draggable extends Component {
 
     // get array of objects containing each card size and offset
     const appNodes = this.draggable.current.parentNode.children;
-    const draggableCards = [...appNodes]
+    const cardsSizes = [...appNodes]
       .filter(card => card.classList.contains('Draggable'))
       .map(card => {
         const { offsetHeight, offsetLeft, offsetTop, offsetWidth } = card;
@@ -43,15 +54,14 @@ class Draggable extends Component {
           width: offsetWidth,
           left: offsetLeft,
           top: offsetTop
-        };
+        }
       });
-
-    console.log('draggableCards', draggableCards);
 
     this.setState({
       originalX: clientX,
       originalY: clientY,
-      isDragging: true
+      isDragging: true,
+      cardsSizes
     });
   };
 
@@ -73,6 +83,7 @@ class Draggable extends Component {
         });
       }
     });
+    this.handleCardCollision(clientX, clientY);
   };
 
   handleMouseUp = () => {
@@ -108,9 +119,6 @@ class Draggable extends Component {
     return (
       <div className={draggableClass}
         onMouseDown={this.handleMouseDown}
-        //x={translateX}
-        //y={translateY}
-        isDragging={isDragging}
         style={draggableStyle}
         ref={this.draggable}
       >
