@@ -128,6 +128,10 @@ class App extends Component {
       "App__newTaskButton--visible": !isCreatorVisible
     });
 
+    const creatorContainerClass = classNames("App__creator", {
+      "App__creator--maximized": isCreatorVisible
+    });
+
     return (
       <React.StrictMode>
         <div className="App">
@@ -167,7 +171,7 @@ class App extends Component {
             ))}
 
             {/* CREATE NEW TASK */}
-            <section className="App__creator">
+            <section className={creatorContainerClass}>
               <button
                 className={newTaskButtonClass}
                 onClick={this.handleNewTaskButton}
