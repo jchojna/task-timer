@@ -23,7 +23,7 @@ class Task extends Component {
 
     this.state = {
       isMaximized: true,
-      isTaskRotatingIn: true,
+      isTaskRotatingIn: false,
       isTaskRotatingOut: false,
       isTaskMounted: false,
       isTimerMounted: false,
@@ -49,9 +49,9 @@ class Task extends Component {
 
   componentDidMount = () => {
     this.setState({ isTaskMounted: true });
-    this.timeoutId = setTimeout(() => this.setState({
+    /* this.timeoutId = setTimeout(() => this.setState({
       isTaskRotatingIn: false
-    }), cardFlipTime);
+    }), cardFlipTime); */
   }
 
   componentWillUnmount = () => {

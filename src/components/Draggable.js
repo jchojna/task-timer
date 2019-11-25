@@ -6,6 +6,7 @@ class Draggable extends Component {
   constructor(props) {
     super(props);
     this.draggable = React.createRef();
+    this.transitionTime = 300;
     this.state = {
       cardsSizes: [],
       isDragging: false,
@@ -29,9 +30,9 @@ class Draggable extends Component {
     return [...cardsSizes].forEach((card, dropIndex) => {
       const { height, width, left, top } = card;
       if (x >= left && x <= left + width && y >= top && y <= top + height) {
-
+        
         if (dragIndex === dropIndex) return;
-
+        
         const offsetX = left - cardsSizes[dragIndex].left;
         const offsetY = top - cardsSizes[dragIndex].top;
 
@@ -51,7 +52,7 @@ class Draggable extends Component {
         replacedCard.style.transform = `translate(${-1 * offsetX}px, ${-1 * offsetY}px)`;
         // DOM manipulation
 
-        setTimeout(() => onTaskOrderChange(dragIndex, dropIndex), 300);
+        setTimeout(() => onTaskOrderChange(dragIndex, dropIndex), this.transitionTime);
       }
     });
   }
@@ -76,8 +77,8 @@ class Draggable extends Component {
       });
 
     this.setState({
-      originalX: clientX,
-      originalY: clientY,
+      originalX: clientX + window.scrollX,
+      originalY: clientY + window.scrollY,
       cardsSizes
     });
   };
@@ -86,8 +87,8 @@ class Draggable extends Component {
     const { onDrag, onAppStateChange } = this.props;
 
     this.setState(prevState => ({
-      translateX: clientX - prevState.originalX,
-      translateY: clientY - prevState.originalY,
+      translateX: clientX + window.scrollX - prevState.originalX,
+      translateY: clientY + window.scrollY - prevState.originalY,
       isDragging: true,
     }),
     () => {
@@ -119,7 +120,9 @@ class Draggable extends Component {
       }
     });
     onAppStateChange({ isDraggingMode: false });
-    this.handleCardCollision(clientX, clientY);
+    const absoluteClientX = clientX + window.scrollX;
+    const absoluteClientY = clientY + window.scrollY;
+    this.handleCardCollision(absoluteClientX, absoluteClientY);
   };
 
   handleMouseOver = () => {

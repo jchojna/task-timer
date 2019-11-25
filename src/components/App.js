@@ -29,8 +29,8 @@ class App extends Component {
           totalBreakTime: 500000,
           totalTaskTimeArray: ["20","00","00"],
           totalBreakTimeArray: ["05","00","00"],
-          id: 87654564554,
-          dateCreated: 87654564554
+          id: 56436543654,
+          dateCreated: 56436543654
         },
         {
           taskName: "Do exercices",
@@ -42,8 +42,8 @@ class App extends Component {
           totalBreakTime: 1000,
           totalTaskTimeArray: ["00","01","00"],
           totalBreakTimeArray: ["00","01","00"],
-          id: 6543563456543,
-          dateCreated: 6543563456543
+          id: 6546567854,
+          dateCreated: 6546567854
         },
         {
           taskName: "Test task for preview purposes",
@@ -55,8 +55,8 @@ class App extends Component {
           totalBreakTime: 100000,
           totalTaskTimeArray: ["05","00","00"],
           totalBreakTimeArray: ["01","00","00"],
-          id: 76456456435,
-          dateCreated: 76456456435
+          id: 90798758576,
+          dateCreated: 90798758576
         },
         {
           taskName: "Another task for testing",
@@ -68,9 +68,9 @@ class App extends Component {
           totalBreakTime: 1000,
           totalTaskTimeArray: ["00","01","00"],
           totalBreakTimeArray: ["00","01","00"],
-          id: 3245356498,
-          dateCreated: 3245356498
-        },
+          id: 654765387657985,
+          dateCreated: 654765387657985
+        }
       ],
       // validity
       isTaskNameValid: false,
