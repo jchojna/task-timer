@@ -1,0 +1,75 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.CardButtons {
+  column-gap: 10px;
+  display: none;
+  grid-area: buttons;
+  grid-template-columns: repeat(3, auto);
+  justify-self: end;
+
+  &--maximized {
+    display: grid;
+  }
+
+  &__minmax {
+    position: relative;
+  }
+
+  &__button {
+    @include button;
+    @include flex-center;
+    fill: none;
+    stroke: $color-background;
+    stroke-width: 10;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    transition: opacity $card-edit, visibility 0s $card-edit;
+    width: $close-button;
+    visibility: hidden;
+    
+    &:hover {
+      stroke: $color-warning;
+    }
+  
+    &--accept {
+      opacity: 0;
+      stroke: $color-white;
+    }
+    
+    &--disabled {
+      @include disabled;
+    }
+
+    &--minimize {
+      opacity: 0;
+    }
+    
+    &--maximize {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+    
+    &--visible {
+      opacity: 1;
+      transition: opacity $card-edit, visibility 0s;
+      visibility: visible;
+    }
+  }
+
+  &__svg {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: $media-md) {
+
+    & {
+
+    }
+  }
+}

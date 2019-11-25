@@ -8,7 +8,7 @@
   //border: $card-border;
   background-color: $color-light-background;
   border-radius: $radius-card;
-  box-shadow: $card-shadow;
+  box-shadow: $card-shadow-md;
   display: grid;
   grid-template-areas:
     ".        closeBtn"
@@ -18,8 +18,8 @@
   height: 100%;
   left: 0;
   overflow: hidden;
-  padding: $card-padding;
-  padding-bottom: $card-padding + $progressBar-height;
+  padding: $card-padding-md;
+  padding-bottom: $card-padding-md + $progressBar-height;
   position: absolute;
   top: 0;
   width: 100%;

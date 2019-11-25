@@ -10,6 +10,7 @@ const TotalTime = (props) => {
     labelName,
     modifier,
     id,
+    isMaximized,
     minutes,
     seconds,
     isValid,
@@ -22,6 +23,7 @@ const TotalTime = (props) => {
   } = props;
 
   const totalTimeClass = classNames(`TotalTime TotalTime--${modifier}`, {
+    "TotalTime--maximized": isMaximized,
     "TotalTime--disabled": isDisabled
   });
 

@@ -20,8 +20,12 @@
     pointer-events: none;
   }
 
-  &:hover {
-    cursor: text;
+  &--maximized {
+
+
+    &:hover {
+      cursor: text;
+    }
   }
 
   &__text {
@@ -88,6 +92,13 @@
 
     &--visible {
       visibility: visible;
+    }
+  }
+
+  @media only screen and (min-width: $media-md) {
+
+    & {
+      
     }
   }
 }

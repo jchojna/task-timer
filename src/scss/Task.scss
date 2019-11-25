@@ -3,14 +3,26 @@
 @import "_animations.scss";
 
 .Task {
+  align-items: start;
+  background-color: $color-primary;
+  //border: $card-border;
+  border-radius: $radius-card;
+  box-shadow: $card-shadow-xs;
+  cursor: pointer;
+  display: grid;
+    grid-template-areas:
+    "buttons  "
+    "taskName ";
+  justify-items: center;
+  overflow: hidden;
+  padding: $card-padding-xs;
+  position: relative;
+  //transform: rotate3d(0, 1, 0, -90deg);
+  transition: background-color $card-edit;
+  user-select: none;
+  visibility: hidden;
 
-  .Task__container {
-    align-items: start;
-    background-color: $color-primary;
-    //border: $card-border;
-    border-radius: $radius-card;
-    box-shadow: $card-shadow;
-    display: grid;
+  &--maximized {
     gap: 10px;
     grid-template-areas:
       "buttons  "
@@ -18,114 +30,70 @@
       "taskTime "
       "breakTime"
       "startBtn ";
-    grid-template-rows: auto 1fr repeat(3, auto);
     height: 100%;
-    justify-items: center;
-    overflow: hidden;
-    padding: $card-padding;
-    position: relative;
-    transform: rotate3d(0, 1, 0, -90deg);
-    transition: background-color $card-edit;
-    user-select: none;
-    visibility: hidden;
-
-    &--visible {
-      visibility: visible;
-    }
-
-    &--rotateIn {
-      animation: rotateIn ease-out forwards;
-    }
-
-    &--rotateOut {
-      animation: rotateOut ease-in forwards;
-    }
-
-    &--editMode {
-      background-color: $color-light-background;
-    }
+    min-height: 540px;
+    grid-template-rows: auto 1fr repeat(3, auto);
   }
 
-  &__buttons {
-    column-gap: 10px;
-    display: grid;
-    grid-area: buttons;
-    grid-template-columns: repeat(2, auto);
-    justify-self: end;
+  &--visible {
+    visibility: visible;
   }
 
-  &__button {
+  &--rotateIn {
+    animation: rotateIn ease-out forwards;
+  }
+
+  &--rotateOut {
+    animation: rotateOut ease-in forwards;
+  }
+
+  &--editMode {
+    background-color: $color-light-background;
+  }
+
+  &__startButton {
     @include button;
-    @include flex-center;
-    fill: $color-background;
-    transition: opacity $card-edit;
-    width: $close-button;
-    
+    align-items: center;
+    border: 3px solid $color-background;
+    border-radius: 50%;
+    display: none;
+    fill: none;
+    grid-area: startBtn;
+    height: 70px;
+    justify-content: center;
+    margin: 10px;
+    stroke: $color-background;
+    stroke-width: 25;
+    transition:
+      background-color $hover-icon,
+      border-color $hover-icon,
+      stroke $hover-icon;
+    width: 70px;
+  
     &:hover {
-      fill: $color-warning;
+      background-color: $color-warning;
+      border-color: $color-warning;
+      stroke: $color-primary;
     }
-
-    &--accept {
-      fill: $color-white;
-      opacity: 0;
-      transition: opacity $card-edit, visibility 0s $card-edit;
-      visibility: hidden;
+  
+    &--maximized {
+      display: flex;
     }
-        
-    &--visible {
-      opacity: 1;
-      transition: opacity $card-edit, visibility 0s;
-      visibility: visible;
-    }
-    
+      
     &--disabled {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    &--start {
-      @include flex-center;
-      border: 3px solid $color-background;
-      border-radius: 50%;
-      fill: none;
-      grid-area: startBtn;
-      height: 70px;
-      margin: 10px;
-      stroke: $color-background;
-      stroke-width: 25;
-      transition:
-        background-color $hover-icon,
-        border-color $hover-icon,
-        opacity $card-edit,
-        stroke $hover-icon;
-      width: 70px;
-    
-      &:hover {
-        fill: none;
-        background-color: $color-warning;
-        border-color: $color-warning;
-        stroke: $color-primary;
-      }
+      @include disabled;
     }
   }
-
+  
   &__svg {
     width: 100%;
   }
 
-  &__totalTime {
-    font-family: 'Inconsolata';
-    font-size: 2em;
-    font-weight: 800;
-    margin: 0;
+  @media only screen and (min-width: $media-md) {
 
-    &--task {
-      font-size: 2.5em;
-      grid-area: taskTime;
-    }
-
-    &--break {
-      grid-area: breakTime;
+    & {
+      box-shadow: $card-shadow-md;
+      padding: $card-padding-md;
     }
   }
 }

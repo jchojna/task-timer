@@ -9,6 +9,7 @@ const EditableText = (props) => {
   const {
     output,
     isValid,
+    isMaximized,
     taskNameLength,
     isDisabled,
     isEditMode,
@@ -17,7 +18,8 @@ const EditableText = (props) => {
   } = props;
 
   const editableTextClass = classNames("taskName", {
-    "taskName--disabled": isDisabled
+    "taskName--disabled": isDisabled,
+    "taskName--maximized": isMaximized
   });
 
   const textClass = classNames("taskName__text", {
