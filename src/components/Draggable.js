@@ -10,13 +10,8 @@ class Draggable extends Component {
       cardsSizes: [],
       isDragging: false,
       isHovered: false,
-      
-      clientX: 0,
-      clientY: 0,
-    
       originalX: 0,
       originalY: 0,
-
       translateX: 0,
       translateY: 0
     }
@@ -56,16 +51,12 @@ class Draggable extends Component {
         replacedCard.style.transform = `translate(${-1 * offsetX}px, ${-1 * offsetY}px)`;
         // DOM manipulation
 
-        // timeout
-        setTimeout(() => {
-          onTaskOrderChange(dragIndex, dropIndex);
-        }, 300);
+        setTimeout(() => onTaskOrderChange(dragIndex, dropIndex), 300);
       }
     });
   }
 
   handleMouseDown = ({ clientX, clientY }) => {
-    const { onAppStateChange } = this.props;
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
 
@@ -87,21 +78,17 @@ class Draggable extends Component {
     this.setState({
       originalX: clientX,
       originalY: clientY,
-      isDragging: true,
       cardsSizes
     });
-    onAppStateChange({ isDraggingMode: true });
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
-    const { isDragging } = this.state;
-    const { onDrag } = this.props;
-
-    if (!isDragging) return;
+    const { onDrag, onAppStateChange } = this.props;
 
     this.setState(prevState => ({
       translateX: clientX - prevState.originalX,
       translateY: clientY - prevState.originalY,
+      isDragging: true,
     }),
     () => {
       if (onDrag) {
@@ -111,6 +98,7 @@ class Draggable extends Component {
         });
       }
     });
+    onAppStateChange({ isDraggingMode: true });
   };
 
   handleMouseUp = ({ clientX, clientY }) => {
@@ -153,11 +141,11 @@ class Draggable extends Component {
     const { children } = this.props;
     const { isDragging, isHovered, translateX, translateY} = this.state;
 
-    const draggableStyle = {
-      transform: `
-        translate(${translateX}px, ${translateY}px)
-      `
-    }
+    const draggableStyle = isDragging
+    ? { transform: `translate(${translateX}px, ${translateY}px)` }
+    : isHovered
+      ? { transform: `rotate3d(0, 1, 0, -30deg)` }
+      : { transform: `translate(${translateX}px, ${translateY}px)` }
 
     const draggableClass = classNames("Draggable", {
       "Draggable--dragging": isDragging,
