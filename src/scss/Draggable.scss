@@ -12,5 +12,10 @@
     z-index: 2;
     //position: absolute;
     transition: transform 0s;
+    pointer-events: none;
+  }
+
+  &--hovered {
+    transform: translateY(50px);
   }
 }

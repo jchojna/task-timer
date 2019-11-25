@@ -9,26 +9,18 @@ class Draggable extends Component {
     this.state = {
       cardsSizes: [],
       isDragging: false,
+      isHovered: false,
       
       clientX: 0,
       clientY: 0,
     
       originalX: 0,
       originalY: 0,
-    
-      //translateX: this.props.cardOffsetX,
-      //translateY: this.props.cardOffsetY
+
       translateX: 0,
       translateY: 0
     }
   };
-
-  componentDidMount() {
-    /* setTimeout(() => this.setState({
-      translateX: 0,
-      translateY: 0
-    }), 1); */
-  }
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove);
@@ -36,7 +28,7 @@ class Draggable extends Component {
   }
 
   handleCardCollision = (x, y) => {
-    const { dragIndex, onCardDrop, onTaskOrderChange } = this.props;
+    const { dragIndex, onTaskOrderChange } = this.props;
     const { cardsSizes } = this.state;
 
     return [...cardsSizes].forEach((card, dropIndex) => {
@@ -52,7 +44,6 @@ class Draggable extends Component {
           translateX: offsetX,
           translateY: offsetY
         });
-        //onCardDrop(dropIndex, offsetX, offsetY);
 
         // DOM manipulation
         // in order to apply translation style on sibling component
@@ -69,33 +60,16 @@ class Draggable extends Component {
         setTimeout(() => {
           onTaskOrderChange(dragIndex, dropIndex);
         }, 300);
-        
-        //onTaskOrderChange(dragIndex, dropIndex);
-      }
-    });
-  }
-
-  handleDrag = (x, y) => {
-    const { dragIndex } = this.props;
-    const { cardsSizes } = this.state;
-
-    return [...cardsSizes].forEach((card, dropIndex) => {
-      const { height, width, left, top } = card;
-      if (x >= left && x <= left + width && y >= top && y <= top + height) {
-
-        if (dragIndex === dropIndex) return;
-
-        // do something
       }
     });
   }
 
   handleMouseDown = ({ clientX, clientY }) => {
+    const { onAppStateChange } = this.props;
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
 
     if (this.props.onDragStart) this.props.onDragStart();
-
     // get array of objects containing each card size and offset
     const appNodes = this.draggable.current.parentNode.parentNode.children;
     const cardsSizes = [...appNodes]
@@ -116,6 +90,7 @@ class Draggable extends Component {
       isDragging: true,
       cardsSizes
     });
+    onAppStateChange({ isDraggingMode: true });
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
@@ -136,19 +111,10 @@ class Draggable extends Component {
         });
       }
     });
-    this.handleDrag(clientX, clientY);
   };
 
-
-
-
-
-
-
-
-
-
   handleMouseUp = ({ clientX, clientY }) => {
+    const { onAppStateChange } = this.props;
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
 
@@ -164,43 +130,48 @@ class Draggable extends Component {
         this.props.onDragEnd();
       }
     });
+    onAppStateChange({ isDraggingMode: false });
     this.handleCardCollision(clientX, clientY);
-
-
-
-
-
-
-
-
-
-
-
-
-
   };
 
-  render() {
-    const { children, cardOffsetX, cardOffsetY  } = this.props;
-    const { isDragging, translateX, translateY} = this.state;
+  handleMouseOver = () => {
+    const { isDraggingMode } = this.props;
+    if (isDraggingMode) {
+      if (this.state.isDragging) return;
+      this.setState({isHovered: true});
+    }
+  }
+  
+  handleMouseOut = () => {
+    const { isDraggingMode } = this.props;
+    if (isDraggingMode) {
+      this.setState({isHovered: false});
+    }
+  }
 
+  render() {
+    const { children } = this.props;
+    const { isDragging, isHovered, translateX, translateY} = this.state;
 
     const draggableStyle = {
       transform: `
-        translate(${translateX + cardOffsetX}px, ${translateY + cardOffsetY}px)
+        translate(${translateX}px, ${translateY}px)
       `
     }
 
     const draggableClass = classNames("Draggable", {
-      "Draggable--dragging": isDragging
+      "Draggable--dragging": isDragging,
+      "Draggable--hovered": isHovered
     });
 
     return (
       <div
         className={draggableClass}
-        onMouseDown={this.handleMouseDown}
         style={draggableStyle}
         ref={this.draggable}
+        onMouseDown={this.handleMouseDown}
+        onMouseOver={this.handleMouseOver}
+        onMouseOut={this.handleMouseOut}
       >
         {children}
       </div>

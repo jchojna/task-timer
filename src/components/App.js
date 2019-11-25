@@ -14,9 +14,10 @@ class App extends Component {
       isIntroVisible: true,
       isBoardVisible: false,
       isCreatorVisible: false,
-      cardOffsetX: 0,
-      cardOffsetY: 0,
-      cardOffsetIndex: null,
+      isDraggingMode: false,
+      //cardOffsetX: 0,
+      //cardOffsetY: 0,
+      //cardOffsetIndex: null,
       tasks: [
         {
           taskName: "Add some feature to TaskTimer App",
@@ -116,9 +117,7 @@ class App extends Component {
       isBoardVisible,
       isCreatorVisible,
       tasks,
-      cardOffsetIndex,
-      cardOffsetX,
-      cardOffsetY
+      isDraggingMode,
     } = this.state;
 
     const boardClass = classNames("App__board", {
@@ -150,13 +149,12 @@ class App extends Component {
             {tasks.map((task, index) => (
               <div className="App__card">
                 <Draggable
-                  id={`dnd-${task.dateCreated}`}
+                  id={`dnd-${index}`}
                   key={`dnd-${task.dateCreated}`}
                   dragIndex={index}
                   onTaskOrderChange={this.handleTaskOrder}
-                  onCardDrop={this.handleDropTransition}
-                  cardOffsetX={index === cardOffsetIndex ? cardOffsetX : 0}
-                  cardOffsetY={index === cardOffsetIndex ? cardOffsetY : 0}
+                  onAppStateChange={this.handleStateChange}
+                  isDraggingMode={isDraggingMode}
                 >
                   <Task
                     task={task}
