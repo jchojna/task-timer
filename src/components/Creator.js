@@ -270,6 +270,8 @@ class Creator extends Component {
       "Creator__button--next", {
       "Creator__button--visible": isNextButtonVisible
     });
+    
+    const closeButtonClass = "Creator__button Creator__button--visible Creator__button--close";
 
     const progressBarLoadedStyle = {
       width: isTaskTimeVisible ? `${1/3 * 100}%`
@@ -355,7 +357,7 @@ class Creator extends Component {
 
         {/* CLOSE NEW TASK */}
         <button
-          className="Creator__closeButton"
+          className={closeButtonClass}
           onClick={this.handleCreatorClose}
         >
           <svg className="Creator__svg" viewBox="0 0 512 512">
