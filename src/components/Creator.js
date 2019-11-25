@@ -150,17 +150,9 @@ class Creator extends Component {
   handleBackButton = (e) => {
     e.preventDefault();
     const {
-      isTaskNameVisible,
       isTaskTimeVisible,
       isBreakTimeVisible
     } = this.state;
-
-    if (isTaskNameVisible) {
-      this.setState({
-        isTaskNameVisible: false,
-        slideDirection: "toLeft"
-      });
-    }
 
     if (isTaskTimeVisible) {
       this.setState({

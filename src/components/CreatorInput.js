@@ -35,6 +35,10 @@ const CreatorInput = (props) => {
     "CreatorInput__text--invalid": !isValid && alertFlag
   });
 
+  const timeInputsClass = classNames("CreatorInput__inputs", {
+    "CreatorInput__inputs--invalid": !isValid && alertFlag
+  });
+
   const minutesInputClass = classNames("CreatorInput__input",
     "CreatorInput__input--minutes", {
       "CreatorInput__input--invalid": !isValid && alertFlag
@@ -76,7 +80,7 @@ const CreatorInput = (props) => {
         </div>
 
         : /* TIME INPUT */
-        <div className="CreatorInput__inputs">
+        <div className={timeInputsClass}>
           <input
             id={modifier}
             name={`${modifier}Minutes`}
