@@ -151,10 +151,12 @@ class Task extends Component {
   }
 
   handleStartButton = () => {
+    const { onAppStateChange } = this.props;
     this.setState({
       isTaskRotatingOut: true,
       isTimerMounted: true
     });
+    onAppStateChange({ isFixed: true });
   }
 
   handleKeyPress = (key) => {

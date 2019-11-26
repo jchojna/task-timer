@@ -11,6 +11,7 @@ class Draggable extends Component {
       cardsSizes: [],
       isDragging: false,
       isHovered: false,
+      isFixed: false,
       originalX: 0,
       originalY: 0,
       translateX: 0,
@@ -22,6 +23,8 @@ class Draggable extends Component {
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
   }
+  
+  handleStateChange = (object) => this.setState(object);
 
   handleCardCollision = (x, y) => {
     const { dragIndex, onTaskOrderChange } = this.props;
@@ -58,48 +61,52 @@ class Draggable extends Component {
   }
 
   handleMouseDown = ({ clientX, clientY }) => {
-    window.addEventListener('mousemove', this.handleMouseMove);
-    window.addEventListener('mouseup', this.handleMouseUp);
-
-    if (this.props.onDragStart) this.props.onDragStart();
-    // get array of objects containing each card size and offset
-    const appNodes = this.draggable.current.parentNode.parentNode.children;
-    const cardsSizes = [...appNodes]
-      .filter(node => node.firstElementChild.classList.contains('Draggable'))
-      .map(card => {
-        const { offsetHeight, offsetLeft, offsetTop, offsetWidth } = card;
-        return {
-          height: offsetHeight,
-          width: offsetWidth,
-          left: offsetLeft,
-          top: offsetTop
-        }
+    if (!this.state.isFixed) {
+      window.addEventListener('mousemove', this.handleMouseMove);
+      window.addEventListener('mouseup', this.handleMouseUp);
+  
+      if (this.props.onDragStart) this.props.onDragStart();
+      // get array of objects containing each card size and offset
+      const appNodes = this.draggable.current.parentNode.parentNode.children;
+      const cardsSizes = [...appNodes]
+        .filter(node => node.firstElementChild.classList.contains('Draggable'))
+        .map(card => {
+          const { offsetHeight, offsetLeft, offsetTop, offsetWidth } = card;
+          return {
+            height: offsetHeight,
+            width: offsetWidth,
+            left: offsetLeft,
+            top: offsetTop
+          }
+        });
+  
+      this.setState({
+        originalX: clientX + window.scrollX,
+        originalY: clientY + window.scrollY,
+        cardsSizes
       });
-
-    this.setState({
-      originalX: clientX + window.scrollX,
-      originalY: clientY + window.scrollY,
-      cardsSizes
-    });
+    }
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
-    const { onDrag, onAppStateChange } = this.props;
-
-    this.setState(prevState => ({
-      translateX: clientX + window.scrollX - prevState.originalX,
-      translateY: clientY + window.scrollY - prevState.originalY,
-      isDragging: true,
-    }),
-    () => {
-      if (onDrag) {
-        onDrag({
-          translateX: this.state.translateX,
-          translateY: this.state.translateY
-        });
-      }
-    });
-    onAppStateChange({ isDraggingMode: true });
+    if (!this.state.isFixed) {
+      const { onDrag, onAppStateChange } = this.props;
+  
+      this.setState(prevState => ({
+        translateX: clientX + window.scrollX - prevState.originalX,
+        translateY: clientY + window.scrollY - prevState.originalY,
+        isDragging: true,
+      }),
+      () => {
+        if (onDrag) {
+          onDrag({
+            translateX: this.state.translateX,
+            translateY: this.state.translateY
+          });
+        }
+      });
+      onAppStateChange({ isDraggingMode: true });
+    }
   };
 
   handleMouseUp = ({ clientX, clientY }) => {
@@ -163,6 +170,7 @@ class Draggable extends Component {
         onMouseDown={this.handleMouseDown}
         onMouseOver={this.handleMouseOver}
         onMouseOut={this.handleMouseOut}
+        //onDraggableStateChange={this.handleStateChange}
       >
         {children}
       </div>

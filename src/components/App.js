@@ -165,6 +165,7 @@ class App extends Component {
                     id={task.dateCreated}
                     key={task.dateCreated}
                     onTaskRemove={this.handleTaskRemove}
+                    onAppStateChange={this.handleStateChange}
                   />
                 </Draggable>
               </div>
