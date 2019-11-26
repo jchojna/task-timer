@@ -209,7 +209,7 @@ class Task extends Component {
       "Task--visible": isTaskMounted,
       "Task--maximized": isMaximized,
       "Task--editMode": editModeActive,
-      //"Task--rotateIn": isTaskRotatingIn && isTaskMounted,
+      "Task--rotateIn": isTaskRotatingIn && isTaskMounted,
       "Task--rotateOut": isTaskRotatingOut && isTaskMounted
     });
 

@@ -13,10 +13,11 @@
     "buttons  "
     "taskName ";
   justify-items: center;
+  min-height: 50px;
   overflow: hidden;
   padding: $card-padding-xs;
   position: relative;
-  transition: background-color $card-edit;
+  transition: background-color $card-edit, min-height $card-edit;
   user-select: none;
   visibility: hidden;
   
@@ -31,9 +32,10 @@
       "taskTime "
       "breakTime"
       "startBtn ";
+    grid-template-rows: auto 1fr repeat(3, auto);
     height: 100%;
     min-height: $card-min-height;
-    grid-template-rows: auto 1fr repeat(3, auto);
+    transition: background-color $card-edit;
   }
 
   &--visible {
