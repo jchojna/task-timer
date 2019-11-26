@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-import Task from './Task';
 import Creator from './Creator';
 import Draggable from './Draggable';
 //import Intro from './Intro';
@@ -153,21 +152,15 @@ class App extends Component {
             {tasks.map((task, index) => (
               <div className="App__card">
                 <Draggable
-                  id={`dnd-${index}`}
+                  id={`dnd-${task.dateCreated}`}
                   key={`dnd-${task.dateCreated}`}
                   dragIndex={index}
                   onTaskOrderChange={this.handleTaskOrder}
                   onAppStateChange={this.handleStateChange}
                   isDraggingMode={isDraggingMode}
-                >
-                  <Task
-                    task={task}
-                    id={task.dateCreated}
-                    key={task.dateCreated}
-                    onTaskRemove={this.handleTaskRemove}
-                    onAppStateChange={this.handleStateChange}
-                  />
-                </Draggable>
+                  task={task}
+                  onTaskRemove={this.handleTaskRemove}
+                />
               </div>
             ))}
 

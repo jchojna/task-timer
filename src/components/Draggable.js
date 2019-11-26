@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import Task from './Task';
 import '../scss/Draggable.scss';
 
 class Draggable extends Component {
@@ -148,7 +149,7 @@ class Draggable extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { task, onTaskRemove, onAppStateChange } = this.props;
     const { isDragging, isHovered, translateX, translateY} = this.state;
 
     const draggableStyle = isDragging
@@ -172,7 +173,13 @@ class Draggable extends Component {
         onMouseOut={this.handleMouseOut}
         //onDraggableStateChange={this.handleStateChange}
       >
-        {children}
+        <Task
+          task={task}
+          id={task.dateCreated}
+          key={task.dateCreated}
+          onTaskRemove={onTaskRemove}
+          onAppStateChange={onAppStateChange}
+        />
       </div>
     );
   }
