@@ -52,6 +52,7 @@
     font-family: "Inconsolata";
     grid-template-columns: repeat(2, 1fr) auto repeat(2, 1fr);
     justify-items: center;
+    outline: none;
     transition:
       background-color $card-edit,
       border-color $card-edit,

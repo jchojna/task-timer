@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import Creator from './Creator';
-import Draggable from './Draggable';
-//import Intro from './Intro';
+import Card from './Card';
+import Intro from './Intro';
 import '../scss/App.scss';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.replacedCard = React.createRef();
     this.state = {
       // visibility
-      isIntroVisible: true,
+      isIntroVisible: false,
       isBoardVisible: false,
       isCreatorVisible: false,
       isDraggingMode: false,
@@ -71,6 +72,13 @@ class App extends Component {
           dateCreated: 654765387657985
         }
       ],
+      // cards
+      cardsSizes: [],
+      lastDraggedCardIndex: null,
+      lastHoveredCardIndex: null,
+      hoveredOffsetX: 0,
+      hoveredOffsetY: 0,
+      noTransitionMode: false,
       // validity
       isTaskNameValid: false,
       isTimeInputValid: false
@@ -112,11 +120,16 @@ class App extends Component {
   render() {
 
     const {
-      //isIntroVisible,
+      isIntroVisible,
       isBoardVisible,
       isCreatorVisible,
       tasks,
       isDraggingMode,
+      lastHoveredCardIndex,
+      lastDraggedCardIndex,
+      hoveredOffsetX,
+      hoveredOffsetY,
+      cardsSizes
     } = this.state;
 
     const boardClass = classNames("App__board", {
@@ -137,31 +150,34 @@ class App extends Component {
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
 
           { /* LOGO ANIMATION */
-            /* isIntroVisible
+            isIntroVisible
             ?
             <Intro
               isIntroVisible={isIntroVisible}
               onAppStateChange={this.handleStateChange}
             />
-            : <div className="empty"></div> */
+            : <div className="empty"></div>
           }
 
           {/* BOARD OF TASKS */}
           <section className={boardClass}>
             {/* TASK CARDS */}
             {tasks.map((task, index) => (
-              <div className="App__card">
-                <Draggable
-                  id={`dnd-${task.dateCreated}`}
-                  key={`dnd-${task.dateCreated}`}
-                  dragIndex={index}
-                  onTaskOrderChange={this.handleTaskOrder}
-                  onAppStateChange={this.handleStateChange}
-                  isDraggingMode={isDraggingMode}
-                  task={task}
-                  onTaskRemove={this.handleTaskRemove}
-                />
-              </div>
+              <Card
+                id={`dnd-${task.dateCreated}`}
+                key={`dnd-${task.dateCreated}`}
+                task={task}
+                cardIndex={index}
+                onTaskOrderChange={this.handleTaskOrder}
+                onAppStateChange={this.handleStateChange}
+                onTaskRemove={this.handleTaskRemove}
+                isDraggingMode={isDraggingMode}
+                lastHoveredCardIndex={lastHoveredCardIndex}
+                lastDraggedCardIndex={lastDraggedCardIndex}
+                hoveredOffsetX={hoveredOffsetX}
+                hoveredOffsetY={hoveredOffsetY}
+                cardsSizes={cardsSizes}
+              />
             ))}
 
             {/* CREATE NEW TASK */}

@@ -32,25 +32,8 @@
     } */
   }
 
-  &__card {
-    align-self: start;
-    perspective: 800px;
-    z-index: 0;
-
-    &::after {
-      border: 5px solid $color-primary;
-      border-radius: $radius-card;
-      bottom: 0;
-      content: "";
-      left: 0;
-      pointer-events: none;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-  }
-
   &__creator {
+    order: 999;
     position: relative;
     width: 100%;
 
