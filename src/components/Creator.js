@@ -53,7 +53,7 @@ class Creator extends Component {
   }
 
   addNewTask = () => {
-    const { onAppStateChange } = this.props;
+    const { onBoardStateChange } = this.props;
     const {
       creatorTaskName,
       creatorTaskMinutes,
@@ -82,7 +82,7 @@ class Creator extends Component {
       id: date
     };
     // add new task to app state
-    onAppStateChange(prevState => ({
+    onBoardStateChange(prevState => ({
       isCreatorVisible: false,
       tasks: [...prevState.tasks, newTask]
     }));
@@ -215,8 +215,8 @@ class Creator extends Component {
 
   handleCreatorClose = (e) => {
     e.preventDefault();
-    const { onAppStateChange } = this.props;
-    onAppStateChange({ isCreatorVisible: false });
+    const { onBoardStateChange } = this.props;
+    onBoardStateChange({ isCreatorVisible: false });
   }
 
   render() {

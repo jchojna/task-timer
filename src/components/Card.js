@@ -15,8 +15,8 @@ class Card extends Component {
       originalY: 0,
       translateX: 0,
       translateY: 0
-    }
-  };
+    };
+  }
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove);
@@ -35,7 +35,7 @@ class Card extends Component {
   handleStateChange = (object) => this.setState(object);
 
   handleCardsSizes = () => {
-    const { onAppStateChange } = this.props;
+    const { onBoardStateChange } = this.props;
     const appNodes = this.card.current.parentNode.children;
 
     const cardsSizes = [...appNodes]
@@ -50,11 +50,11 @@ class Card extends Component {
         }
       }
     );
-    onAppStateChange({ cardsSizes });
+    onBoardStateChange({ cardsSizes });
   }
 
   handleMouseDown = ({ clientX, clientY }) => {
-    const { onAppStateChange } = this.props;
+    const { onBoardStateChange } = this.props;
 
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
@@ -65,14 +65,14 @@ class Card extends Component {
     });
     this.handleCardsSizes();
 
-    onAppStateChange({
+    onBoardStateChange({
       isPlaceholderVisible: true
     });
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
     
-    const { onAppStateChange, cardIndex, cardsSizes } = this.props;
+    const { onBoardStateChange, cardIndex, cardsSizes } = this.props;
     const xPosition = clientX + window.scrollX;
     const yPosition = clientY + window.scrollY;
     const draggedCardSizes = cardsSizes[cardIndex];
@@ -99,13 +99,13 @@ class Card extends Component {
       const offsetX = draggedCardSizes.left - hoveredCardSizes.left;
       const offsetY = draggedCardSizes.top - hoveredCardSizes.top;
   
-      onAppStateChange({
+      onBoardStateChange({
         hoveredOffsetX: offsetX,
         hoveredOffsetY: offsetY
       });
     }
 
-    onAppStateChange({
+    onBoardStateChange({
       isDraggingMode: true,
       draggedCardIndex: cardIndex,
       hoveredCardIndex: cardIndex !== hoveredCardIndex ? hoveredCardIndex : -1
@@ -115,7 +115,7 @@ class Card extends Component {
   handleMouseUp = () => {
 
     const {
-      onAppStateChange,
+      onBoardStateChange,
       draggedCardIndex,
       hoveredCardIndex,
       cardsSizes } = this.props;
@@ -168,12 +168,12 @@ class Card extends Component {
       onTaskOrderChange(draggedCardIndex, hoveredCardIndex);
     }
 
-    onAppStateChange({
+    onBoardStateChange({
       isDraggingMode: false
     });
 
     const timeoutId = setTimeout(() => {
-      onAppStateChange({
+      onBoardStateChange({
         draggedCardIndex: -1,
         hoveredCardIndex: -1
       });
@@ -191,7 +191,7 @@ class Card extends Component {
       hoveredCardIndex,
       hoveredOffsetX,
       hoveredOffsetY,
-      onAppStateChange
+      onBoardStateChange
     } = this.props;
 
     const {
@@ -223,7 +223,7 @@ class Card extends Component {
           id={task.dateCreated}
           onTaskRemove={onTaskRemove}
           onCardStateChange={this.handleStateChange}
-          onAppStateChange={onAppStateChange}
+          onBoardStateChange={onBoardStateChange}
         />
       </div>
     );

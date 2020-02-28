@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-import Creator from './Creator';
-import Card from './Card';
-import CardPlaceholder from './CardPlaceholder';
+import Board from './Board';
 import Intro from './Intro';
 import '../scss/App.scss';
 
@@ -13,149 +11,40 @@ class App extends Component {
     this.state = {
       // visibility
       isIntroVisible: false,
+      isLoginVisible: true,
       isBoardVisible: false,
-      isCreatorVisible: false,
-      isDraggingMode: false,
-      isPlaceholderVisible: false,
-      tasks: [
-        {
-          taskName: "Add some feature to TaskTimer App",
-          taskMinutes: 20,
-          taskSeconds: 0,
-          breakMinutes: 5,
-          breakSeconds: 0,
-          totalTaskTime: 2000000,
-          totalBreakTime: 500000,
-          totalTaskTimeArray: ["20","00","00"],
-          totalBreakTimeArray: ["05","00","00"],
-          id: 56436543654,
-          dateCreated: 56436543654
+      users: {
+        user1: {
+
+
+
+
         },
-        {
-          taskName: "Do exercices",
-          taskMinutes: 0,
-          taskSeconds: 1,
-          breakMinutes: 0,
-          breakSeconds: 1,
-          totalTaskTime: 1000,
-          totalBreakTime: 1000,
-          totalTaskTimeArray: ["00","01","00"],
-          totalBreakTimeArray: ["00","01","00"],
-          id: 6546567854,
-          dateCreated: 6546567854
-        },
-        {
-          taskName: "Test task for preview purposes",
-          taskMinutes: 30,
-          taskSeconds: 0,
-          breakMinutes: 10,
-          breakSeconds: 0,
-          totalTaskTime: 500000,
-          totalBreakTime: 100000,
-          totalTaskTimeArray: ["05","00","00"],
-          totalBreakTimeArray: ["01","00","00"],
-          id: 90798758576,
-          dateCreated: 90798758576
-        },
-        {
-          taskName: "Another task for testing",
-          taskMinutes: 0,
-          taskSeconds: 1,
-          breakMinutes: 0,
-          breakSeconds: 1,
-          totalTaskTime: 1000,
-          totalBreakTime: 1000,
-          totalTaskTimeArray: ["00","01","00"],
-          totalBreakTimeArray: ["00","01","00"],
-          id: 654765387657985,
-          dateCreated: 654765387657985
+        user2: {
+
+
+
+
         }
-      ],
-      // cards
-      cardsSizes: [],
-      draggedCardIndex: -1,
-      hoveredCardIndex: -1,
-      hoveredOffsetX: 0,
-      hoveredOffsetY: 0,
-      noTransitionMode: false,
-      // validity
-      isTaskNameValid: false,
-      isTimeInputValid: false
+      }
     };
   }
 
   componentDidMount = () => {
-    this.setState({isBoardVisible: true});
-    window.addEventListener('resize', this.handleWindowResize);
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener('resize', this.handleWindowResize);
-  }
-
-  handleWindowResize = () => {
-    this.setState({
-      isPlaceholderVisible: false
-    });
   }
 
   handleStateChange = (object) => this.setState(object);
 
-  handleTaskOrder = (dragIndex, dropIndex) => {
-    const { tasks } = this.state;
-    this.setState(prevState => {
-      const newTasks = [...prevState.tasks];
-      newTasks.splice(dragIndex, 1, tasks[dropIndex]);
-      newTasks.splice(dropIndex, 1, tasks[dragIndex]);
-      return { tasks: newTasks };
-    });
-  };
-  
-  handleTaskRemove = (id) => this.setState(prevState => ({
-    tasks: prevState.tasks.filter(task => task.id !== id),
-    isPlaceholderVisible: false
-  }));
-  
-  handleNewTaskButton = () => {
-    this.setState({
-      isCreatorVisible: true,
-      isPlaceholderVisible: false
-    });
-  }
-
   render() {
-
-    const {
-      isIntroVisible,
-      isBoardVisible,
-      isCreatorVisible,
-      tasks,
-      isDraggingMode,
-      isPlaceholderVisible,
-      hoveredCardIndex,
-      draggedCardIndex,
-      hoveredOffsetX,
-      hoveredOffsetY,
-      cardsSizes
-    } = this.state;
-
-    const boardClass = classNames("App__board", {
-      "App__board--visible": isBoardVisible
-    });
-
-    const newTaskButtonClass = classNames("App__newTaskButton", {
-      "App__newTaskButton--visible": !isCreatorVisible
-    });
-
-    const creatorContainerClass = classNames("App__creator", {
-      "App__creator--maximized": isCreatorVisible
-    });
+    const { isIntroVisible, isBoardVisible } = this.state;
 
     return (
       <React.StrictMode>
         <div className="App">
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
-
           { /* LOGO ANIMATION */
             isIntroVisible
             ?
@@ -165,55 +54,12 @@ class App extends Component {
             />
             : <div className="empty"></div>
           }
-
-          {/* BOARD OF TASKS */}
-          <section className={boardClass}>
-            {/* TASK CARDS */}
-            {tasks.map((task, index) => (
-              <Card
-                key={`card-${task.dateCreated}`}
-                task={task}
-                cardIndex={index}
-                onTaskOrderChange={this.handleTaskOrder}
-                onAppStateChange={this.handleStateChange}
-                onTaskRemove={this.handleTaskRemove}
-                isDraggingMode={isDraggingMode}
-                hoveredCardIndex={hoveredCardIndex}
-                draggedCardIndex={draggedCardIndex}
-                hoveredOffsetX={hoveredOffsetX}
-                hoveredOffsetY={hoveredOffsetY}
-                cardsSizes={cardsSizes}
-              />
-            ))}
-
-            {/* CARDS PLACEHOLDERS */}
-            {tasks.map((task, index) => (
-              <CardPlaceholder
-                key={`placeholder-${index}`}
-                placeholderIndex={index}
-                cardsSizes={cardsSizes}
-                isPlaceholderVisible={isPlaceholderVisible}
-              />
-            ))}
-
-            {/* CREATE NEW TASK */}
-            <section className={creatorContainerClass}>
-              <button
-                className={newTaskButtonClass}
-                onClick={this.handleNewTaskButton}
-              >
-                Add New Task
-              </button>
-              {
-                isCreatorVisible
-                ? <Creator
-                    isVisible={isCreatorVisible}
-                    onAppStateChange={this.handleStateChange}
-                  />
-                : <div className="empty"></div>
-              }
-            </section>
-          </section>
+          { /* BOARD */
+            isBoardVisible
+            ?
+            <Board />
+            : <div className="empty"></div>
+          }
         </div>
       </React.StrictMode>
     );

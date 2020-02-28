@@ -169,11 +169,11 @@ class Task extends Component {
   }
 
   handleMaximizeCard = () => {
-    const { onAppStateChange } = this.props;
+    const { onBoardStateChange } = this.props;
     const { isMaximized } = this.state;
     if (!isMaximized) {
       this.setState({ isMaximized: true });
-      onAppStateChange({ isPlaceholderVisible: false });
+      onBoardStateChange({ isPlaceholderVisible: false });
     }
   }
 
@@ -182,7 +182,7 @@ class Task extends Component {
     const {
       id,
       onCardStateChange,
-      onAppStateChange } = this.props;
+      onBoardStateChange } = this.props;
     const {
       isMaximized,
       isTaskMounted,
@@ -287,7 +287,7 @@ class Task extends Component {
           onAcceptButtonClick={this.acceptEditChange}
           onRemoveButtonClick={this.handleAlertVisibility}
           onTaskStateChange={this.handleStateChange}
-          onAppStateChange={onAppStateChange}
+          onBoardStateChange={onBoardStateChange}
         />
 
         {/* START BUTTON */}
