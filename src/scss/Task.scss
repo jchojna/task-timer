@@ -6,7 +6,7 @@
   align-items: start;
   background-color: $color-teal;
   border-radius: $radius-card;
-  box-shadow: $card-shadow-xs;
+  box-shadow: $card-shadow-small;
   cursor: pointer;
   display: grid;
     grid-template-areas:
@@ -95,7 +95,7 @@
   @media only screen and (min-width: $media-md) {
 
     & {
-      box-shadow: $card-shadow-md;
+      box-shadow: $card-shadow-medium;
       padding: $card-padding-md;
     }
   }

@@ -27,6 +27,7 @@ class LoginBox extends Component {
             id="login"
             type="text"
             className="LoginBox__input LoginBox__input--login"
+            spellCheck="false"
           />
           <label
             htmlFor="password"
@@ -36,8 +37,9 @@ class LoginBox extends Component {
           </label>
           <input
             id="password"
-            type="text"
+            type="password"
             className="LoginBox__input LoginBox__input--password"
+            spellCheck="false"
           />
           <button className="LoginBox__button LoginBox__button--logIn">
             Log In

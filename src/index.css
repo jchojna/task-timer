@@ -4,6 +4,8 @@
 
 html {
   box-sizing: border-box;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 *,
