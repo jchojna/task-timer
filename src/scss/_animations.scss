@@ -81,7 +81,7 @@
   animation: hideToRight $time-slide forwards;
 }
 
-/////////////////////////////////////////////////////////////// LOGO ANIMATION 
+// @region [ Horizon ] LOGO ANIMATION 
 
 @keyframes clockShadow {
   0% { opacity: 0; }
@@ -110,15 +110,15 @@
 
 @keyframes clockLetter {
   0% {
-    fill: $color-background;
+    fill: $color-teal-dark-1;
     opacity: 0;
   }
   85% {
-    fill: $color-background;
+    fill: $color-teal-dark-1;
     opacity: 1;
   }
   100% {
-    fill: $color-warning;
+    fill: $color-teal-warning;
     opacity: 1;
   }
 }
@@ -131,3 +131,5 @@
     opacity: 1;
   }
 }
+
+// #endregion

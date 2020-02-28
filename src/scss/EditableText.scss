@@ -64,9 +64,9 @@
   }
 
   &__input {
-    background-color: $color-background;
-    border: 2px solid $color-white;
-    color: $color-white;
+    background-color: $color-teal-dark-1;
+    border: 2px solid $color-teal-light-3;
+    color: $color-teal-light-3;
     font-weight: 600;
     font-size: 1.2em;
     height: 100%;
@@ -78,12 +78,12 @@
     width: 100%;
 
     &--incorrect {
-      border-color: $color-warning;
+      border-color: $color-teal-warning;
     }
   }
   
   &__progress {
-    background-color: $color-warning;
+    background-color: $color-teal-warning;
     height: 4px;
     margin-top: 4px;
     width: 0;
@@ -92,13 +92,6 @@
 
     &--visible {
       visibility: visible;
-    }
-  }
-
-  @media only screen and (min-width: $media-md) {
-
-    & {
-      
     }
   }
 }

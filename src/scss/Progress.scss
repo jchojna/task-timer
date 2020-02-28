@@ -33,7 +33,7 @@
 
   &__percent {
     @include flex-center;
-    color: $color-warning;
+    color: $color-teal-warning;
     font-family: 'Inconsolata';
     font-weight: 600;
     left: 50%;
@@ -61,13 +61,13 @@
     top: 0;
 
     &--loading {
-      background-color: $color-warning;
+      background-color: $color-teal-warning;
       left: 0;
       width: 0;
     }
 
     &--unloading {
-      background-color: $color-white;
+      background-color: $color-teal-light-3;
       right: 0;
       width: 100%;
     }

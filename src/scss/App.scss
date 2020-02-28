@@ -4,16 +4,16 @@
 
 .App {
   @include flex-center;
-  background-color: $color-background;
+  background-color: $color-teal-dark-1;
   height: 100%;
   min-height: 100vh;
   width: 100%;
-  color: $color-background;
+  color: $color-teal-dark-1;
 
   &__board {
     align-content: start;
     align-items: stretch;
-    background-color: $color-background;
+    background-color: $color-teal-dark-1;
     display: none;
     gap: $board-padding-xs;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -41,9 +41,10 @@
   &__newTaskButton {
     @include button;
     @include flex-center;
-    border: 5px solid $color-primary;
+    background-color: $color-teal-dark-2;
     border-radius: $radius-card;
-    color: $color-primary;
+    box-shadow: inset 0 3px 8px $color-teal-dark-3;
+    color: $color-teal;
     font-size: 1.5em;
     font-weight: 600;
     height: 100%;
@@ -52,6 +53,7 @@
     transition: opacity $new-task-button, visibility 0s $new-task-button;
     visibility: hidden;
     width: 100%;
+    z-index: -1;
 
     &--visible {
       opacity: 1;
@@ -65,9 +67,9 @@
     }
 
     &:hover {
-      background-color: $color-primary;
-      box-shadow: $card-shadow-md;
-      color: $color-background;
+      background-color: rgba($color: $color-teal-dark-2, $alpha: 0.5);
+      box-shadow: inset 0 1px 4px $color-teal-dark-3;
+      color: $color-teal-light-1;
     }
   }
 

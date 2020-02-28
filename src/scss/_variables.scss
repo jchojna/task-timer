@@ -1,3 +1,22 @@
+// @region [ Horizon ] COLORS
+
+$color-teal-light-3: #e1edea;
+$color-teal-light-2: #9cb9bd;
+$color-teal-light-1: #769599;
+$color-teal: #50787c;
+$color-teal-dark-1: #305b60;
+$color-teal-dark-2: #274c50;
+$color-teal-dark-3: #19373a;
+
+$color-teal-work: #629a9c;
+$color-teal-break: rgb(126, 177, 85);
+$color-teal-success: rgb(126, 177, 85);
+$color-teal-fail: rgb(182, 161, 94);
+$color-teal-warning: #96343c;
+$color-teal-disabled: #ddd;
+
+// #endregion
+
 // TIME
 $time-slide: 0.5s;
 $time-display: 0.5s;
@@ -8,19 +27,6 @@ $time-alert: 0.3s;
 $hover-card: 0.4s;
 $toggle-button: 0.5s;
 $new-task-button: 0.5s;
-// COLORS
-$color-white: #e1edea;
-$color-black: rgb(31, 36, 37);
-$color-primary: #769599;
-$color-light-background: #50787c;
-$color-background: #305b60;
-
-//$color-work: #71b4c0;
-$color-work: #629a9c;
-//$color-break: #4f948b;
-$color-break: rgb(126, 177, 85);
-$color-success: rgb(126, 177, 85);
-$color-fail: rgb(182, 161, 94);
 
 // MEDIA
 $media-sm: 480px;
@@ -41,11 +47,9 @@ $intro-time: 4s;
 // BOARD
 $board-padding-xs: 15px;
 // CARDS
-$color-warning: #96343c;
-$color-disabled: #ddd;
-$card-shadow-xs: 0 2px 5px rgba($color: $color-black, $alpha: 0.8);
-$card-shadow-md: 0 3px 8px rgba($color: $color-black, $alpha: 0.6);
-$card-border: 5px solid $color-background;
+$card-shadow-xs: 0 2px 5px rgba($color: $color-teal-dark-3, $alpha: 0.8);
+$card-shadow-md: 0 3px 8px rgba($color: $color-teal-dark-3, $alpha: 0.6);
+$card-border: 5px solid $color-teal-dark-1;
 $card-edit: 0.4s;
 $card-padding-xs: 10px;
 $card-padding-md: 20px;
