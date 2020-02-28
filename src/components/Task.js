@@ -177,7 +177,7 @@ class Task extends Component {
 
   render() {
 
-    const { id, onCardStateChange } = this.props;
+    const { id, onCardStateChange, onAppStateChange } = this.props;
     const {
       isMaximized,
       isTaskMounted,
@@ -283,6 +283,7 @@ class Task extends Component {
           onAcceptButtonClick={this.acceptEditChange}
           onRemoveButtonClick={this.handleAlertVisibility}
           onTaskStateChange={this.handleStateChange}
+          onAppStateChange={onAppStateChange}
         />
 
         {/* START BUTTON */}

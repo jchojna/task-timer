@@ -6,9 +6,8 @@
   align-self: start;
   perspective: 800px;
   transition: transform 0.5s;
-  position: relative;
   width: 100%;
-  z-index: 0;
+  z-index: 1;
 
   &--dragged {
     cursor: move;

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Creator from './Creator';
 import Card from './Card';
+import CardPlaceholder from './CardPlaceholder';
 import Intro from './Intro';
 import '../scss/App.scss';
 
@@ -15,6 +16,7 @@ class App extends Component {
       isBoardVisible: false,
       isCreatorVisible: false,
       isDraggingMode: false,
+      isPlaceholderVisible: false,
       tasks: [
         {
           taskName: "Add some feature to TaskTimer App",
@@ -84,6 +86,17 @@ class App extends Component {
 
   componentDidMount = () => {
     this.setState({isBoardVisible: true});
+    window.addEventListener('resize', this.handleWindowResize);
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('resize', this.handleWindowResize);
+  }
+
+  handleWindowResize = () => {
+    this.setState({
+      isPlaceholderVisible: false
+    });
   }
 
   handleStateChange = (object) => this.setState(object);
@@ -99,11 +112,15 @@ class App extends Component {
   };
   
   handleTaskRemove = (id) => this.setState(prevState => ({
-    tasks: prevState.tasks.filter(task => task.id !== id)
+    tasks: prevState.tasks.filter(task => task.id !== id),
+    isPlaceholderVisible: false
   }));
   
   handleNewTaskButton = () => {
-    this.setState({ isCreatorVisible: true });
+    this.setState({
+      isCreatorVisible: true,
+      isPlaceholderVisible: false
+    });
   }
 
   render() {
@@ -114,6 +131,7 @@ class App extends Component {
       isCreatorVisible,
       tasks,
       isDraggingMode,
+      isPlaceholderVisible,
       hoveredCardIndex,
       draggedCardIndex,
       hoveredOffsetX,
@@ -153,8 +171,7 @@ class App extends Component {
             {/* TASK CARDS */}
             {tasks.map((task, index) => (
               <Card
-                id={`dnd-${task.dateCreated}`}
-                key={`dnd-${task.dateCreated}`}
+                key={`card-${task.dateCreated}`}
                 task={task}
                 cardIndex={index}
                 onTaskOrderChange={this.handleTaskOrder}
@@ -166,6 +183,16 @@ class App extends Component {
                 hoveredOffsetX={hoveredOffsetX}
                 hoveredOffsetY={hoveredOffsetY}
                 cardsSizes={cardsSizes}
+              />
+            ))}
+
+            {/* CARDS PLACEHOLDERS */}
+            {tasks.map((task, index) => (
+              <CardPlaceholder
+                key={`placeholder-${index}`}
+                placeholderIndex={index}
+                cardsSizes={cardsSizes}
+                isPlaceholderVisible={isPlaceholderVisible}
               />
             ))}
 

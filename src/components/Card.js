@@ -61,7 +61,7 @@ class Card extends Component {
       originalY: clientY + window.scrollY
     });
 
-    onAppStateChange({ cardsSizes });
+    onAppStateChange({ cardsSizes, isPlaceholderVisible: true });
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
@@ -113,7 +113,7 @@ class Card extends Component {
       draggedCardIndex,
       hoveredCardIndex,
       cardsSizes } = this.props;
-    
+    const delay = 30;    
     const draggedCardSizes = cardsSizes[draggedCardIndex];
     const hoveredCardSizes = this.getHoveredCardSizes(hoveredCardIndex);
       
@@ -149,18 +149,14 @@ class Card extends Component {
         });
       }
 
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         this.setState({
           translateX: 0,
           translateY: 0,
           isDragging: false
         });
-
-        onAppStateChange({
-          draggedCardIndex: -1,
-          hoveredCardIndex: -1
-        });
-      }, 30);
+        clearTimeout(timeoutId);
+      }, delay);
       
       onTaskOrderChange(draggedCardIndex, hoveredCardIndex);
     }
@@ -168,6 +164,14 @@ class Card extends Component {
     onAppStateChange({
       isDraggingMode: false
     });
+
+    const timeoutId = setTimeout(() => {
+      onAppStateChange({
+        draggedCardIndex: -1,
+        hoveredCardIndex: -1
+      });
+      clearTimeout(timeoutId);
+    }, delay);
   };
 
   render() {
@@ -179,7 +183,8 @@ class Card extends Component {
       draggedCardIndex,
       hoveredCardIndex,
       hoveredOffsetX,
-      hoveredOffsetY
+      hoveredOffsetY,
+      onAppStateChange
     } = this.props;
 
     const {
@@ -209,9 +214,9 @@ class Card extends Component {
         <Task
           task={task}
           id={task.dateCreated}
-          key={task.dateCreated}
           onTaskRemove={onTaskRemove}
           onCardStateChange={this.handleStateChange}
+          onAppStateChange={onAppStateChange}
         />
       </div>
     );

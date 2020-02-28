@@ -12,13 +12,19 @@ const CardButtons = (props) => {
     cardRotatingMode,
     onAcceptButtonClick,
     onRemoveButtonClick,
-    onTaskStateChange
+    onTaskStateChange,
+    onAppStateChange
   } = props;
 
   const handleMinMaxButtons = () => {
     onTaskStateChange(prevState => ({
       isMaximized: !prevState.isMaximized
     }));
+    onAppStateChange({ isPlaceholderVisible: false });
+
+
+
+    // resize cards
   }
 
   const cardButtonsClass = classNames("CardButtons", {
