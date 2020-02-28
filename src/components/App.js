@@ -15,9 +15,6 @@ class App extends Component {
       isBoardVisible: false,
       isCreatorVisible: false,
       isDraggingMode: false,
-      //cardOffsetX: 0,
-      //cardOffsetY: 0,
-      //cardOffsetIndex: null,
       tasks: [
         {
           taskName: "Add some feature to TaskTimer App",
@@ -100,14 +97,6 @@ class App extends Component {
       return { tasks: newTasks };
     });
   };
-  
-  /* handleDropTransition = (cardOffsetIndex, cardOffsetX, cardOffsetY) => {
-    this.setState({
-      cardOffsetIndex,
-      cardOffsetX: cardOffsetX * -1,
-      cardOffsetY: cardOffsetY * -1
-    });
-  }; */
   
   handleTaskRemove = (id) => this.setState(prevState => ({
     tasks: prevState.tasks.filter(task => task.id !== id)

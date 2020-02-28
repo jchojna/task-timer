@@ -92,7 +92,7 @@ class Card extends Component {
     }));
 
     // set translation offsets of hovered card
-    if (hoveredCardSizes) {
+    if (hoveredCardSizes) {;
       const offsetX = draggedCardSizes.left - hoveredCardSizes.left;
       const offsetY = draggedCardSizes.top - hoveredCardSizes.top;
   
@@ -108,9 +108,6 @@ class Card extends Component {
       hoveredCardIndex: cardIndex !== hoveredCardIndex ? hoveredCardIndex : -1
     });
   };
-
-
-
   
   handleMouseUp = () => {
     if (this.state.isFixed) return false;
@@ -120,6 +117,7 @@ class Card extends Component {
       draggedCardIndex,
       hoveredCardIndex,
       cardsSizes } = this.props;
+    
     const draggedCardSizes = cardsSizes[draggedCardIndex];
     const hoveredCardSizes = this.getHoveredCardSizes(hoveredCardIndex);
       
@@ -140,18 +138,20 @@ class Card extends Component {
 
       const { onTaskOrderChange } = this.props;
       
-      const offsetX = hoveredCardSizes.left - draggedCardSizes.left;
-      const offsetY = hoveredCardSizes.top - draggedCardSizes.top;
+      if (hoveredCardSizes) {
+        const offsetX = hoveredCardSizes.left - draggedCardSizes.left;
+        const offsetY = hoveredCardSizes.top - draggedCardSizes.top;
 
-      const draggedOffsetX =  -1 * (offsetX - this.state.translateX);
-      const draggedOffsetY = -1 * (offsetY - this.state.translateY);
+        const draggedOffsetX =  -1 * (offsetX - this.state.translateX);
+        const draggedOffsetY = -1 * (offsetY - this.state.translateY);
 
-      this.setState({
-        originalX: 0,
-        originalY: 0,
-        translateX: draggedOffsetX,
-        translateY: draggedOffsetY
-      });
+        this.setState({
+          originalX: 0,
+          originalY: 0,
+          translateX: draggedOffsetX,
+          translateY: draggedOffsetY
+        });
+      }
 
       setTimeout(() => {
         this.setState({
@@ -159,13 +159,18 @@ class Card extends Component {
           translateY: 0,
           isDragging: false
         });
+
+        onAppStateChange({
+          draggedCardIndex: -1,
+          hoveredCardIndex: -1
+        });
       }, 30);
       
       onTaskOrderChange(draggedCardIndex, hoveredCardIndex);
     }
 
     onAppStateChange({
-      isDraggingMode: false,
+      isDraggingMode: false
     });
   };
 
