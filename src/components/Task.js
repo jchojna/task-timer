@@ -169,15 +169,20 @@ class Task extends Component {
   }
 
   handleMaximizeCard = () => {
+    const { onAppStateChange } = this.props;
     const { isMaximized } = this.state;
     if (!isMaximized) {
       this.setState({ isMaximized: true });
+      onAppStateChange({ isPlaceholderVisible: false });
     }
   }
 
   render() {
 
-    const { id, onCardStateChange, onAppStateChange } = this.props;
+    const {
+      id,
+      onCardStateChange,
+      onAppStateChange } = this.props;
     const {
       isMaximized,
       isTaskMounted,
@@ -195,8 +200,7 @@ class Task extends Component {
       isBreakTimeEditMode,
       isTaskNameValid,
       isTaskTimeValid,
-      isBreakTimeValid
-    } = this.state;
+      isBreakTimeValid } = this.state;
 
     const editModeActive = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
     const inputInvalid = !isTaskNameValid || !isTaskTimeValid || !isBreakTimeValid;

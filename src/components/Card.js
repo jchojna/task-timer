@@ -34,15 +34,10 @@ class Card extends Component {
   
   handleStateChange = (object) => this.setState(object);
 
-  handleMouseDown = ({ clientX, clientY }) => {
-
+  handleCardsSizes = () => {
     const { onAppStateChange } = this.props;
-
-    window.addEventListener('mousemove', this.handleMouseMove);
-    window.addEventListener('mouseup', this.handleMouseUp);
-
-    // get array of objects containing each card size and offset
     const appNodes = this.card.current.parentNode.children;
+
     const cardsSizes = [...appNodes]
     .filter(node => node.classList.contains('Card'))
     .map(card => {
@@ -55,13 +50,24 @@ class Card extends Component {
         }
       }
     );
+    onAppStateChange({ cardsSizes });
+  }
+
+  handleMouseDown = ({ clientX, clientY }) => {
+    const { onAppStateChange } = this.props;
+
+    window.addEventListener('mousemove', this.handleMouseMove);
+    window.addEventListener('mouseup', this.handleMouseUp);
       
     this.setState({
       originalX: clientX + window.scrollX,
       originalY: clientY + window.scrollY
     });
+    this.handleCardsSizes();
 
-    onAppStateChange({ cardsSizes, isPlaceholderVisible: true });
+    onAppStateChange({
+      isPlaceholderVisible: true
+    });
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
@@ -155,6 +161,7 @@ class Card extends Component {
           translateY: 0,
           isDragging: false
         });
+        this.handleCardsSizes();
         clearTimeout(timeoutId);
       }, delay);
       

@@ -43,7 +43,7 @@
     @include flex-center;
     background-color: $color-teal-dark-2;
     border-radius: $radius-card;
-    box-shadow: inset 0 3px 8px $color-teal-dark-3;
+    box-shadow: $placeholder-shadow-md;
     color: $color-teal;
     font-size: 1.5em;
     font-weight: 600;
@@ -68,7 +68,7 @@
 
     &:hover {
       background-color: rgba($color: $color-teal-dark-2, $alpha: 0.5);
-      box-shadow: inset 0 1px 4px $color-teal-dark-3;
+      box-shadow: $placeholder-shadow-xs;
       color: $color-teal-light-1;
     }
   }

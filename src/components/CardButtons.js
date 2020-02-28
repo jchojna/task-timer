@@ -21,10 +21,6 @@ const CardButtons = (props) => {
       isMaximized: !prevState.isMaximized
     }));
     onAppStateChange({ isPlaceholderVisible: false });
-
-
-
-    // resize cards
   }
 
   const cardButtonsClass = classNames("CardButtons", {

@@ -3,15 +3,11 @@
 @import "_animations.scss";
 
 .CardPlaceholder {
-  position: absolute;
-
   background-color: $color-teal-dark-2;
-  
   border-radius: $radius-card;
-
-
+  box-shadow: $placeholder-shadow-md;
   pointer-events: none;
-
+  position: absolute;
   visibility: hidden;
 
   &--visible {

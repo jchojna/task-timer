@@ -49,6 +49,10 @@ $board-padding-xs: 15px;
 // CARDS
 $card-shadow-xs: 0 2px 5px rgba($color: $color-teal-dark-3, $alpha: 0.8);
 $card-shadow-md: 0 3px 8px rgba($color: $color-teal-dark-3, $alpha: 0.6);
+$placeholder-shadow-xs: inset 0 1px 4px $color-teal-dark-3;
+$placeholder-shadow-md: inset 0 3px 8px $color-teal-dark-3;
+
+
 $card-border: 5px solid $color-teal-dark-1;
 $card-edit: 0.4s;
 $card-padding-xs: 10px;
