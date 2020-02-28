@@ -1,0 +1,70 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.LoginBox {
+  @include flex-center;
+  bottom: 0;
+  flex-direction: column;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+
+  &__logo {
+    font-size: 5em;
+    font-weight: 700;
+
+    &--color {
+      color: $color-teal-dark-3;
+    }
+  }
+
+  &__container {
+    background-color: $color-teal-dark-2;
+    display: grid;
+    grid-template-areas:
+    "heading       heading       heading       heading"
+    "loginLabel    loginInput    loginInput    .      "
+    "passwordLabel passwordInput passwordInput .      "
+    ".             logInButton   signUpButton  .      ";
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &__heading {
+    grid-area: heading;
+  }
+
+  &__label {
+
+    &--login {
+      grid-area: loginLabel;
+    }
+
+    &--password {
+      grid-area: passwordLabel;
+    }
+  }
+
+  &__input {
+
+    &--login {
+      grid-area: loginInput;
+    }
+
+    &--password {
+      grid-area: passwordInput;
+    }
+  }
+
+  &__button {
+
+    &--logIn {
+      grid-area: logInButton;
+    }
+
+    &--signUp {
+      grid-area: signUpButton;
+    }
+  }
+}

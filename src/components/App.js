@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-import Board from './Board';
 import Intro from './Intro';
+import LoginBox from './LoginBox';
+import Board from './Board';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -11,7 +12,7 @@ class App extends Component {
     this.state = {
       // visibility
       isIntroVisible: false,
-      isLoginVisible: true,
+      isLoginBoxVisible: true,
       isBoardVisible: false,
       users: {
         user1: {
@@ -39,7 +40,10 @@ class App extends Component {
   handleStateChange = (object) => this.setState(object);
 
   render() {
-    const { isIntroVisible, isBoardVisible } = this.state;
+    const {
+      isIntroVisible,
+      isLoginBoxVisible,
+      isBoardVisible } = this.state;
 
     return (
       <React.StrictMode>
@@ -50,6 +54,14 @@ class App extends Component {
             ?
             <Intro
               isIntroVisible={isIntroVisible}
+              onAppStateChange={this.handleStateChange}
+            />
+            : <div className="empty"></div>
+          }
+          { /* LOG IN BOX */
+            isLoginBoxVisible
+            ?
+            <LoginBox
               onAppStateChange={this.handleStateChange}
             />
             : <div className="empty"></div>

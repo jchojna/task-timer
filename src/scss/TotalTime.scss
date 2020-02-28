@@ -49,7 +49,6 @@
     align-items: center;
     border: 2px solid transparent;
     display: grid;
-    font-family: "Inconsolata";
     grid-template-columns: repeat(2, 1fr) auto repeat(2, 1fr);
     justify-items: center;
     outline: none;
@@ -114,7 +113,6 @@
     }
 
     &::placeholder {
-      font-family: "Montserrat";
       font-size: 0.3em;
     }
   }
