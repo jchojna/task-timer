@@ -28,20 +28,6 @@
     animation: rotateOut ease-in forwards;
   }
 
-  &__closeButton {
-    @include button;
-    @include flex-center;
-    align-self: start;
-    fill: $color-background;
-    grid-area: closeBtn;
-    justify-self: end;
-    width: $close-button;
-
-    &:hover {
-      fill: $color-warning;
-    }
-  }
-
   &__button {
     @include button;
     @include flex-center;
@@ -65,6 +51,13 @@
       justify-self: end;
     }
 
+    &--close {
+      grid-area: closeBtn;
+      justify-self: end;
+      stroke-width: 10;
+      width: $close-button;
+    }
+
     &--visible {
       opacity: 1;
       transition: opacity $toggle-button, visibility;
@@ -72,7 +65,7 @@
     }
 
     &:hover {
-      stroke: $color-white;
+      stroke: $color-warning;
     }
   }
 

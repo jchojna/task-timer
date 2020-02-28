@@ -68,9 +68,11 @@
     }
 
     &--invalid {
+      background-color: $color-warning;
       border-color: $color-warning;
 
       &:focus {
+        background-color: $color-warning;
         border-color: $color-warning;
       }
     }
@@ -82,15 +84,28 @@
   }
 
   &__inputs {
+    align-self: center;
     align-items: center;
+    border: 3px solid $color-background;
     display: flex;
     font-size: 1.5em;
     grid-area: input;
     justify-content: space-between;
     width: 100%;
+
+    &--invalid {
+      background-color: $color-warning;
+      border-color: $color-warning;
+
+      &:focus {
+        background-color: $color-warning;
+        border-color: $color-warning;
+      }
+    }
   }
 
   &__input {
+    border: none;
     text-align: center;
     width: 45%;
   }

@@ -56,22 +56,6 @@ class Timer extends Component {
     }
   }
 
-  handleRotatingStatus = () => {
-    const { onTaskStateChange } = this.props;
-    setTimeout(() => {
-      onTaskStateChange({
-        isTaskRotatingIn: true,
-        isTaskRotatingOut: false
-      })
-    }, cardFlipTime);
-
-    setTimeout(() => {
-      onTaskStateChange({
-        isTaskRotatingIn: false
-      })
-    }, cardFlipTime * 2)
-  };
-
   componentDidMount() {
     this.taskIntervalId = setInterval(() => this.handleTimeTick('Task'), 10);
     this.breakIntervalId = setInterval(() => this.handleTimeTick('Break'), 10);
@@ -92,6 +76,22 @@ class Timer extends Component {
     clearInterval(this.breakIntervalId);
     clearTimeout(this.timeoutId);
   }
+
+  handleRotatingStatus = () => {
+    const { onTaskStateChange } = this.props;
+    setTimeout(() => {
+      onTaskStateChange({
+        isTaskRotatingIn: true,
+        isTaskRotatingOut: false
+      })
+    }, cardFlipTime);
+
+    setTimeout(() => {
+      onTaskStateChange({
+        isTaskRotatingIn: false
+      })
+    }, cardFlipTime * 2)
+  };
 
   handleTimerStop = () => {
     const { onTaskStateChange } = this.props;

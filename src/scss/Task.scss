@@ -5,7 +5,6 @@
 .Task {
   align-items: start;
   background-color: $color-primary;
-  //border: $card-border;
   border-radius: $radius-card;
   box-shadow: $card-shadow-xs;
   cursor: pointer;
@@ -14,13 +13,16 @@
     "buttons  "
     "taskName ";
   justify-items: center;
+  min-height: 50px;
   overflow: hidden;
   padding: $card-padding-xs;
   position: relative;
-  //transform: rotate3d(0, 1, 0, -90deg);
-  transition: background-color $card-edit;
+  transition: background-color $card-edit, min-height $card-edit;
   user-select: none;
   visibility: hidden;
+  
+  //border: $card-border;
+  //transform: rotate3d(0, 1, 0, -90deg);
 
   &--maximized {
     gap: 10px;
@@ -30,9 +32,10 @@
       "taskTime "
       "breakTime"
       "startBtn ";
-    height: 100%;
-    min-height: 540px;
     grid-template-rows: auto 1fr repeat(3, auto);
+    height: 100%;
+    min-height: $card-min-height;
+    transition: background-color $card-edit;
   }
 
   &--visible {

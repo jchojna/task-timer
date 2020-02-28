@@ -1,23 +1,20 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
-import Task from './Task';
 import Creator from './Creator';
-import Draggable from './Draggable';
-//import Intro from './Intro';
+import Card from './Card';
+import Intro from './Intro';
 import '../scss/App.scss';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.replacedCard = React.createRef();
     this.state = {
       // visibility
-      isIntroVisible: true,
+      isIntroVisible: false,
       isBoardVisible: false,
       isCreatorVisible: false,
       isDraggingMode: false,
-      //cardOffsetX: 0,
-      //cardOffsetY: 0,
-      //cardOffsetIndex: null,
       tasks: [
         {
           taskName: "Add some feature to TaskTimer App",
@@ -72,6 +69,13 @@ class App extends Component {
           dateCreated: 654765387657985
         }
       ],
+      // cards
+      cardsSizes: [],
+      draggedCardIndex: -1,
+      hoveredCardIndex: -1,
+      hoveredOffsetX: 0,
+      hoveredOffsetY: 0,
+      noTransitionMode: false,
       // validity
       isTaskNameValid: false,
       isTimeInputValid: false
@@ -94,14 +98,6 @@ class App extends Component {
     });
   };
   
-  /* handleDropTransition = (cardOffsetIndex, cardOffsetX, cardOffsetY) => {
-    this.setState({
-      cardOffsetIndex,
-      cardOffsetX: cardOffsetX * -1,
-      cardOffsetY: cardOffsetY * -1
-    });
-  }; */
-  
   handleTaskRemove = (id) => this.setState(prevState => ({
     tasks: prevState.tasks.filter(task => task.id !== id)
   }));
@@ -113,11 +109,16 @@ class App extends Component {
   render() {
 
     const {
-      //isIntroVisible,
+      isIntroVisible,
       isBoardVisible,
       isCreatorVisible,
       tasks,
       isDraggingMode,
+      hoveredCardIndex,
+      draggedCardIndex,
+      hoveredOffsetX,
+      hoveredOffsetY,
+      cardsSizes
     } = this.state;
 
     const boardClass = classNames("App__board", {
@@ -128,46 +129,48 @@ class App extends Component {
       "App__newTaskButton--visible": !isCreatorVisible
     });
 
+    const creatorContainerClass = classNames("App__creator", {
+      "App__creator--maximized": isCreatorVisible
+    });
+
     return (
       <React.StrictMode>
         <div className="App">
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
 
           { /* LOGO ANIMATION */
-            /* isIntroVisible
+            isIntroVisible
             ?
             <Intro
               isIntroVisible={isIntroVisible}
               onAppStateChange={this.handleStateChange}
             />
-            : <div className="empty"></div> */
+            : <div className="empty"></div>
           }
 
           {/* BOARD OF TASKS */}
           <section className={boardClass}>
             {/* TASK CARDS */}
             {tasks.map((task, index) => (
-              <div className="App__card">
-                <Draggable
-                  id={`dnd-${index}`}
-                  key={`dnd-${task.dateCreated}`}
-                  dragIndex={index}
-                  onTaskOrderChange={this.handleTaskOrder}
-                  onAppStateChange={this.handleStateChange}
-                  isDraggingMode={isDraggingMode}
-                >
-                  <Task
-                    task={task}
-                    id={task.dateCreated}
-                    key={task.dateCreated}
-                    onTaskRemove={this.handleTaskRemove}
-                  />
-                </Draggable>
-              </div>
+              <Card
+                id={`dnd-${task.dateCreated}`}
+                key={`dnd-${task.dateCreated}`}
+                task={task}
+                cardIndex={index}
+                onTaskOrderChange={this.handleTaskOrder}
+                onAppStateChange={this.handleStateChange}
+                onTaskRemove={this.handleTaskRemove}
+                isDraggingMode={isDraggingMode}
+                hoveredCardIndex={hoveredCardIndex}
+                draggedCardIndex={draggedCardIndex}
+                hoveredOffsetX={hoveredOffsetX}
+                hoveredOffsetY={hoveredOffsetY}
+                cardsSizes={cardsSizes}
+              />
             ))}
 
             {/* CREATE NEW TASK */}
-            <section className="App__creator">
+            <section className={creatorContainerClass}>
               <button
                 className={newTaskButtonClass}
                 onClick={this.handleNewTaskButton}
