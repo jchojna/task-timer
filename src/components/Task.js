@@ -6,7 +6,7 @@ import CardButtons from './CardButtons';
 import Timer from './Timer.js';
 import StopAlert from './StopAlert.js';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
-import { cardFlipTime, animationStyle } from '../lib/globalVariables';
+import { animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -151,12 +151,10 @@ class Task extends Component {
   }
 
   handleStartButton = () => {
-    const { onDraggableStateChange } = this.props;
     this.setState({
       isTaskRotatingOut: true,
       isTimerMounted: true
     });
-    onDraggableStateChange({ isFixed: true });
   }
 
   handleKeyPress = (key) => {
@@ -179,7 +177,7 @@ class Task extends Component {
 
   render() {
 
-    const { id } = this.props;
+    const { id, onCardStateChange } = this.props;
     const {
       isMaximized,
       isTaskMounted,
@@ -307,6 +305,7 @@ class Task extends Component {
               id={id}
               onTaskRemove={this.handleTaskRemove}
               cardRotatingMode={cardRotatingMode}
+              onCardStateChange={onCardStateChange}
             />
           : <div className="empty"></div>
         }

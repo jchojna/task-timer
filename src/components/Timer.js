@@ -94,7 +94,7 @@ class Timer extends Component {
   };
 
   handleTimerStop = () => {
-    const { onTaskStateChange } = this.props;
+    const { onTaskStateChange, onCardStateChange } = this.props;
 
     onTaskStateChange({ isTaskRotatingOut: true });
 
@@ -105,6 +105,7 @@ class Timer extends Component {
 
     this.timeoutId = setTimeout(() => {
       onTaskStateChange({ isTimerMounted: false });
+      clearTimeout(this.timeoutId);
     }, cardFlipTime);
 
     this.handleRotatingStatus();

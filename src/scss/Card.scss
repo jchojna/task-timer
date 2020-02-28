@@ -24,7 +24,7 @@
     transition: none;
   }
 
-  &::after {
+  /* &::after {
     border: 5px solid $color-primary;
     border-radius: $radius-card;
     bottom: 0;
@@ -34,5 +34,5 @@
     position: absolute;
     right: 0;
     top: 0;
-  }
+  } */
 }

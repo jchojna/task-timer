@@ -11,7 +11,6 @@ class Card extends Component {
     this.transitionTime = 1000;
     this.state = {
       isDragging: false,
-      isFixed: false,
       originalX: 0,
       originalY: 0,
       translateX: 0,
@@ -36,7 +35,6 @@ class Card extends Component {
   handleStateChange = (object) => this.setState(object);
 
   handleMouseDown = ({ clientX, clientY }) => {
-    if (this.state.isFixed) return;
 
     const { onAppStateChange } = this.props;
 
@@ -67,7 +65,6 @@ class Card extends Component {
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
-    if (this.state.isFixed) return;
     
     const { onAppStateChange, cardIndex, cardsSizes } = this.props;
     const xPosition = clientX + window.scrollX;
@@ -110,7 +107,6 @@ class Card extends Component {
   };
   
   handleMouseUp = () => {
-    if (this.state.isFixed) return false;
 
     const {
       onAppStateChange,
@@ -215,7 +211,7 @@ class Card extends Component {
           id={task.dateCreated}
           key={task.dateCreated}
           onTaskRemove={onTaskRemove}
-          onDraggableStateChange={this.handleStateChange}
+          onCardStateChange={this.handleStateChange}
         />
       </div>
     );
