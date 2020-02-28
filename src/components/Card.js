@@ -11,7 +11,6 @@ class Card extends Component {
     this.transitionTime = 1000;
     this.state = {
       isDragging: false,
-      isOnDropArea: false,
       isFixed: false,
       originalX: 0,
       originalY: 0,
@@ -34,8 +33,6 @@ class Card extends Component {
 
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
-
-    //if (this.props.onDragStart) this.props.onDragStart();
 
     // get array of objects containing each card size and offset
     const appNodes = this.card.current.parentNode.children;
@@ -66,42 +63,48 @@ class Card extends Component {
   handleMouseMove = ({ clientX, clientY }) => {
     if (this.state.isFixed) return;
     
-    const { onDrag, onAppStateChange, cardIndex, cardsSizes } = this.props;
+    const { onAppStateChange, cardIndex, cardsSizes } = this.props;
+    const xPosition = clientX + window.scrollX;
+    const yPosition = clientY + window.scrollY;
+    const draggedCardSizes = cardsSizes[cardIndex];
 
-    this.setState(prevState => ({
-      translateX: clientX + window.scrollX - prevState.originalX,
-      translateY: clientY + window.scrollY - prevState.originalY,
-      isDragging: true,
-    })/* ,
-    () => {
-      if (onDrag) {
-        onDrag({
-          translateX: this.state.translateX,
-          translateY: this.state.translateY
-        });
-      }
-    } */);
-
-    const hoveredCard = [...cardsSizes].findIndex((card, index) => {
+    // find index of hovered card
+    const hoveredCardIndex = [...cardsSizes].findIndex(card => {
       const { left, top, width, height } = card;
-      const xPosition = clientX + window.scrollX;
-      const yPosition = clientY + window.scrollY;
       const isInsideHorizontally = xPosition >= left && xPosition <= left + width;
       const isInsideVertically = yPosition >= top && yPosition <= top + height;
-
+      //return isInsideHorizontally && isInsideVertically;
       return isInsideHorizontally && isInsideVertically;
     });
 
-    console.log('hoveredCard', hoveredCard);
+    const hoveredCardSizes = hoveredCardIndex >= 0
+    ? hoveredCardIndex !== cardIndex
+      ? cardsSizes[hoveredCardIndex]
+      : null
+    : null; 
 
+    // set translated position of dragged card
+    this.setState(prevState => ({
+      translateX: xPosition - prevState.originalX,
+      translateY: yPosition - prevState.originalY,
+      isDragging: true,
+    }));
 
-
-
+    // set translation offsets of hovered card
+    if (hoveredCardSizes) {
+      const offsetX = draggedCardSizes.left - hoveredCardSizes.left;
+      const offsetY = draggedCardSizes.top - hoveredCardSizes.top;
+  
+      onAppStateChange({
+        hoveredOffsetX: offsetX,
+        hoveredOffsetY: offsetY
+      });
+    }
 
     onAppStateChange({
       isDraggingMode: true,
-      lastDraggedCardIndex: cardIndex,
-      //lastHoveredCardIndex: hoveredCard
+      draggedCardIndex: cardIndex,
+      hoveredCardIndex: cardIndex !== hoveredCardIndex ? hoveredCardIndex : -1
     });
   };
 
@@ -115,30 +118,25 @@ class Card extends Component {
 
     const {
       onAppStateChange,
-      lastDraggedCardIndex,
-      lastHoveredCardIndex } = this.props;
+      draggedCardIndex,
+      hoveredCardIndex } = this.props;
       
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
 
-    if (lastHoveredCardIndex === null) {
+    if (hoveredCardIndex === -1) {
       this.setState({
         originalX: 0,
         originalY: 0,
         translateX: 0,
         translateY: 0,
         isDragging: false
-      }/* ,
-      () => {
-        if (this.props.onDragEnd) {
-          this.props.onDragEnd();
-        }
-      } */);
+      });
 
     } else {
-      const { onTaskOrderChange, cardsSizes } = this.props;
-      const draggedCard = cardsSizes[lastDraggedCardIndex];
-      const hoveredCard = cardsSizes[lastHoveredCardIndex];
+      /* const { onTaskOrderChange, cardsSizes } = this.props;
+      const draggedCard = cardsSizes[draggedCardIndex];
+      const hoveredCard = cardsSizes[draggedCardIndex];
 
       const draggedOffsetX =  -1 * (hoveredCard.left - draggedCard.left - this.state.translateX);
       const draggedOffsetY = -1 * (hoveredCard.top - draggedCard.top - this.state.translateY);
@@ -158,14 +156,14 @@ class Card extends Component {
         });
       }, 30);
 
-      onTaskOrderChange(lastDraggedCardIndex, lastHoveredCardIndex);
+      onTaskOrderChange(draggedCardIndex, hoveredCardIndex); */
     }
     onAppStateChange({
       isDraggingMode: false,
     });
   };
 
-  handleMouseOver = () => {
+  /* handleMouseOver = () => {
     const {
       isDraggingMode,
       cardsSizes,
@@ -188,18 +186,18 @@ class Card extends Component {
       hoveredOffsetX: offsetX,
       hoveredOffsetY: offsetY
     });
-  }
+  } */
   
-  handleMouseOut = () => {
+  /* handleMouseOut = () => {
     const { isDraggingMode, onAppStateChange } = this.props;
     if (isDraggingMode) {
       onAppStateChange({
-        lastHoveredCardIndex: null,
+        hoveredCardIndex: null,
         hoveredOffsetX: 0,
         hoveredOffsetY: 0
       });
     }
-  }
+  } */
 
   render() {
     const {
@@ -207,7 +205,7 @@ class Card extends Component {
       onTaskRemove,
       cardIndex,
       isDraggingMode,
-      lastHoveredCardIndex,
+      hoveredCardIndex,
       hoveredOffsetX,
       hoveredOffsetY
     } = this.props;
@@ -218,48 +216,31 @@ class Card extends Component {
       translateY,
     } = this.state;
     
-    const draggableStyle =
-    
-      cardIndex === lastHoveredCardIndex && isDraggingMode
-      ? {
-        transform: `translate(${hoveredOffsetX}px, ${hoveredOffsetY}px)`
-      }
-      : {
-        transform: `translate(${translateX}px, ${translateY}px)`
-      }
-      ;
+    const cardStyle = cardIndex === hoveredCardIndex && isDraggingMode
+    ? { transform: `translate(${hoveredOffsetX}px, ${hoveredOffsetY}px)` }
+    : { transform: `translate(${translateX}px, ${translateY}px)` };
 
     const cardClass = classNames("Card", {
-      "Card--top": isDragging
-    });
-
-    const draggableContainerClass = classNames("Card__draggable", {
-      "Card__draggable--dragging": isDragging,
-      "Card__draggable--hovered": cardIndex === lastHoveredCardIndex && isDraggingMode,
-      "Card__draggable--noTransition": isDragging || !isDraggingMode
+      "Card--dragged": isDragging,
+      "Card--hovered": cardIndex === hoveredCardIndex && isDraggingMode,
+      "Card--noTransition": isDragging
     });
 
     return (
       <div
         className={cardClass}
+        style={cardStyle}
         ref={this.card}
-        /* onMouseOver={this.handleMouseOver} */
-        onMouseOut={this.handleMouseOut}
+        /* onMouseOut={this.handleMouseOut} */
+        onMouseDown={this.handleMouseDown}
       >
-        <div
-          className={draggableContainerClass}
-          style={draggableStyle}
-          ref={this.draggable}
-          onMouseDown={this.handleMouseDown}
-        >
-          <Task
-            task={task}
-            id={task.dateCreated}
-            key={task.dateCreated}
-            onTaskRemove={onTaskRemove}
-            onDraggableStateChange={this.handleStateChange}
-          />
-        </div>
+        <Task
+          task={task}
+          id={task.dateCreated}
+          key={task.dateCreated}
+          onTaskRemove={onTaskRemove}
+          onDraggableStateChange={this.handleStateChange}
+        />
       </div>
     );
   }

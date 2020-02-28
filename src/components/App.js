@@ -74,8 +74,8 @@ class App extends Component {
       ],
       // cards
       cardsSizes: [],
-      lastDraggedCardIndex: null,
-      lastHoveredCardIndex: null,
+      draggedCardIndex: -1,
+      hoveredCardIndex: -1,
       hoveredOffsetX: 0,
       hoveredOffsetY: 0,
       noTransitionMode: false,
@@ -125,8 +125,8 @@ class App extends Component {
       isCreatorVisible,
       tasks,
       isDraggingMode,
-      lastHoveredCardIndex,
-      lastDraggedCardIndex,
+      hoveredCardIndex,
+      draggedCardIndex,
       hoveredOffsetX,
       hoveredOffsetY,
       cardsSizes
@@ -172,8 +172,8 @@ class App extends Component {
                 onAppStateChange={this.handleStateChange}
                 onTaskRemove={this.handleTaskRemove}
                 isDraggingMode={isDraggingMode}
-                lastHoveredCardIndex={lastHoveredCardIndex}
-                lastDraggedCardIndex={lastDraggedCardIndex}
+                hoveredCardIndex={hoveredCardIndex}
+                draggedCardIndex={draggedCardIndex}
                 hoveredOffsetX={hoveredOffsetX}
                 hoveredOffsetY={hoveredOffsetY}
                 cardsSizes={cardsSizes}

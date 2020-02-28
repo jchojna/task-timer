@@ -5,12 +5,23 @@
 .Card {
   align-self: start;
   perspective: 800px;
+  transition: transform 0.5s;
+  width: 100%;
   z-index: 0;
 
-  border: 1px solid #000;
+  &--dragged {
+    cursor: move;
+    pointer-events: none;
+    z-index: 2;
+  }
+  
+  &--hovered {
+    opacity: 0.6;
+    //pointer-events: none;
+  }
 
-  &--top {
-    z-index: 1;
+  &--noTransition {
+    transition: none;
   }
 
   &::after {
@@ -23,29 +34,5 @@
     position: absolute;
     right: 0;
     top: 0;
-  }
-
-  &__draggable {
-    position: relative;
-    transition: transform 0.5s;
-    perspective: 800px;
-    width: 100%;
-    //height: 100%;
-    z-index: 1;
-  
-    &--hovered {
-      opacity: 0.6;
-      pointer-events: none;
-    }
-    
-    &--dragging {
-      cursor: move;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    &--noTransition {
-      transition: transform 0s;
-    }
   }
 }
