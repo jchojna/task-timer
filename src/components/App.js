@@ -2,24 +2,39 @@ import React, {Component} from 'react';
 import Intro from './Intro';
 import UserPanel from './UserPanel';
 import Board from './Board';
+import { initialUsers } from '../lib/initialUsers';
 import '../scss/App.scss';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // visibility
       isIntroVisible: false,
       isUserPanelVisible: true,
       isBoardVisible: false,
-      users: {}
+      users: initialUsers
     };
   }
 
   componentDidMount = () => {
+    if (localStorage.getItem('taskTimerUsers')) {
+      const users = JSON.parse(localStorage.getItem('taskTimerUsers'));
+      this.setState({ users });
+    } else {
+      this.exportUsers();
+    }
+  }
+
+  componentDidUpdate = () => {
+    this.exportUsers();
   }
 
   componentWillUnmount = () => {
+  }
+
+  exportUsers = () => {
+    const { users } = this.state;
+    localStorage.setItem('taskTimerUsers', JSON.stringify(users));
   }
 
   handleUsersChange = (user) => {
@@ -30,8 +45,6 @@ class App extends Component {
         [login]: user
       }
     }));
-    console.log(this.state.users);
-    /* localStorage.setItem('taskTimerUsers', JSON.stringify(this.state.users)); */
   }
 
   handleStateChange = (object) => this.setState(object);
