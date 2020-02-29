@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import classNames from 'classnames';
 import Intro from './Intro';
-import LoginBox from './LoginBox';
+import UserPanel from './UserPanel';
 import Board from './Board';
 import '../scss/App.scss';
 
@@ -12,7 +11,7 @@ class App extends Component {
     this.state = {
       // visibility
       isIntroVisible: false,
-      isLoginBoxVisible: true,
+      isUserPanelVisible: true,
       isBoardVisible: false,
       users: {
         user1: {
@@ -42,7 +41,7 @@ class App extends Component {
   render() {
     const {
       isIntroVisible,
-      isLoginBoxVisible,
+      isUserPanelVisible,
       isBoardVisible } = this.state;
 
     return (
@@ -58,10 +57,10 @@ class App extends Component {
             />
             : <div className="empty"></div>
           }
-          { /* LOG IN BOX */
-            isLoginBoxVisible
+          { /* USER PANEL */
+            isUserPanelVisible
             ?
-            <LoginBox
+            <UserPanel
               onAppStateChange={this.handleStateChange}
             />
             : <div className="empty"></div>
