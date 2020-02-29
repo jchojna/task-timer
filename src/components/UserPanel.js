@@ -9,11 +9,7 @@ class UserPanel extends Component {
     this.state = {
       isUserPanelLoaded: false,
       isLoginFormVisible: false,
-      isSignupFormVisible: false,
-      signInLogin: '',
-      signInPassword: '',
-      signUpLogin: '',
-      signUpPassword: ''
+      isSignupFormVisible: false
     };
   }
 
@@ -24,9 +20,9 @@ class UserPanel extends Component {
     });
   }
 
-  handleInputChange = ({target}, type) => {
+  /* handleInputChange = ({target}, type) => {
     this.setState({ [`${type}Login`] : target.value });
-  }
+  } */
 
   handleCardToggle = () => {
     this.setState(prevState => ({
@@ -36,15 +32,8 @@ class UserPanel extends Component {
     }));
   }
 
-  handleLoginForm = (login, password) => {
-    console.log('log in', login, password);
-  }
-
-  handleSignupForm = (login, password) => {
-    console.log('sign up', login, password);
-  }
-
   render() {
+    const { onUsersChange } = this.props;
     const {
       isUserPanelLoaded,
       isLoginFormVisible,
@@ -72,19 +61,15 @@ class UserPanel extends Component {
           <UserForm
             className={loginClass}
             id="loginForm"
-            title="Log In"
-            loginButtonName="Log In"
-            onLoginButtonClick={this.handleLoginForm}
-            onSignupButtonClick={this.handleCardToggle}
+            onCardToggle={this.handleCardToggle}
+            onUsersChange={onUsersChange}
           />
 
           <UserForm
             className={signupClass}
             id="signupForm"
-            title="Sign Up"
-            loginButtonName="Cancel"
-            onLoginButtonClick={this.handleCardToggle}
-            onSignupButtonClick={this.handleSignupForm}
+            onCardToggle={this.handleCardToggle}
+            onUsersChange={onUsersChange}
           />
         </div>
       </div>

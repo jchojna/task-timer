@@ -7,26 +7,12 @@ import '../scss/App.scss';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.replacedCard = React.createRef();
     this.state = {
       // visibility
       isIntroVisible: false,
       isUserPanelVisible: true,
       isBoardVisible: false,
-      users: {
-        user1: {
-
-
-
-
-        },
-        user2: {
-
-
-
-
-        }
-      }
+      users: {}
     };
   }
 
@@ -34,6 +20,18 @@ class App extends Component {
   }
 
   componentWillUnmount = () => {
+  }
+
+  handleUsersChange = (user) => {
+    const { login } = user;
+    this.setState(prevState => ({
+      users: {
+        ...prevState.users,
+        [login]: user
+      }
+    }));
+    console.log(this.state.users);
+    /* localStorage.setItem('taskTimerUsers', JSON.stringify(this.state.users)); */
   }
 
   handleStateChange = (object) => this.setState(object);
@@ -61,7 +59,8 @@ class App extends Component {
             isUserPanelVisible
             ?
             <UserPanel
-              onAppStateChange={this.handleStateChange}
+              //onAppStateChange={this.handleStateChange}
+              onUsersChange={this.handleUsersChange}
             />
             : <div className="empty"></div>
           }
