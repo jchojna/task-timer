@@ -36,12 +36,12 @@ class UserPanel extends Component {
     }));
   }
 
-  handleLoginForm = () => {
-    console.log('log in');
+  handleLoginForm = (login, password) => {
+    console.log('log in', login, password);
   }
 
-  handleSignupForm = () => {
-    console.log('sign up');
+  handleSignupForm = (login, password) => {
+    console.log('sign up', login, password);
   }
 
   render() {

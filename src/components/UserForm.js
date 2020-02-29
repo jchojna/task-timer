@@ -1,9 +1,7 @@
 import React from 'react';
-import classNames from 'classnames';
 import '../scss/UserForm.scss';
 
 const UserForm = (props) => {
-
   const {
     className,
     id,
@@ -12,6 +10,21 @@ const UserForm = (props) => {
     onLoginButtonClick,
     onSignupButtonClick
   } = props;
+
+  const loginInput = React.createRef();
+  const passwordInput = React.createRef();
+
+  const handleLoginButtonClick = () => {
+    const loginInputValue = loginInput.current.value;
+    const passwordInputValue = passwordInput.current.value;
+    onLoginButtonClick(loginInputValue, passwordInputValue)
+  }
+
+  const handleSignupButtonClick = () => {
+    const loginInputValue = loginInput.current.value;
+    const passwordInputValue = passwordInput.current.value;
+    onSignupButtonClick(loginInputValue, passwordInputValue)
+  }
 
   return (
     <section className={className}>
@@ -24,10 +37,10 @@ const UserForm = (props) => {
       </label>
       <input
         id={`${id}Login`}
+        ref={loginInput}
         type="text"
         className={`${id}__input ${id}__input--login`}
         spellCheck="false"
-        //onChange={(e) => this.handleInputChange(e, 'Login')}
       />
       <label
         htmlFor={`${id}Password`}
@@ -37,20 +50,20 @@ const UserForm = (props) => {
       </label>
       <input
         id={`${id}Password`}
+        ref={passwordInput}
         type="password"
         className={`${id}__input ${id}__input--password`}
         spellCheck="false"
-        //onChange={(e) => this.handleInputChange(e, 'Password')}
       />
       <button
         className={`${id}__button ${id}__button--login`}
-        onClick={onLoginButtonClick}
+        onClick={handleLoginButtonClick}
       >
         {loginButtonName}
       </button>
       <button
         className={`${id}__button ${id}__button--signup`}
-        onClick={onSignupButtonClick}
+        onClick={handleSignupButtonClick}
       >
         Sign Up
       </button>
