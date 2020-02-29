@@ -26,14 +26,17 @@ $fade-stopTask: 0.3s;
 $time-alert: 0.3s;
 $hover-card: 0.4s;
 $toggle-button: 0.5s;
+$toggle-card: 0.3s;
 $new-task-button: 0.5s;
 
 // MEDIA
 $media-sm: 480px;
 $media-md: 768px;
 $media-lg: 1200px;
+
 // LAYOUT
 $layout-max-width: 1200px;
+
 // SIZE
 $size-controls-xs: 50px;
 $size-controls-md: 70px;
@@ -41,12 +44,13 @@ $radius-card: 10px;
 $close-button: 35px;
 $nav-button: 70px;
 $progressBar-height: 16px;
+
 // LOGO ANIMATION
 $logo-size: 600px;
 $intro-time: 4s;
+
 // BOARD
 $board-padding-xs: 15px;
-// CARDS
 
 // BOX SHADOWS
 $card-shadow-small: 0 2px 5px rgba($color: $color-teal-dark-3, $alpha: 0.8);

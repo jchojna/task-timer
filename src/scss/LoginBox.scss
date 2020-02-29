@@ -23,37 +23,55 @@
     }
 
     @media only screen and (min-width: $media-md) {
-
       font-size: 80px;
     }
   }
 
   &__container {
-    align-items: center;
-    background-color: $color-teal;
-    box-shadow: $card-shadow-medium;
-    border-radius: 10px;
-    display: grid;
-    gap: 0.5em;
-    padding: 30px;
+    position: relative;
+    perspective: 800px;
+  }
+}
+
+// #region [ Horizon ] Sign In / Sign Up
+
+.signIn,
+.signUp {
+  align-items: center;
+  background-color: $color-teal;
+  box-shadow: $card-shadow-medium;
+  border-radius: 10px;
+  display: grid;
+  gap: 0.5em;
+  grid-template-areas:
+  "heading       heading      "
+  "loginLabel    loginLabel   "
+  "loginInput    loginInput   "
+  "passwordLabel passwordLabel"
+  "passwordInput passwordInput"
+  "logInButton   signUpButton ";
+  padding: 30px;
+  transform: rotate3d(0, 1, 0, -90deg);
+  visibility: hidden;
+
+  &--rotateIn {
+    visibility: visible;
+    animation: rotateIn $toggle-card $toggle-card ease-out forwards;
+  }
+
+  &--rotateOut {
+    animation: rotateOut $toggle-card ease-in forwards;
+    transition: visibility 0s $toggle-card;
+  }
+
+  @media only screen and (min-width: $media-md) {
+    gap: 1em;
     grid-template-areas:
-    "heading       heading      "
-    "loginLabel    loginLabel   "
-    "loginInput    loginInput   "
-    "passwordLabel passwordLabel"
-    "passwordInput passwordInput"
-    "logInButton   signUpButton ";
-
-
-    @media only screen and (min-width: $media-md) {
-      gap: 1em;
-      grid-template-areas:
-      "heading       heading       heading       heading"
-      "loginLabel    loginInput    loginInput    .      "
-      "passwordLabel passwordInput passwordInput .      "
-      ".             logInButton   signUpButton  .      ";
-      grid-template-columns: repeat(4, 1fr);
-    }
+    "heading       heading       heading       heading"
+    "loginLabel    loginInput    loginInput    .      "
+    "passwordLabel passwordInput passwordInput .      "
+    ".             logInButton   signUpButton  .      ";
+    grid-template-columns: repeat(4, 1fr);
   }
 
   &__heading {
@@ -152,4 +170,15 @@
       }
     }
   }
+}
+
+// #endregion
+
+.signUp {
+  background-color: $color-teal-dark-2;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
