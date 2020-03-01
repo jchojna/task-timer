@@ -70,7 +70,7 @@ class UserPanel extends Component {
           {/* LOGIN FORM */}
           <UserForm
             className={loginClass}
-            id="loginForm"
+            block="loginForm"
             onCardToggle={this.handleCardToggle}
             onUserPanelStateChange={this.handleUserPanelState}
             onUsersChange={onUsersChange}
@@ -79,7 +79,7 @@ class UserPanel extends Component {
           {/* SIGNUP FORM */}
           <UserForm
             className={signupClass}
-            id="signupForm"
+            block="signupForm"
             onCardToggle={this.handleCardToggle}
             onUserPanelStateChange={this.handleUserPanelState}
             onUsersChange={onUsersChange}

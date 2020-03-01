@@ -1,11 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+import UserInput from './UserInput';
 import '../scss/UserForm.scss';
 
 const UserForm = (props) => {
   const {
     className,
-    id,
+    block,
     onCardToggle,
     onUserPanelStateChange
   } = props;
@@ -20,7 +21,7 @@ const UserForm = (props) => {
   const passwordInput = React.createRef();
   const passwordConfirm = React.createRef();
 
-  const isLoginForm = id === 'loginForm';
+  const isLoginForm = block === 'loginForm';
   const title = isLoginForm ? 'Log In' : 'Sign Up';
   const loginButtonName = isLoginForm ? 'Log In' : 'Cancel';
   const loginButtonType = isLoginForm ? 'submit' : 'button';
@@ -28,22 +29,22 @@ const UserForm = (props) => {
   const onLoginButtonClick = isLoginForm ? undefined : onCardToggle;
   const onSignupButtonClick = isLoginForm ? onCardToggle : undefined;
 
-  const loginAlertClass = classNames(`${id}__alertBox ${id}__alertBox--login`, {
-    [`${id}__alertBox--visible`]: isLoginAlertVisible
+  const loginAlertClass = classNames(`${block}__alertBox ${block}__alertBox--login`, {
+    [`${block}__alertBox--visible`]: isLoginAlertVisible
   });
 
-  const passwordAlertClass = classNames(`${id}__alertBox ${id}__alertBox--password`, {
-    [`${id}__alertBox--visible`]: isPasswordAlertVisible
+  const passwordAlertClass = classNames(`${block}__alertBox ${block}__alertBox--password`, {
+    [`${block}__alertBox--visible`]: isPasswordAlertVisible
   });
   
-  const confirmAlertClass = classNames(`${id}__alertBox ${id}__alertBox--confirm`, {
-    [`${id}__alertBox--visible`]: isConfirmAlertVisible
+  const confirmAlertClass = classNames(`${block}__alertBox ${block}__alertBox--confirm`, {
+    [`${block}__alertBox--visible`]: isConfirmAlertVisible
   });
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const { id, onUsersChange } = props;
+    const { block, onUsersChange } = props;
     const loginInputValue = loginInput.current.value;
     const passwordInputValue = passwordInput.current.value;
     const passwordConfirmValue = passwordConfirm.current.value;
@@ -53,15 +54,15 @@ const UserForm = (props) => {
       isPasswordAlertVisible: passwordInputValue === '' ? true : false,
       isConfirmAlertVisible: passwordConfirmValue === '' ? true : false,
     });
-    
+
     if (loginInputValue === '' || passwordInputValue === '' || passwordConfirmValue === '')  return;
 
     
-    if (id === 'loginForm') {
+    if (block === 'loginForm') {
 
 
 
-    } else if (id === 'signupForm') {
+    } else if (block === 'signupForm') {
 
       const newUser = {
         login: loginInputValue,
@@ -74,11 +75,49 @@ const UserForm = (props) => {
 
   return (
     <form className={className} onSubmit={handleFormSubmit}>
-      <h2 className={`${id}__heading`}>
+      <h2 className={`${block}__heading`}>
         {title}
       </h2>
       {/* LOGIN */}
-      <label
+      <UserInput
+        block={block}
+        modifier="login"
+
+        
+      />
+      {/* PASSWORD */}
+      <UserInput
+        block={block}
+        modifier="password"
+
+      />
+      {/* PASSWORD CONFIRM */
+      isLoginForm ? <div className="empty"></div> :
+      <UserInput
+        block={block}
+        modifier="confirm"
+
+      />
+      }
+
+      {/* BUTTONS */}
+      <button
+        className={`${block}__button ${block}__button--login`}
+        onClick={onLoginButtonClick}
+        type={loginButtonType}
+      >
+        {loginButtonName}
+      </button>
+      <button
+        className={`${block}__button ${block}__button--signup`}
+        onClick={onSignupButtonClick}
+        type={submitButtonType}
+      >
+        Sign Up
+      </button>
+
+      {/* LOGIN */}
+      {/* <label
         htmlFor={`${id}Login`}
         className={`${id}__label ${id}__label--login`}
       >
@@ -97,9 +136,10 @@ const UserForm = (props) => {
         <p className={`${id}__alert`}>
           Please enter your login
         </p>
-      </div>
+      </div> */}
+
       {/* PASSWORD */}
-      <label
+      {/* <label
         htmlFor={`${id}Password`}
         className={`${id}__label ${id}__label--password`}
       >
@@ -117,9 +157,10 @@ const UserForm = (props) => {
         <p className={`${id}__alert`}>
           Please enter your password
         </p>
-      </div>
+      </div> */}
+
       { /* REPEAT PASSWORD */
-        id === 'signupForm'
+        /* id === 'signupForm'
         ?
         <React.Fragment>
           <label
@@ -143,23 +184,8 @@ const UserForm = (props) => {
           </div>
         </React.Fragment>
         :
-        <div className="empty"></div>
+        <div className="empty"></div> */
       }
-      {/* BUTTONS */}
-      <button
-        className={`${id}__button ${id}__button--login`}
-        onClick={onLoginButtonClick}
-        type={loginButtonType}
-      >
-        {loginButtonName}
-      </button>
-      <button
-        className={`${id}__button ${id}__button--signup`}
-        onClick={onSignupButtonClick}
-        type={submitButtonType}
-      >
-        Sign Up
-      </button>
     </form>
   );
 }
