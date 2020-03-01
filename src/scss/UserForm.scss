@@ -11,14 +11,8 @@
   box-shadow: $card-shadow-medium;
   border-radius: 10px;
   display: grid;
-  gap: 0.5em;
-  grid-template-areas:
-  "heading       heading      "
-  "loginLabel    loginLabel   "
-  "loginInput    loginInput   "
-  "passwordLabel passwordLabel"
-  "passwordInput passwordInput"
-  "loginButton   signupButton ";
+  gap: 0.3em 0.6em;
+  grid-template-columns: repeat(2, 1fr);
   padding: 30px;
   transform: rotate3d(0, 1, 0, -90deg);
   visibility: hidden;
@@ -34,12 +28,7 @@
   }
 
   @media only screen and (min-width: $media-md) {
-    gap: 1em;
-    grid-template-areas:
-    "heading       heading       heading       heading"
-    "loginLabel    loginInput    loginInput    .      "
-    "passwordLabel passwordInput passwordInput .      "
-    ".             loginButton   signupButton  .      ";
+    gap: 0.6em 0.8em;
     grid-template-columns: repeat(4, 1fr);
   }
 
@@ -120,12 +109,69 @@
       }
     }
   }
+
+  &__alertBox {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height $time-alert, visibility 0s $time-alert;
+
+    &--login {
+      grid-area: loginAlert;
+    }
+
+    &--password {
+      grid-area: passwordAlert;
+    }
+
+    &--visible {
+      max-height: 50px;
+      transition: max-height $time-alert, visibility 0s;
+    }
+  }
+
+  &__alert {
+    @include flex-center;
+    background-color: $color-teal-warning;
+    border-radius: 5px;
+    color: $color-teal-light-2;
+    font-size: 1.1em;
+    font-weight: 700;
+    margin: 0;
+    padding: 0.5em;
+    text-align: center;
+  }
 }
 
 // #endregion
 
 .loginForm {
   background-color: $color-teal;
+  grid-template-areas:
+  "heading       heading      "
+  "loginLabel    loginLabel   "
+  "loginInput    loginInput   "
+  "loginAlert    loginAlert   "
+  "passwordLabel passwordLabel"
+  "passwordInput passwordInput"
+  "passwordAlert passwordAlert"
+  "loginButton   signupButton ";
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  @media only screen and (min-width: $media-md) {
+
+    & {
+      grid-template-areas:
+      "heading       heading       heading       heading"
+      "loginLabel    loginInput    loginInput    .      "
+      ".             loginAlert    loginAlert    .      "
+      "passwordLabel passwordInput passwordInput .      "
+      ".             passwordAlert passwordAlert .      "
+      ".             loginButton   signupButton  .      ";
+    }
+  }
 
   &__heading {
     color: $color-teal-dark-2;
@@ -160,11 +206,33 @@
 
 .signupForm {
   background-color: $color-teal-dark-3;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
+  grid-template-areas:
+  "heading       heading      "
+  "loginLabel    loginLabel   "
+  "loginInput    loginInput   "
+  "loginAlert    loginAlert   "
+  "passwordLabel passwordLabel"
+  "passwordInput passwordInput"
+  "passwordAlert passwordAlert"
+  "confirmLabel  confirmLabel "
+  "confirmInput  confirmInput "
+  "confirmAlert  confirmAlert "
+  "loginButton   signupButton ";
+
+  @media only screen and (min-width: $media-md) {
+
+    & {
+      grid-template-areas:
+      "heading       heading       heading       heading"
+      "loginLabel    loginInput    loginInput    .      "
+      ".             loginAlert    loginAlert    .      "
+      "passwordLabel passwordInput passwordInput .      "
+      ".             passwordAlert passwordAlert .      "
+      "confirmLabel  confirmInput  confirmInput  .      "
+      ".             confirmAlert  confirmAlert  .      "
+      ".             loginButton   signupButton  .      ";
+    }
+  }
 
   &__heading {
     color: $color-teal-light-1;
@@ -172,12 +240,29 @@
 
   &__label {
     color: $color-teal-dark-1;
+
+    &--confirm {
+      grid-area: confirmLabel;
+    }
+  }
+
+  &__input {
+
+    &--confirm {
+      grid-area: confirmInput;
+    }
+  }
+
+  &__alertBox {
+
+    &--confirm {
+      grid-area: confirmAlert;
+    }
   }
 
   &__button {
     background-color: $color-teal-dark-2;
     color: $color-teal-light-1;
-
     @mixin buttonActive {
       background-color: $color-teal;
       color: $color-teal-light-2;
