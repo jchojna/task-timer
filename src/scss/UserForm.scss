@@ -141,7 +141,7 @@
     @media only screen and (min-width: $media-md) {
   
       & {
-        margin-top: 10px;
+        margin-top: 20px;
       }
     }
   }
@@ -157,6 +157,7 @@
   "labelPassword labelPassword .            "
   "inputPassword inputPassword iconsPassword"
   "alertPassword alertPassword .            "
+  "remember      remember      .            "
   "loginBtn      signupBtn     .            ";
   left: 0;
   position: absolute;
@@ -172,6 +173,7 @@
       ".              alertLogin    alertLogin    .            "
       "labelPassword  inputPassword inputPassword iconsPassword"
       ".              alertPassword alertPassword .            "
+      ".              remember      remember      .            "
       ".              loginBtn      signupBtn     .            ";
     }
   }
@@ -220,6 +222,7 @@
   "labelConfirm  labelConfirm  .            "
   "inputConfirm  inputConfirm  iconsConfirm "
   "alertConfirm  alertConfirm  .            "
+  "remember      remember      .            "
   "loginBtn      signupBtn     .            ";
   
   @media only screen and (min-width: $media-md) {
@@ -233,6 +236,7 @@
       ".              alertPassword alertPassword .            "
       "labelConfirm   inputConfirm  inputConfirm  iconsConfirm "
       ".              alertConfirm  alertConfirm  .            "
+      ".              remember      remember      .            "
       ".              loginBtn      signupBtn     .            ";
     }
   }
@@ -334,5 +338,70 @@
 
   &__svg {
     width: 100%;
+  }
+}
+
+.remember {
+  align-items: center;
+  display: flex;
+  grid-area: remember;
+  margin-top: 10px;
+
+  &__field {
+    border: 3px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 25px;
+    position: relative;
+    width: 25px;
+
+    &--loginForm {
+      border-color: $color-teal-dark-2;
+    }
+
+    &--signupForm {
+      border-color: $color-teal-dark-1;
+    }
+  }
+
+  &__checkbox {
+    height: 30px;
+    left: -5px;
+    position: absolute;
+    top: -6px;
+    visibility: hidden;
+    width: 30px;
+
+    &--visible {
+      visibility: visible;
+    }
+
+    &--loginForm {
+      fill: $color-teal-dark-3;
+    }
+
+    &--signupForm {
+      fill: $color-teal-light-3;
+    }
+  }
+
+  &__input {
+    display: none;
+    position: absolute;    
+  }
+
+  &__label {
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-left: 10px;
+
+    &--loginForm {
+      color: $color-teal-dark-2;
+    }
+
+    &--signupForm {
+      color: $color-teal-dark-1;
+    }
   }
 }

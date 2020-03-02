@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-//import classNames from 'classnames';
+import classNames from 'classnames';
 import UserInput from './UserInput';
+import icons from '../assets/svg/icons.svg';
 import '../scss/UserForm.scss';
 
 class UserForm extends Component {
@@ -21,7 +22,8 @@ class UserForm extends Component {
       loginAlertText: 'Please enter your login',
       passwordAlertText: 'Please enter your password',
       confirmAlertText: 'Please confirm your password',
-      isConfirmPasswordDisabled: true
+      isConfirmPasswordDisabled: true,
+      shouldRemember: false
     }
   }
 
@@ -123,6 +125,13 @@ class UserForm extends Component {
     }));
   }
 
+  handleRememberMe = () => {
+    console.log('test');
+    this.setState(prevState => ({
+      shouldRemember: !prevState.shouldRemember
+    }));
+  }
+
   handleFormReset = () => {
     this.setState({
       login: '',
@@ -207,7 +216,8 @@ class UserForm extends Component {
       confirmAlertText,
       isConfirmPasswordDisabled,
       isPasswordPreviewed,
-      isConfirmPreviewed
+      isConfirmPreviewed,
+      shouldRemember
     } = this.state;
 
     const isLoginForm = block === 'loginForm';
@@ -219,6 +229,11 @@ class UserForm extends Component {
     const onSignupButtonClick = isLoginForm ? this.handleCardToggle : undefined;
     const passwordInputType = isPasswordPreviewed ? 'text' : 'password';
     const confirmInputType = isConfirmPreviewed ? 'text' : 'password';
+
+    const checkboxClass = classNames('remember__checkbox',
+    `remember__checkbox--${block}`, {
+      'remember__checkbox--visible': shouldRemember
+    });
 
     return (
       <form className={className} onSubmit={this.handleFormSubmit}>
@@ -269,6 +284,29 @@ class UserForm extends Component {
             onInputBlur={this.handleAlerts}
           />
         }
+        {/* REMEMBER ME */}
+        <div className="remember">
+          <div
+            className={`remember__field remember__field--${block}`}
+            onClick={this.handleRememberMe}
+          >
+            <svg className={checkboxClass}>
+              <use href={`${icons}#check`}></use>
+            </svg>
+          </div>
+          <input
+            id={`${block}Remember`}
+            className={`remember__input remember__input--${block}`}
+            type="checkbox"
+          />
+          <label
+            htmlFor={`${block}Remember`}
+            className={`remember__label remember__label--${block}`}
+            onClick={this.handleRememberMe}
+          >
+            Remember Me
+          </label>
+        </div>
         {/* BUTTONS */}
         <button
           className={`${block}__button ${block}__button--login`}
