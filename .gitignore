@@ -6,6 +6,8 @@
 /.pnp
 .pnp.js
 
+/figma
+
 # testing
 /coverage
 

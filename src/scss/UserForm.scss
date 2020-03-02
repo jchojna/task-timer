@@ -9,8 +9,8 @@
   border-radius: 10px;
   display: grid;
   gap: 0.3em 0.6em;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 30px;
+  grid-template-columns: repeat(2, 1fr) auto;
+  padding: 20px;
   transform: rotate3d(0, 1, 0, -90deg);
   visibility: hidden;
 
@@ -111,6 +111,16 @@
     padding: 0.5em;
     text-align: center;
   }
+
+  &__icons {
+    column-gap: 5px;
+    display: grid;
+    grid-template-columns: 30px auto;
+
+    &--login { grid-area: iconsLogin; }
+    &--password { grid-area: iconsPassword; }
+    &--confirm { grid-area: iconsConfirm; }
+  }
   
   &__button {
     @include button;
@@ -140,14 +150,14 @@
 .loginForm {
   background-color: $color-teal;
   grid-template-areas:
-  "heading       heading      "
-  "labelLogin    labelLogin   "
-  "inputLogin    inputLogin   "
-  "alertLogin    alertLogin   "
-  "labelPassword labelPassword"
-  "inputPassword inputPassword"
-  "alertPassword alertPassword"
-  "loginBtn      signupBtn    ";
+  "heading       heading       heading      "
+  "labelLogin    labelLogin    .            "
+  "inputLogin    inputLogin    iconsLogin   "
+  "alertLogin    alertLogin    .            "
+  "labelPassword labelPassword .            "
+  "inputPassword inputPassword iconsPassword"
+  "alertPassword alertPassword .            "
+  "loginBtn      signupBtn     .            ";
   left: 0;
   position: absolute;
   top: 0;
@@ -157,12 +167,12 @@
 
     & {
       grid-template-areas:
-      "heading        heading       heading       heading "
-      "labelLogin     inputLogin    inputLogin    .       "
-      ".              alertLogin    alertLogin    .       "
-      "labelPassword  inputPassword inputPassword .       "
-      ".              alertPassword alertPassword .       "
-      ".              loginBtn      signupBtn     .       ";
+      ".              heading       heading       .            "
+      "labelLogin     inputLogin    inputLogin    iconsLogin   "
+      ".              alertLogin    alertLogin    .            "
+      "labelPassword  inputPassword inputPassword iconsPassword"
+      ".              alertPassword alertPassword .            "
+      ".              loginBtn      signupBtn     .            ";
     }
   }
 
@@ -200,30 +210,30 @@
 .signupForm {
   background-color: $color-teal-dark-3;
   grid-template-areas:
-  "heading       heading      "
-  "labelLogin    labelLogin   "
-  "inputLogin    inputLogin   "
-  "alertLogin    alertLogin   "
-  "labelPassword labelPassword"
-  "inputPassword inputPassword"
-  "alertPassword alertPassword"
-  "labelConfirm  labelConfirm "
-  "inputConfirm  inputConfirm "
-  "alertConfirm  alertConfirm "
-  "loginBtn      signupBtn    ";
+  "heading       heading       heading      "
+  "labelLogin    labelLogin    .            "
+  "inputLogin    inputLogin    iconsLogin   "
+  "alertLogin    alertLogin    .            "
+  "labelPassword labelPassword .            "
+  "inputPassword inputPassword iconsPassword"
+  "alertPassword alertPassword .            "
+  "labelConfirm  labelConfirm  .            "
+  "inputConfirm  inputConfirm  iconsConfirm "
+  "alertConfirm  alertConfirm  .            "
+  "loginBtn      signupBtn     .            ";
   
   @media only screen and (min-width: $media-md) {
 
     & {
       grid-template-areas:
-      "heading        heading       heading       heading "
-      "labelLogin     inputLogin    inputLogin    .       "
-      ".              alertLogin    alertLogin    .       "
-      "labelPassword  inputPassword inputPassword .       "
-      ".              alertPassword alertPassword .       "
-      "labelConfirm   inputConfirm  inputConfirm  .       "
-      ".              alertConfirm  alertConfirm  .       "
-      ".              loginBtn      signupBtn     .       ";
+      ".              heading       heading       .            "
+      "labelLogin     inputLogin    inputLogin    iconsLogin   "
+      ".              alertLogin    alertLogin    .            "
+      "labelPassword  inputPassword inputPassword iconsPassword"
+      ".              alertPassword alertPassword .            "
+      "labelConfirm   inputConfirm  inputConfirm  iconsConfirm "
+      ".              alertConfirm  alertConfirm  .            "
+      ".              loginBtn      signupBtn     .            ";
     }
   }
 
@@ -262,5 +272,32 @@
         @include buttonActive;
       }
     }
+  }
+}
+
+.inputPassed {
+  height: $login-icons;
+  overflow: hidden;
+  width: 0;
+  transition: width 0.2s;
+
+  &--visible {
+    width: $login-icons;
+  }
+
+  &__svg {
+    fill: $color-teal-dark-3;
+    width: $login-icons;
+  }
+}
+
+.previewPassword {
+  @include button;
+  fill: $color-teal-dark-2;
+  height: $login-icons;
+  width: $login-icons;
+
+  &__svg {
+    width: 100%;
   }
 }

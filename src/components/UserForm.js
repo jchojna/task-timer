@@ -228,6 +228,9 @@ class UserForm extends Component {
       login,
       password,
       confirm,
+      isLoginInputValid,
+      isPasswordInputValid,
+      isConfirmPasswordValid,
       isLoginAlertVisible,
       isPasswordAlertVisible,
       isConfirmAlertVisible,
@@ -256,6 +259,7 @@ class UserForm extends Component {
           modifier="login"
           value={login}
           type="text"
+          isInputValid={isLoginInputValid}
           isAlertVisible={isLoginAlertVisible}
           alertText={loginAlertText}
           onInputChange={this.handleInputChange}
@@ -267,6 +271,7 @@ class UserForm extends Component {
           modifier="password"
           value={password}
           type="password"
+          isInputValid={isPasswordInputValid}
           isAlertVisible={isPasswordAlertVisible}
           alertText={passwordAlertText}
           onInputChange={this.handleInputChange}
@@ -280,6 +285,7 @@ class UserForm extends Component {
             modifier="confirm"
             value={confirm}
             type="password"
+            isInputValid={isConfirmPasswordValid}
             isAlertVisible={isConfirmAlertVisible}
             alertText={confirmAlertText}
             onInputChange={this.handleInputChange}

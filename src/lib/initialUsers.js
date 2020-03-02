@@ -1,38 +1,22 @@
-/* export const initialUsers = {
-  "Jakub": {
-    "login": "Jakub",
-    "password": "jakubek" 
-  },
-  "Anna": {
-    "login": "Anna",
-    "password": "aneczka" 
-  },
-  "Agnieszka": {
-    "login": "Agnieszka",
-    "password": "czrak" 
-  },
-  "Olek": {
-    "login": "Olek",
-    "password": "lolek" 
-  },
-};
-
- */
 export const initialUsers = [
   {
     "login": "Jakub",
-    "password": "jakubek" 
+    "password": "jakubek",
+    "tasks": []
   },
   {
     "login": "Anna",
-    "password": "aneczka" 
+    "password": "aneczka",
+    "tasks": []
   },
   {
     "login": "Agnieszka",
-    "password": "czrak" 
+    "password": "agnieszka",
+    "tasks": []
   },
   {
     "login": "Olek",
-    "password": "lolek" 
+    "password": "aleksander",
+    "tasks": []
   },
 ];

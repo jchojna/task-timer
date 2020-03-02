@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import icons from '../assets/svg/icons.svg';
 
 const UserInput = (props) => {
 
@@ -8,6 +9,7 @@ const UserInput = (props) => {
     modifier,
     value,
     type,
+    isInputValid,
     isAlertVisible,
     alertText,
     onInputChange,
@@ -32,6 +34,15 @@ const UserInput = (props) => {
   });
 
   const alertClass = `${block}__alert ${block}__alert--${modifier}`;
+  const iconsClass = `${block}__icons ${block}__icons--${modifier}`;
+  const passedClass = classNames(`inputPassed inputPassed--${modifier}`, {
+    'inputPassed--visible': isInputValid 
+  });
+  
+  ;
+  const previewClass = `previewPassword previewPassword--${modifier}`;
+  const passedSvgClass = `inputPassed__svg inputPassed__svg--${modifier}`;
+  const previewSvgClass = `previewPassword__svg previewPassword__svg--${modifier}`;
   
   return (
     <React.Fragment>
@@ -52,6 +63,22 @@ const UserInput = (props) => {
       />
       <div className={alertBoxClass}>
         <p className={alertClass}>{alertText}</p>
+      </div>
+      <div className={iconsClass}>
+        {
+        modifier === 'password' || modifier === 'confirm'
+        ? <button className={previewClass}>
+            <svg className={previewSvgClass} viewBox="0 0 100 100">
+              <use href={`${icons}#preview`} />
+            </svg>
+          </button>
+        : <div className="empty"></div>
+        }
+        <div className={passedClass}>
+          <svg className={passedSvgClass} viewBox="0 0 100 100">
+            <use href={`${icons}#passed`} />
+          </svg>
+        </div>
       </div>
     </React.Fragment>
   );
