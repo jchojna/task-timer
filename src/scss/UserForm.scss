@@ -321,6 +321,11 @@
     }
   }
 
+  &--disabled {
+    fill: $color-teal-dark-1;
+    pointer-events: none;
+  }
+
   &__svg {
     width: 100%;
   }

@@ -16,6 +16,8 @@ class UserForm extends Component {
       isLoginAlertVisible: false,
       isPasswordAlertVisible: false,
       isConfirmAlertVisible: false,
+      isPasswordPreviewed: false,
+      isConfirmPreviewed: false,
       loginAlertText: '',
       passwordAlertText: '',
       confirmAlertText: '',
@@ -28,14 +30,7 @@ class UserForm extends Component {
   handleCardToggle = () => {
     const { onCardToggle } = this.props;
     onCardToggle();
-    this.setState({
-      login: '',
-      password: '',
-      confirm: '',
-      isLoginAlertVisible: false,
-      isPasswordAlertVisible: false,
-      isConfirmAlertVisible: false,
-    });
+    this.handleFormReset();
   }
 
   handleInputChange = (input, value) => {
@@ -45,7 +40,9 @@ class UserForm extends Component {
         password: value,
         isPasswordAlertVisible: false,
         confirm: '',
-        isConfirmAlertVisible: false
+        isConfirmPasswordValid: false,
+        isConfirmAlertVisible: false,
+        isConfirmPreviewed: false,
       })
     : this.setState({
       [input]: value,
@@ -157,6 +154,12 @@ class UserForm extends Component {
     return true;
   }
 
+  handlePasswordPreview = (input) => {
+    this.setState(prevState => ({
+      [`is${input}Previewed`]: !prevState[`is${input}Previewed`]
+    }));
+  }
+
   handleFormReset = () => {
     this.setState({
       login: '',
@@ -168,7 +171,9 @@ class UserForm extends Component {
       isLoginAlertVisible: false,
       isPasswordAlertVisible: false,
       isConfirmAlertVisible: false,
-      isConfirmPasswordDisabled: true
+      isConfirmPasswordDisabled: true,
+      isPasswordPreviewed: false,
+      isConfirmPreviewed: false,
     });
   }
 
@@ -237,7 +242,9 @@ class UserForm extends Component {
       loginAlertText,
       passwordAlertText,
       confirmAlertText,
-      isConfirmPasswordDisabled
+      isConfirmPasswordDisabled,
+      isPasswordPreviewed,
+      isConfirmPreviewed
     } = this.state;
 
     const isLoginForm = block === 'loginForm';
@@ -247,6 +254,8 @@ class UserForm extends Component {
     const submitButtonType = isLoginForm ? 'button' : 'submit';
     const onLoginButtonClick = isLoginForm ? undefined : this.handleCardToggle;
     const onSignupButtonClick = isLoginForm ? this.handleCardToggle : undefined;
+    const passwordInputType = isPasswordPreviewed ? 'text' : 'password';
+    const confirmInputType = isConfirmPreviewed ? 'text' : 'password';
 
     return (
       <form className={className} onSubmit={this.handleFormSubmit}>
@@ -270,10 +279,11 @@ class UserForm extends Component {
           block={block}
           modifier="password"
           value={password}
-          type="password"
+          type={passwordInputType}
           isInputValid={isPasswordInputValid}
           isAlertVisible={isPasswordAlertVisible}
           alertText={passwordAlertText}
+          onPreviewClick={this.handlePasswordPreview}
           onInputChange={this.handleInputChange}
           onInputBlur={this.handlePasswordValidation}
         />
@@ -284,10 +294,11 @@ class UserForm extends Component {
             block={block}
             modifier="confirm"
             value={confirm}
-            type="password"
+            type={confirmInputType}
             isInputValid={isConfirmPasswordValid}
             isAlertVisible={isConfirmAlertVisible}
             alertText={confirmAlertText}
+            onPreviewClick={this.handlePasswordPreview}
             onInputChange={this.handleInputChange}
             onInputBlur={this.handleConfirmValidation}
             isInputDisabled={isConfirmPasswordDisabled}
