@@ -12,60 +12,6 @@ class Board extends Component {
       isCreatorVisible: false,
       isDraggingMode: false,
       isPlaceholderVisible: false,
-      tasks: [
-        {
-          taskName: "Add some feature to TaskTimer App",
-          taskMinutes: 20,
-          taskSeconds: 0,
-          breakMinutes: 5,
-          breakSeconds: 0,
-          totalTaskTime: 2000000,
-          totalBreakTime: 500000,
-          totalTaskTimeArray: ["20","00","00"],
-          totalBreakTimeArray: ["05","00","00"],
-          id: 56436543654,
-          dateCreated: 56436543654
-        },
-        {
-          taskName: "Do exercices",
-          taskMinutes: 0,
-          taskSeconds: 1,
-          breakMinutes: 0,
-          breakSeconds: 1,
-          totalTaskTime: 1000,
-          totalBreakTime: 1000,
-          totalTaskTimeArray: ["00","01","00"],
-          totalBreakTimeArray: ["00","01","00"],
-          id: 6546567854,
-          dateCreated: 6546567854
-        },
-        {
-          taskName: "Test task for preview purposes",
-          taskMinutes: 30,
-          taskSeconds: 0,
-          breakMinutes: 10,
-          breakSeconds: 0,
-          totalTaskTime: 500000,
-          totalBreakTime: 100000,
-          totalTaskTimeArray: ["05","00","00"],
-          totalBreakTimeArray: ["01","00","00"],
-          id: 90798758576,
-          dateCreated: 90798758576
-        },
-        {
-          taskName: "Another task for testing",
-          taskMinutes: 0,
-          taskSeconds: 1,
-          breakMinutes: 0,
-          breakSeconds: 1,
-          totalTaskTime: 1000,
-          totalBreakTime: 1000,
-          totalTaskTimeArray: ["00","01","00"],
-          totalBreakTimeArray: ["00","01","00"],
-          id: 654765387657985,
-          dateCreated: 654765387657985
-        }
-      ],
       // cards
       cardsSizes: [],
       draggedCardIndex: -1,
@@ -81,6 +27,7 @@ class Board extends Component {
 
   componentDidMount = () => {
     window.addEventListener('resize', this.handleWindowResize);
+    //this.setState({ tasks: this.props.loggedUser.tasks });
   }
 
   componentWillUnmount = () => {
@@ -96,19 +43,26 @@ class Board extends Component {
   handleStateChange = (object) => this.setState(object);
 
   handleTaskOrder = (dragIndex, dropIndex) => {
+    const { onUserUpdate } = this.props;
     const { tasks } = this.state;
+
     this.setState(prevState => {
       const newTasks = [...prevState.tasks];
       newTasks.splice(dragIndex, 1, tasks[dropIndex]);
       newTasks.splice(dropIndex, 1, tasks[dragIndex]);
       return { tasks: newTasks };
     });
+    //onUserUpdate()
   };
   
-  handleTaskRemove = (id) => this.setState(prevState => ({
-    tasks: prevState.tasks.filter(task => task.id !== id),
-    isPlaceholderVisible: false
-  }));
+
+  handleTaskRemove = (id) => {
+    const { onTaskRemove } = this.props;
+    onTaskRemove(id);
+    this.setState({
+      isPlaceholderVisible: false
+    });
+  }
   
   handleNewTaskButton = () => {
     this.setState({
@@ -118,9 +72,11 @@ class Board extends Component {
   }
 
   render() {
+    const { loggedUserLogin, users, onTaskOrderChange } = this.props;
+    const tasks = [...users].find(user => user.login === loggedUserLogin).tasks;
+
     const {
       isCreatorVisible,
-      tasks,
       isDraggingMode,
       isPlaceholderVisible,
       hoveredCardIndex,
@@ -146,7 +102,7 @@ class Board extends Component {
             key={`card-${task.dateCreated}`}
             task={task}
             cardIndex={index}
-            onTaskOrderChange={this.handleTaskOrder}
+            onTaskOrderChange={onTaskOrderChange}
             onBoardStateChange={this.handleStateChange}
             onTaskRemove={this.handleTaskRemove}
             isDraggingMode={isDraggingMode}

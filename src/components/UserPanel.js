@@ -20,8 +20,6 @@ class UserPanel extends Component {
     });
   }
 
-  //handleStateChange = (object) => this.setState(object);
-
   handleCardToggle = () => {
     this.setState(prevState => ({
       isLoginFormVisible: !prevState.isLoginFormVisible,
@@ -61,17 +59,17 @@ class UserPanel extends Component {
           <UserForm
             className={loginClass}
             block="loginForm"
-            onCardToggle={this.handleCardToggle}
             onUsersChange={onUsersChange}
             users={users}
+            onCardToggle={this.handleCardToggle}
           />
           {/* SIGNUP FORM */}
           <UserForm
             className={signupClass}
             block="signupForm"
-            onCardToggle={this.handleCardToggle}
             onUsersChange={onUsersChange}
             users={users}
+            onCardToggle={this.handleCardToggle}
           />
         </div>
       </div>

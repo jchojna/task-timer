@@ -12,7 +12,8 @@ class App extends Component {
       isIntroVisible: false,
       isUserPanelVisible: true,
       isBoardVisible: false,
-      users: initialUsers
+      users: initialUsers,
+      loggedUserLogin: null
     };
   }
 
@@ -26,31 +27,65 @@ class App extends Component {
   }
 
   componentDidUpdate = () => {
+    console.log('app state updated');
     this.exportUsers();
   }
 
   componentWillUnmount = () => {
   }
 
+  handleStateChange = (object) => this.setState(object);
+
   exportUsers = () => {
     const { users } = this.state;
     localStorage.setItem('taskTimerUsers', JSON.stringify(users));
   }
 
-  handleUsersChange = (user) => {
-    this.setState(prevState => ({
-      users: [ ...prevState.users, user ]
-    }));
+  handleTaskRemove = (id) => {
+    const { loggedUserLogin, users } = this.state;
+
+    this.setState(prevState => {
+      const user = [...prevState.users].find(user => user.login === loggedUserLogin);
+      user.tasks = user.tasks.filter(task => task.id !== id);
+      return { users };
+    })
+  };
+  
+  handleTaskOrder = (dragIndex, dropIndex) => {
+    const { loggedUserLogin, users } = this.state;
+
+    this.setState(prevState => {
+      const user = [...prevState.users].find(user => user.login === loggedUserLogin);
+      const tasks = user.tasks;
+      const updatedTasks = [...tasks];
+      updatedTasks.splice(dragIndex, 1, tasks[dropIndex]);
+      updatedTasks.splice(dropIndex, 1, tasks[dragIndex]);
+      user.tasks = updatedTasks;
+      return { users };
+    });
+  };
+
+  handleUserUpdate = () => {
+
   }
 
-  handleStateChange = (object) => this.setState(object);
+  handleUserLogin = (user, form) => {
+    this.setState(prevState => ({
+      isUserPanelVisible: false,
+      isBoardVisible: true,
+      users: form === 'loginForm' ? this.state.users : [...prevState.users, user],
+      loggedUserLogin: user.login
+    }));
+  }
 
   render() {
     const {
       isIntroVisible,
       isUserPanelVisible,
       isBoardVisible,
-      users } = this.state;
+      users,
+      loggedUserLogin
+    } = this.state;
 
     return (
       <React.StrictMode>
@@ -68,8 +103,7 @@ class App extends Component {
           { /* USER PANEL */
             isUserPanelVisible
             ? <UserPanel
-                //onAppStateChange={this.handleStateChange}
-                onUsersChange={this.handleUsersChange}
+                onUsersChange={this.handleUserLogin}
                 users={users}
               />
             : <div className="empty"></div>
@@ -77,7 +111,13 @@ class App extends Component {
           { /* BOARD */
             isBoardVisible
             ?
-            <Board />
+            <Board
+              users={users}
+              loggedUserLogin={loggedUserLogin}
+              onUserUpdate={this.handleUserUpdate}
+              onTaskRemove={this.handleTaskRemove}
+              onTaskOrderChange={this.handleTaskOrder}
+            />
             : <div className="empty"></div>
           }
         </div>

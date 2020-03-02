@@ -161,17 +161,17 @@ class UserForm extends Component {
       shouldRemember
     } = this.state;
 
-    const isLoginPasswordCorrect = block === 'loginForm' && isLoginInputValid
-    && [...users].filter(user => user.login === login)[0].password === password;
+    const user = [...users].filter(user => user.login === login)[0];
+
+    const isLoginPasswordCorrect = block === 'loginForm'
+    && isLoginInputValid
+    && user.password === password;
     
     if (block === 'loginForm') {
 
       if (isLoginInputValid && isLoginPasswordCorrect) {
 
-        console.log('logged in');
-        // login process
-        // login process
-        // login process
+        onUsersChange(user, block);
         this.handleFormReset();
         
       } else {
@@ -187,9 +187,11 @@ class UserForm extends Component {
         const newUser = {
           login: login,
           password: password,
-          rememberMe: shouldRemember
+          rememberMe: shouldRemember,
+          tasks: []
         }
-        onUsersChange(newUser);
+
+        onUsersChange(newUser, block);
         this.handleFormReset();
 
       } else return;
