@@ -12,11 +12,18 @@ const UserInput = (props) => {
     isInputValid,
     isAlertVisible,
     alertText,
+    isPreviewMode,
     onPreviewClick,
     onInputChange,
     onInputBlur,
     isInputDisabled
   } = props;
+
+  const handleInputDefocus = () => {
+    if (!isInputValid) {
+      onInputBlur(modifierName);
+    }
+  }
 
   const modifierName = modifier.charAt(0).toUpperCase() + modifier.substring(1);
   const inputId = block + modifierName;
@@ -40,6 +47,7 @@ const UserInput = (props) => {
     'inputPassed--visible': isInputValid
   });
   const previewClass = classNames(`previewPassword previewPassword--${block}`, {
+    'previewPassword--active': isPreviewMode,
     'previewPassword--disabled': isInputDisabled
   });
   
@@ -53,12 +61,12 @@ const UserInput = (props) => {
         type={type}
         name={inputId}
         value={value}
-        onChange={(e) => onInputChange(modifier, e.target.value)}
+        onChange={(e) => onInputChange(e.target.value)}
         className={inputClass}
         spellCheck="false"
         maxLength="20"
         disabled={isInputDisabled}
-        onBlur={onInputBlur}
+        onBlur={handleInputDefocus}
       />
       <div className={alertBoxClass}>
         <p className={alertClass}>{alertText}</p>
@@ -77,11 +85,15 @@ const UserInput = (props) => {
           </button>
         : <div className="empty"></div>
         }
-        <div className={passedClass}>
-          <svg className="inputPassed__svg" viewBox="0 0 100 100">
-            <use href={`${icons}#passed`} />
-          </svg>
-        </div>
+        {
+        block === 'loginForm' && modifier === 'password'
+        ? <div className="empty"></div>
+        : <div className={passedClass}>
+            <svg className="inputPassed__svg" viewBox="0 0 100 100">
+              <use href={`${icons}#passed`} />
+            </svg>
+          </div>
+        }
       </div>
     </React.Fragment>
   );

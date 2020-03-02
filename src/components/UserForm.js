@@ -18,9 +18,9 @@ class UserForm extends Component {
       isConfirmAlertVisible: false,
       isPasswordPreviewed: false,
       isConfirmPreviewed: false,
-      loginAlertText: '',
-      passwordAlertText: '',
-      confirmAlertText: '',
+      loginAlertText: 'Please enter your login',
+      passwordAlertText: 'Please enter your password',
+      confirmAlertText: 'Please confirm your password',
       isConfirmPasswordDisabled: true
     }
   }
@@ -33,31 +33,13 @@ class UserForm extends Component {
     this.handleFormReset();
   }
 
-  handleInputChange = (input, value) => {
-    const inputName = input.charAt(0).toUpperCase() + input.substring(1);
-    input === 'password'
-    ? this.setState({
-        password: value,
-        isPasswordAlertVisible: false,
-        confirm: '',
-        isConfirmPasswordValid: false,
-        isConfirmAlertVisible: false,
-        isConfirmPreviewed: false,
-      })
-    : this.setState({
-      [input]: value,
-      [`is${inputName}AlertVisible`]: false
-    });
-  }
-
-  handleLoginValidation = () => {
+  handleLoginValidation = (value) => {
     const { block, users } = this.props;
-    const { login } = this.state;
     const logins = [...users].map(user => user.login);
 
-    const isEmpty = login === '';
-    const doesContainWhiteSpaces = /\s/g.test(login);
-    const doesLoginExist = [...logins].filter(l => l === login).length > 0;
+    const isEmpty = value === '';
+    const doesContainWhiteSpaces = /\s/g.test(value);
+    const doesLoginExist = [...logins].filter(l => l === value).length > 0;
     const isLoginIncorrect = block === 'loginForm' && !doesLoginExist;
     const isNewLoginIncorrect = block === 'signupForm' && doesLoginExist;
 
@@ -71,31 +53,20 @@ class UserForm extends Component {
     || doesContainWhiteSpaces
     || isLoginIncorrect
     || isNewLoginIncorrect;
-
-    if (isInvalid) {
-      this.setState({
-        isLoginInputValid: false,
-        isLoginAlertVisible: true,
-        loginAlertText
-      });
-      return false;
-
-    } else {
-      this.setState({
-        isLoginInputValid: true,
-        isLoginAlertVisible: false
-      });
-      return true;
-    }
+    
+    this.setState({
+      login: value,
+      isLoginInputValid: isInvalid ? false : true,
+      isLoginAlertVisible: false,
+      loginAlertText: isInvalid ? loginAlertText : this.state.loginAlertText,
+    });
+    return isInvalid ? false : true;
   }
 
-  handlePasswordValidation = () => {
-    const { isLoginInputValid, password } = this.state;
-    //const 
-
-    const isEmpty = password === '';
-    const doesContainWhiteSpaces = /\s/g.test(password);
-    const isPasswordTooShort = password.length < 6;
+  handlePasswordValidation = (value) => {
+    const isEmpty = value === '';
+    const doesContainWhiteSpaces = /\s/g.test(value);
+    const isPasswordTooShort = value.length < 6;
     
     // handle alert text
     const passwordAlertText = isEmpty ? 'Please enter your password' :
@@ -106,52 +77,44 @@ class UserForm extends Component {
     || doesContainWhiteSpaces
     || isPasswordTooShort;
 
-    if (!isLoginInputValid) {
-      this.handleLoginValidation();
-    }
+    
+    this.setState({
+      password: value,
+      isPasswordInputValid: isInvalid ? false : true,
+      isPasswordAlertVisible: false,
+      passwordAlertText: isInvalid ? passwordAlertText : this.state.passwordAlertText,
 
-    if (isInvalid) {
-      this.setState({
-        isPasswordInputValid: false,
-        isPasswordAlertVisible: true,
-        isConfirmPasswordDisabled: true,
-        passwordAlertText
-      });
-      return false;
-
-    } else {
-      this.setState({
-        isPasswordInputValid: true,
-        isPasswordAlertVisible: false,
-        isConfirmPasswordDisabled: false
-      });
-      return true;
-    }
+      confirm: '',
+      isConfirmPasswordValid: false,
+      isConfirmPasswordDisabled: isInvalid ? true : false,
+      isConfirmAlertVisible: false,
+      isConfirmPreviewed: false
+    });
+    return isInvalid ? false : true;
   }
 
-  handleConfirmValidation = () => {
-    const { password, confirm } = this.state;
+  handleConfirmValidation = (value) => {
+    const { password } = this.state;
 
-    const isEmpty = confirm === '';
-    const doPasswordsMatch = password === confirm;
-        
-    if (isEmpty || !doPasswordsMatch) {
-      const confirmAlertText = isEmpty ? 'Please confirm your password' :
-      !doPasswordsMatch ? 'Passwords do not match' : '';
-
-      this.setState({
-        isConfirmPasswordValid: false,
-        isConfirmAlertVisible: true,
-        confirmAlertText
-      });
-      return false;
-    }
+    const isEmpty = value === '';
+    const doPasswordsMatch = password === value;
+    const confirmAlertText = isEmpty ? 'Please confirm your password' :
+    !doPasswordsMatch ? 'Passwords do not match' : '';
+    const isInvalid = isEmpty || !doPasswordsMatch;
 
     this.setState({
-      isConfirmPasswordValid: true,
-      isConfirmAlertVisible: false
+      confirm: value,
+      isConfirmPasswordValid: isInvalid ? false : true,
+      isConfirmAlertVisible: false,
+      confirmAlertText: isInvalid ? confirmAlertText : this.state.confirmAlertText,
     });
-    return true;
+    return isInvalid ? false : true;
+  }
+
+  handleAlerts = (inputName) => {
+    this.setState({
+      [`is${inputName}AlertVisible`]: true
+    }); 
   }
 
   handlePasswordPreview = (input) => {
@@ -271,8 +234,8 @@ class UserForm extends Component {
           isInputValid={isLoginInputValid}
           isAlertVisible={isLoginAlertVisible}
           alertText={loginAlertText}
-          onInputChange={this.handleInputChange}
-          onInputBlur={this.handleLoginValidation}
+          onInputChange={this.handleLoginValidation}
+          onInputBlur={this.handleAlerts}
         />
         {/* PASSWORD */}
         <UserInput
@@ -283,9 +246,10 @@ class UserForm extends Component {
           isInputValid={isPasswordInputValid}
           isAlertVisible={isPasswordAlertVisible}
           alertText={passwordAlertText}
+          isPreviewMode={isPasswordPreviewed}
           onPreviewClick={this.handlePasswordPreview}
-          onInputChange={this.handleInputChange}
-          onInputBlur={this.handlePasswordValidation}
+          onInputChange={this.handlePasswordValidation}
+          onInputBlur={this.handleAlerts}
         />
         {/* PASSWORD CONFIRM */
         isLoginForm
@@ -298,10 +262,11 @@ class UserForm extends Component {
             isInputValid={isConfirmPasswordValid}
             isAlertVisible={isConfirmAlertVisible}
             alertText={confirmAlertText}
-            onPreviewClick={this.handlePasswordPreview}
-            onInputChange={this.handleInputChange}
-            onInputBlur={this.handleConfirmValidation}
+            isPreviewMode={isConfirmPreviewed}
             isInputDisabled={isConfirmPasswordDisabled}
+            onPreviewClick={this.handlePasswordPreview}
+            onInputChange={this.handleConfirmValidation}
+            onInputBlur={this.handleAlerts}
           />
         }
         {/* BUTTONS */}

@@ -304,12 +304,13 @@
   @include button;
   height: $login-icons;
   width: $login-icons;
+  transition: transform 0.2s;
 
   &--loginForm {
     fill: $color-teal-dark-2;
 
     &:hover {
-      fill: $color-teal-light-2;
+      fill: $color-teal-light-3;
     }
   }
 
@@ -317,13 +318,18 @@
     fill: $color-teal;
 
     &:hover {
-      fill: $color-teal-light-2;
+      fill: $color-teal-light-3;
     }
   }
 
   &--disabled {
     fill: $color-teal-dark-1;
     pointer-events: none;
+  }
+
+  &--active {
+    fill: $color-teal-light-2;
+    transform: rotate(180deg);
   }
 
   &__svg {
