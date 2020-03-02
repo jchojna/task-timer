@@ -9,10 +9,7 @@ class UserPanel extends Component {
     this.state = {
       isUserPanelLoaded: false,
       isLoginFormVisible: false,
-      isSignupFormVisible: false,
-      isLoginAlertVisible: false,
-      isPasswordAlertVisible: false,
-      isConfirmAlertVisible: false
+      isSignupFormVisible: false
     };
   }
 
@@ -23,21 +20,14 @@ class UserPanel extends Component {
     });
   }
 
-  handleUserPanelState = (object) => this.setState(object);
+  //handleStateChange = (object) => this.setState(object);
 
   handleCardToggle = () => {
     this.setState(prevState => ({
       isLoginFormVisible: !prevState.isLoginFormVisible,
-      isSignupFormVisible: !prevState.isSignupFormVisible,
-      isLoginAlertVisible: false,
-      isPasswordAlertVisible: false,
-      isConfirmAlertVisible: false
+      isSignupFormVisible: !prevState.isSignupFormVisible
     }));
   }
-
-  /* handleInputChange = ({target}, type) => {
-    this.setState({ [`${type}Login`] : target.value });
-  } */
 
   render() {
     const { onUsersChange } = this.props;
@@ -72,18 +62,14 @@ class UserPanel extends Component {
             className={loginClass}
             block="loginForm"
             onCardToggle={this.handleCardToggle}
-            onUserPanelStateChange={this.handleUserPanelState}
             onUsersChange={onUsersChange}
-            userPanelState={this.state}
           />
           {/* SIGNUP FORM */}
           <UserForm
             className={signupClass}
             block="signupForm"
             onCardToggle={this.handleCardToggle}
-            onUserPanelStateChange={this.handleUserPanelState}
             onUsersChange={onUsersChange}
-            userPanelState={this.state}
           />
         </div>
       </div>

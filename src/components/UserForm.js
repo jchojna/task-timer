@@ -1,192 +1,319 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { Component } from 'react';
+//import classNames from 'classnames';
 import UserInput from './UserInput';
 import '../scss/UserForm.scss';
 
-const UserForm = (props) => {
-  const {
-    className,
-    block,
-    onCardToggle,
-    onUserPanelStateChange
-  } = props;
+class UserForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      login: '',
+      password: '',
+      confirm: '',
+      isLoginInputValid: false,
+      isPasswordInputValid: false,
+      isConfirmPasswordValid: false,
+      isLoginAlertVisible: false,
+      isPasswordAlertVisible: false,
+      isConfirmAlertVisible: false,
+      loginAlertText: '',
+      passwordAlertText: '',
+      confirmAlertText: '',
+      isConfirmPasswordDisabled: true
+    }
+  }
 
-  const {
-    isLoginAlertVisible,
-    isPasswordAlertVisible,
-    isConfirmAlertVisible
-  } = props.userPanelState;
+  handleStateChange = (object) => this.setState(object);
 
-  const loginInput = React.createRef();
-  const passwordInput = React.createRef();
-  const passwordConfirm = React.createRef();
+  handleCardToggle = () => {
+    const { onCardToggle } = this.props;
+    onCardToggle();
+    this.setState({
+      login: '',
+      password: '',
+      confirm: '',
+      isLoginAlertVisible: false,
+      isPasswordAlertVisible: false,
+      isConfirmAlertVisible: false,
+    });
+  }
 
-  const isLoginForm = block === 'loginForm';
-  const title = isLoginForm ? 'Log In' : 'Sign Up';
-  const loginButtonName = isLoginForm ? 'Log In' : 'Cancel';
-  const loginButtonType = isLoginForm ? 'submit' : 'button';
-  const submitButtonType = isLoginForm ? 'button' : 'submit';
-  const onLoginButtonClick = isLoginForm ? undefined : onCardToggle;
-  const onSignupButtonClick = isLoginForm ? onCardToggle : undefined;
+  handleInputChange = (input, value) => {
+    input === 'password'
+    ? this.setState({
+        password: value,
+        confirm: '',
+        isConfirmAlertVisible: false
+      })
+    : this.setState({ [input]: value });
+  }
 
-  const loginAlertClass = classNames(`${block}__alertBox ${block}__alertBox--login`, {
-    [`${block}__alertBox--visible`]: isLoginAlertVisible
-  });
+  handleLoginValidation = () => {
+    const { block } = this.props;
+    const { login } = this.state;
 
-  const passwordAlertClass = classNames(`${block}__alertBox ${block}__alertBox--password`, {
-    [`${block}__alertBox--visible`]: isPasswordAlertVisible
-  });
-  
-  const confirmAlertClass = classNames(`${block}__alertBox ${block}__alertBox--confirm`, {
-    [`${block}__alertBox--visible`]: isConfirmAlertVisible
-  });
+    let loginAlertText = '';
+    const isEmpty = login === '';
+    
+    switch (block) {
 
-  const handleFormSubmit = (e) => {
+      case 'loginForm':
+        
+        if (isEmpty) {
+          loginAlertText = 'Please enter your login';
+          this.setState({
+            isLoginInputValid: false,
+            isLoginAlertVisible: true,
+            loginAlertText
+          });
+          return false;
+        }
+
+        this.setState({
+          isLoginInputValid: true,
+          isLoginAlertVisible: false
+        });
+        return true;
+
+      case 'signupForm':
+            
+        if (isEmpty) {
+          loginAlertText = 'Please enter your login';
+          this.setState({
+            isLoginInputValid: false,
+            isLoginAlertVisible: true,
+            loginAlertText
+          });
+          return false;
+        }
+
+        this.setState({
+          isLoginInputValid: true,
+          isLoginAlertVisible: false
+        });
+        return true;
+        
+      default: break;
+    }    
+  }
+
+  handlePasswordValidation = () => {
+    const { block } = this.props;
+    const { password } = this.state;
+
+    let passwordAlertText = '';
+    const isEmpty = password === '';
+    const isPasswordTooShort = password.length < 6;
+    const hasPasswordWhiteSpaces = /\s/g.test(password);
+    
+    switch (block) {
+
+      case 'loginForm':
+        
+        if (isEmpty) {
+          passwordAlertText = 'Please enter your password';
+          this.setState({
+            isPasswordInputValid: false,
+            isPasswordAlertVisible: true,
+            isConfirmPasswordDisabled: true,
+            passwordAlertText
+          });
+          return false;
+        }
+
+        this.setState({
+          isPasswordInputValid: true,
+          isPasswordAlertVisible: false,
+          isConfirmPasswordDisabled: false
+        });
+        return true;
+
+      case 'signupForm':
+            
+        if (isEmpty || isPasswordTooShort || hasPasswordWhiteSpaces) {
+          passwordAlertText = isEmpty
+          ? 'Please enter your password'
+
+          : isPasswordTooShort
+          ? 'Password should have at least 6 signs'
+
+          : hasPasswordWhiteSpaces
+          ? 'Password cannot contain spaces'
+          : 'Other reasons...';
+
+          this.setState({
+            isPasswordInputValid: false,
+            isPasswordAlertVisible: true,
+            isConfirmPasswordDisabled: true,
+            passwordAlertText
+          });
+          return false;
+        }
+
+        this.setState({
+          isPasswordInputValid: true,
+          isPasswordAlertVisible: false,
+          isConfirmPasswordDisabled: false
+        });
+        return true;
+        
+      default: break;
+    }
+  }
+
+  handleConfirmValidation = () => {
+    const { password, confirm } = this.state;
+
+    let confirmAlertText = '';
+    const isEmpty = confirm === '';
+    const doPasswordsMatch = password === confirm;
+        
+    if (isEmpty || !doPasswordsMatch) {
+      confirmAlertText = isEmpty
+      ? 'Please confirm your password'
+
+      : !doPasswordsMatch
+      ? 'Passwords do not match'
+      : 'Other reasons...';
+
+      this.setState({
+        isConfirmPasswordValid: false,
+        isConfirmAlertVisible: true,
+        confirmAlertText
+      });
+      return false;
+    }
+
+    this.setState({
+      isConfirmPasswordValid: true,
+      isConfirmAlertVisible: false
+    });
+    return true;
+  }
+
+  handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const { block, onUsersChange } = props;
-    const loginInputValue = loginInput.current.value;
-    const passwordInputValue = passwordInput.current.value;
-    const passwordConfirmValue = passwordConfirm.current.value;
-
-    onUserPanelStateChange({
-      isLoginAlertVisible: loginInputValue === '' ? true : false,
-      isPasswordAlertVisible: passwordInputValue === '' ? true : false,
-      isConfirmAlertVisible: passwordConfirmValue === '' ? true : false,
-    });
-
-    if (loginInputValue === '' || passwordInputValue === '' || passwordConfirmValue === '')  return;
-
+    const { block, onUsersChange } = this.props;
+    const {
+      isLoginInputValid,
+      isPasswordInputValid,
+      isConfirmPasswordValid,
+      login,
+      password
+    } = this.state;
     
     if (block === 'loginForm') {
 
-
+      if (isLoginInputValid && isPasswordInputValid) {
+        console.log('logged in');
+      } else {
+        console.log('log in failed');
+      }
 
     } else if (block === 'signupForm') {
 
-      const newUser = {
-        login: loginInputValue,
-        password: passwordInputValue
+      if (isLoginInputValid && isPasswordInputValid && isConfirmPasswordValid) {
+        console.log('created new user');
+      } else {
+        console.log('cannot create new user');
       }
 
+      const newUser = {
+        login: login,
+        password: password
+      }
       onUsersChange(newUser);      
     }
   }
 
-  return (
-    <form className={className} onSubmit={handleFormSubmit}>
-      <h2 className={`${block}__heading`}>
-        {title}
-      </h2>
-      {/* LOGIN */}
-      <UserInput
-        block={block}
-        modifier="login"
+  render() {
 
-        
-      />
-      {/* PASSWORD */}
-      <UserInput
-        block={block}
-        modifier="password"
+    const {
+      className,
+      block
+    } = this.props;
 
-      />
-      {/* PASSWORD CONFIRM */
-      isLoginForm ? <div className="empty"></div> :
-      <UserInput
-        block={block}
-        modifier="confirm"
+    const {
+      login,
+      password,
+      confirm,
+      isLoginAlertVisible,
+      isPasswordAlertVisible,
+      isConfirmAlertVisible,
+      loginAlertText,
+      passwordAlertText,
+      confirmAlertText,
+      isConfirmPasswordDisabled
+    } = this.state;
 
-      />
-      }
+    const isLoginForm = block === 'loginForm';
+    const title = isLoginForm ? 'Log In' : 'Sign Up';
+    const loginButtonName = isLoginForm ? 'Log In' : 'Cancel';
+    const loginButtonType = isLoginForm ? 'submit' : 'button';
+    const submitButtonType = isLoginForm ? 'button' : 'submit';
+    const onLoginButtonClick = isLoginForm ? undefined : this.handleCardToggle;
+    const onSignupButtonClick = isLoginForm ? this.handleCardToggle : undefined;
 
-      {/* BUTTONS */}
-      <button
-        className={`${block}__button ${block}__button--login`}
-        onClick={onLoginButtonClick}
-        type={loginButtonType}
-      >
-        {loginButtonName}
-      </button>
-      <button
-        className={`${block}__button ${block}__button--signup`}
-        onClick={onSignupButtonClick}
-        type={submitButtonType}
-      >
-        Sign Up
-      </button>
-
-      {/* LOGIN */}
-      {/* <label
-        htmlFor={`${id}Login`}
-        className={`${id}__label ${id}__label--login`}
-      >
-        Login:
-      </label>
-      <input
-        id={`${id}Login`}
-        ref={loginInput}
-        type="text"
-        name="userLogin"
-        className={`${id}__input ${id}__input--login`}
-        spellCheck="false"
-        maxLength="20"
-      />
-      <div className={loginAlertClass}>
-        <p className={`${id}__alert`}>
-          Please enter your login
-        </p>
-      </div> */}
-
-      {/* PASSWORD */}
-      {/* <label
-        htmlFor={`${id}Password`}
-        className={`${id}__label ${id}__label--password`}
-      >
-        Password:
-      </label>
-      <input
-        id={`${id}Password`}
-        ref={passwordInput}
-        type="password"
-        name="userPassword"
-        className={`${id}__input ${id}__input--password`}
-        maxLength="20"
-      />
-      <div className={passwordAlertClass}>
-        <p className={`${id}__alert`}>
-          Please enter your password
-        </p>
-      </div> */}
-
-      { /* REPEAT PASSWORD */
-        /* id === 'signupForm'
-        ?
-        <React.Fragment>
-          <label
-            htmlFor={`${id}Confirm`}
-            className={`${id}__label ${id}__label--confirm`}
-          >
-            Confirm:
-          </label>
-          <input
-            id={`${id}Confirm`}
-            ref={passwordConfirm}
+    return (
+      <form className={className} onSubmit={this.handleFormSubmit}>
+        <h2 className={`${block}__heading`}>
+          {title}
+        </h2>
+        {/* LOGIN */}
+        <UserInput
+          block={block}
+          modifier="login"
+          value={login}
+          type="text"
+          isAlertVisible={isLoginAlertVisible}
+          alertText={loginAlertText}
+          onInputChange={this.handleInputChange}
+          onInputBlur={this.handleLoginValidation}
+        />
+        {/* PASSWORD */}
+        <UserInput
+          block={block}
+          modifier="password"
+          value={password}
+          type="password"
+          isAlertVisible={isPasswordAlertVisible}
+          alertText={passwordAlertText}
+          onInputChange={this.handleInputChange}
+          onInputBlur={this.handlePasswordValidation}
+        />
+        {/* PASSWORD CONFIRM */
+        isLoginForm
+        ? <div className="empty"></div>
+        : <UserInput
+            block={block}
+            modifier="confirm"
+            value={confirm}
             type="password"
-            name="userConfirm"
-            className={`${id}__input ${id}__input--confirm`}
-            maxLength="20"
+            isAlertVisible={isConfirmAlertVisible}
+            alertText={confirmAlertText}
+            onInputChange={this.handleInputChange}
+            onInputBlur={this.handleConfirmValidation}
+            isInputDisabled={isConfirmPasswordDisabled}
           />
-          <div className={confirmAlertClass}>
-            <p className={`${id}__alert`}>
-              Please confirm your password
-            </p>
-          </div>
-        </React.Fragment>
-        :
-        <div className="empty"></div> */
-      }
-    </form>
-  );
+        }
+        {/* BUTTONS */}
+        <button
+          className={`${block}__button ${block}__button--login`}
+          onClick={onLoginButtonClick}
+          type={loginButtonType}
+        >
+          {loginButtonName}
+        </button>
+        <button
+          className={`${block}__button ${block}__button--signup`}
+          onClick={onSignupButtonClick}
+          type={submitButtonType}
+        >
+          Sign Up
+        </button>
+      </form>
+    );
+  }
 }
 export default UserForm;
