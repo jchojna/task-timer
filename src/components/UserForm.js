@@ -59,19 +59,19 @@ class UserForm extends Component {
     const logins = [...users].map(user => user.login);
 
     const isEmpty = login === '';
-    const hasLoginWhiteSpaces = /\s/g.test(login);
+    const doesContainWhiteSpaces = /\s/g.test(login);
     const doesLoginExist = [...logins].filter(l => l === login).length > 0;
     const isLoginIncorrect = block === 'loginForm' && !doesLoginExist;
     const isNewLoginIncorrect = block === 'signupForm' && doesLoginExist;
 
     // handle alert text
     const loginAlertText = isEmpty ? 'Please enter your login' :
-    hasLoginWhiteSpaces ? 'Login cannot contain any spaces' :
+    doesContainWhiteSpaces ? 'Login cannot contain any spaces' :
     isLoginIncorrect ? 'There is no user with this login' :
     isNewLoginIncorrect ? 'This login already exist. Try another one' : '';
 
     const isInvalid = isEmpty
-    || hasLoginWhiteSpaces
+    || doesContainWhiteSpaces
     || isLoginIncorrect
     || isNewLoginIncorrect;
 
@@ -93,83 +93,54 @@ class UserForm extends Component {
   }
 
   handlePasswordValidation = () => {
-    const { block } = this.props;
-    const { password } = this.state;
+    const { isLoginInputValid, password } = this.state;
+    //const 
 
-    let passwordAlertText = '';
     const isEmpty = password === '';
+    const doesContainWhiteSpaces = /\s/g.test(password);
     const isPasswordTooShort = password.length < 6;
-    const hasPasswordWhiteSpaces = /\s/g.test(password);
     
-    switch (block) {
+    // handle alert text
+    const passwordAlertText = isEmpty ? 'Please enter your password' :
+    doesContainWhiteSpaces ? 'Password cannot contain any spaces' :
+    isPasswordTooShort ? 'Password should have at least 6 signs' : '';
 
-      case 'loginForm':
-        
-        if (isEmpty) {
-          passwordAlertText = 'Please enter your password';
-          this.setState({
-            isPasswordInputValid: false,
-            isPasswordAlertVisible: true,
-            isConfirmPasswordDisabled: true,
-            passwordAlertText
-          });
-          return false;
-        }
+    const isInvalid = isEmpty
+    || doesContainWhiteSpaces
+    || isPasswordTooShort;
 
-        this.setState({
-          isPasswordInputValid: true,
-          isPasswordAlertVisible: false,
-          isConfirmPasswordDisabled: false
-        });
-        return true;
+    if (!isLoginInputValid) {
+      this.handleLoginValidation();
+    }
 
-      case 'signupForm':
-            
-        if (isEmpty || isPasswordTooShort || hasPasswordWhiteSpaces) {
-          passwordAlertText = isEmpty
-          ? 'Please enter your password'
+    if (isInvalid) {
+      this.setState({
+        isPasswordInputValid: false,
+        isPasswordAlertVisible: true,
+        isConfirmPasswordDisabled: true,
+        passwordAlertText
+      });
+      return false;
 
-          : isPasswordTooShort
-          ? 'Password should have at least 6 signs'
-
-          : hasPasswordWhiteSpaces
-          ? 'Password cannot contain any spaces'
-          : 'Other reasons...';
-
-          this.setState({
-            isPasswordInputValid: false,
-            isPasswordAlertVisible: true,
-            isConfirmPasswordDisabled: true,
-            passwordAlertText
-          });
-          return false;
-        }
-
-        this.setState({
-          isPasswordInputValid: true,
-          isPasswordAlertVisible: false,
-          isConfirmPasswordDisabled: false
-        });
-        return true;
-        
-      default: break;
+    } else {
+      this.setState({
+        isPasswordInputValid: true,
+        isPasswordAlertVisible: false,
+        isConfirmPasswordDisabled: false
+      });
+      return true;
     }
   }
 
   handleConfirmValidation = () => {
     const { password, confirm } = this.state;
 
-    let confirmAlertText = '';
     const isEmpty = confirm === '';
     const doPasswordsMatch = password === confirm;
         
     if (isEmpty || !doPasswordsMatch) {
-      confirmAlertText = isEmpty
-      ? 'Please confirm your password'
-
-      : !doPasswordsMatch
-      ? 'Passwords do not match'
-      : 'Other reasons...';
+      const confirmAlertText = isEmpty ? 'Please confirm your password' :
+      !doPasswordsMatch ? 'Passwords do not match' : '';
 
       this.setState({
         isConfirmPasswordValid: false,
@@ -186,10 +157,24 @@ class UserForm extends Component {
     return true;
   }
 
+  handleFormReset = () => {
+    this.setState({
+      login: '',
+      password: '',
+      confirm: '',
+      isLoginInputValid: false,
+      isPasswordInputValid: false,
+      isConfirmPasswordValid: false,
+      isLoginAlertVisible: false,
+      isPasswordAlertVisible: false,
+      isConfirmAlertVisible: false,
+      isConfirmPasswordDisabled: true
+    });
+  }
+
   handleFormSubmit = (e) => {
     e.preventDefault();
-
-    const { block, onUsersChange } = this.props;
+    const { block, users, onUsersChange } = this.props;
     const {
       isLoginInputValid,
       isPasswordInputValid,
@@ -197,28 +182,38 @@ class UserForm extends Component {
       login,
       password
     } = this.state;
+
+    const isLoginPasswordCorrect = block === 'loginForm' && isLoginInputValid
+    && [...users].filter(user => user.login === login)[0].password === password;
     
     if (block === 'loginForm') {
 
-      if (isLoginInputValid && isPasswordInputValid) {
+      if (isLoginInputValid && isLoginPasswordCorrect) {
+
         console.log('logged in');
+        // login process
+        // login process
+        // login process
+        this.handleFormReset();
+        
       } else {
-        console.log('log in failed');
+        this.setState({
+          isPasswordAlertVisible: true,
+          passwordAlertText: 'Password is incorrect!'
+        });
       }
 
     } else if (block === 'signupForm') {
 
       if (isLoginInputValid && isPasswordInputValid && isConfirmPasswordValid) {
-        console.log('created new user');
-      } else {
-        console.log('cannot create new user');
-      }
+        const newUser = {
+          login: login,
+          password: password
+        }
+        onUsersChange(newUser);
+        this.handleFormReset();
 
-      const newUser = {
-        login: login,
-        password: password
-      }
-      onUsersChange(newUser);      
+      } else return;
     }
   }
 
