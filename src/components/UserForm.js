@@ -126,7 +126,6 @@ class UserForm extends Component {
   }
 
   handleRememberMe = () => {
-    console.log('test');
     this.setState(prevState => ({
       shouldRemember: !prevState.shouldRemember
     }));
@@ -146,6 +145,7 @@ class UserForm extends Component {
       isConfirmPasswordDisabled: true,
       isPasswordPreviewed: false,
       isConfirmPreviewed: false,
+      shouldRemember: false
     });
   }
 
@@ -157,7 +157,8 @@ class UserForm extends Component {
       isPasswordInputValid,
       isConfirmPasswordValid,
       login,
-      password
+      password,
+      shouldRemember
     } = this.state;
 
     const isLoginPasswordCorrect = block === 'loginForm' && isLoginInputValid
@@ -185,7 +186,8 @@ class UserForm extends Component {
       if (isLoginInputValid && isPasswordInputValid && isConfirmPasswordValid) {
         const newUser = {
           login: login,
-          password: password
+          password: password,
+          rememberMe: shouldRemember
         }
         onUsersChange(newUser);
         this.handleFormReset();
@@ -296,6 +298,7 @@ class UserForm extends Component {
           </div>
           <input
             id={`${block}Remember`}
+            name={`${block}Remember`}
             className={`remember__input remember__input--${block}`}
             type="checkbox"
           />

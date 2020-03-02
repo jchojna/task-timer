@@ -127,7 +127,7 @@
     border-radius: 5px;
     font-size: 1.3em;
     font-weight: 700;
-    margin-top: 30px;
+    margin-top: 20px;
     padding: 0.6em;
   
     &--login {
@@ -141,7 +141,7 @@
     @media only screen and (min-width: $media-md) {
   
       & {
-        margin-top: 20px;
+        margin-top: 10px;
       }
     }
   }
@@ -345,7 +345,6 @@
   align-items: center;
   display: flex;
   grid-area: remember;
-  margin-top: 10px;
 
   &__field {
     border: 3px solid;
