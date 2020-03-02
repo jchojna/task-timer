@@ -39,62 +39,57 @@ class UserForm extends Component {
   }
 
   handleInputChange = (input, value) => {
+    const inputName = input.charAt(0).toUpperCase() + input.substring(1);
     input === 'password'
     ? this.setState({
         password: value,
+        isPasswordAlertVisible: false,
         confirm: '',
         isConfirmAlertVisible: false
       })
-    : this.setState({ [input]: value });
+    : this.setState({
+      [input]: value,
+      [`is${inputName}AlertVisible`]: false
+    });
   }
 
   handleLoginValidation = () => {
-    const { block } = this.props;
+    const { block, users } = this.props;
     const { login } = this.state;
+    const logins = [...users].map(user => user.login);
 
-    let loginAlertText = '';
     const isEmpty = login === '';
-    
-    switch (block) {
+    const hasLoginWhiteSpaces = /\s/g.test(login);
+    const doesLoginExist = [...logins].filter(l => l === login).length > 0;
+    const isLoginIncorrect = block === 'loginForm' && !doesLoginExist;
+    const isNewLoginIncorrect = block === 'signupForm' && doesLoginExist;
 
-      case 'loginForm':
-        
-        if (isEmpty) {
-          loginAlertText = 'Please enter your login';
-          this.setState({
-            isLoginInputValid: false,
-            isLoginAlertVisible: true,
-            loginAlertText
-          });
-          return false;
-        }
+    // handle alert text
+    const loginAlertText = isEmpty ? 'Please enter your login' :
+    hasLoginWhiteSpaces ? 'Login cannot contain any spaces' :
+    isLoginIncorrect ? 'There is no user with this login' :
+    isNewLoginIncorrect ? 'This login already exist. Try another one' : '';
 
-        this.setState({
-          isLoginInputValid: true,
-          isLoginAlertVisible: false
-        });
-        return true;
+    const isInvalid = isEmpty
+    || hasLoginWhiteSpaces
+    || isLoginIncorrect
+    || isNewLoginIncorrect;
 
-      case 'signupForm':
-            
-        if (isEmpty) {
-          loginAlertText = 'Please enter your login';
-          this.setState({
-            isLoginInputValid: false,
-            isLoginAlertVisible: true,
-            loginAlertText
-          });
-          return false;
-        }
+    if (isInvalid) {
+      this.setState({
+        isLoginInputValid: false,
+        isLoginAlertVisible: true,
+        loginAlertText
+      });
+      return false;
 
-        this.setState({
-          isLoginInputValid: true,
-          isLoginAlertVisible: false
-        });
-        return true;
-        
-      default: break;
-    }    
+    } else {
+      this.setState({
+        isLoginInputValid: true,
+        isLoginAlertVisible: false
+      });
+      return true;
+    }
   }
 
   handlePasswordValidation = () => {
@@ -138,7 +133,7 @@ class UserForm extends Component {
           ? 'Password should have at least 6 signs'
 
           : hasPasswordWhiteSpaces
-          ? 'Password cannot contain spaces'
+          ? 'Password cannot contain any spaces'
           : 'Other reasons...';
 
           this.setState({

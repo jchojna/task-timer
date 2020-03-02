@@ -38,12 +38,8 @@ class App extends Component {
   }
 
   handleUsersChange = (user) => {
-    const { login } = user;
     this.setState(prevState => ({
-      users: {
-        ...prevState.users,
-        [login]: user
-      }
+      users: [ ...prevState.users, user ]
     }));
   }
 
@@ -53,7 +49,8 @@ class App extends Component {
     const {
       isIntroVisible,
       isUserPanelVisible,
-      isBoardVisible } = this.state;
+      isBoardVisible,
+      users } = this.state;
 
     return (
       <React.StrictMode>
@@ -70,11 +67,11 @@ class App extends Component {
           }
           { /* USER PANEL */
             isUserPanelVisible
-            ?
-            <UserPanel
-              //onAppStateChange={this.handleStateChange}
-              onUsersChange={this.handleUsersChange}
-            />
+            ? <UserPanel
+                //onAppStateChange={this.handleStateChange}
+                onUsersChange={this.handleUsersChange}
+                users={users}
+              />
             : <div className="empty"></div>
           }
           { /* BOARD */
