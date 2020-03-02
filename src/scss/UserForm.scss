@@ -285,17 +285,41 @@
     width: $login-icons;
   }
 
+  &--loginForm {
+    fill: $color-teal-dark-2;
+
+  }
+
+  &--signupForm {
+    fill: $color-teal;
+
+  }
+
   &__svg {
-    fill: $color-teal-dark-3;
     width: $login-icons;
   }
 }
 
 .previewPassword {
   @include button;
-  fill: $color-teal-dark-2;
   height: $login-icons;
   width: $login-icons;
+
+  &--loginForm {
+    fill: $color-teal-dark-2;
+
+    &:hover {
+      fill: $color-teal-light-2;
+    }
+  }
+
+  &--signupForm {
+    fill: $color-teal;
+
+    &:hover {
+      fill: $color-teal-light-2;
+    }
+  }
 
   &__svg {
     width: 100%;

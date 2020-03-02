@@ -35,14 +35,10 @@ const UserInput = (props) => {
 
   const alertClass = `${block}__alert ${block}__alert--${modifier}`;
   const iconsClass = `${block}__icons ${block}__icons--${modifier}`;
-  const passedClass = classNames(`inputPassed inputPassed--${modifier}`, {
+  const passedClass = classNames(`inputPassed inputPassed--${block}`, {
     'inputPassed--visible': isInputValid 
   });
-  
-  ;
-  const previewClass = `previewPassword previewPassword--${modifier}`;
-  const passedSvgClass = `inputPassed__svg inputPassed__svg--${modifier}`;
-  const previewSvgClass = `previewPassword__svg previewPassword__svg--${modifier}`;
+  const previewClass = `previewPassword previewPassword--${block}`;
   
   return (
     <React.Fragment>
@@ -68,14 +64,14 @@ const UserInput = (props) => {
         {
         modifier === 'password' || modifier === 'confirm'
         ? <button className={previewClass}>
-            <svg className={previewSvgClass} viewBox="0 0 100 100">
+            <svg className="previewPassword__svg" viewBox="0 0 100 100">
               <use href={`${icons}#preview`} />
             </svg>
           </button>
         : <div className="empty"></div>
         }
         <div className={passedClass}>
-          <svg className={passedSvgClass} viewBox="0 0 100 100">
+          <svg className="inputPassed__svg" viewBox="0 0 100 100">
             <use href={`${icons}#passed`} />
           </svg>
         </div>
