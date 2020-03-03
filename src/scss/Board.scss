@@ -86,13 +86,20 @@
     @media only screen and (min-width: $media-md) {
 
       & {
-        font-size: 3.5em;
+        font-size: 3em;
         transform: translateX($sidebar-width-md);
         transition: transform $sidebar-toggle;
 
         &--visible {
           transform: translateX(0);
         }
+      }
+    }
+  
+    @media only screen and (min-width: $media-lg) {
+
+      & {
+        font-size: 3.5em;
       }
     }
   }

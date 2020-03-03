@@ -45,4 +45,44 @@
     margin-top: 50px;
     user-select: none;
   }
+
+  &__userPanel {
+    column-gap: 4px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 50px;
+    max-width: $sidebar-content-width-xs;
+
+    @media only screen and (min-width: $media-md) {
+      max-width: $sidebar-content-width-md;
+    }
+  }
+}
+
+.userButton {
+  @include button;
+  @include flex-center;
+  border-radius: 50%;
+  fill: none;
+  padding: 5px;
+  stroke: $color-teal-dark-1;
+  stroke-width: 3;
+  transition: background-color $hover-icon;
+
+  $buttonActive: rgba($color: #000, $alpha: 0.4);
+  &:active {
+    background-color: $buttonActive;
+  }
+
+  &__svg {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: $media-md) {
+
+    &:focus,
+    &:hover {
+      background-color: $buttonActive;
+    }
+  }
 }
