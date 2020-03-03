@@ -1,0 +1,35 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.UserEdit {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  max-height: 0;
+  max-width: $sidebar-content-width-xs;
+  overflow: hidden;
+  transition: max-height 0.3s;
+  visibility: hidden;
+  width: 100%;
+
+  &--visible {
+    max-height: 100px;
+    visibility: visible;
+  }
+
+  border: 1px solid #000;
+
+
+  @media only screen and (min-width: $media-md) {
+    max-width: $sidebar-content-width-md;
+  }
+
+  &__text {
+    color:$color-teal-light-1;
+    font-weight: 700;
+    font-size: 1.2em;
+    margin: 0;
+    padding: 1em 0;
+  }
+}

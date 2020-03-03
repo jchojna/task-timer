@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import UserEdit from './UserEdit';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Sidebar.scss';
 
@@ -7,6 +8,8 @@ const Sidebar = (props) => {
 
   const {
     isSidebarVisible,
+    settingBeingEdited,
+    onEditModeChange,
     users,
     loggedUserLogin,
     onUserLogout,
@@ -31,21 +34,33 @@ const Sidebar = (props) => {
         {loggedUserLogin}
       </h2>
 
+      <UserEdit
+        settingBeingEdited={settingBeingEdited}
+        onUserLogout={onUserLogout}
+        onUserRemove={onUserRemove}
+      />
+
       {/* USER PANEL BUTTONS */}
-      <div className="Sidebar__userPanel">
-        <button className="userButton userButton--login">
+      <div className="Sidebar__buttons">
+        <button
+          className="userButton userButton--login"
+          onClick={() => onEditModeChange('login')}
+        >
           <svg className="userButton__svg" viewBox="0 0 100 100">
             <use href={`${icons}#loginEdit`}></use>
           </svg>
         </button>
-        <button className="userButton userButton--password">
+        <button
+          className="userButton userButton--password"
+          onClick={() => onEditModeChange('password')}
+        >
           <svg className="userButton__svg" viewBox="0 0 100 100">
             <use href={`${icons}#passwordEdit`}></use>
           </svg>
         </button>
         <button
           className="userButton userButton--logout"
-          onClick={onUserLogout}
+          onClick={() => onEditModeChange('logout')}
         >
           <svg className="userButton__svg" viewBox="0 0 100 100">
             <use href={`${icons}#userLogout`}></use>
@@ -53,7 +68,7 @@ const Sidebar = (props) => {
         </button>
         <button
           className="userButton userButton--remove"
-          onClick={onUserRemove}
+          onClick={() => onEditModeChange('remove')}
         >
           <svg className="userButton__svg" viewBox="0 0 100 100">
             <use href={`${icons}#userRemove`}></use>

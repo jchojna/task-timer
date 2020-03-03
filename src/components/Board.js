@@ -24,7 +24,9 @@ class Board extends Component {
       noTransitionMode: false,
       // validity
       isTaskNameValid: false,
-      isTimeInputValid: false
+      isTimeInputValid: false,
+
+      settingBeingEdited: null
     };
   }
 
@@ -48,6 +50,12 @@ class Board extends Component {
     this.setState(prevState => ({
       isSidebarVisible: !prevState.isSidebarVisible
     }));
+  }
+
+  handleUserEditMode = (setting) => {
+    this.setState({
+      settingBeingEdited: setting
+    });
   }
 
   handleSidebarQuit = ({target}) => {
@@ -87,7 +95,8 @@ class Board extends Component {
       draggedCardIndex,
       hoveredOffsetX,
       hoveredOffsetY,
-      cardsSizes
+      cardsSizes,
+      settingBeingEdited
     } = this.state;
 
     const { tasks } = [...users].find(user =>user.login === loggedUserLogin);
@@ -128,6 +137,8 @@ class Board extends Component {
         {/* SIDEBAR */}
         <Sidebar
           isSidebarVisible={isSidebarVisible}
+          settingBeingEdited={settingBeingEdited}
+          onEditModeChange={this.handleUserEditMode}
           users={users}
           loggedUserLogin={loggedUserLogin}
           onUserLogout={onUserLogout}

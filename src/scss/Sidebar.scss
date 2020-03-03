@@ -42,16 +42,16 @@
   &__userLogin {
     font-size: 3em;
     margin: 0;
-    margin-top: 50px;
+    margin: 50px 0;
     user-select: none;
   }
 
-  &__userPanel {
+  &__buttons {
     column-gap: 4px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin-top: 50px;
     max-width: $sidebar-content-width-xs;
+    margin-top: 20px;
 
     @media only screen and (min-width: $media-md) {
       max-width: $sidebar-content-width-md;
