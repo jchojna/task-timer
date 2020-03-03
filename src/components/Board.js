@@ -13,7 +13,7 @@ class Board extends Component {
     this.state = {
       isCreatorVisible: false,
       isPlaceholderVisible: false,
-      isSidebarVisible: false,
+      isSidebarVisible: true,
       isDraggingMode: false,
       // cards
       cardsSizes: [],
@@ -30,7 +30,6 @@ class Board extends Component {
 
   componentDidMount = () => {
     window.addEventListener('resize', this.handleWindowResize);
-    //this.setState({ tasks: this.props.loggedUser.tasks });
   }
 
   componentWillUnmount = () => {
@@ -68,7 +67,8 @@ class Board extends Component {
 
   render() {
     const { loggedUserLogin, users, onTaskOrderChange } = this.props;
-    const tasks = [...users].find(user => user.login === loggedUserLogin).tasks;
+    const tasks = [...users]
+    .find(user =>user.login === loggedUserLogin).tasks;
 
     const {
       isCreatorVisible,
@@ -94,12 +94,32 @@ class Board extends Component {
       'Board__creator--maximized': isCreatorVisible
     });
 
-    const sidebarClass = classNames('Sidebar', {
-      'Sidebar--visible': isSidebarVisible
-    })
+    const boardLogoClass = classNames('Board__logo', {
+      'Board__logo--visible': isSidebarVisible
+    });
 
     return (
       <section className={boardClass}>
+        <header className="Board__header">
+
+          {/* TEXT LOGO */}
+          <h2 className={boardLogoClass}>
+            task<span className="Board__logo--color">Timer</span>
+          </h2>
+
+          {/* BURGER BUTTON */}
+          <button className="Board__burger" onClick={this.handleSidebar}>
+            <svg className="Board__burgerSvg" viewBox="0 0 100 100">
+              <use href={`${icons}#burger`}></use>
+            </svg>
+          </button>
+        </header>
+
+        {/* SIDEBAR */}
+        <Sidebar
+          isSidebarVisible={isSidebarVisible}
+        />
+
         {/* TASK CARDS */}
         {tasks.map((task, index) => (
           <Card
@@ -145,18 +165,6 @@ class Board extends Component {
             : <div className="empty"></div>
           }
         </section>
-
-        {/* BURGER BUTTON */}
-        <button className="burgerBtn" onClick={this.handleSidebar}>
-          <svg className="burgerBtn__svg" viewBox="0 0 100 100">
-            <use href={`${icons}#burger`}></use>
-          </svg>
-        </button>
-
-        {/* SIDEBAR */}
-        <Sidebar
-          className={sidebarClass}
-        />
       </section>
     );
   }

@@ -9,21 +9,26 @@
   right: 0;
   top: 0;
   visibility: hidden;
-  transform: translateX(100%);
-  transition: transform $toggle-sidebar, visibility 0s $toggle-sidebar;
-  width: 100%;
-  z-index: 1;
+  transform: translate(0, -100%);
+  transition: transform $sidebar-toggle, visibility 0s $sidebar-toggle;
+  width: $sidebar-width-xs;
+  z-index: 2;
 
   &--visible {
     visibility: visible;
-    transform: translateX(0);
-    transition: transform $toggle-sidebar, visibility 0s;
+    transform: translate(0, 0);
+    transition: transform $sidebar-toggle, visibility 0s;
   }
 
   @media only screen and (min-width: $media-md) {
 
     & {
-      width: 300px;
+      transform: translate(100%, 0);
+      width: $sidebar-width-md;
+
+      &--visible {
+        transform: translate(0, 0);
+      }
     }
   }
 }

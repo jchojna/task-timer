@@ -17,6 +17,15 @@ $color-teal-disabled: #ddd;
 
 // #endregion
 
+// MEDIA
+$media-sm: 480px;
+$media-md: 768px;
+$media-lg: 1200px;
+
+// LOGO ANIMATION
+$logo-size: 600px;
+$intro-time: 4s;
+
 // TIME
 $time-slide: 0.5s;
 $time-display: 0.5s;
@@ -26,18 +35,34 @@ $fade-stopTask: 0.3s;
 $time-alert: 0.3s;
 $hover-card: 0.4s;
 $toggle-button: 0.5s;
-$toggle-sidebar: 0.3s;
 $toggle-card: 0.3s;
 $new-task-button: 0.5s;
 $time-component-fade: 1s;
 
-// MEDIA
-$media-sm: 480px;
-$media-md: 768px;
-$media-lg: 1200px;
 
 // LAYOUT
 $layout-max-width: 1200px;
+
+// BOARD
+$board-padding-xs: 20px;
+$board-padding-md: 40px;
+$board-padding-lg: 60px;
+
+// HEADER
+$header-padding-xs: 10px;
+$header-padding-md: 20px;
+
+// BURGER BUTTON
+$burger-size-xs: 40px;
+$burger-size-md: 50px;
+$burger-size-lg: 60px;
+
+// SIDEBAR
+$sidebar-toggle: 0.3s;
+$sidebar-width-xs: 100%;
+$sidebar-width-md: 400px;
+
+
 
 // SIZE
 $size-controls-xs: 50px;
@@ -48,23 +73,15 @@ $nav-button: 70px;
 $progressBar-height: 16px;
 $login-icons: 30px;
 
-// LOGO ANIMATION
-$logo-size: 600px;
-$intro-time: 4s;
-
-// BOARD
-$board-padding-xs: 15px;
-
 // BOX SHADOWS
 $card-shadow-small: 0 2px 5px rgba($color: $color-teal-dark-3, $alpha: 0.8);
 $card-shadow-medium: 0 3px 8px rgba($color: $color-teal-dark-3, $alpha: 0.8);
 $placeholder-shadow-small: inset 0 1px 4px $color-teal-dark-3;
 $placeholder-shadow-medium: inset 0 3px 8px $color-teal-dark-3;
 
-
+// CARDS
 $card-border: 5px solid $color-teal-dark-1;
 $card-edit: 0.4s;
 $card-padding-xs: 10px;
 $card-padding-md: 20px;
-
 $card-min-height: 540px;

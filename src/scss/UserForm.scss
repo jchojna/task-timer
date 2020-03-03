@@ -10,6 +10,7 @@
   display: grid;
   gap: 0.3em 0.6em;
   grid-template-columns: repeat(2, 1fr) auto;
+  min-width: 250px;
   padding: 20px;
   transform: rotate3d(0, 1, 0, -90deg);
   visibility: hidden;
@@ -125,10 +126,10 @@
   &__button {
     @include button;
     border-radius: 5px;
-    font-size: 1.3em;
+    font-size: 1.1em;
     font-weight: 700;
     margin-top: 20px;
-    padding: 0.6em;
+    padding: 0.5em;
   
     &--login {
       grid-area: loginBtn;
@@ -141,7 +142,9 @@
     @media only screen and (min-width: $media-md) {
   
       & {
+        font-size: 1.3em;
         margin-top: 10px;
+        padding: 0.7em;
       }
     }
   }

@@ -24,7 +24,7 @@
     opacity: 0;
     position: absolute;
     top: 0;
-    transition: opacity $toggle-sidebar, visibility 0s $toggle-sidebar;
+    transition: opacity $sidebar-toggle, visibility 0s $sidebar-toggle;
     visibility: hidden;
     width: 100%;
     z-index: 1;
@@ -34,10 +34,96 @@
 
     &::after {
       opacity: 0.6;
-      transition: opacity $toggle-sidebar, visibility;
+      transition: opacity $sidebar-toggle, visibility;
       visibility: visible;
     }
   }
+
+  @media only screen and (min-width: $media-md) {
+      
+    gap: 3em;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 4em;
+
+    /* &--maximized {
+      grid-auto-rows: 540px;
+    } */
+  }
+
+  // #region [ Horizon ] HEADER
+
+  &__header {
+    align-items: center;
+    background-color: $color-teal-dark-3;
+    display: flex;
+    justify-content: space-between;
+    right: 0;
+    padding: $header-padding-xs;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+  
+    @media only screen and (min-width: $media-md) {
+      background: none;
+      padding: $header-padding-md;
+      width: $sidebar-width-md;
+    }
+  }
+
+  &__logo {
+    color: $color-teal;
+    font-size: 2.5em;
+    font-weight: 700;
+    margin: 0;
+    user-select: none;
+  
+    &--color {
+      color: $color-teal-dark-2;
+    }
+  
+    @media only screen and (min-width: $media-md) {
+
+      & {
+        font-size: 3.5em;
+        transform: translateX($sidebar-width-md);
+        transition: transform $sidebar-toggle;
+
+        &--visible {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+
+  &__burger {
+    @include button;
+    fill: $color-teal-light-2;
+    min-width: 30px;
+    height: $burger-size-xs;
+    width: $burger-size-xs;
+    z-index: 3;
+  
+    &:hover {
+      fill: $color-teal-light-3;
+    }
+  
+    @media only screen and (min-width: $media-md) {
+      height: $burger-size-md;
+      width: $burger-size-md;
+    }
+  
+    @media only screen and (min-width: $media-lg) {
+      height: $burger-size-lg;
+      width: $burger-size-lg;
+    }
+  }
+
+  &__burgerSvg {
+    width: 100%;
+  }
+
+  // #endregion
 
   &__creator {
     position: relative;
@@ -81,42 +167,10 @@
       box-shadow: $placeholder-shadow-small;
       color: $color-teal-light-1;
     }
-  }
 
-  @media only screen and (min-width: $media-md) {
+    @media only screen and (min-width: $media-md) {
 
-    & {
-      
-      gap: 3em;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      padding: 4em;
-
-      /* &--maximized {
-        grid-auto-rows: 540px;
-      } */
-
-      &__newTaskButton {
-        font-size: 2.5em;
-      }
+      font-size: 2.5em;
     }
-  }
-}
-
-.burgerBtn {
-  @include button;
-  fill: $color-teal-light-2;
-  height: 50px;
-  position: fixed;
-  right: 30px;
-  top: 30px;
-  width: 50px;
-  z-index: 2;
-
-  &:hover {
-    fill: $color-teal-light-3;
-  }
-
-  &--svg {
-    width: 100%;
   }
 }

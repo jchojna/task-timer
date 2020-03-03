@@ -4,10 +4,17 @@ import '../scss/Sidebar.scss';
 
 const Sidebar = (props) => {
 
-  const { className } = props;
+  const { isSidebarVisible } = props;
+
+  const sidebarClass = classNames('Sidebar', {
+    'Sidebar--visible': isSidebarVisible
+  })
+
 
   return (
-    <div className={className}>
+    <div className={sidebarClass}>
+
+
 
     </div>
   );
