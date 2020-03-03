@@ -17,9 +17,12 @@ const Sidebar = (props) => {
 
   return (
     <section className={sidebarClass}>
+      {/* USER LOGIN */}
       <h2 className="Sidebar__userLogin">
         {loggedUserLogin}
       </h2>
+
+      {/* USER PANEL BUTTONS */}
       <div className="Sidebar__userPanel">
         <button className="userButton userButton--login">
           <svg className="userButton__svg" viewBox="0 0 100 100">
@@ -41,19 +44,57 @@ const Sidebar = (props) => {
             <use href={`${icons}#userRemove`}></use>
           </svg>
         </button>
-
-
-
-
       </div>
 
+      {/* USER STATS */}
+      <section className="Sidebar__section">
+        <h3 className="Sidebar__heading">Stats</h3>
+        <table className="stats">
+          <caption className="stats__caption visuallyhidden">Stats</caption>
+          <thead className="stats__header visuallyhidden">
+            <tr className="stats__row">
+              <th className="stats__cell">Name</th>
+              <th className="stats__cell">Value</th>
+            </tr>
+          </thead>
+          <tbody className="stats__body">
+            {/* TASKS FINISHED */}
+            <tr className="stats__row">
+              <th className="stats__cell stats__cell--name" scope="row">
+                Tasks finished:
+              </th>
+              <td className="stats__cell stats__cell--value">Value</td>
+            </tr>
+            {/* AVERAGE TASK TIME */}
+            <tr className="stats__row">
+              <th className="stats__cell stats__cell--name" scope="row">
+                Average task time:
+              </th>
+              <td className="stats__cell stats__cell--value">Value</td>
+            </tr>
+            {/* AVERAGE BREAK TIME */}
+            <tr className="stats__row">
+              <th className="stats__cell stats__cell--name" scope="row">
+                Average break time:
+              </th>
+              <td className="stats__cell stats__cell--value">Value</td>
+            </tr>
+            {/* AVERAGE TASKS PER DAY */}
+            <tr className="stats__row">
+              <th className="stats__cell stats__cell--name" scope="row">
+                Average tasks per day:
+              </th>
+              <td className="stats__cell stats__cell--value">Value</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-
-
-
-
-
-
+      {/* USER COLOR PROFILE */}
+      <section className="Sidebar__section">
+        <h3 className="Sidebar__heading">Color Theme</h3>
+        <p className="Sidebar__text">To be added soon...</p>
+      </section>
     </section>
   );
 }

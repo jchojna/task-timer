@@ -57,6 +57,35 @@
       max-width: $sidebar-content-width-md;
     }
   }
+
+  &__section {
+    align-items: center;
+    border-top: 2px solid $color-teal-dark-1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    max-width: $sidebar-content-width-xs;
+    width: 100%;
+
+    @media only screen and (min-width: $media-md) {
+      max-width: $sidebar-content-width-md;
+    }
+  }
+
+  &__heading {
+    color: $color-teal-light-1;
+    font-size: 1.5em;
+    margin: 0;
+    margin: 0.5em 0;
+  }
+
+  &__text {
+    color: $color-teal-dark-1;
+    font-size: 1.2em;
+    margin: 0;
+    margin-top: 1em;
+
+  }
 }
 
 .userButton {
@@ -69,9 +98,13 @@
   stroke-width: 3;
   transition: background-color $hover-icon;
 
-  $buttonActive: rgba($color: #000, $alpha: 0.4);
+  @mixin userButtonActive {
+    background-color: rgba($color: #000, $alpha: 0.4);
+    stroke: $color-teal;
+  }
+
   &:active {
-    background-color: $buttonActive;
+    @include userButtonActive;
   }
 
   &__svg {
@@ -82,7 +115,33 @@
 
     &:focus,
     &:hover {
-      background-color: $buttonActive;
+      @include userButtonActive;
     }
   }
+}
+
+.stats {
+  border-collapse: collapse;
+  color: $color-teal-dark-1;
+  font-size: 1.1em;
+  width: 100%;
+
+  &__row {
+    border-bottom: 1px solid $color-teal-dark-2;
+  }
+
+  &__cell {
+    padding: 10px;
+
+    &--name {
+      text-align: left;
+    }
+
+    &--value {
+      color: $color-teal-light-2;
+      text-align: right;
+    }
+  }
+
+  
 }
