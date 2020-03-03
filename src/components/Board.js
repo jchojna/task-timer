@@ -73,7 +73,8 @@ class Board extends Component {
     const {
       users,
       loggedUserLogin,
-      onTaskOrderChange
+      onTaskOrderChange,
+      onUserRemove
     } = this.props;
 
     const {
@@ -128,6 +129,7 @@ class Board extends Component {
           isSidebarVisible={isSidebarVisible}
           users={users}
           loggedUserLogin={loggedUserLogin}
+          onUserRemove={onUserRemove}
         />
 
         {/* TASK CARDS */}

@@ -31,14 +31,17 @@ class UserForm extends Component {
     const { block, users } = this.props;
     if (block === 'loginForm') {
 
-      const { login, password } = [...users].find(user => user.rememberMe);
-      this.setState({
-        login,
-        password,
-        isLoginInputValid: true,
-        isPasswordInputValid: true,
-        shouldRemember: true
-      });
+      const rememberedUser = [...users].find(user => user.rememberMe);
+      if (rememberedUser) {
+        const { login, password } = rememberedUser;
+        this.setState({
+          login,
+          password,
+          isLoginInputValid: true,
+          isPasswordInputValid: true,
+          shouldRemember: true
+        });
+      }
     }
   }
 

@@ -42,6 +42,16 @@ class App extends Component {
     localStorage.setItem('taskTimerUsers', JSON.stringify(users));
   }
 
+  handleUserRemove = () => {
+    const { loggedUserLogin } = this.state;
+
+    this.setState(prevState => ({
+      users: [...prevState.users].filter(user => user.login !== loggedUserLogin),
+      isBoardVisible: false,
+      isUserPanelVisible: true
+    }));
+  }
+
   handleTaskRemove = (id) => {
     const { loggedUserLogin, users } = this.state;
 
@@ -50,7 +60,7 @@ class App extends Component {
       user.tasks = user.tasks.filter(task => task.id !== id);
       return { users };
     })
-  };
+  }
   
   handleTaskOrder = (dragIndex, dropIndex) => {
     const { loggedUserLogin, users } = this.state;
@@ -64,13 +74,9 @@ class App extends Component {
       user.tasks = updatedTasks;
       return { users };
     });
-  };
+  }
 
   handleUserUpdate = () => {
-
-
-
-
 
 
 
@@ -127,6 +133,7 @@ class App extends Component {
               users={users}
               loggedUserLogin={loggedUserLogin}
               onUserUpdate={this.handleUserUpdate}
+              onUserRemove={this.handleUserRemove}
               onTaskRemove={this.handleTaskRemove}
               onTaskOrderChange={this.handleTaskOrder}
             />
