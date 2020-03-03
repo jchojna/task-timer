@@ -66,9 +66,11 @@ class Board extends Component {
   }
 
   render() {
-    const { loggedUserLogin, users, onTaskOrderChange } = this.props;
-    const tasks = [...users]
-    .find(user =>user.login === loggedUserLogin).tasks;
+    const {
+      users,
+      loggedUserLogin,
+      onTaskOrderChange
+    } = this.props;
 
     const {
       isCreatorVisible,
@@ -81,6 +83,9 @@ class Board extends Component {
       hoveredOffsetY,
       cardsSizes
     } = this.state;
+
+    const tasks = [...users]
+    .find(user =>user.login === loggedUserLogin).tasks;
 
     const boardClass = classNames('Board', {
       'Board--sidebarMode': isSidebarVisible
@@ -118,6 +123,8 @@ class Board extends Component {
         {/* SIDEBAR */}
         <Sidebar
           isSidebarVisible={isSidebarVisible}
+          users={users}
+          loggedUserLogin={loggedUserLogin}
         />
 
         {/* TASK CARDS */}

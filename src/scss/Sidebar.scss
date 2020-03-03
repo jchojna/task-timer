@@ -3,8 +3,13 @@
 @import "_animations.scss";
 
 .Sidebar {
+  align-items: center;
   background-color: $color-teal-dark-3;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  padding: $header-padding-xs;
+  padding-top: $header-padding-xs * 2 + $burger-size-xs;
   position: fixed;
   right: 0;
   top: 0;
@@ -23,6 +28,8 @@
   @media only screen and (min-width: $media-md) {
 
     & {
+      padding: $header-padding-md;
+      padding-top: $header-padding-md * 2 + $burger-size-md;
       transform: translate(100%, 0);
       width: $sidebar-width-md;
 
@@ -30,5 +37,12 @@
         transform: translate(0, 0);
       }
     }
+  }
+
+  &__userLogin {
+    font-size: 3em;
+    margin: 0;
+    margin-top: 50px;
+    user-select: none;
   }
 }
