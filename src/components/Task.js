@@ -6,7 +6,7 @@ import CardButtons from './CardButtons';
 import Timer from './Timer.js';
 import StopAlert from './StopAlert.js';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
-import { cardFlipTime, animationStyle } from '../lib/globalVariables';
+import { animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -151,12 +151,10 @@ class Task extends Component {
   }
 
   handleStartButton = () => {
-    const { onDraggableStateChange } = this.props;
     this.setState({
       isTaskRotatingOut: true,
       isTimerMounted: true
     });
-    onDraggableStateChange({ isFixed: true });
   }
 
   handleKeyPress = (key) => {
@@ -171,15 +169,20 @@ class Task extends Component {
   }
 
   handleMaximizeCard = () => {
+    const { onBoardStateChange } = this.props;
     const { isMaximized } = this.state;
     if (!isMaximized) {
       this.setState({ isMaximized: true });
+      onBoardStateChange({ isPlaceholderVisible: false });
     }
   }
 
   render() {
 
-    const { id } = this.props;
+    const {
+      id,
+      onCardStateChange,
+      onBoardStateChange } = this.props;
     const {
       isMaximized,
       isTaskMounted,
@@ -197,8 +200,7 @@ class Task extends Component {
       isBreakTimeEditMode,
       isTaskNameValid,
       isTaskTimeValid,
-      isBreakTimeValid
-    } = this.state;
+      isBreakTimeValid } = this.state;
 
     const editModeActive = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
     const inputInvalid = !isTaskNameValid || !isTaskTimeValid || !isBreakTimeValid;
@@ -285,6 +287,7 @@ class Task extends Component {
           onAcceptButtonClick={this.acceptEditChange}
           onRemoveButtonClick={this.handleAlertVisibility}
           onTaskStateChange={this.handleStateChange}
+          onBoardStateChange={onBoardStateChange}
         />
 
         {/* START BUTTON */}
@@ -307,6 +310,7 @@ class Task extends Component {
               id={id}
               onTaskRemove={this.handleTaskRemove}
               cardRotatingMode={cardRotatingMode}
+              onCardStateChange={onCardStateChange}
             />
           : <div className="empty"></div>
         }

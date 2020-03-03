@@ -31,13 +31,13 @@
     @include flex-center;
     fill: none;
     padding: 5px;
-    stroke: $color-white;
+    stroke: $color-teal-light-3;
     stroke-width: 30;
     stroke-linecap: round;
     width: 40px;
 
     &:hover {
-      background-color: $color-light-background;
+      background-color: $color-teal;
     }
   }
 

@@ -7,7 +7,7 @@
   perspective: 800px;
   transition: transform 0.5s;
   width: 100%;
-  z-index: 0;
+  z-index: 1;
 
   &--dragged {
     cursor: move;
@@ -22,17 +22,5 @@
 
   &--noTransition {
     transition: none;
-  }
-
-  &::after {
-    border: 5px solid $color-primary;
-    border-radius: $radius-card;
-    bottom: 0;
-    content: "";
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    top: 0;
   }
 }

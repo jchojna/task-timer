@@ -10,7 +10,7 @@
   width: 100%;
   
   &--taskTime {
-    color: $color-white;
+    color: $color-teal-light-3;
     font-size: 2.5em;
   }
 
@@ -39,7 +39,7 @@
       margin-bottom $card-edit;
 
     &--editMode {
-      color: $color-white;
+      color: $color-teal-light-3;
       font-size: 1.5rem;
       margin-bottom: 1em;
     }
@@ -49,7 +49,6 @@
     align-items: center;
     border: 2px solid transparent;
     display: grid;
-    font-family: "Inconsolata";
     grid-template-columns: repeat(2, 1fr) auto repeat(2, 1fr);
     justify-items: center;
     outline: none;
@@ -60,13 +59,13 @@
     width: 100%;
 
     &--editMode {
-      background-color: $color-background;
-      border-color: $color-white;
-      color: $color-white;
+      background-color: $color-teal-dark-1;
+      border-color: $color-teal-light-3;
+      color: $color-teal-light-3;
     }
 
     &--incorrect {
-      border-color: $color-warning;
+      border-color: $color-teal-warning;
     }
   }
 
@@ -114,7 +113,6 @@
     }
 
     &::placeholder {
-      font-family: "Montserrat";
       font-size: 0.3em;
     }
   }
@@ -122,12 +120,5 @@
   &__colon {
     font-size: 1.2em;
     font-weight: 600;
-  }
-  
-  @media only screen and (min-width: $media-md) {
-
-    & {
-
-    }
   }
 }

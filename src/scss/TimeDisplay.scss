@@ -3,7 +3,6 @@
 @import "_animations.scss";
 
 .TimeDisplay {
-  font-family: 'Inconsolata';
   font-size: 2em;
   grid-area: display;
   height: 100%;
@@ -12,7 +11,7 @@
   
   &__type {
     @include flex-center;
-    color: $color-white;
+    color: $color-teal-light-3;
     width: 100%;
     font-size: 2em;
     height: 100%;

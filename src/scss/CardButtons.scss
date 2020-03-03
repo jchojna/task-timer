@@ -21,7 +21,7 @@
     @include button;
     @include flex-center;
     fill: none;
-    stroke: $color-background;
+    stroke: $color-teal-dark-1;
     stroke-width: 10;
     stroke-linejoin: round;
     stroke-linecap: round;
@@ -30,12 +30,12 @@
     visibility: hidden;
     
     &:hover {
-      stroke: $color-warning;
+      stroke: $color-teal-warning;
     }
   
     &--accept {
       opacity: 0;
-      stroke: $color-white;
+      stroke: $color-teal-light-3;
     }
     
     &--disabled {
@@ -64,12 +64,5 @@
 
   &__svg {
     width: 100%;
-  }
-
-  @media only screen and (min-width: $media-md) {
-
-    & {
-
-    }
   }
 }

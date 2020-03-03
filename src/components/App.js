@@ -1,143 +1,108 @@
 import React, {Component} from 'react';
-import classNames from 'classnames';
-import Creator from './Creator';
-import Card from './Card';
 import Intro from './Intro';
+import UserPanel from './UserPanel';
+import Board from './Board';
+import Logo from './Logo';
+import { initialUsers } from '../lib/initialUsers';
 import '../scss/App.scss';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.replacedCard = React.createRef();
     this.state = {
-      // visibility
       isIntroVisible: false,
+      isUserPanelVisible: true,
       isBoardVisible: false,
-      isCreatorVisible: false,
-      isDraggingMode: false,
-      tasks: [
-        {
-          taskName: "Add some feature to TaskTimer App",
-          taskMinutes: 20,
-          taskSeconds: 0,
-          breakMinutes: 5,
-          breakSeconds: 0,
-          totalTaskTime: 2000000,
-          totalBreakTime: 500000,
-          totalTaskTimeArray: ["20","00","00"],
-          totalBreakTimeArray: ["05","00","00"],
-          id: 56436543654,
-          dateCreated: 56436543654
-        },
-        {
-          taskName: "Do exercices",
-          taskMinutes: 0,
-          taskSeconds: 1,
-          breakMinutes: 0,
-          breakSeconds: 1,
-          totalTaskTime: 1000,
-          totalBreakTime: 1000,
-          totalTaskTimeArray: ["00","01","00"],
-          totalBreakTimeArray: ["00","01","00"],
-          id: 6546567854,
-          dateCreated: 6546567854
-        },
-        {
-          taskName: "Test task for preview purposes",
-          taskMinutes: 30,
-          taskSeconds: 0,
-          breakMinutes: 10,
-          breakSeconds: 0,
-          totalTaskTime: 500000,
-          totalBreakTime: 100000,
-          totalTaskTimeArray: ["05","00","00"],
-          totalBreakTimeArray: ["01","00","00"],
-          id: 90798758576,
-          dateCreated: 90798758576
-        },
-        {
-          taskName: "Another task for testing",
-          taskMinutes: 0,
-          taskSeconds: 1,
-          breakMinutes: 0,
-          breakSeconds: 1,
-          totalTaskTime: 1000,
-          totalBreakTime: 1000,
-          totalTaskTimeArray: ["00","01","00"],
-          totalBreakTimeArray: ["00","01","00"],
-          id: 654765387657985,
-          dateCreated: 654765387657985
-        }
-      ],
-      // cards
-      cardsSizes: [],
-      draggedCardIndex: -1,
-      hoveredCardIndex: -1,
-      hoveredOffsetX: 0,
-      hoveredOffsetY: 0,
-      noTransitionMode: false,
-      // validity
-      isTaskNameValid: false,
-      isTimeInputValid: false
+      users: initialUsers,
+      loggedUserLogin: null
     };
   }
 
   componentDidMount = () => {
-    this.setState({isBoardVisible: true});
+    if (localStorage.getItem('taskTimerUsers')) {
+      const users = JSON.parse(localStorage.getItem('taskTimerUsers'));
+      this.setState({ users });
+    } else {
+      this.exportUsers();
+    }
+  }
+
+  componentDidUpdate = () => {
+    console.log('app state updated');
+    this.exportUsers();
+  }
+
+  componentWillUnmount = () => {
   }
 
   handleStateChange = (object) => this.setState(object);
 
-  handleTaskOrder = (dragIndex, dropIndex) => {
-    const { tasks } = this.state;
+  exportUsers = () => {
+    const { users } = this.state;
+    localStorage.setItem('taskTimerUsers', JSON.stringify(users));
+  }
+
+  handleTaskRemove = (id) => {
+    const { loggedUserLogin, users } = this.state;
+
     this.setState(prevState => {
-      const newTasks = [...prevState.tasks];
-      newTasks.splice(dragIndex, 1, tasks[dropIndex]);
-      newTasks.splice(dropIndex, 1, tasks[dragIndex]);
-      return { tasks: newTasks };
-    });
+      const user = [...prevState.users].find(user => user.login === loggedUserLogin);
+      user.tasks = user.tasks.filter(task => task.id !== id);
+      return { users };
+    })
   };
   
-  handleTaskRemove = (id) => this.setState(prevState => ({
-    tasks: prevState.tasks.filter(task => task.id !== id)
-  }));
-  
-  handleNewTaskButton = () => {
-    this.setState({ isCreatorVisible: true });
+  handleTaskOrder = (dragIndex, dropIndex) => {
+    const { loggedUserLogin, users } = this.state;
+
+    this.setState(prevState => {
+      const user = [...prevState.users].find(user => user.login === loggedUserLogin);
+      const tasks = user.tasks;
+      const updatedTasks = [...tasks];
+      updatedTasks.splice(dragIndex, 1, tasks[dropIndex]);
+      updatedTasks.splice(dropIndex, 1, tasks[dragIndex]);
+      user.tasks = updatedTasks;
+      return { users };
+    });
+  };
+
+  handleUserUpdate = () => {
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+  handleUserLogin = (user, form) => {
+    this.setState(prevState => ({
+      isUserPanelVisible: false,
+      isBoardVisible: true,
+      users: form === 'loginForm' ? this.state.users : [...prevState.users, user],
+      loggedUserLogin: user.login
+    }));
   }
 
   render() {
-
     const {
       isIntroVisible,
+      isUserPanelVisible,
       isBoardVisible,
-      isCreatorVisible,
-      tasks,
-      isDraggingMode,
-      hoveredCardIndex,
-      draggedCardIndex,
-      hoveredOffsetX,
-      hoveredOffsetY,
-      cardsSizes
+      users,
+      loggedUserLogin
     } = this.state;
-
-    const boardClass = classNames("App__board", {
-      "App__board--visible": isBoardVisible
-    });
-
-    const newTaskButtonClass = classNames("App__newTaskButton", {
-      "App__newTaskButton--visible": !isCreatorVisible
-    });
-
-    const creatorContainerClass = classNames("App__creator", {
-      "App__creator--maximized": isCreatorVisible
-    });
 
     return (
       <React.StrictMode>
         <div className="App">
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
-
           { /* LOGO ANIMATION */
             isIntroVisible
             ?
@@ -147,46 +112,27 @@ class App extends Component {
             />
             : <div className="empty"></div>
           }
-
-          {/* BOARD OF TASKS */}
-          <section className={boardClass}>
-            {/* TASK CARDS */}
-            {tasks.map((task, index) => (
-              <Card
-                id={`dnd-${task.dateCreated}`}
-                key={`dnd-${task.dateCreated}`}
-                task={task}
-                cardIndex={index}
-                onTaskOrderChange={this.handleTaskOrder}
-                onAppStateChange={this.handleStateChange}
-                onTaskRemove={this.handleTaskRemove}
-                isDraggingMode={isDraggingMode}
-                hoveredCardIndex={hoveredCardIndex}
-                draggedCardIndex={draggedCardIndex}
-                hoveredOffsetX={hoveredOffsetX}
-                hoveredOffsetY={hoveredOffsetY}
-                cardsSizes={cardsSizes}
+          { /* USER PANEL */
+            isUserPanelVisible
+            ? <UserPanel
+                onUserLogin={this.handleUserLogin}
+                users={users}
               />
-            ))}
-
-            {/* CREATE NEW TASK */}
-            <section className={creatorContainerClass}>
-              <button
-                className={newTaskButtonClass}
-                onClick={this.handleNewTaskButton}
-              >
-                Add New Task
-              </button>
-              {
-                isCreatorVisible
-                ? <Creator
-                    isVisible={isCreatorVisible}
-                    onAppStateChange={this.handleStateChange}
-                  />
-                : <div className="empty"></div>
-              }
-            </section>
-          </section>
+            : <div className="empty"></div>
+          }
+          { /* BOARD */
+            isBoardVisible
+            ?
+            <Board
+              users={users}
+              loggedUserLogin={loggedUserLogin}
+              onUserUpdate={this.handleUserUpdate}
+              onTaskRemove={this.handleTaskRemove}
+              onTaskOrderChange={this.handleTaskOrder}
+            />
+            : <div className="empty"></div>
+          }
+          <Logo />
         </div>
       </React.StrictMode>
     );

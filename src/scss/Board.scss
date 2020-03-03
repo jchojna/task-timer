@@ -1,0 +1,98 @@
+@import "_variables.scss";
+@import "_mixins.scss";
+@import "_animations.scss";
+
+.Board {
+  align-content: start;
+  align-items: stretch;
+  display: grid;
+  gap: $board-padding-xs;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: $board-padding-xs;
+  width: 100%;
+  z-index: 1;
+
+  &__creator {
+    position: relative;
+    width: 100%;
+
+    &--maximized {
+      min-height: $card-min-height;
+    }
+  }
+
+  &__newTaskButton {
+    @include button;
+    @include flex-center;
+    background-color: $color-teal-dark-2;
+    border-radius: $radius-card;
+    box-shadow: $placeholder-shadow-medium;
+    color: $color-teal;
+    font-size: 1.5em;
+    font-weight: 600;
+    height: 100%;
+    opacity: 0;
+    padding: 20px;
+    transition: opacity $new-task-button, visibility 0s $new-task-button;
+    visibility: hidden;
+    width: 100%;
+    z-index: -1;
+
+    &--visible {
+      opacity: 1;
+      transition:
+        background-color $hover-icon,
+        box-shadow $hover-icon,
+        color $hover-icon,
+        opacity $new-task-button,
+        visibility 0s;
+      visibility: visible;
+    }
+
+    &:hover {
+      background-color: $color-teal-dark-1;
+      box-shadow: $placeholder-shadow-small;
+      color: $color-teal-light-1;
+    }
+  }
+
+  @media only screen and (min-width: $media-md) {
+
+    & {
+      
+      gap: 3em;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      padding: 4em;
+
+      /* &--maximized {
+        grid-auto-rows: 540px;
+      } */
+
+      &__newTaskButton {
+        font-size: 2.5em;
+      }
+    }
+  }
+}
+
+.burgerBtn {
+  @include button;
+  fill: $color-teal-dark-3;
+  height: 80px;
+  position: fixed;
+  right: 60px;
+  top: 60px;
+  width: 80px;
+  z-index: 2;
+
+  &:hover {
+    fill: $color-teal-light-3;
+  }
+
+  &--svg {
+    width: 100%;
+  }
+}

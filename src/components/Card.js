@@ -11,13 +11,12 @@ class Card extends Component {
     this.transitionTime = 1000;
     this.state = {
       isDragging: false,
-      isFixed: false,
       originalX: 0,
       originalY: 0,
       translateX: 0,
       translateY: 0
-    }
-  };
+    };
+  }
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove);
@@ -35,16 +34,10 @@ class Card extends Component {
   
   handleStateChange = (object) => this.setState(object);
 
-  handleMouseDown = ({ clientX, clientY }) => {
-    if (this.state.isFixed) return;
-
-    const { onAppStateChange } = this.props;
-
-    window.addEventListener('mousemove', this.handleMouseMove);
-    window.addEventListener('mouseup', this.handleMouseUp);
-
-    // get array of objects containing each card size and offset
+  handleCardsSizes = () => {
+    const { onBoardStateChange } = this.props;
     const appNodes = this.card.current.parentNode.children;
+
     const cardsSizes = [...appNodes]
     .filter(node => node.classList.contains('Card'))
     .map(card => {
@@ -57,19 +50,29 @@ class Card extends Component {
         }
       }
     );
+    onBoardStateChange({ cardsSizes });
+  }
+
+  handleMouseDown = ({ clientX, clientY }) => {
+    const { onBoardStateChange } = this.props;
+
+    window.addEventListener('mousemove', this.handleMouseMove);
+    window.addEventListener('mouseup', this.handleMouseUp);
       
     this.setState({
       originalX: clientX + window.scrollX,
       originalY: clientY + window.scrollY
     });
+    this.handleCardsSizes();
 
-    onAppStateChange({ cardsSizes });
+    onBoardStateChange({
+      isPlaceholderVisible: true
+    });
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
-    if (this.state.isFixed) return;
     
-    const { onAppStateChange, cardIndex, cardsSizes } = this.props;
+    const { onBoardStateChange, cardIndex, cardsSizes } = this.props;
     const xPosition = clientX + window.scrollX;
     const yPosition = clientY + window.scrollY;
     const draggedCardSizes = cardsSizes[cardIndex];
@@ -96,13 +99,13 @@ class Card extends Component {
       const offsetX = draggedCardSizes.left - hoveredCardSizes.left;
       const offsetY = draggedCardSizes.top - hoveredCardSizes.top;
   
-      onAppStateChange({
+      onBoardStateChange({
         hoveredOffsetX: offsetX,
         hoveredOffsetY: offsetY
       });
     }
 
-    onAppStateChange({
+    onBoardStateChange({
       isDraggingMode: true,
       draggedCardIndex: cardIndex,
       hoveredCardIndex: cardIndex !== hoveredCardIndex ? hoveredCardIndex : -1
@@ -110,14 +113,13 @@ class Card extends Component {
   };
   
   handleMouseUp = () => {
-    if (this.state.isFixed) return false;
 
     const {
-      onAppStateChange,
+      onBoardStateChange,
       draggedCardIndex,
       hoveredCardIndex,
       cardsSizes } = this.props;
-    
+    const delay = 30;    
     const draggedCardSizes = cardsSizes[draggedCardIndex];
     const hoveredCardSizes = this.getHoveredCardSizes(hoveredCardIndex);
       
@@ -153,25 +155,30 @@ class Card extends Component {
         });
       }
 
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         this.setState({
           translateX: 0,
           translateY: 0,
           isDragging: false
         });
-
-        onAppStateChange({
-          draggedCardIndex: -1,
-          hoveredCardIndex: -1
-        });
-      }, 30);
+        this.handleCardsSizes();
+        clearTimeout(timeoutId);
+      }, delay);
       
       onTaskOrderChange(draggedCardIndex, hoveredCardIndex);
     }
 
-    onAppStateChange({
+    onBoardStateChange({
       isDraggingMode: false
     });
+
+    const timeoutId = setTimeout(() => {
+      onBoardStateChange({
+        draggedCardIndex: -1,
+        hoveredCardIndex: -1
+      });
+      clearTimeout(timeoutId);
+    }, delay);
   };
 
   render() {
@@ -183,7 +190,8 @@ class Card extends Component {
       draggedCardIndex,
       hoveredCardIndex,
       hoveredOffsetX,
-      hoveredOffsetY
+      hoveredOffsetY,
+      onBoardStateChange
     } = this.props;
 
     const {
@@ -213,9 +221,9 @@ class Card extends Component {
         <Task
           task={task}
           id={task.dateCreated}
-          key={task.dateCreated}
           onTaskRemove={onTaskRemove}
-          onDraggableStateChange={this.handleStateChange}
+          onCardStateChange={this.handleStateChange}
+          onBoardStateChange={onBoardStateChange}
         />
       </div>
     );

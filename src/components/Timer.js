@@ -105,6 +105,7 @@ class Timer extends Component {
 
     this.timeoutId = setTimeout(() => {
       onTaskStateChange({ isTimerMounted: false });
+      clearTimeout(this.timeoutId);
     }, cardFlipTime);
 
     this.handleRotatingStatus();

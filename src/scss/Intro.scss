@@ -4,7 +4,7 @@
 
 .Intro {
   @include flex-center;
-  background-color: $color-light-background;
+  background-color: $color-teal;
   bottom: 0;
   left: 0;
   opacity: 0;
@@ -29,12 +29,12 @@
 
   &__background {
     animation: clockBackground $intro-time forwards;
-    fill: $color-background;
+    fill: $color-teal-dark-1;
   }
 
   &__letter {
     animation: clockLetter $intro-time forwards;
-    fill: $color-background;
+    fill: $color-teal-dark-1;
   }
 
   &__shadow {
@@ -49,6 +49,6 @@
   }
 
   &__foreground {
-    fill: $color-light-background;
+    fill: $color-teal;
   }
 }

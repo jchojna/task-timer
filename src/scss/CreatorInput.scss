@@ -29,7 +29,7 @@
   }
 
   &__label {
-    color: $color-white;
+    color: $color-teal-light-3;
     font-size: 2em;
     font-weight: 600;
     grid-area: label;
@@ -47,33 +47,33 @@
   &__text,
   &__input {
     background: none;
-    border: 3px solid $color-background;
-    color: $color-white;
+    border: 3px solid $color-teal-dark-1;
+    color: $color-teal-light-3;
     font-size: 1.2em;
     padding: 15px;
     width: 100%;
 
     &::placeholder {
-      color: $color-background;
+      color: $color-teal-dark-1;
       opacity: 1;
     }
 
     &:focus {
-      background-color: $color-background;
-      border-color: $color-white;
+      background-color: $color-teal-dark-1;
+      border-color: $color-teal-light-3;
 
       &::placeholder {
-        color: $color-primary;
+        color: $color-teal;
       }
     }
 
     &--invalid {
-      background-color: $color-warning;
-      border-color: $color-warning;
+      background-color: $color-teal-warning;
+      border-color: $color-teal-warning;
 
       &:focus {
-        background-color: $color-warning;
-        border-color: $color-warning;
+        background-color: $color-teal-warning;
+        border-color: $color-teal-warning;
       }
     }
   }
@@ -86,7 +86,7 @@
   &__inputs {
     align-self: center;
     align-items: center;
-    border: 3px solid $color-background;
+    border: 3px solid $color-teal-dark-1;
     display: flex;
     font-size: 1.5em;
     grid-area: input;
@@ -94,12 +94,12 @@
     width: 100%;
 
     &--invalid {
-      background-color: $color-warning;
-      border-color: $color-warning;
+      background-color: $color-teal-warning;
+      border-color: $color-teal-warning;
 
       &:focus {
-        background-color: $color-warning;
-        border-color: $color-warning;
+        background-color: $color-teal-warning;
+        border-color: $color-teal-warning;
       }
     }
   }
@@ -115,7 +115,7 @@
   }
 
   &__progress {
-    background-color: $color-warning;
+    background-color: $color-teal-warning;
     height: 4px;
     margin-top: 4px;
     width: 0;
