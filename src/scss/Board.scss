@@ -17,7 +17,7 @@
   z-index: 1;
 
   &::after {
-    background-color: $color-teal-dark-3;
+    background-color: #000;
     content: '';
     height: 100%;
     left: 0;
@@ -33,7 +33,7 @@
   &--sidebarMode {
 
     &::after {
-      opacity: 0.6;
+      opacity: 0.7;
       transition: opacity $sidebar-toggle, visibility;
       visibility: visible;
     }

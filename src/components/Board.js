@@ -84,8 +84,7 @@ class Board extends Component {
       cardsSizes
     } = this.state;
 
-    const tasks = [...users]
-    .find(user =>user.login === loggedUserLogin).tasks;
+    const { tasks } = [...users].find(user =>user.login === loggedUserLogin);
 
     const boardClass = classNames('Board', {
       'Board--sidebarMode': isSidebarVisible

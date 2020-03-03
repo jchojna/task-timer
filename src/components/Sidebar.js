@@ -11,6 +11,13 @@ const Sidebar = (props) => {
     loggedUserLogin
   } = props;
 
+  const { 
+    finishedTasks,
+    avgTaskTime,
+    avgBreakTime,
+    avgTasksPerDay
+  } = [...users].find(user =>user.login === loggedUserLogin);
+
   const sidebarClass = classNames('Sidebar', {
     'Sidebar--visible': isSidebarVisible
   })
@@ -63,28 +70,36 @@ const Sidebar = (props) => {
               <th className="stats__cell stats__cell--name" scope="row">
                 Tasks finished:
               </th>
-              <td className="stats__cell stats__cell--value">Value</td>
+              <td className="stats__cell stats__cell--value">
+                {finishedTasks}
+              </td>
             </tr>
             {/* AVERAGE TASK TIME */}
             <tr className="stats__row">
               <th className="stats__cell stats__cell--name" scope="row">
                 Average task time:
               </th>
-              <td className="stats__cell stats__cell--value">Value</td>
+              <td className="stats__cell stats__cell--value">
+                {avgTaskTime}
+              </td>
             </tr>
             {/* AVERAGE BREAK TIME */}
             <tr className="stats__row">
               <th className="stats__cell stats__cell--name" scope="row">
                 Average break time:
               </th>
-              <td className="stats__cell stats__cell--value">Value</td>
+              <td className="stats__cell stats__cell--value">
+                {avgBreakTime}
+              </td>
             </tr>
             {/* AVERAGE TASKS PER DAY */}
             <tr className="stats__row">
               <th className="stats__cell stats__cell--name" scope="row">
                 Average tasks per day:
               </th>
-              <td className="stats__cell stats__cell--value">Value</td>
+              <td className="stats__cell stats__cell--value">
+                {avgTasksPerDay}
+              </td>
             </tr>
           </tbody>
         </table>
