@@ -12,8 +12,32 @@
   min-height: 100vh;
   overflow: hidden;
   padding: $board-padding-xs;
+  position: relative;
   width: 100%;
   z-index: 1;
+
+  &::after {
+    background-color: $color-teal-dark-3;
+    content: '';
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity $toggle-sidebar, visibility 0s $toggle-sidebar;
+    visibility: hidden;
+    width: 100%;
+    z-index: 1;
+  }
+
+  &--sidebarMode {
+
+    &::after {
+      opacity: 0.6;
+      transition: opacity $toggle-sidebar, visibility;
+      visibility: visible;
+    }
+  }
 
   &__creator {
     position: relative;
@@ -80,12 +104,12 @@
 
 .burgerBtn {
   @include button;
-  fill: $color-teal-dark-3;
-  height: 80px;
+  fill: $color-teal-light-2;
+  height: 50px;
   position: fixed;
-  right: 60px;
-  top: 60px;
-  width: 80px;
+  right: 30px;
+  top: 30px;
+  width: 50px;
   z-index: 2;
 
   &:hover {

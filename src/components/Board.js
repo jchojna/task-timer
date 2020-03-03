@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import Sidebar from './Sidebar';
 import Creator from './Creator';
 import Card from './Card';
 import CardPlaceholder from './CardPlaceholder';
@@ -11,8 +12,9 @@ class Board extends Component {
     super(props);
     this.state = {
       isCreatorVisible: false,
-      isDraggingMode: false,
       isPlaceholderVisible: false,
+      isSidebarVisible: false,
+      isDraggingMode: false,
       // cards
       cardsSizes: [],
       draggedCardIndex: -1,
@@ -43,6 +45,12 @@ class Board extends Component {
 
   handleStateChange = (object) => this.setState(object);
 
+  handleSidebar = () => {
+    this.setState(prevState => ({
+      isSidebarVisible: !prevState.isSidebarVisible
+    }));
+  }
+
   handleTaskRemove = (id) => {
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
@@ -64,8 +72,9 @@ class Board extends Component {
 
     const {
       isCreatorVisible,
-      isDraggingMode,
+      isSidebarVisible,
       isPlaceholderVisible,
+      isDraggingMode,
       hoveredCardIndex,
       draggedCardIndex,
       hoveredOffsetX,
@@ -73,16 +82,24 @@ class Board extends Component {
       cardsSizes
     } = this.state;
 
-    const newTaskButtonClass = classNames("Board__newTaskButton", {
-      "Board__newTaskButton--visible": !isCreatorVisible
+    const boardClass = classNames('Board', {
+      'Board--sidebarMode': isSidebarVisible
     });
 
-    const creatorContainerClass = classNames("Board__creator", {
-      "Board__creator--maximized": isCreatorVisible
+    const newTaskButtonClass = classNames('Board__newTaskButton', {
+      'Board__newTaskButton--visible': !isCreatorVisible
     });
+
+    const creatorContainerClass = classNames('Board__creator', {
+      'Board__creator--maximized': isCreatorVisible
+    });
+
+    const sidebarClass = classNames('Sidebar', {
+      'Sidebar--visible': isSidebarVisible
+    })
 
     return (
-      <section className="Board">
+      <section className={boardClass}>
         {/* TASK CARDS */}
         {tasks.map((task, index) => (
           <Card
@@ -130,11 +147,16 @@ class Board extends Component {
         </section>
 
         {/* BURGER BUTTON */}
-        <button className="burgerBtn">
+        <button className="burgerBtn" onClick={this.handleSidebar}>
           <svg className="burgerBtn__svg" viewBox="0 0 100 100">
             <use href={`${icons}#burger`}></use>
           </svg>
         </button>
+
+        {/* SIDEBAR */}
+        <Sidebar
+          className={sidebarClass}
+        />
       </section>
     );
   }
