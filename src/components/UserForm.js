@@ -27,6 +27,21 @@ class UserForm extends Component {
     }
   }
 
+  componentDidMount = () => {
+    const { block, users } = this.props;
+    if (block === 'loginForm') {
+
+      const { login, password } = [...users].find(user => user.rememberMe);
+      this.setState({
+        login,
+        password,
+        isLoginInputValid: true,
+        isPasswordInputValid: true,
+        shouldRemember: true
+      });
+    }
+  }
+
   handleStateChange = (object) => this.setState(object);
 
   handleCardToggle = () => {
@@ -200,10 +215,7 @@ class UserForm extends Component {
 
   render() {
 
-    const {
-      className,
-      block
-    } = this.props;
+    const { className, block } = this.props;
 
     const {
       login,

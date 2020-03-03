@@ -77,3 +77,22 @@
     }
   }
 }
+
+.burgerBtn {
+  @include button;
+  fill: $color-teal-dark-3;
+  height: 80px;
+  position: fixed;
+  right: 60px;
+  top: 60px;
+  width: 80px;
+  z-index: 2;
+
+  &:hover {
+    fill: $color-teal-light-3;
+  }
+
+  &--svg {
+    width: 100%;
+  }
+}

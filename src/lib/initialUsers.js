@@ -61,7 +61,7 @@ export const initialUsers = [
   {
     "login": "Anna",
     "password": "aneczka",
-    "rememberMe": false,
+    "rememberMe": true,
     "tasks": [
       {
         taskName: "Test task for preview purposes",

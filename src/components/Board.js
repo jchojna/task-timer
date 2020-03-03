@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Creator from './Creator';
 import Card from './Card';
 import CardPlaceholder from './CardPlaceholder';
+import icons from '../assets/svg/icons.svg';
 import '../scss/Board.scss';
 
 class Board extends Component {
@@ -127,6 +128,13 @@ class Board extends Component {
             : <div className="empty"></div>
           }
         </section>
+
+        {/* BURGER BUTTON */}
+        <button className="burgerBtn">
+          <svg className="burgerBtn__svg" viewBox="0 0 100 100">
+            <use href={`${icons}#burger`}></use>
+          </svg>
+        </button>
       </section>
     );
   }
