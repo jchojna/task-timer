@@ -13,6 +13,7 @@
   overflow: hidden;
   padding: $board-padding-xs;
   width: 100%;
+  z-index: 1;
 
   &__creator {
     position: relative;
@@ -52,7 +53,7 @@
     }
 
     &:hover {
-      background-color: rgba($color: $color-teal-dark-2, $alpha: 0.5);
+      background-color: $color-teal-dark-1;
       box-shadow: $placeholder-shadow-small;
       color: $color-teal-light-1;
     }

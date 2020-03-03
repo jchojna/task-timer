@@ -42,20 +42,6 @@ class Board extends Component {
 
   handleStateChange = (object) => this.setState(object);
 
-  handleTaskOrder = (dragIndex, dropIndex) => {
-    const { onUserUpdate } = this.props;
-    const { tasks } = this.state;
-
-    this.setState(prevState => {
-      const newTasks = [...prevState.tasks];
-      newTasks.splice(dragIndex, 1, tasks[dropIndex]);
-      newTasks.splice(dropIndex, 1, tasks[dragIndex]);
-      return { tasks: newTasks };
-    });
-    //onUserUpdate()
-  };
-  
-
   handleTaskRemove = (id) => {
     const { onTaskRemove } = this.props;
     onTaskRemove(id);

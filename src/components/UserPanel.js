@@ -28,7 +28,7 @@ class UserPanel extends Component {
   }
 
   render() {
-    const { onUsersChange, users } = this.props;
+    const { onUserLogin, users } = this.props;
     const {
       isUserPanelLoaded,
       isLoginFormVisible,
@@ -59,7 +59,7 @@ class UserPanel extends Component {
           <UserForm
             className={loginClass}
             block="loginForm"
-            onUsersChange={onUsersChange}
+            onUserLogin={onUserLogin}
             users={users}
             onCardToggle={this.handleCardToggle}
           />
@@ -67,7 +67,7 @@ class UserPanel extends Component {
           <UserForm
             className={signupClass}
             block="signupForm"
-            onUsersChange={onUsersChange}
+            onUserLogin={onUserLogin}
             users={users}
             onCardToggle={this.handleCardToggle}
           />

@@ -151,7 +151,7 @@ class UserForm extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    const { block, users, onUsersChange } = this.props;
+    const { block, users, onUserLogin } = this.props;
     const {
       isLoginInputValid,
       isPasswordInputValid,
@@ -171,7 +171,7 @@ class UserForm extends Component {
 
       if (isLoginInputValid && isLoginPasswordCorrect) {
 
-        onUsersChange(user, block);
+        onUserLogin(user, block);
         this.handleFormReset();
         
       } else {
@@ -191,7 +191,7 @@ class UserForm extends Component {
           tasks: []
         }
 
-        onUsersChange(newUser, block);
+        onUserLogin(newUser, block);
         this.handleFormReset();
 
       } else return;

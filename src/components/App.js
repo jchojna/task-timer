@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Intro from './Intro';
 import UserPanel from './UserPanel';
 import Board from './Board';
+import Logo from './Logo';
 import { initialUsers } from '../lib/initialUsers';
 import '../scss/App.scss';
 
@@ -67,6 +68,17 @@ class App extends Component {
 
   handleUserUpdate = () => {
 
+
+
+
+
+
+
+
+
+
+
+
   }
 
   handleUserLogin = (user, form) => {
@@ -103,7 +115,7 @@ class App extends Component {
           { /* USER PANEL */
             isUserPanelVisible
             ? <UserPanel
-                onUsersChange={this.handleUserLogin}
+                onUserLogin={this.handleUserLogin}
                 users={users}
               />
             : <div className="empty"></div>
@@ -120,6 +132,7 @@ class App extends Component {
             />
             : <div className="empty"></div>
           }
+          <Logo />
         </div>
       </React.StrictMode>
     );
