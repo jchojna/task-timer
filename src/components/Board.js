@@ -50,6 +50,10 @@ class Board extends Component {
     }));
   }
 
+  handleSidebarQuit = ({target}) => {
+    if (/Board--sidebarMode/.test(target.className)) this.handleSidebar();
+  }
+
   handleTaskRemove = (id) => {
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
@@ -103,7 +107,7 @@ class Board extends Component {
     });
 
     return (
-      <section className={boardClass}>
+      <section className={boardClass} onClick={this.handleSidebarQuit}>
         <header className="Board__header">
 
           {/* TEXT LOGO */}
