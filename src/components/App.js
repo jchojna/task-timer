@@ -42,6 +42,14 @@ class App extends Component {
     localStorage.setItem('taskTimerUsers', JSON.stringify(users));
   }
 
+  handleUserLogout = () => {
+    this.setState({
+      isUserPanelVisible: true,
+      isBoardVisible: false,
+      loggedUserLogin: null
+    });
+  }
+
   handleUserRemove = () => {
     const { loggedUserLogin } = this.state;
 
@@ -133,6 +141,7 @@ class App extends Component {
               users={users}
               loggedUserLogin={loggedUserLogin}
               onUserUpdate={this.handleUserUpdate}
+              onUserLogout={this.handleUserLogout}
               onUserRemove={this.handleUserRemove}
               onTaskRemove={this.handleTaskRemove}
               onTaskOrderChange={this.handleTaskOrder}

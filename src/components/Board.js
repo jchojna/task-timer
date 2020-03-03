@@ -74,6 +74,7 @@ class Board extends Component {
       users,
       loggedUserLogin,
       onTaskOrderChange,
+      onUserLogout,
       onUserRemove
     } = this.props;
 
@@ -129,6 +130,7 @@ class Board extends Component {
           isSidebarVisible={isSidebarVisible}
           users={users}
           loggedUserLogin={loggedUserLogin}
+          onUserLogout={onUserLogout}
           onUserRemove={onUserRemove}
         />
 

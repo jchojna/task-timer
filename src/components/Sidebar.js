@@ -9,6 +9,7 @@ const Sidebar = (props) => {
     isSidebarVisible,
     users,
     loggedUserLogin,
+    onUserLogout,
     onUserRemove
   } = props;
 
@@ -42,7 +43,10 @@ const Sidebar = (props) => {
             <use href={`${icons}#passwordEdit`}></use>
           </svg>
         </button>
-        <button className="userButton userButton--logout">
+        <button
+          className="userButton userButton--logout"
+          onClick={onUserLogout}
+        >
           <svg className="userButton__svg" viewBox="0 0 100 100">
             <use href={`${icons}#userLogout`}></use>
           </svg>
