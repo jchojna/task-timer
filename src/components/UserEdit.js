@@ -15,7 +15,7 @@ const UserEdit = (props) => {
 
 
   const userEditClass = classNames('UserEdit', {
-    'UserEdit--visible': settingBeingEdited,
+    'UserEdit--hidden': !settingBeingEdited,
     [`UserEdit--${settingBeingEdited}`]: settingBeingEdited
   })
 
@@ -29,24 +29,21 @@ const UserEdit = (props) => {
         Login
       </button>
 
-
       : settingBeingEdited === 'password' ?
       /* USER PASSWORD EDIT */
       <button className="UserEdit__confirm">
         Password
       </button>
 
-      /* USER LOGOUT CONFIRM */
       : settingBeingEdited === 'logout' ?
-
+      /* USER LOGOUT CONFIRM */
       <p className="UserEdit__text">
-        Are you sure to log out?
+        Log out?
       </p>
 
       : /* USER REMOVE CONFIRM */
-
       <p className="UserEdit__text">
-        Are you sure to remove user?
+        Remove user?
       </p>
       }
     </div>

@@ -23,9 +23,20 @@ const Sidebar = (props) => {
     avgTasksPerDay
   } = [...users].find(user =>user.login === loggedUserLogin);
 
+  const userEditButtons = ['login', 'password', 'logout', 'remove'];
+  const userConfirmButtons = ['confirm', 'cancel'];
+
   const sidebarClass = classNames('Sidebar', {
     'Sidebar--visible': isSidebarVisible
-  })
+  });
+
+  const editButtonsClass = classNames('userButtons', 'userButtons--edit', {
+    'userButtons--visible': !settingBeingEdited
+  });
+
+  const confirmButtonsClass = classNames('userButtons', 'userButtons--confirm', {
+    'userButtons--visible': settingBeingEdited
+  });
 
   return (
     <section className={sidebarClass}>
@@ -42,38 +53,57 @@ const Sidebar = (props) => {
 
       {/* USER PANEL BUTTONS */}
       <div className="Sidebar__buttons">
-        <button
-          className="userButton userButton--login"
-          onClick={() => onEditModeChange('login')}
-        >
-          <svg className="userButton__svg" viewBox="0 0 100 100">
-            <use href={`${icons}#loginEdit`}></use>
-          </svg>
-        </button>
-        <button
-          className="userButton userButton--password"
-          onClick={() => onEditModeChange('password')}
-        >
-          <svg className="userButton__svg" viewBox="0 0 100 100">
-            <use href={`${icons}#passwordEdit`}></use>
-          </svg>
-        </button>
-        <button
-          className="userButton userButton--logout"
-          onClick={() => onEditModeChange('logout')}
-        >
-          <svg className="userButton__svg" viewBox="0 0 100 100">
-            <use href={`${icons}#userLogout`}></use>
-          </svg>
-        </button>
-        <button
-          className="userButton userButton--remove"
-          onClick={() => onEditModeChange('remove')}
-        >
-          <svg className="userButton__svg" viewBox="0 0 100 100">
-            <use href={`${icons}#userRemove`}></use>
-          </svg>
-        </button>
+
+        {/* EDIT BUTTONS */}
+        <div className={editButtonsClass}>
+          {
+          userEditButtons.map(button => {
+
+            const buttonClass = classNames('userButtons__button',
+            `userButtons__button--${button}`, {
+              'userButtons__button--visible': !settingBeingEdited
+            });
+            
+            return (
+              <button
+                className={buttonClass}
+                key={button}
+                onClick={() => onEditModeChange(button)}
+              >
+                <svg className="userButtons__svg" viewBox="0 0 100 100">
+                  <use href={`${icons}#${button}Edit`}></use>
+                </svg>
+              </button>
+            )
+          })
+            
+          }
+        </div>
+
+        {/* CONFIRMATION BUTTONS */}
+        <div className={confirmButtonsClass}>
+          {
+          userConfirmButtons.map(button => {
+
+            const buttonClass = classNames('userButtons__button',
+            `userButtons__button--${button}`, {
+              'userButtons__button--visible': settingBeingEdited
+            });
+            
+            return (
+              <button
+                className={buttonClass}
+                key={button}
+                onClick={() => onEditModeChange(button)}
+              >
+                <svg className="userButtons__svg" viewBox="0 0 100 100">
+                  <use href={`${icons}#${button}Edit`}></use>
+                </svg>
+              </button>
+            )
+          })
+          }
+        </div>
       </div>
 
       {/* USER STATS */}

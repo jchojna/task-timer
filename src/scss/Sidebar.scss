@@ -47,11 +47,9 @@
   }
 
   &__buttons {
-    column-gap: 4px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    max-width: $sidebar-content-width-xs;
     margin-top: 20px;
+    max-width: $sidebar-content-width-xs;
+    position: relative;
 
     @media only screen and (min-width: $media-md) {
       max-width: $sidebar-content-width-md;
@@ -88,35 +86,73 @@
   }
 }
 
-.userButton {
-  @include button;
-  @include flex-center;
-  border-radius: 50%;
-  fill: none;
-  padding: 5px;
-  stroke: $color-teal-dark-1;
-  stroke-width: 3;
-  transition: background-color $hover-icon;
+.userButtons {
+  column-gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  visibility: hidden;
+  transition: visibility 0s $sidebar-edit-toggle;
 
-  @mixin userButtonActive {
-    background-color: rgba($color: #000, $alpha: 0.4);
-    stroke: $color-teal;
+  &--visible {
+    visibility: visible;
   }
 
-  &:active {
-    @include userButtonActive;
+  &--confirm {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
-  &__svg {
-    width: 100%;
-  }
+  &__button {
+    @include button;
+    @include flex-center;
+    border-radius: 50%;
+    fill: none;
+    padding: 5px;
+    stroke: $color-teal-dark-1;
+    stroke-width: 3;
+    transform: scale(0);
+    transition:
+      background-color $hover-icon,
+      transform $sidebar-edit-toggle,
+      visibility 0s $sidebar-edit-toggle;
+    visibility: hidden;
 
-  @media only screen and (min-width: $media-md) {
+    &--visible {
+      transform: scale(1);
+      transition:
+        background-color $hover-icon,
+        transform $sidebar-edit-toggle $sidebar-edit-toggle,
+        visibility 0s $sidebar-edit-toggle;
+      visibility: visible;
+    }
 
-    &:focus,
-    &:hover {
+    &--cancel {
+      grid-column-start: 4;
+    }
+  
+    @mixin userButtonActive {
+      background-color: rgba($color: #000, $alpha: 0.4);
+      stroke: $color-teal;
+    }
+  
+    &:active {
       @include userButtonActive;
     }
+  
+    @media only screen and (min-width: $media-md) {
+  
+      &:focus,
+      &:hover {
+        @include userButtonActive;
+      }
+    }
+  }
+  
+  &__svg {
+    width: 100%;
   }
 }
 
