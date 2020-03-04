@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import UserInput from './UserInput';
 import '../scss/UserEdit.scss';
 
 const UserEdit = (props) => {
@@ -7,7 +8,14 @@ const UserEdit = (props) => {
   const {
     users,
     loggedUserLogin,
-    userEditMode: { isEditMode, settingBeingEdited }
+    userEditMode: {
+      isEditMode,
+      settingBeingEdited,
+      isNewLoginValid,
+      isOldPasswordValid,
+      isNewPasswordValid,
+      isConfirmPasswordValid
+    }
   } = props;
 
 
@@ -22,15 +30,23 @@ const UserEdit = (props) => {
       {
       settingBeingEdited === 'login' ?
       /* USER LOGIN EDIT */
-      <button className="UserEdit__confirm">
-        Login
-      </button>
+      <UserInput
+        block="UserEdit"
+        modifier="login"
+        //value={login}
+        type="text"
+        isInputValid={isNewLoginValid}
+        //isAlertVisible={isLoginAlertVisible}
+        //alertText={loginAlertText}
+        onInputChange={this.handleLoginValidation}
+        onInputBlur={this.handleAlerts}
+      />
 
       : settingBeingEdited === 'password' ?
       /* USER PASSWORD EDIT */
-      <button className="UserEdit__confirm">
-        Password
-      </button>
+      <p className="UserEdit__text">
+        Password edit
+      </p>
 
       : settingBeingEdited === 'logout' ?
       /* USER LOGOUT CONFIRM */

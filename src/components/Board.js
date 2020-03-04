@@ -28,7 +28,19 @@ class Board extends Component {
 
       userEditMode: {
         isEditMode: false,
-        settingBeingEdited: null
+        settingBeingEdited: null,
+        isNewLoginValid: false,
+        isLoginAlertVisible: false,
+        loginAlertText: 'Please enter a new login',
+        isOldPasswordValid: false,
+        isOldPasswordAlertVisible: false,
+        oldPasswordAlertText: '',
+        isNewPasswordValid: false,
+        isNewPasswordAlertVisible: false,
+        newPasswordAlertText: '',
+        isConfirmPasswordValid: false,
+        isConfirmPasswordAlertVisible: false,
+        confirmPasswordAlertText: '',
       }
     };
   }
@@ -61,24 +73,27 @@ class Board extends Component {
 
     if (setting === 'confirm' || setting === 'cancel') {
       const { settingBeingEdited } = userEditMode;
+
+      if (setting === 'confirm') {
+        switch (settingBeingEdited) {
+  
+          case 'login':
+  
+          break;
+  
+          case 'password':
+  
+          break;
+  
+          case 'logout': onUserLogout(); break;
+          case 'remove': onUserRemove(); break;
+          default: break;
+        }
+      }
+
       this.setState({
         userEditMode: { ...userEditMode, isEditMode: false }
       });
-
-      switch (settingBeingEdited) {
-
-        case 'login':
-
-        break;
-
-        case 'password':
-
-        break;
-
-        case 'logout': onUserLogout(); break;
-        case 'remove': onUserRemove(); break;
-        default: break;
-      }
 
     } else {
       this.setState({
