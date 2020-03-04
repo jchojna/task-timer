@@ -8,12 +8,11 @@ const Sidebar = (props) => {
 
   const {
     isSidebarVisible,
-    settingBeingEdited,
+    userEditMode,
+    userEditMode: { isEditMode },
     onEditModeChange,
     users,
-    loggedUserLogin,
-    onUserLogout,
-    onUserRemove
+    loggedUserLogin
   } = props;
 
   const { 
@@ -31,11 +30,11 @@ const Sidebar = (props) => {
   });
 
   const editButtonsClass = classNames('userButtons', 'userButtons--edit', {
-    'userButtons--visible': !settingBeingEdited
+    'userButtons--visible': !isEditMode
   });
 
   const confirmButtonsClass = classNames('userButtons', 'userButtons--confirm', {
-    'userButtons--visible': settingBeingEdited
+    'userButtons--visible': isEditMode
   });
 
   return (
@@ -46,9 +45,7 @@ const Sidebar = (props) => {
       </h2>
 
       <UserEdit
-        settingBeingEdited={settingBeingEdited}
-        onUserLogout={onUserLogout}
-        onUserRemove={onUserRemove}
+        userEditMode={userEditMode}
       />
 
       {/* USER PANEL BUTTONS */}
@@ -61,7 +58,7 @@ const Sidebar = (props) => {
 
             const buttonClass = classNames('userButtons__button',
             `userButtons__button--${button}`, {
-              'userButtons__button--visible': !settingBeingEdited
+              'userButtons__button--visible': !isEditMode
             });
             
             return (
@@ -87,7 +84,7 @@ const Sidebar = (props) => {
 
             const buttonClass = classNames('userButtons__button',
             `userButtons__button--${button}`, {
-              'userButtons__button--visible': settingBeingEdited
+              'userButtons__button--visible': isEditMode
             });
             
             return (

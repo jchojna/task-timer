@@ -26,7 +26,10 @@ class Board extends Component {
       isTaskNameValid: false,
       isTimeInputValid: false,
 
-      settingBeingEdited: null
+      userEditMode: {
+        isEditMode: false,
+        settingBeingEdited: null
+      }
     };
   }
 
@@ -53,9 +56,39 @@ class Board extends Component {
   }
 
   handleUserEditMode = (setting) => {
-    this.setState({
-      settingBeingEdited: setting
-    });
+    const { onUserLogout, onUserRemove } = this.props;
+    const { userEditMode } = this.state;
+
+    if (setting === 'confirm' || setting === 'cancel') {
+      const { settingBeingEdited } = userEditMode;
+      this.setState({
+        userEditMode: { ...userEditMode, isEditMode: false }
+      });
+
+      switch (settingBeingEdited) {
+
+        case 'login':
+
+        break;
+
+        case 'password':
+
+        break;
+
+        case 'logout': onUserLogout(); break;
+        case 'remove': onUserRemove(); break;
+        default: break;
+      }
+
+    } else {
+      this.setState({
+        userEditMode: {
+          ...userEditMode,
+          isEditMode: true,
+          settingBeingEdited: setting
+        }
+      });
+    }
   }
 
   handleSidebarQuit = ({target}) => {
@@ -81,9 +114,7 @@ class Board extends Component {
     const {
       users,
       loggedUserLogin,
-      onTaskOrderChange,
-      onUserLogout,
-      onUserRemove
+      onTaskOrderChange
     } = this.props;
 
     const {
@@ -96,7 +127,7 @@ class Board extends Component {
       hoveredOffsetX,
       hoveredOffsetY,
       cardsSizes,
-      settingBeingEdited
+      userEditMode
     } = this.state;
 
     const { tasks } = [...users].find(user =>user.login === loggedUserLogin);
@@ -137,12 +168,10 @@ class Board extends Component {
         {/* SIDEBAR */}
         <Sidebar
           isSidebarVisible={isSidebarVisible}
-          settingBeingEdited={settingBeingEdited}
+          userEditMode={userEditMode}
           onEditModeChange={this.handleUserEditMode}
           users={users}
           loggedUserLogin={loggedUserLogin}
-          onUserLogout={onUserLogout}
-          onUserRemove={onUserRemove}
         />
 
         {/* TASK CARDS */}

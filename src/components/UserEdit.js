@@ -7,16 +7,13 @@ const UserEdit = (props) => {
   const {
     users,
     loggedUserLogin,
-    settingBeingEdited,
-    onUserLogout,
-    onUserRemove,
-    editRef
+    userEditMode: { isEditMode, settingBeingEdited }
   } = props;
 
 
   const userEditClass = classNames('UserEdit', {
-    'UserEdit--hidden': !settingBeingEdited,
-    [`UserEdit--${settingBeingEdited}`]: settingBeingEdited
+    'UserEdit--hidden': !isEditMode,
+    [`UserEdit--${settingBeingEdited}`]: isEditMode
   })
 
 
@@ -41,10 +38,14 @@ const UserEdit = (props) => {
         Log out?
       </p>
 
-      : /* USER REMOVE CONFIRM */
+      : settingBeingEdited === 'remove' ?
+      /* USER REMOVE CONFIRM */
       <p className="UserEdit__text">
         Remove user?
       </p>
+
+      :
+      <div className="empty"></div>
       }
     </div>
   );

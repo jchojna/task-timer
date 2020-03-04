@@ -7,7 +7,9 @@
   flex-direction: column;
   max-width: $sidebar-content-width-xs;
   overflow: hidden;
-  transition: max-height 0.3s $sidebar-edit-toggle * 2;
+  transition:
+    max-height 0.3s $sidebar-edit-toggle,
+    visibility 0s;
   visibility: visible;
   width: 100%;
 
@@ -26,6 +28,10 @@
 
   &--hidden {
     max-height: 0;
+    pointer-events: none;
+    transition:
+      max-height 0.3s,
+      visibility 0s $sidebar-edit-toggle;
     visibility: hidden;
   }
 
