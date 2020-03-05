@@ -4,7 +4,6 @@
 
 .loginForm,
 .signupForm {
-  align-items: center;
   box-shadow: $card-shadow-medium;
   border-radius: 10px;
   display: grid;
@@ -41,88 +40,6 @@
     text-align: center;
   }
 
-  &__label {
-    justify-self: start;
-    font-size: 1.2em;
-    font-weight: 700;
-    grid-area: label;
-
-    &--login { grid-area: labelLogin; }
-    &--password { grid-area: labelPassword; }
-    &--confirm { grid-area: labelConfirm; }
-  
-    @media only screen and (min-width: $media-md) {
-      justify-self: end;
-    }
-  }
-  
-  &__input {
-    background-color: $color-teal-dark-1;
-    border: none;
-    box-shadow: $placeholder-shadow-small;
-    border-radius: 5px;
-    color: $color-teal-light-3;
-    font-size: 1.4em;
-    font-weight: 400;
-    min-width: 150px;
-    outline: none;
-    padding: 0.5em;
-    width: 100%;
-
-    &--login { grid-area: inputLogin; }
-    &--password { grid-area: inputPassword; }
-    &--confirm { grid-area: inputConfirm; }
-  
-    &:focus {
-      background-color: $color-teal-dark-2;
-      box-shadow: $placeholder-shadow-medium;
-    }
-  }
-  
-  &__alertBox {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height $time-alert, visibility 0s $time-alert;
-
-    &--login { grid-area: alertLogin; }
-    &--password { grid-area: alertPassword; }
-    &--confirm { grid-area: alertConfirm; }
-  
-    &--visible {
-      max-height: 60px;
-      transition: max-height $time-alert, visibility 0s;
-    }
-  
-    @media only screen and (min-width: $media-md) {
-  
-      &--visible {
-        max-height: 40px;
-      }
-    }
-  }
-  
-  &__alert {
-    @include flex-center;
-    background-color: $color-teal-warning;
-    border-radius: 5px;
-    color: $color-teal-light-2;
-    font-size: 1em;
-    font-weight: 400;
-    margin: 0;
-    padding: 0.5em;
-    text-align: center;
-  }
-
-  &__icons {
-    column-gap: 5px;
-    display: grid;
-    grid-template-columns: 30px auto;
-
-    &--login { grid-area: iconsLogin; }
-    &--password { grid-area: iconsPassword; }
-    &--confirm { grid-area: iconsConfirm; }
-  }
-  
   &__button {
     @include button;
     border-radius: 5px;
@@ -153,15 +70,12 @@
 .loginForm {
   background-color: $color-teal;
   grid-template-areas:
-  "heading       heading       heading      "
-  "labelLogin    labelLogin    .            "
-  "inputLogin    inputLogin    iconsLogin   "
-  "alertLogin    alertLogin    .            "
-  "labelPassword labelPassword .            "
-  "inputPassword inputPassword iconsPassword"
-  "alertPassword alertPassword .            "
-  "remember      remember      .            "
-  "loginBtn      signupBtn     .            ";
+  "heading  heading   heading "
+  "login    login     login   "
+  "password password  password"
+  "alert    alert     .       "
+  "remember remember  .       "
+  "loginBtn signupBtn .       ";
   left: 0;
   position: absolute;
   top: 0;
@@ -171,24 +85,27 @@
 
     & {
       grid-template-areas:
-      ".              heading       heading       .            "
-      "labelLogin     inputLogin    inputLogin    iconsLogin   "
-      ".              alertLogin    alertLogin    .            "
-      "labelPassword  inputPassword inputPassword iconsPassword"
-      ".              alertPassword alertPassword .            "
-      ".              remember      remember      .            "
-      ".              loginBtn      signupBtn     .            ";
+      ".        heading  heading   .       "
+      "login    login    login     login   "
+      "password password password  password"
+      ".        alert    alert     .       "
+      ".        remember remember  .       "
+      ".        loginBtn signupBtn .       ";
     }
   }
 
   &__heading {
     color: $color-teal-dark-2;
   }
-
-  &__label {
-    color: $color-teal-dark-1;
+  
+  &__alertBox {
+    @include inputAlertBox;
   }
-
+  
+  &__alert {
+    @include inputAlert;
+  }
+  
   &__button {
     background-color: $color-teal-dark-2;
     color: $color-teal-light-1;
@@ -215,49 +132,28 @@
 .signupForm {
   background-color: $color-teal-dark-3;
   grid-template-areas:
-  "heading       heading       heading      "
-  "labelLogin    labelLogin    .            "
-  "inputLogin    inputLogin    iconsLogin   "
-  "alertLogin    alertLogin    .            "
-  "labelPassword labelPassword .            "
-  "inputPassword inputPassword iconsPassword"
-  "alertPassword alertPassword .            "
-  "labelConfirm  labelConfirm  .            "
-  "inputConfirm  inputConfirm  iconsConfirm "
-  "alertConfirm  alertConfirm  .            "
-  "remember      remember      .            "
-  "loginBtn      signupBtn     .            ";
+  "heading  heading   heading "
+  "login    login     login   "
+  "password password  password"
+  "confirm  confirm   confirm "
+  "remember remember  .       "
+  "loginBtn signupBtn .       ";
   
   @media only screen and (min-width: $media-md) {
 
     & {
       grid-template-areas:
-      ".              heading       heading       .            "
-      "labelLogin     inputLogin    inputLogin    iconsLogin   "
-      ".              alertLogin    alertLogin    .            "
-      "labelPassword  inputPassword inputPassword iconsPassword"
-      ".              alertPassword alertPassword .            "
-      "labelConfirm   inputConfirm  inputConfirm  iconsConfirm "
-      ".              alertConfirm  alertConfirm  .            "
-      ".              remember      remember      .            "
-      ".              loginBtn      signupBtn     .            ";
+      ".        heading  heading   .       "
+      "login    login    login     login   "
+      "password password password  password"
+      "confirm  confirm  confirm   confirm "
+      ".        remember remember  .       "
+      ".        loginBtn signupBtn .       ";
     }
   }
 
   &__heading {
     color: $color-teal-light-1;
-  }
-
-  &__label {
-    color: $color-teal-dark-1;
-
-    &--disabled {
-      color: rgba($color: $color-teal-dark-2, $alpha: 0.5);
-    }
-  }
-
-  &__input--disabled {
-    background-color: rgba($color: $color-teal-dark-2, $alpha: 0.5);
   }
 
   &__button {
@@ -279,68 +175,6 @@
         @include buttonActive;
       }
     }
-  }
-}
-
-.inputPassed {
-  height: $login-icons;
-  overflow: hidden;
-  width: 0;
-  transition: width 0.2s;
-
-  &--visible {
-    width: $login-icons;
-  }
-
-  &--loginForm {
-    fill: $color-teal-dark-2;
-
-  }
-
-  &--signupForm {
-    fill: $color-teal;
-
-  }
-
-  &__svg {
-    width: $login-icons;
-  }
-}
-
-.previewPassword {
-  @include button;
-  height: $login-icons;
-  width: $login-icons;
-  transition: transform 0.2s;
-
-  &--loginForm {
-    fill: $color-teal-dark-2;
-
-    &:hover {
-      fill: $color-teal-light-3;
-    }
-  }
-
-  &--signupForm {
-    fill: $color-teal;
-
-    &:hover {
-      fill: $color-teal-light-3;
-    }
-  }
-
-  &--disabled {
-    fill: $color-teal-dark-1;
-    pointer-events: none;
-  }
-
-  &--active {
-    fill: $color-teal-light-2;
-    transform: rotate(180deg);
-  }
-
-  &__svg {
-    width: 100%;
   }
 }
 

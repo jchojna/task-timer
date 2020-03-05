@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import icons from '../assets/svg/icons.svg';
+import '../scss/UserInput.scss';
 
 class UserInput extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class UserInput extends Component {
       modifierName: '',
       isAlertVisible: false,
       alertText: '',
-      isPasswordPreviewed: false,
+      isPasswordPreviewed: false
     }
   }
 
@@ -159,17 +160,21 @@ class UserInput extends Component {
     const isConfirmPassword = inputId === 'signupFormConfirm';
     const isConfirmDisabled = !isPasswordValid && isConfirmPassword;
     const isConfirmEmpty = value === '' && isConfirmPassword;
+
+    const userInputClass = `UserInput UserInput--${modifier}`;
   
     const labelClass = classNames(
-      `${block}__label`,
-      `${block}__label--${modifier}`, {
-      [`${block}__label--disabled`]: isConfirmDisabled
+      'UserInput__label',
+      `UserInput__label--${block}`,
+      `UserInput__label--${modifier}`, {
+      'UserInput__label--disabled': isConfirmDisabled
     });
   
     const inputClass = classNames(
-      `${block}__input`,
-      `${block}__input--${modifier}`, {
-      [`${block}__input--disabled`]: isConfirmDisabled
+      'UserInput__input',
+      `UserInput__input--${block}`,
+      `UserInput__input--${modifier}`, {
+      'UserInput__input--disabled': isConfirmDisabled
     });
 
     const inputType = modifier === 'login'
@@ -177,16 +182,17 @@ class UserInput extends Component {
     : isPasswordPreviewed ? 'text' : 'password'
   
     const alertBoxClass = classNames(
-      `${block}__alertBox`,
-      `${block}__alertBox--${modifier}`, {
-      [`${block}__alertBox--visible`]: !isInputValid
+      'UserInput__alertBox',
+      `UserInput__alertBox--${block}`,
+      `UserInput__alertBox--${modifier}`, {
+      'UserInput__alertBox--visible': !isInputValid
       && isAlertVisible
       && !isConfirmDisabled
       && !isConfirmEmpty
     });
   
-    const alertClass = `${block}__alert ${block}__alert--${modifier}`;
-    const iconsClass = `${block}__icons ${block}__icons--${modifier}`;
+    const alertClass = `UserInput__alert UserInput__alert--${modifier}`;
+    const iconsClass = `UserInput__icons UserInput__icons--${modifier}`;
 
     const passedClass = classNames(
       'inputPassed',
@@ -197,14 +203,16 @@ class UserInput extends Component {
     const previewClass = classNames(
       'previewPassword',
       `previewPassword--${block}`, {
-      'previewPassword--active': isInputValid && isPasswordPreviewed,
+      'previewPassword--active': isPasswordPreviewed
+      && !isConfirmDisabled
+      && !isConfirmEmpty,
       'previewPassword--disabled': isConfirmDisabled
     });
 
     // #endregion
     
     return (
-      <React.Fragment>
+      <div className={userInputClass}>
         {/* LABEL */}
         <label htmlFor={inputId} className={labelClass}>
           {`${modifierName}:`}
@@ -254,7 +262,7 @@ class UserInput extends Component {
             </div>
           }
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -73,7 +73,6 @@ const Sidebar = (props) => {
               </button>
             )
           })
-            
           }
         </div>
 
