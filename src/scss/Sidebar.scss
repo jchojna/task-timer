@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: auto;
   padding: $header-padding-xs;
   padding-top: $header-padding-xs * 2 + $burger-size-xs;
   position: fixed;
@@ -129,10 +130,14 @@
       visibility: visible;
     }
 
+    &--disabled {
+      pointer-events: none;
+      stroke: rgba($color: $color-teal-dark-2, $alpha: 0.5);
+    }  
+
     &--cancel {
       grid-column-start: 4;
     }
-  
     @mixin userButtonActive {
       background-color: rgba($color: #000, $alpha: 0.4);
       stroke: $color-teal;

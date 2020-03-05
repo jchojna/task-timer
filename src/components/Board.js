@@ -14,34 +14,13 @@ class Board extends Component {
       isCreatorVisible: false,
       isPlaceholderVisible: false,
       isSidebarVisible: true,
-      isDraggingMode: false,
       // cards
+      isDraggingMode: false,
       cardsSizes: [],
       draggedCardIndex: -1,
       hoveredCardIndex: -1,
       hoveredOffsetX: 0,
-      hoveredOffsetY: 0,
-      noTransitionMode: false,
-      // validity
-      isTaskNameValid: false,
-      isTimeInputValid: false,
-
-      userEditMode: {
-        isEditMode: false,
-        settingBeingEdited: null,
-        isNewLoginValid: false,
-        isLoginAlertVisible: false,
-        loginAlertText: 'Please enter a new login',
-        isOldPasswordValid: false,
-        isOldPasswordAlertVisible: false,
-        oldPasswordAlertText: '',
-        isNewPasswordValid: false,
-        isNewPasswordAlertVisible: false,
-        newPasswordAlertText: '',
-        isConfirmPasswordValid: false,
-        isConfirmPasswordAlertVisible: false,
-        confirmPasswordAlertText: '',
-      }
+      hoveredOffsetY: 0
     };
   }
 
@@ -67,45 +46,6 @@ class Board extends Component {
     }));
   }
 
-  handleUserEditMode = (setting) => {
-    const { onUserLogout, onUserRemove } = this.props;
-    const { userEditMode } = this.state;
-
-    if (setting === 'confirm' || setting === 'cancel') {
-      const { settingBeingEdited } = userEditMode;
-
-      if (setting === 'confirm') {
-        switch (settingBeingEdited) {
-  
-          case 'login':
-  
-          break;
-  
-          case 'password':
-  
-          break;
-  
-          case 'logout': onUserLogout(); break;
-          case 'remove': onUserRemove(); break;
-          default: break;
-        }
-      }
-
-      this.setState({
-        userEditMode: { ...userEditMode, isEditMode: false }
-      });
-
-    } else {
-      this.setState({
-        userEditMode: {
-          ...userEditMode,
-          isEditMode: true,
-          settingBeingEdited: setting
-        }
-      });
-    }
-  }
-
   handleSidebarQuit = ({target}) => {
     if (/Board--sidebarMode/.test(target.className)) this.handleSidebar();
   }
@@ -129,7 +69,9 @@ class Board extends Component {
     const {
       users,
       loggedUserLogin,
-      onTaskOrderChange
+      onTaskOrderChange,
+      onUserLogout,
+      onUserRemove
     } = this.props;
 
     const {
@@ -141,11 +83,12 @@ class Board extends Component {
       draggedCardIndex,
       hoveredOffsetX,
       hoveredOffsetY,
-      cardsSizes,
-      userEditMode
+      cardsSizes
     } = this.state;
 
     const { tasks } = [...users].find(user =>user.login === loggedUserLogin);
+
+    //#region [ Horizon ] CLASS NAMES
 
     const boardClass = classNames('Board', {
       'Board--sidebarMode': isSidebarVisible
@@ -162,6 +105,8 @@ class Board extends Component {
     const boardLogoClass = classNames('Board__logo', {
       'Board__logo--visible': isSidebarVisible
     });
+
+    //#endregion
 
     return (
       <section className={boardClass} onClick={this.handleSidebarQuit}>
@@ -183,10 +128,10 @@ class Board extends Component {
         {/* SIDEBAR */}
         <Sidebar
           isSidebarVisible={isSidebarVisible}
-          userEditMode={userEditMode}
-          onEditModeChange={this.handleUserEditMode}
           users={users}
           loggedUserLogin={loggedUserLogin}
+          onUserLogout={onUserLogout}
+          onUserRemove={onUserRemove}
         />
 
         {/* TASK CARDS */}

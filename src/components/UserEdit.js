@@ -8,62 +8,95 @@ const UserEdit = (props) => {
   const {
     users,
     loggedUserLogin,
-    userEditMode: {
+    onInputChange,
+    state: {
       isEditMode,
-      settingBeingEdited,
-      isNewLoginValid,
-      isOldPasswordValid,
+      editedSetting,
+      Login,
+      isLoginValid,
+      password,
+      isPasswordValid,
+      newPassword,
       isNewPasswordValid,
-      isConfirmPasswordValid
+      confirmPassword,
+      isConfirmValid
     }
   } = props;
 
 
   const userEditClass = classNames('UserEdit', {
     'UserEdit--hidden': !isEditMode,
-    [`UserEdit--${settingBeingEdited}`]: isEditMode
+    [`UserEdit--${editedSetting}`]: isEditMode
   })
 
 
   return (
-    <div className={userEditClass}>
+    <React.Fragment>
       {
-      settingBeingEdited === 'login' ?
+      editedSetting === 'login' ?
       /* USER LOGIN EDIT */
-      <UserInput
-        block="UserEdit"
-        modifier="login"
-        //value={login}
-        type="text"
-        isInputValid={isNewLoginValid}
-        //isAlertVisible={isLoginAlertVisible}
-        //alertText={loginAlertText}
-        onInputChange={this.handleLoginValidation}
-        onInputBlur={this.handleAlerts}
-      />
+      <div className={userEditClass}>
+        <UserInput
+          block="userEdit"
+          modifier="login"
+          value={Login}
+          users={users}
+          loggedUserLogin={loggedUserLogin}
+          label="New Login:"
+          isInputValid={isLoginValid}
+          onInputChange={onInputChange}
+        />
+      </div>
 
-      : settingBeingEdited === 'password' ?
+      : editedSetting === 'password' ?
       /* USER PASSWORD EDIT */
-      <p className="UserEdit__text">
-        Password edit
-      </p>
+      <div className={userEditClass}>
+        <UserInput
+          block="userEdit"
+          modifier="password"
+          value={password}
+          users={users}
+          label="Old Password:"
+          isInputValid={isPasswordValid}
+          onInputChange={onInputChange}
+        />
+        <UserInput
+          block="userEdit"
+          modifier="newPassword"
+          value={newPassword}
+          users={users}
+          label="New Password:"
+          isInputValid={isNewPasswordValid}
+          onInputChange={onInputChange}
+        />
+        <UserInput
+          block="userEdit"
+          modifier="confirm"
+          value={confirmPassword}
+          users={users}
+          label="Confirm:"
+          isInputValid={isConfirmValid}
+          onInputChange={onInputChange}
+        />
+      </div>
 
-      : settingBeingEdited === 'logout' ?
+      : editedSetting === 'logout' ?
       /* USER LOGOUT CONFIRM */
-      <p className="UserEdit__text">
-        Log out?
-      </p>
-
-      : settingBeingEdited === 'remove' ?
-      /* USER REMOVE CONFIRM */
-      <p className="UserEdit__text">
-        Remove user?
-      </p>
+      <div className={userEditClass}>
+        <p className="UserEdit__text">
+          Log out?
+        </p>
+      </div>
 
       :
-      <div className="empty"></div>
+      /* USER REMOVE CONFIRM */
+      <div className={userEditClass}>
+        <p className="UserEdit__text">
+          Remove user?
+        </p>
+      </div>
       }
-    </div>
+    </React.Fragment>
   );
 }
 export default UserEdit;

@@ -4,6 +4,10 @@ export const validateTaskName = (name) => name.length > 0 ? true : false;
 export const validateTaskTime = (time, total) => /^\d*$/.test(time) && total > 0;
 export const validateBreakTime = (time) => /^\d*$/.test(time);
 
+export const getCapitalized = (string) => {
+  return string.charAt(0).toUpperCase() + string.substring(1);
+}
+
 const getTotalTime = (minutes, seconds) => {
   minutes = !minutes ? 0 : parseInt(minutes);
   seconds = !seconds ? 0 : parseInt(seconds);
@@ -11,6 +15,7 @@ const getTotalTime = (minutes, seconds) => {
 }
 
 const makeTwoDigits = (value) => value < 10 ? `0${value}` : `${value}`;
+
 
 export const getNumFromRange = (value, operation, lowerLimit, upperLimit) => {
   const newValue = operation === "increase"

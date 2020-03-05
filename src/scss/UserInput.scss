@@ -27,11 +27,14 @@
   @media only screen and (min-width: $media-md) {
 
     & {
-      gap: 0.6em 0.8em;
-      grid-template-areas:
-      "label input input icons"
-      ".     alert alert .    ";
-      grid-template-columns: repeat(4, 1fr);
+      &--loginForm,
+      &--signupForm {
+        gap: 0.6em 0.8em;
+        grid-template-areas:
+        "label input input icons"
+        ".     alert alert .    ";
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
   }
 
@@ -62,7 +65,14 @@
     }
   
     @media only screen and (min-width: $media-md) {
-      justify-self: end;
+
+      & {
+        justify-self: end;
+
+        &--userEdit {
+          justify-self: start;
+        }
+      }
     }
   }
   
@@ -102,7 +112,8 @@
     column-gap: 5px;
     display: grid;
     grid-area: icons;
-    grid-template-columns: 30px auto;
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
   }
 }
 
@@ -123,7 +134,10 @@
 
   &--signupForm {
     fill: $color-teal;
+  }
 
+  &--userEdit {
+    fill: $color-teal-dark-1;
   }
 
   &__svg {
