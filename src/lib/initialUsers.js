@@ -3,10 +3,12 @@ export const initialUsers = [
     "login": "Jakub",
     "password": "jakubek",
     "rememberMe": false,
-    "finishedTasks": 3,
-    "avgTaskTime": 0,
-    "avgBreakTime": 0,
-    "avgTasksPerDay": 0,
+    "stats": {
+      "finishedTasks": 3,
+      "avgTaskTime": 0,
+      "avgBreakTime": 0,
+      "avgTasksPerDay": 0
+    },
     "tasks": [
       {
         taskName: "Add some feature to TaskTimer App",
@@ -66,10 +68,12 @@ export const initialUsers = [
     "login": "Anna",
     "password": "aneczka",
     "rememberMe": true,
-    "finishedTasks": 1,
-    "avgTaskTime": 0,
-    "avgBreakTime": 0,
-    "avgTasksPerDay": 0,
+    "stats": {
+      "finishedTasks": 4,
+      "avgTaskTime": 0,
+      "avgBreakTime": 0,
+      "avgTasksPerDay": 0
+    },
     "tasks": [
       {
         taskName: "Test task for preview purposes",
@@ -103,20 +107,24 @@ export const initialUsers = [
     "login": "Agnieszka",
     "password": "agnieszka",
     "rememberMe": false,
-    "finishedTasks": 0,
-    "avgTaskTime": 0,
-    "avgBreakTime": 0,
-    "avgTasksPerDay": 0,
+    "stats": {
+      "finishedTasks": 2,
+      "avgTaskTime": 0,
+      "avgBreakTime": 0,
+      "avgTasksPerDay": 0
+    },
     "tasks": []
   },
   {
     "login": "Olek",
     "password": "aleksander",
     "rememberMe": false,
-    "finishedTasks": 0,
-    "avgTaskTime": 0,
-    "avgBreakTime": 0,
-    "avgTasksPerDay": 0,
+    "stats": {
+      "finishedTasks": 1,
+      "avgTaskTime": 0,
+      "avgBreakTime": 0,
+      "avgTasksPerDay": 0
+    },
     "tasks": []
   },
 ];

@@ -33,11 +33,9 @@ class UserForm extends Component {
 
   componentDidMount = () => {
     const { block, users } = this.props;
-    console.log('users', users);
     if (block === 'loginForm') {
 
       const rememberedUser = [...users].find(user => user.rememberMe);
-      console.log('rememberedUser', rememberedUser);
       if (rememberedUser) {
         const { login, password } = rememberedUser;
 

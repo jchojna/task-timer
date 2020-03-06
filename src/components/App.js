@@ -15,7 +15,13 @@ class App extends Component {
       isUserPanelVisible: true,
       isBoardVisible: false,
       users: initialUsers,
-      loggedUserLogin: null
+      loggedUserLogin: null,
+      statsLabels: {
+        finishedTasks: 'Tasks finished:',
+        avgTaskTime: 'Average task time:',
+        avgBreakTime: 'Average break time:',
+        avgTasksPerDay: 'Average tasks per day:'
+      }
     };
   }
 
@@ -110,7 +116,8 @@ class App extends Component {
       isUserPanelVisible,
       isBoardVisible,
       users,
-      loggedUserLogin
+      loggedUserLogin,
+      statsLabels
     } = this.state;
 
     return (
@@ -145,6 +152,7 @@ class App extends Component {
               onUserRemove={this.handleUserRemove}
               onTaskRemove={this.handleTaskRemove}
               onTaskOrderChange={this.handleTaskOrder}
+              statsLabels={statsLabels}
             />
             : <div className="empty"></div>
           }

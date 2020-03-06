@@ -134,10 +134,6 @@ class Sidebar extends Component {
     });
   }
 
-  handlePasswordUpdate = () => {
-
-  }
-
   handleConfirmValidation = (value) => {
     const isInvalid = this.getInputAlert(value, 'confirm') ? true : false;
 
@@ -238,7 +234,8 @@ class Sidebar extends Component {
       block,
       isSidebarVisible,
       users,
-      loggedUserLogin
+      loggedUserLogin,
+      statsLabels
     } = this.props;
 
     const {
@@ -249,13 +246,16 @@ class Sidebar extends Component {
       isNewPasswordValid,
       isConfirmValid
     } = this.state;
+
+    const { stats } = [...users].find(user =>user.login === loggedUserLogin);
+    const statsKeys = Object.keys(stats);
   
     const { 
       finishedTasks,
       avgTaskTime,
       avgBreakTime,
       avgTasksPerDay
-    } = [...users].find(user =>user.login === loggedUserLogin);
+    } = stats
   
     const userEditButtons = ['login', 'password', 'logout', 'remove'];
     const userConfirmButtons = ['confirm', 'cancel'];
@@ -373,42 +373,19 @@ class Sidebar extends Component {
               </tr>
             </thead>
             <tbody className="stats__body">
-              {/* TASKS FINISHED */}
-              <tr className="stats__row">
-                <th className="stats__cell stats__cell--name" scope="row">
-                  Tasks finished:
-                </th>
-                <td className="stats__cell stats__cell--value">
-                  {finishedTasks}
-                </td>
-              </tr>
-              {/* AVERAGE TASK TIME */}
-              <tr className="stats__row">
-                <th className="stats__cell stats__cell--name" scope="row">
-                  Average task time:
-                </th>
-                <td className="stats__cell stats__cell--value">
-                  {avgTaskTime}
-                </td>
-              </tr>
-              {/* AVERAGE BREAK TIME */}
-              <tr className="stats__row">
-                <th className="stats__cell stats__cell--name" scope="row">
-                  Average break time:
-                </th>
-                <td className="stats__cell stats__cell--value">
-                  {avgBreakTime}
-                </td>
-              </tr>
-              {/* AVERAGE TASKS PER DAY */}
-              <tr className="stats__row">
-                <th className="stats__cell stats__cell--name" scope="row">
-                  Average tasks per day:
-                </th>
-                <td className="stats__cell stats__cell--value">
-                  {avgTasksPerDay}
-                </td>
-              </tr>
+            {
+              [...statsKeys].map(key => 
+
+                <tr className="stats__row" key={key}>
+                  <th className="stats__cell stats__cell--name" scope="row">
+                    {statsLabels[key]}
+                  </th>
+                  <td className="stats__cell stats__cell--value">
+                    {stats[key]}
+                  </td>
+                </tr>
+              )
+            }
             </tbody>
           </table>
         </section>
