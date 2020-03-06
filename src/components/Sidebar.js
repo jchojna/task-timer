@@ -34,7 +34,7 @@ class Sidebar extends Component {
       isConfirmAlertVisible: false,
       confirmAlertText: 'Please confirm your password',
       isConfirmPreviewMode: false,
-      isConfirmDisabled: true
+      isConfirmDisabled: true,
     }
   }
 
@@ -234,8 +234,7 @@ class Sidebar extends Component {
       block,
       isSidebarVisible,
       users,
-      loggedUserLogin,
-      statsLabels
+      loggedUserLogin
     } = this.props;
 
     const {
@@ -248,17 +247,18 @@ class Sidebar extends Component {
     } = this.state;
 
     const { stats } = [...users].find(user =>user.login === loggedUserLogin);
-    const statsKeys = Object.keys(stats);
-  
-    const { 
-      finishedTasks,
-      avgTaskTime,
-      avgBreakTime,
-      avgTasksPerDay
-    } = stats
-  
+    
     const userEditButtons = ['login', 'password', 'logout', 'remove'];
     const userConfirmButtons = ['confirm', 'cancel'];
+      
+    const statsLabels = {
+      finishedTasks: 'Tasks finished:',
+      avgTaskTime: 'Average task time:',
+      avgBreakTime: 'Average break time:',
+      avgTasksPerDay: 'Average tasks per day:',
+      dateCreated: 'Profile created at:'
+    }
+    const statsLabelsKeys = Object.keys(statsLabels);
 
     //#region [ Horizon ] CLASS NAMES
   
@@ -374,7 +374,7 @@ class Sidebar extends Component {
             </thead>
             <tbody className="stats__body">
             {
-              [...statsKeys].map(key => 
+              [...statsLabelsKeys].map(key => 
 
                 <tr className="stats__row" key={key}>
                   <th className="stats__cell stats__cell--name" scope="row">

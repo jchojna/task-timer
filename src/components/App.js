@@ -4,7 +4,7 @@ import UserPanel from './UserPanel';
 import Board from './Board';
 import Logo from './Logo';
 import { initialUsers } from '../lib/initialUsers';
-import { makeTwoDigits } from '../lib/handlers';
+import { makeTwoDigits, getTotalDays, getTimeArray } from '../lib/handlers';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -18,45 +18,53 @@ class App extends Component {
       users: initialUsers,
       loggedUserLogin: null,
       date: null,
-
-      statsLabels: {
-        finishedTasks: 'Tasks finished:',
-        avgTaskTime: 'Average task time:',
-        avgBreakTime: 'Average break time:',
-        avgTasksPerDay: 'Average tasks per day:',
-        dateCreated: 'Profile created at:'
-      }
+      createdAt: null
     };
   }
 
   componentDidMount = () => {
+    // update app state from local storage
     if (localStorage.getItem('taskTimerUsers')) {
       const users = JSON.parse(localStorage.getItem('taskTimerUsers'));
-      console.log('users', users);
 
-      this.setState(prevState => ({
+      this.setState({
         users,
         isAppLoaded: true
-      }));
+      });
 
+    // set state and export to local storage based on initial users object
     } else {
 
       const { users } = this.state;
       [...users].forEach(user => {
+        const {
+          finishedTasks,
+          totalTaskTime,
+          totalBreakTime
+        } = user.stats;
+
+        // set date of profile creation
         let [day, month, year, hr, min] = user.date;
-
-        /* const date = new Date(year, month, day, hr, min);
-        const y = date.getFullYear();
-        const m = date.getMonth();
-        const d = date.getDay();
-        const hr = date.getMinutes();
-        const min = date.getSeconds();
-        user.stats.dateCreated = `${d}-${m}-${y} ${hr}:${min}`; */
-
+        const date = new Date(year, month, day, hr, min);
+        // set stat displaying creation date
         day = makeTwoDigits(day);
         month = makeTwoDigits(month + 1);
         hr = makeTwoDigits(hr);
         min = makeTwoDigits(min);
+        
+        const totalDays = getTotalDays(date);
+        const avgTasksPerDay = Math.round(finishedTasks / totalDays);
+        const avgTaskTime = getTimeArray(totalTaskTime / finishedTasks);
+        const avgBreakTime = getTimeArray(totalBreakTime / finishedTasks);
+        const [ taskMin, taskSec ] = avgTaskTime;
+        const [ breakMin, breakSec ] = avgBreakTime;
+        const formattedAvgTaskTime = `${taskMin} min ${taskSec} sec`;
+        const formattedAvgBreakTime = `${breakMin} min ${breakSec} sec`;
+
+        user.stats.avgTasksPerDay = avgTasksPerDay;
+        user.stats.avgTaskTime = formattedAvgTaskTime;
+        user.stats.avgBreakTime = formattedAvgBreakTime;
+        user.createdAt = date;
         user.stats.dateCreated = `${day}-${month}-${year} ${hr}:${min}`;
       });
 
@@ -71,7 +79,7 @@ class App extends Component {
   }
 
   componentDidUpdate = () => {
-    console.log('app state updated');
+    console.log('APP UPDATED');
     this.exportUsers();
   }
 
@@ -144,49 +152,40 @@ class App extends Component {
     }));
   }
 
-  handleTasksUpdate = (object, type) => {
+  handleTaskFinish = (results) => {
 
-    if (type === 'onTaskFinish') {
-      const { users, loggedUserLogin } = this.state;
-      const { elapsedTaskTime, elapsedBreakTime } = object;
+    const { users, loggedUserLogin } = this.state;
+    const { elapsedTaskTime, elapsedBreakTime } = results;
 
-      const user = [...users].find(user => user.login === loggedUserLogin);
-      const {
-        finishedTasks,
-        totalTaskTime,
-        totalBreakTime
-      } = user.stats;
+    const user = [...users].find(user => user.login === loggedUserLogin);
+    const {
+      finishedTasks,
+      totalTaskTime,
+      totalBreakTime
+    } = user.stats;
+    
+    const totalDays = getTotalDays(user.createdAt);
+    const updatedFinishedTasks = finishedTasks + 1;
+    const updatedTotalTaskTime = totalTaskTime + elapsedTaskTime;
+    const updatedTotalBreakTime = totalBreakTime + elapsedBreakTime;
+    const avgTasksPerDay = Math.round(updatedFinishedTasks / totalDays);
+    const avgTaskTime = getTimeArray(updatedTotalTaskTime / updatedFinishedTasks);
+    const avgBreakTime = getTimeArray(updatedTotalBreakTime / updatedFinishedTasks);
+    const [ taskMin, taskSec ] = avgTaskTime;
+    const [ breakMin, breakSec ] = avgBreakTime;
+    const formattedAvgTaskTime = `${taskMin} min ${taskSec} sec`;
+    const formattedAvgBreakTime = `${breakMin} min ${breakSec} sec`;
 
-      const updatedTotalTaskTime = totalTaskTime + elapsedTaskTime;
-      const updatedTotalBreakTime = totalBreakTime + elapsedBreakTime;
-      const updateTotalTime = updatedTotalTaskTime + updatedTotalBreakTime;
+    user.stats.finishedTasks = updatedFinishedTasks;
+    user.stats.totalTaskTime = updatedTotalTaskTime;
+    user.stats.totalBreakTime = updatedTotalBreakTime;
+    user.stats.avgTaskTime = formattedAvgTaskTime;
+    user.stats.avgBreakTime = formattedAvgBreakTime;
+    user.stats.avgTasksPerDay = avgTasksPerDay;
 
-      user.stats.finishedTasks = finishedTasks + 1;
-      user.stats.totalTaskTime = updatedTotalTaskTime;
-      user.stats.totalBreakTime = updatedTotalBreakTime;
-
-      // ile dni od poczatku
-
-      // podzielic
-
-      // przeliczyc na array
-
-
-
-
-
-
-      this.setState(prevState => ({
-        users: prevState.users
-      }));
-    }
-
-
-
-
-
-
-
+    this.setState(prevState => ({
+      users: prevState.users
+    }));
   }
 
   render() {
@@ -196,8 +195,7 @@ class App extends Component {
       isUserPanelVisible,
       isBoardVisible,
       users,
-      loggedUserLogin,
-      statsLabels
+      loggedUserLogin
     } = this.state;
 
     return (
@@ -232,8 +230,7 @@ class App extends Component {
               onUserRemove={this.handleUserRemove}
               onTaskRemove={this.handleTaskRemove}
               onTaskOrderChange={this.handleTaskOrder}
-              onTaskUpdate={this.handleTasksUpdate}
-              statsLabels={statsLabels}
+              onTaskFinish={this.handleTaskFinish}
             />
             : <div className="empty"></div>
           }

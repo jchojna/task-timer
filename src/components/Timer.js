@@ -132,7 +132,7 @@ class Timer extends Component {
     if (this.state[`is${type}TimeActive`] && this.state.isTimerStarted) {
 
       const { previousTime, elapsedTaskTime, elapsedBreakTime } = this.state;
-      const { onTaskUpdate } = this.props;
+      const { onTaskFinish } = this.props;
       const totalTime = this.state[`total${type}Time`];
       const elapsedTime = this.state[`elapsed${type}Time`];
       const remainingTime = this.state[`remaining${type}Time`];
@@ -163,7 +163,7 @@ class Timer extends Component {
           overallTimeArray,
         });
         // update app state
-        onTaskUpdate({ elapsedTaskTime, elapsedBreakTime }, 'onTaskFinish');
+        onTaskFinish({ elapsedTaskTime, elapsedBreakTime });
       // normal task time tick
       } else {
         this.setState({

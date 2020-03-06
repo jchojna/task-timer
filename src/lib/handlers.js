@@ -98,3 +98,22 @@ export const taskNameProgressStyle = (length) => {
 export const breaksAmount = (totalBreaks) => `${totalBreaks}
 ${totalBreaks === 1 ? "break" : "breaks"} used
 `;
+
+export const getTotalDays = (date) => {
+  
+  const getDateString = (date) => new Date(date).toISOString().slice(0,10);
+  
+  const currentDate = new Date();
+  let currentDateStr = getDateString(currentDate);
+  const startDateStr = getDateString(date);
+  let totalDays = 1;
+  let limit = 200;
+
+  while (startDateStr !== currentDateStr && limit > 0) {
+    currentDate.setDate(currentDate.getDate() - 1);
+    currentDateStr = getDateString(new Date(currentDate));
+    totalDays++;
+    limit--;
+  }
+  return totalDays;
+}

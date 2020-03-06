@@ -192,7 +192,7 @@ class Card extends Component {
       hoveredOffsetX,
       hoveredOffsetY,
       onBoardStateChange,
-      onTaskUpdate
+      onTaskFinish
     } = this.props;
 
     const {
@@ -225,7 +225,7 @@ class Card extends Component {
           onTaskRemove={onTaskRemove}
           onCardStateChange={this.handleStateChange}
           onBoardStateChange={onBoardStateChange}
-          onTaskUpdate={onTaskUpdate}
+          onTaskFinish={onTaskFinish}
         />
       </div>
     );

@@ -5,7 +5,7 @@ export const initialUsers = [
     "rememberMe": false,
     "date": [20,0,2020,16,6],
     "stats": {
-      "finishedTasks": 3,
+      "finishedTasks": 33,
       "avgTaskTime": 0,
       "avgBreakTime": 0,
       "avgTasksPerDay": 0,
@@ -74,7 +74,7 @@ export const initialUsers = [
     "rememberMe": true,
     "date": [12,10,2019,18,12],
     "stats": {
-      "finishedTasks": 4,
+      "finishedTasks": 444,
       "avgTaskTime": 0,
       "avgBreakTime": 0,
       "avgTasksPerDay": 0,
@@ -115,9 +115,9 @@ export const initialUsers = [
     "login": "Agnieszka",
     "password": "agnieszka",
     "rememberMe": false,
-    "date": [1,2,2020,14,38],
+    "date": [3,2,2020,14,38],
     "stats": {
-      "finishedTasks": 2,
+      "finishedTasks": 22,
       "avgTaskTime": 0,
       "avgBreakTime": 0,
       "avgTasksPerDay": 0,
@@ -133,7 +133,7 @@ export const initialUsers = [
     "rememberMe": false,
     "date": [16,2,2020,14,58],
     "stats": {
-      "finishedTasks": 1,
+      "finishedTasks": 12,
       "avgTaskTime": 0,
       "avgBreakTime": 0,
       "avgTasksPerDay": 0,
