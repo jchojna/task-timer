@@ -104,7 +104,7 @@ class App extends Component {
 
   handleUserLogout = () => {
     const { users, loggedUserLogin } = this.state;
-    const user = [...users].find(user => user.login === loggedUserLogin)
+    const user = [...users].find(user => user.login === loggedUserLogin);
 
     user.rememberMe = false;
 
@@ -194,6 +194,16 @@ class App extends Component {
     }));
   }
 
+  handleTaskAdd = (newTask) => {
+    const { users, loggedUserLogin } = this.state;
+    const user = [...users].find(user => user.login === loggedUserLogin);
+    user.tasks = [...user.tasks, newTask];
+
+    this.setState(prevState => ({
+      users: prevState.users
+    }))
+  }
+
   render() {
     const {
       isAppLoaded,
@@ -237,6 +247,7 @@ class App extends Component {
               onTaskRemove={this.handleTaskRemove}
               onTaskOrderChange={this.handleTaskOrder}
               onTaskFinish={this.handleTaskFinish}
+              onTaskAdd={this.handleTaskAdd}
             />
             : <div className="empty"></div>
           }

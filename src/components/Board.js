@@ -13,7 +13,7 @@ class Board extends Component {
     this.state = {
       isCreatorVisible: false,
       isPlaceholderVisible: false,
-      isSidebarVisible: true,
+      isSidebarVisible: false,
       // cards
       isDraggingMode: false,
       cardsSizes: [],
@@ -73,7 +73,8 @@ class Board extends Component {
       onTaskOrderChange,
       onUserLogout,
       onUserRemove,
-      onTaskFinish
+      onTaskFinish,
+      onTaskAdd
     } = this.props;
 
     const {
@@ -180,6 +181,7 @@ class Board extends Component {
             ? <Creator
                 isVisible={isCreatorVisible}
                 onBoardStateChange={this.handleStateChange}
+                onTaskAdd={onTaskAdd}
               />
             : <div className="empty"></div>
           }
