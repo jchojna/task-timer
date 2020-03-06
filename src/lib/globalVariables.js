@@ -1,4 +1,4 @@
-export const cardFlipTime = 500;
+export const cardFlipTime = 200;
 export const maxTaskNameLength = 80;
 
 export const animationStyle = {

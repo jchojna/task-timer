@@ -18,13 +18,7 @@ class App extends Component {
       users: initialUsers,
       loggedUserLogin: null,
       date: null,
-      stats: {
-        finishedTasks: 0,
-        avgTaskTime: 0,
-        avgBreakTime: 0,
-        avgTasksPerDay: 0,
-        dateCreated: ''
-      },
+
       statsLabels: {
         finishedTasks: 'Tasks finished:',
         avgTaskTime: 'Average task time:',
@@ -50,13 +44,15 @@ class App extends Component {
       const { users } = this.state;
       [...users].forEach(user => {
         let [day, month, year, hr, min] = user.date;
-        const date = new Date(year, month, day, hr, min);
-        /* const y = date.getFullYear();
+
+        /* const date = new Date(year, month, day, hr, min);
+        const y = date.getFullYear();
         const m = date.getMonth();
         const d = date.getDay();
         const hr = date.getMinutes();
         const min = date.getSeconds();
         user.stats.dateCreated = `${d}-${m}-${y} ${hr}:${min}`; */
+
         day = makeTwoDigits(day);
         month = makeTwoDigits(month + 1);
         hr = makeTwoDigits(hr);
@@ -148,6 +144,51 @@ class App extends Component {
     }));
   }
 
+  handleTasksUpdate = (object, type) => {
+
+    if (type === 'onTaskFinish') {
+      const { users, loggedUserLogin } = this.state;
+      const { elapsedTaskTime, elapsedBreakTime } = object;
+
+      const user = [...users].find(user => user.login === loggedUserLogin);
+      const {
+        finishedTasks,
+        totalTaskTime,
+        totalBreakTime
+      } = user.stats;
+
+      const updatedTotalTaskTime = totalTaskTime + elapsedTaskTime;
+      const updatedTotalBreakTime = totalBreakTime + elapsedBreakTime;
+      const updateTotalTime = updatedTotalTaskTime + updatedTotalBreakTime;
+
+      user.stats.finishedTasks = finishedTasks + 1;
+      user.stats.totalTaskTime = updatedTotalTaskTime;
+      user.stats.totalBreakTime = updatedTotalBreakTime;
+
+      // ile dni od poczatku
+
+      // podzielic
+
+      // przeliczyc na array
+
+
+
+
+
+
+      this.setState(prevState => ({
+        users: prevState.users
+      }));
+    }
+
+
+
+
+
+
+
+  }
+
   render() {
     const {
       isAppLoaded,
@@ -191,6 +232,7 @@ class App extends Component {
               onUserRemove={this.handleUserRemove}
               onTaskRemove={this.handleTaskRemove}
               onTaskOrderChange={this.handleTaskOrder}
+              onTaskUpdate={this.handleTasksUpdate}
               statsLabels={statsLabels}
             />
             : <div className="empty"></div>

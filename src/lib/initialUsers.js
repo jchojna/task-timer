@@ -9,7 +9,9 @@ export const initialUsers = [
       "avgTaskTime": 0,
       "avgBreakTime": 0,
       "avgTasksPerDay": 0,
-      "dateCreated": null
+      "dateCreated": null,
+      "totalTaskTime": 34342,
+      "totalBreakTime": 5645
     },
     "tasks": [
       {
@@ -76,7 +78,9 @@ export const initialUsers = [
       "avgTaskTime": 0,
       "avgBreakTime": 0,
       "avgTasksPerDay": 0,
-      "dateCreated": null
+      "dateCreated": null,
+      "totalTaskTime": 4535443,
+      "totalBreakTime": 43534
     },
     "tasks": [
       {
@@ -117,7 +121,9 @@ export const initialUsers = [
       "avgTaskTime": 0,
       "avgBreakTime": 0,
       "avgTasksPerDay": 0,
-      "dateCreated": null
+      "dateCreated": null,
+      "totalTaskTime": 54546,
+      "totalBreakTime": 3454
     },
     "tasks": []
   },
@@ -131,7 +137,9 @@ export const initialUsers = [
       "avgTaskTime": 0,
       "avgBreakTime": 0,
       "avgTasksPerDay": 0,
-      "dateCreated": null
+      "dateCreated": null,
+      "totalTaskTime": 6545,
+      "totalBreakTime": 454
     },
     "tasks": []
   },

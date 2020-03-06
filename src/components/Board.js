@@ -73,7 +73,8 @@ class Board extends Component {
       onTaskOrderChange,
       onUserLogout,
       onUserRemove,
-      statsLabels
+      statsLabels,
+      onTaskUpdate
     } = this.props;
 
     const {
@@ -154,6 +155,7 @@ class Board extends Component {
             hoveredOffsetX={hoveredOffsetX}
             hoveredOffsetY={hoveredOffsetY}
             cardsSizes={cardsSizes}
+            onTaskUpdate={onTaskUpdate}
           />
         ))}
 

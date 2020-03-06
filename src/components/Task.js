@@ -182,7 +182,9 @@ class Task extends Component {
     const {
       id,
       onCardStateChange,
-      onBoardStateChange } = this.props;
+      onBoardStateChange,
+      onTaskUpdate
+    } = this.props;
     const {
       isMaximized,
       isTaskMounted,
@@ -311,6 +313,7 @@ class Task extends Component {
               onTaskRemove={this.handleTaskRemove}
               cardRotatingMode={cardRotatingMode}
               onCardStateChange={onCardStateChange}
+              onTaskUpdate={onTaskUpdate}
             />
           : <div className="empty"></div>
         }
