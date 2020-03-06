@@ -53,7 +53,7 @@ class Creator extends Component {
   }
 
   addNewTask = () => {
-    const { onBoardStateChange, onTaskAdd } = this.props;
+    const { onBoardStateChange, onTaskEdit } = this.props;
     const {
       creatorTaskName,
       creatorTaskMinutes,
@@ -83,7 +83,7 @@ class Creator extends Component {
     };
     // add new task to app state
     onBoardStateChange({ isCreatorVisible: false });
-    onTaskAdd(newTask);
+    onTaskEdit(newTask, 'add');
   }
 
   /* handleKeyPress = (e) => {

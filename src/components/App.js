@@ -194,14 +194,24 @@ class App extends Component {
     }));
   }
 
-  handleTaskAdd = (newTask) => {
+  handleTaskEdit = (newTask, option) => {
     const { users, loggedUserLogin } = this.state;
     const user = [...users].find(user => user.login === loggedUserLogin);
-    user.tasks = [...user.tasks, newTask];
 
-    this.setState(prevState => ({
-      users: prevState.users
-    }))
+    if (option === 'edit') {
+
+      //const taskId = newTask.id;
+      //user.tasks = [...user.tasks.filter(task => task.id !== taskId), newTask];
+
+
+    } else if (option === 'add') {
+
+      user.tasks = [...user.tasks, newTask];
+  
+      this.setState(prevState => ({
+        users: prevState.users
+      }));
+    }
   }
 
   render() {
@@ -247,7 +257,7 @@ class App extends Component {
               onTaskRemove={this.handleTaskRemove}
               onTaskOrderChange={this.handleTaskOrder}
               onTaskFinish={this.handleTaskFinish}
-              onTaskAdd={this.handleTaskAdd}
+              onTaskEdit={this.handleTaskEdit}
             />
             : <div className="empty"></div>
           }

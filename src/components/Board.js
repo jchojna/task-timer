@@ -74,7 +74,7 @@ class Board extends Component {
       onUserLogout,
       onUserRemove,
       onTaskFinish,
-      onTaskAdd
+      onTaskEdit
     } = this.props;
 
     const {
@@ -155,6 +155,7 @@ class Board extends Component {
             hoveredOffsetY={hoveredOffsetY}
             cardsSizes={cardsSizes}
             onTaskFinish={onTaskFinish}
+            onTaskEdit={onTaskEdit}
           />
         ))}
 
@@ -181,7 +182,7 @@ class Board extends Component {
             ? <Creator
                 isVisible={isCreatorVisible}
                 onBoardStateChange={this.handleStateChange}
-                onTaskAdd={onTaskAdd}
+                onTaskEdit={onTaskEdit}
               />
             : <div className="empty"></div>
           }

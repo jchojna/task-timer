@@ -89,12 +89,16 @@ class Task extends Component {
 
   acceptEditChange = () => {
     const {
+      taskName,
+      totalTaskTime,
+      totalBreakTime,
       totalTaskTimeArray,
       totalBreakTimeArray,
       isTaskNameValid,
       isTaskTimeValid,
       isBreakTimeValid
     } = this.state;
+    const { id, onTaskEdit } = this.props;
     const [ taskMinutes, taskSeconds ] = totalTaskTimeArray;
     const [ breakMinutes, breakSeconds ] = totalBreakTimeArray;
 
@@ -108,6 +112,19 @@ class Task extends Component {
         breakMinutes,
         breakSeconds,
       });
+      const editedTask = {
+        taskName,
+        taskMinutes,
+        taskSeconds,
+        breakMinutes,
+        breakSeconds,
+        totalTaskTime,
+        totalBreakTime,
+        totalTaskTimeArray,
+        totalBreakTimeArray,
+        id
+      }
+      onTaskEdit(editedTask, 'edit');
     }
   }
 
