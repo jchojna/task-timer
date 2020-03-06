@@ -10,6 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isAppLoaded: false,
       isIntroVisible: false,
       isUserPanelVisible: true,
       isBoardVisible: false,
@@ -21,9 +22,10 @@ class App extends Component {
   componentDidMount = () => {
     if (localStorage.getItem('taskTimerUsers')) {
       const users = JSON.parse(localStorage.getItem('taskTimerUsers'));
-      this.setState({ users });
+      this.setState({ users, isAppLoaded: true });
     } else {
       this.exportUsers();
+      this.setState({ isAppLoaded: true });
     }
   }
 
@@ -84,15 +86,12 @@ class App extends Component {
     });
   }
 
-  handleUserUpdate = () => {
+  handleUserUpdate = (value, prop) => {
+    const { loggedUserLogin, users } = this.state;
+    const user = [...users].find(user => user.login === loggedUserLogin);
 
-
-
-
-
-
-
-
+    user[prop] = value;
+    if (prop === 'login') this.setState({ loggedUserLogin: value });
   }
 
   handleUserLogin = (user, form) => {
@@ -106,6 +105,7 @@ class App extends Component {
 
   render() {
     const {
+      isAppLoaded,
       isIntroVisible,
       isUserPanelVisible,
       isBoardVisible,
@@ -127,7 +127,7 @@ class App extends Component {
             : <div className="empty"></div>
           }
           { /* USER PANEL */
-            isUserPanelVisible
+            isUserPanelVisible && isAppLoaded
             ? <UserPanel
                 onUserLogin={this.handleUserLogin}
                 users={users}

@@ -6,23 +6,39 @@ import '../scss/UserEdit.scss';
 const UserEdit = (props) => {
 
   const {
-    users,
-    loggedUserLogin,
-    onInputChange,
+    parentName,
+    isEditMode,
+    editedSetting,
+    onPreviewModeChange,
+    onInputBlur,
+    handleLoginValidation,
+    handleOldPasswordValidation,
+    handleNewPasswordValidation,
+    handleConfirmValidation,
+
     state: {
-      isEditMode,
-      editedSetting,
-      Login,
+      login,
       isLoginValid,
-      password,
-      isPasswordValid,
+      isLoginAlertVisible,
+      loginAlertText,
+      oldPassword,
+      isOldPasswordValid,
+      isOldPasswordAlertVisible,
+      oldPasswordAlertText,
+      isOldPasswordPreviewMode,
       newPassword,
       isNewPasswordValid,
-      confirmPassword,
-      isConfirmValid
+      isNewPasswordAlertVisible,
+      newPasswordAlertText,
+      isNewPasswordPreviewMode,
+      confirm,
+      isConfirmValid,
+      isConfirmAlertVisible,
+      confirmAlertText,
+      isConfirmPreviewMode,
+      isConfirmDisabled
     }
   } = props;
-
 
   const userEditClass = classNames('UserEdit', {
     'UserEdit--hidden': !isEditMode,
@@ -37,46 +53,67 @@ const UserEdit = (props) => {
       /* USER LOGIN EDIT */
       <div className={userEditClass}>
         <UserInput
-          block="userEdit"
-          modifier="login"
-          value={Login}
-          users={users}
-          loggedUserLogin={loggedUserLogin}
+          inputId={`${parentName}Login`}
+          inputName="login"
+          parentName={parentName}
+          value={login}
           label="New Login:"
           isInputValid={isLoginValid}
-          onInputChange={onInputChange}
+          isAlertVisible={isLoginAlertVisible}
+          alertText={loginAlertText}
+          onInputBlur={onInputBlur}
+          onInputChange={handleLoginValidation}
         />
       </div>
 
       : editedSetting === 'password' ?
       /* USER PASSWORD EDIT */
       <div className={userEditClass}>
+        {/* OLD PASSWORD */}
         <UserInput
-          block="userEdit"
-          modifier="password"
-          value={password}
-          users={users}
+          inputId={`${parentName}OldPassword`}
+          inputName="oldPassword"
+          parentName={parentName}
+          value={oldPassword}
           label="Old Password:"
-          isInputValid={isPasswordValid}
-          onInputChange={onInputChange}
+          isInputValid={isOldPasswordValid}
+          isAlertVisible={isOldPasswordAlertVisible}
+          alertText={oldPasswordAlertText}
+          isPreviewMode={isOldPasswordPreviewMode}
+          onPreviewModeChange={onPreviewModeChange}
+          onInputBlur={onInputBlur}
+          onInputChange={handleOldPasswordValidation}
         />
+        {/* NEW PASSWORD */}
         <UserInput
-          block="userEdit"
-          modifier="newPassword"
+          inputId={`${parentName}NewPassword`}
+          inputName="newPassword"
+          parentName={parentName}
           value={newPassword}
-          users={users}
           label="New Password:"
           isInputValid={isNewPasswordValid}
-          onInputChange={onInputChange}
+          isAlertVisible={isNewPasswordAlertVisible}
+          alertText={newPasswordAlertText}
+          isPreviewMode={isNewPasswordPreviewMode}
+          onPreviewModeChange={onPreviewModeChange}
+          onInputBlur={onInputBlur}
+          onInputChange={handleNewPasswordValidation}
         />
+        {/* CONFIRM PASSWORD */}
         <UserInput
-          block="userEdit"
-          modifier="confirm"
-          value={confirmPassword}
-          users={users}
+          inputId={`${parentName}Confirm`}
+          inputName="confirm"
+          parentName={parentName}
+          value={confirm}
           label="Confirm:"
           isInputValid={isConfirmValid}
-          onInputChange={onInputChange}
+          isAlertVisible={isConfirmAlertVisible}
+          alertText={confirmAlertText}
+          isDisabled={isConfirmDisabled}
+          isPreviewMode={isConfirmPreviewMode}
+          onPreviewModeChange={onPreviewModeChange}
+          onInputBlur={onInputBlur}
+          onInputChange={handleConfirmValidation}
         />
       </div>
 

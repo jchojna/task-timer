@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import UserEdit from './UserEdit';
 import icons from '../assets/svg/icons.svg';
+import { getCapitalized } from '../lib/handlers.js';
 import '../scss/Sidebar.scss';
 
 class Sidebar extends Component {
@@ -10,48 +11,186 @@ class Sidebar extends Component {
     this.state = {
       isEditMode: false,
       editedSetting: null,
+      // login
       login: '',
-      password: '',
-      newPassword: '',
-      confirmPassword: '',
       isLoginValid: false,
-      isPasswordValid: false,
+      isLoginAlertVisible: false,
+      loginAlertText: 'Please enter your login',
+      // password
+      oldPassword: '',
+      isOldPasswordValid: false,
+      isOldPasswordAlertVisible: false,
+      oldPasswordAlertText: 'Please enter your old password',
+      isOldPasswordPreviewMode: false,
+      // new password
+      newPassword: '',
       isNewPasswordValid: false,
-      isConfirmValid: false
+      isNewPasswordAlertVisible: false,
+      newPasswordAlertText: 'Please enter your new password',
+      isNewPasswordPreviewMode: false,
+      // password confirm
+      confirm: '',
+      isConfirmValid: false,
+      isConfirmAlertVisible: false,
+      confirmAlertText: 'Please confirm your password',
+      isConfirmPreviewMode: false,
+      isConfirmDisabled: true
     }
   }
-  /* inputId: '',
-  modifierName: '',
-  isAlertVisible: false,
-  alertText: '',
-  isPasswordPreviewed: false */
 
   handleStateChange = (object) => this.setState(object);
 
+  handleAlert = (value, input) => {
+    const inputName = getCapitalized(input);
+    const alertText = this.getInputAlert(value, input);
+
+    this.setState({
+      [`is${inputName}AlertVisible`]: true,
+      [`${input}AlertText`]: alertText
+    });    
+  }
+
+  getInputAlert = (value, input) => {
+
+    const { newPassword } = this.state;
+    const isEmpty = value === '';
+    const doesContainWhiteSpaces = /\s/g.test(value);
+    const isPasswordTooShort = value.length < 6;
+    
+    switch (input) {
+  
+      case 'login':
+
+        const { block, users, loggedUserLogin } = this.props;
+
+        const logins = [...users].map(user => user.login);
+        const doesLoginExist = [...logins]
+        .find(login => login === value && login !== loggedUserLogin);
+        const isLoginIncorrect = block === 'loginForm' && !doesLoginExist;
+        const isNewLoginIncorrect = (block === 'signupForm' || block === 'userEdit')
+        && doesLoginExist;
+
+        return isEmpty
+        ? 'Please enter your login' : doesContainWhiteSpaces
+        ? 'Login cannot contain any spaces' : isLoginIncorrect
+        ? 'There is no user with this login' : isNewLoginIncorrect
+        ? 'This login already exist. Try another one' : false;  
+  
+      case 'password':
+      case 'oldPassword':
+      case 'newPassword':
+
+        return isEmpty
+        ? 'Please enter your password' : doesContainWhiteSpaces
+        ? 'Password cannot contain any spaces' : isPasswordTooShort
+        ? 'Password should have at least 6 characters' : false;
+  
+      case 'confirm':
+        const doPasswordsMatch = newPassword === value;
+
+        return isEmpty
+        ? 'Please confirm your password' : !doPasswordsMatch
+        ? 'Passwords do not match!' : false;
+  
+      default: return false;
+    }
+  }
+
+  handleLoginValidation = (value) => {
+    const isInvalid = this.getInputAlert(value, 'login') ? true : false;
+    
+    this.setState({
+      login: value,
+      isLoginValid: !isInvalid,
+      isLoginAlertVisible: false
+    });
+  }
+
+  handleOldPasswordValidation = (value) => {
+    const isInvalid = this.getInputAlert(value, 'password') ? true : false;
+
+    this.setState({
+      oldPassword: value,
+      isOldPasswordValid: !isInvalid,
+      isOldPasswordAlertVisible: false,
+      isOldPasswordPreviewed: false
+    });
+  }
+
+  handleNewPasswordValidation = (value) => {
+    const isInvalid = this.getInputAlert(value, 'password') ? true : false;
+
+    this.setState({
+      newPassword: value,
+      isNewPasswordValid: !isInvalid,
+      isNewPasswordAlertVisible: false,
+      isNewPasswordPreviewed: false,
+
+      confirm: '',
+      isConfirmValid: false,
+      isConfirmAlertVisible: false,
+      isConfirmPreviewMode: false,
+      isConfirmDisabled: isInvalid
+    });
+  }
+
+  handlePasswordUpdate = () => {
+
+  }
+
+  handleConfirmValidation = (value) => {
+    const isInvalid = this.getInputAlert(value, 'confirm') ? true : false;
+
+    this.setState({
+      confirm: value,
+      isConfirmValid: !isInvalid,
+      isConfirmAlertVisible: false,
+      isConfirmPreviewed: false
+    });
+  }
+
+  handlePasswordPreview = (input) => {
+    console.log('input', input);
+    const inputName = getCapitalized(input);
+
+    this.setState(prevState => ({
+      [`is${inputName}PreviewMode`]: !prevState[`is${inputName}PreviewMode`]
+    }));
+  }
+
   handleUserEdit = (setting) => {
-    const { onUserLogout, onUserRemove } = this.props;
-    const { editedSetting } = this.state;
+    const {
+      onUserUpdate,
+      onUserLogout,
+      onUserRemove,
+      users,
+      loggedUserLogin
+    } = this.props;
+    const { editedSetting, login, oldPassword, newPassword } = this.state;
+    const user = [...users].find(user => user.login === loggedUserLogin);
 
     if (setting === 'confirm') {
 
       switch (editedSetting) {
 
         case 'login':
-          console.log('login updated');
-          this.setState({
-            
-
-            isEditMode: false
-          });
+          onUserUpdate(login, 'login');
+          this.setState({ isEditMode: false });
         break;
 
         case 'password':
-          console.log('password updated');
-          this.setState({
+          if (oldPassword !== user.password) {
+            this.handleInputsReset();
+            this.setState({
+              isOldPasswordAlertVisible: true,
+              oldPasswordAlertText: 'Password is wrong!'
+            });
 
-
-            isEditMode: false
-          });
+          } else {
+            onUserUpdate(newPassword, 'password');
+            this.setState({ isEditMode: false });
+            this.handleInputsReset();
+          }
         break;
 
         case 'logout': onUserLogout(); break;
@@ -61,15 +200,42 @@ class Sidebar extends Component {
 
     } else if (setting === 'cancel') {
       this.setState({ isEditMode: false });
+      this.handleInputsReset();
 
     } else {
       this.setState({ isEditMode: true, editedSetting: setting });
     }
   }
 
+  handleInputsReset = () => {
+    this.setState({
+      login: '',
+      isLoginValid: false,
+      isLoginAlertVisible: false,
+      loginAlertText: 'Please enter your login',
+      oldPassword: '',
+      isOldPasswordValid: false,
+      isOldPasswordAlertVisible: false,
+      oldPasswordAlertText: 'Please enter your old password',
+      isOldPasswordPreviewMode: false,
+      newPassword: '',
+      isNewPasswordValid: false,
+      isNewPasswordAlertVisible: false,
+      newPasswordAlertText: 'Please enter your new password',
+      isNewPasswordPreviewMode: false,
+      confirm: '',
+      isConfirmValid: false,
+      isConfirmAlertVisible: false,
+      confirmAlertText: 'Please confirm your password',
+      isConfirmPreviewMode: false,
+      isConfirmDisabled: true
+    });
+  }
+
   render() {
 
     const {
+      block,
       isSidebarVisible,
       users,
       loggedUserLogin
@@ -78,13 +244,9 @@ class Sidebar extends Component {
     const {
       isEditMode,
       editedSetting,
-      Login,
       isLoginValid,
-      password,
-      isPasswordValid,
-      newPassword,
+      isOldPasswordValid,
       isNewPasswordValid,
-      confirmPassword,
       isConfirmValid
     } = this.state;
   
@@ -122,10 +284,16 @@ class Sidebar extends Component {
         </h2>
   
         <UserEdit
+          parentName={block}
           state={this.state}
-          users={users}
-          loggedUserLogin={loggedUserLogin}
-          onInputChange={this.handleStateChange}
+          isEditMode={isEditMode}
+          editedSetting={editedSetting}
+          onPreviewModeChange={this.handlePasswordPreview}
+          onInputBlur={this.handleAlert}
+          handleLoginValidation={this.handleLoginValidation}
+          handleOldPasswordValidation={this.handleOldPasswordValidation}
+          handleNewPasswordValidation={this.handleNewPasswordValidation}
+          handleConfirmValidation={this.handleConfirmValidation}
         />
   
         {/* USER PANEL BUTTONS */}
@@ -165,7 +333,7 @@ class Sidebar extends Component {
               const isButtonDisabled = editedSetting === 'login'
               ? !isLoginValid
               : editedSetting === 'password'
-              ? !isPasswordValid || !isNewPasswordValid || !isConfirmValid
+              ? !isOldPasswordValid || !isNewPasswordValid || !isConfirmValid
               : false;
               const isConfirmButtonDisabled = isButtonDisabled && button === 'confirm';
   

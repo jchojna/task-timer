@@ -167,8 +167,16 @@
     }
   }
 
-  &--disabled {
+  &--userEdit {
     fill: $color-teal-dark-1;
+
+    &:hover {
+      fill: $color-teal-light-2;
+    }
+  }
+
+  &--disabled {
+    fill: $color-teal-dark-2;
     pointer-events: none;
   }
 

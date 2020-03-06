@@ -69,6 +69,7 @@ class Board extends Component {
     const {
       users,
       loggedUserLogin,
+      onUserUpdate,
       onTaskOrderChange,
       onUserLogout,
       onUserRemove
@@ -109,7 +110,7 @@ class Board extends Component {
     //#endregion
 
     return (
-      <section className={boardClass} onClick={this.handleSidebarQuit}>
+      <section className={boardClass} /* onClick={this.handleSidebarQuit} */>
         <header className="Board__header">
 
           {/* TEXT LOGO */}
@@ -127,9 +128,11 @@ class Board extends Component {
 
         {/* SIDEBAR */}
         <Sidebar
+          block="userEdit"
           isSidebarVisible={isSidebarVisible}
           users={users}
           loggedUserLogin={loggedUserLogin}
+          onUserUpdate={onUserUpdate}
           onUserLogout={onUserLogout}
           onUserRemove={onUserRemove}
         />
