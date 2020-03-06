@@ -93,12 +93,27 @@ class App extends Component {
     localStorage.setItem('taskTimerUsers', JSON.stringify(users));
   }
 
+  handleUserLogin = (user, form) => {
+    this.setState(prevState => ({
+      isUserPanelVisible: false,
+      isBoardVisible: true,
+      users: form === 'loginForm' ? this.state.users : [...prevState.users, user],
+      loggedUserLogin: user.login
+    }));
+  }
+
   handleUserLogout = () => {
-    this.setState({
+    const { users, loggedUserLogin } = this.state;
+    const user = [...users].find(user => user.login === loggedUserLogin)
+
+    user.rememberMe = false;
+
+    this.setState(prevState => ({
+      users: prevState.users,
       isUserPanelVisible: true,
       isBoardVisible: false,
       loggedUserLogin: null
-    });
+    }));
   }
 
   handleUserRemove = () => {
@@ -141,15 +156,6 @@ class App extends Component {
 
     user[prop] = value;
     if (prop === 'login') this.setState({ loggedUserLogin: value });
-  }
-
-  handleUserLogin = (user, form) => {
-    this.setState(prevState => ({
-      isUserPanelVisible: false,
-      isBoardVisible: true,
-      users: form === 'loginForm' ? this.state.users : [...prevState.users, user],
-      loggedUserLogin: user.login
-    }));
   }
 
   handleTaskFinish = (results) => {

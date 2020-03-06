@@ -249,6 +249,12 @@ class Sidebar extends Component {
     const { stats } = [...users].find(user =>user.login === loggedUserLogin);
     
     const userEditButtons = ['login', 'password', 'logout', 'remove'];
+    const userEditLabels = [
+      'Change your login',
+      'Change your password',
+      'Log out to main app',
+      'Remove your profile'
+    ]
     const userConfirmButtons = ['confirm', 'cancel'];
       
     const statsLabels = {
@@ -302,7 +308,7 @@ class Sidebar extends Component {
           {/* EDIT BUTTONS */}
           <div className={editButtonsClass}>
             {
-            userEditButtons.map(button => {
+            userEditButtons.map((button, index) => {
               
               const buttonClass = classNames(
               'userButtons__button',
@@ -314,6 +320,7 @@ class Sidebar extends Component {
                 <button
                   className={buttonClass}
                   key={button}
+                  title={userEditLabels[index]}
                   onClick={() => this.handleUserEdit(button)}
                 >
                   <svg className="userButtons__svg" viewBox="0 0 100 100">

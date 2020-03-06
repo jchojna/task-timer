@@ -59,6 +59,10 @@
     &--signupForm {
       color: $color-teal-dark-1;
     }
+
+    &--userEdit {
+      color: $color-teal;
+    }
   
     &--disabled {
       color: rgba($color: $color-teal-dark-2, $alpha: 0.5);

@@ -44,7 +44,7 @@ class UserForm extends Component {
           isLoginValid: true,
           password,
           isPasswordValid: true,
-          shouldRemember: true
+          rememberMe: true
         });
       }
     }
@@ -200,6 +200,7 @@ class UserForm extends Component {
     if (block === 'loginForm') {
 
       if (isLoginPasswordCorrect) {
+        user.rememberMe = rememberMe;
         onUserLogin(user, block);
         this.handleFormReset();
         
