@@ -11,11 +11,11 @@
   
   &--taskTime {
     color: $color-teal-light-3;
-    font-size: 2.5em;
+    font-size: 3em;
   }
 
   &--breakTime {
-    font-size: 2em;
+    font-size: 2.5em;
   }
 
   &--maximized {
@@ -32,7 +32,8 @@
   }
 
   &__label {
-    font-size: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 400;
     transition:
       color $card-edit,
       font-size $card-edit,
@@ -86,7 +87,6 @@
     text-align: center;
     visibility: hidden;
     width: 100%;
-    word-break: break-word;
 
     &--visible {
       opacity: 1;
