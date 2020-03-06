@@ -3,11 +3,13 @@ export const initialUsers = [
     "login": "Jakub",
     "password": "jakubek",
     "rememberMe": false,
+    "date": [20,0,2020,16,6],
     "stats": {
       "finishedTasks": 3,
       "avgTaskTime": 0,
       "avgBreakTime": 0,
-      "avgTasksPerDay": 0
+      "avgTasksPerDay": 0,
+      "dateCreated": null
     },
     "tasks": [
       {
@@ -68,11 +70,13 @@ export const initialUsers = [
     "login": "Anna",
     "password": "aneczka",
     "rememberMe": true,
+    "date": [12,10,2019,18,12],
     "stats": {
       "finishedTasks": 4,
       "avgTaskTime": 0,
       "avgBreakTime": 0,
-      "avgTasksPerDay": 0
+      "avgTasksPerDay": 0,
+      "dateCreated": null
     },
     "tasks": [
       {
@@ -107,11 +111,13 @@ export const initialUsers = [
     "login": "Agnieszka",
     "password": "agnieszka",
     "rememberMe": false,
+    "date": [1,2,2020,14,38],
     "stats": {
       "finishedTasks": 2,
       "avgTaskTime": 0,
       "avgBreakTime": 0,
-      "avgTasksPerDay": 0
+      "avgTasksPerDay": 0,
+      "dateCreated": null
     },
     "tasks": []
   },
@@ -119,11 +125,13 @@ export const initialUsers = [
     "login": "Olek",
     "password": "aleksander",
     "rememberMe": false,
+    "date": [16,2,2020,14,58],
     "stats": {
       "finishedTasks": 1,
       "avgTaskTime": 0,
       "avgBreakTime": 0,
-      "avgTasksPerDay": 0
+      "avgTasksPerDay": 0,
+      "dateCreated": null
     },
     "tasks": []
   },

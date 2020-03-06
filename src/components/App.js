@@ -4,6 +4,7 @@ import UserPanel from './UserPanel';
 import Board from './Board';
 import Logo from './Logo';
 import { initialUsers } from '../lib/initialUsers';
+import { makeTwoDigits } from '../lib/handlers';
 import '../scss/App.scss';
 
 class App extends Component {
@@ -16,11 +17,20 @@ class App extends Component {
       isBoardVisible: false,
       users: initialUsers,
       loggedUserLogin: null,
+      date: null,
+      stats: {
+        finishedTasks: 0,
+        avgTaskTime: 0,
+        avgBreakTime: 0,
+        avgTasksPerDay: 0,
+        dateCreated: ''
+      },
       statsLabels: {
         finishedTasks: 'Tasks finished:',
         avgTaskTime: 'Average task time:',
         avgBreakTime: 'Average break time:',
-        avgTasksPerDay: 'Average tasks per day:'
+        avgTasksPerDay: 'Average tasks per day:',
+        dateCreated: 'Profile created at:'
       }
     };
   }
@@ -28,11 +38,40 @@ class App extends Component {
   componentDidMount = () => {
     if (localStorage.getItem('taskTimerUsers')) {
       const users = JSON.parse(localStorage.getItem('taskTimerUsers'));
-      this.setState({ users, isAppLoaded: true });
+      console.log('users', users);
+
+      this.setState(prevState => ({
+        users,
+        isAppLoaded: true
+      }));
+
     } else {
+
+      const { users } = this.state;
+      [...users].forEach(user => {
+        let [day, month, year, hr, min] = user.date;
+        const date = new Date(year, month, day, hr, min);
+        /* const y = date.getFullYear();
+        const m = date.getMonth();
+        const d = date.getDay();
+        const hr = date.getMinutes();
+        const min = date.getSeconds();
+        user.stats.dateCreated = `${d}-${m}-${y} ${hr}:${min}`; */
+        day = makeTwoDigits(day);
+        month = makeTwoDigits(month + 1);
+        hr = makeTwoDigits(hr);
+        min = makeTwoDigits(min);
+        user.stats.dateCreated = `${day}-${month}-${year} ${hr}:${min}`;
+      });
+
+      this.setState(prevState => ({
+        users: prevState.users,
+        isAppLoaded: true
+      }));
+
       this.exportUsers();
-      this.setState({ isAppLoaded: true });
     }
+    this.setState({ isAppLoaded: true });
   }
 
   componentDidUpdate = () => {

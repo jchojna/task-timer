@@ -14,7 +14,7 @@ const getTotalTime = (minutes, seconds) => {
   return (minutes * 60000) + (seconds * 1000);
 }
 
-const makeTwoDigits = (value) => value < 10 ? `0${value}` : `${value}`;
+export const makeTwoDigits = (value) => value < 10 ? `0${value}` : `${value}`;
 
 
 export const getNumFromRange = (value, operation, lowerLimit, upperLimit) => {
