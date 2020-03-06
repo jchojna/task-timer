@@ -17,3 +17,34 @@
   opacity: 0.5;
   pointer-events: none;
 }
+
+@mixin inputAlertBox {
+  grid-area: alert;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height $time-alert, visibility 0s $time-alert;
+
+  &--visible {
+    max-height: 60px;
+    transition: max-height $time-alert, visibility 0s;
+  }
+
+  @media only screen and (min-width: $media-md) {
+
+    &--visible {
+      max-height: 40px;
+    }
+  }
+}
+
+@mixin inputAlert {
+  @include flex-center;
+  background-color: $color-teal-warning;
+  border-radius: 5px;
+  color: $color-teal-light-2;
+  font-size: 1em;
+  font-weight: 400;
+  margin: 0;
+  padding: 0.5em;
+  text-align: center;
+}

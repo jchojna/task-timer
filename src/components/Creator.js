@@ -53,7 +53,7 @@ class Creator extends Component {
   }
 
   addNewTask = () => {
-    const { onBoardStateChange } = this.props;
+    const { onBoardStateChange, onTaskEdit } = this.props;
     const {
       creatorTaskName,
       creatorTaskMinutes,
@@ -82,10 +82,8 @@ class Creator extends Component {
       id: date
     };
     // add new task to app state
-    onBoardStateChange(prevState => ({
-      isCreatorVisible: false,
-      tasks: [...prevState.tasks, newTask]
-    }));
+    onBoardStateChange({ isCreatorVisible: false });
+    onTaskEdit(newTask, 'add');
   }
 
   /* handleKeyPress = (e) => {
@@ -332,7 +330,7 @@ class Creator extends Component {
           className={backButtonClass}
           onClick={this.handleBackButton}
         >
-          <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
+          <svg className="Creator__svg" viewBox="0 0 512 512">
             <use href={`${icons}#arrow-left`}></use>
           </svg>
         </button>
@@ -342,7 +340,7 @@ class Creator extends Component {
           className={nextButtonClass}
           onClick={this.handleNextButton}
         >
-          <svg className="NewTaskInput__svg" viewBox="0 0 512 512">
+          <svg className="Creator__svg" viewBox="0 0 512 512">
             <use href={`${icons}#arrow-right`}></use>
           </svg>
         </button>

@@ -4,13 +4,18 @@ export const validateTaskName = (name) => name.length > 0 ? true : false;
 export const validateTaskTime = (time, total) => /^\d*$/.test(time) && total > 0;
 export const validateBreakTime = (time) => /^\d*$/.test(time);
 
+export const getCapitalized = (string) => {
+  return string.charAt(0).toUpperCase() + string.substring(1);
+}
+
 const getTotalTime = (minutes, seconds) => {
   minutes = !minutes ? 0 : parseInt(minutes);
   seconds = !seconds ? 0 : parseInt(seconds);
   return (minutes * 60000) + (seconds * 1000);
 }
 
-const makeTwoDigits = (value) => value < 10 ? `0${value}` : `${value}`;
+export const makeTwoDigits = (value) => value < 10 ? `0${value}` : `${value}`;
+
 
 export const getNumFromRange = (value, operation, lowerLimit, upperLimit) => {
   const newValue = operation === "increase"
@@ -93,3 +98,22 @@ export const taskNameProgressStyle = (length) => {
 export const breaksAmount = (totalBreaks) => `${totalBreaks}
 ${totalBreaks === 1 ? "break" : "breaks"} used
 `;
+
+export const getTotalDays = (date) => {
+  
+  const getDateString = (date) => new Date(date).toISOString().slice(0,10);
+  
+  const currentDate = new Date();
+  let currentDateStr = getDateString(currentDate);
+  const startDateStr = getDateString(date);
+  let totalDays = 1;
+  let limit = 200;
+
+  while (startDateStr !== currentDateStr && limit > 0) {
+    currentDate.setDate(currentDate.getDate() - 1);
+    currentDateStr = getDateString(new Date(currentDate));
+    totalDays++;
+    limit--;
+  }
+  return totalDays;
+}

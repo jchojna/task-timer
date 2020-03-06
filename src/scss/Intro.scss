@@ -13,7 +13,7 @@
   top: 0;
   transition: opacity 1s, visibility 0s 1s;
   visibility: hidden;
-  z-index: 1;
+  z-index: 2;
 
   &--visible {
     opacity: 1;

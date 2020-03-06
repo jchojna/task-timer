@@ -89,12 +89,16 @@ class Task extends Component {
 
   acceptEditChange = () => {
     const {
+      taskName,
+      totalTaskTime,
+      totalBreakTime,
       totalTaskTimeArray,
       totalBreakTimeArray,
       isTaskNameValid,
       isTaskTimeValid,
       isBreakTimeValid
     } = this.state;
+    const { id, onTaskEdit } = this.props;
     const [ taskMinutes, taskSeconds ] = totalTaskTimeArray;
     const [ breakMinutes, breakSeconds ] = totalBreakTimeArray;
 
@@ -108,6 +112,19 @@ class Task extends Component {
         breakMinutes,
         breakSeconds,
       });
+      const editedTask = {
+        taskName,
+        taskMinutes,
+        taskSeconds,
+        breakMinutes,
+        breakSeconds,
+        totalTaskTime,
+        totalBreakTime,
+        totalTaskTimeArray,
+        totalBreakTimeArray,
+        id
+      }
+      onTaskEdit(editedTask, 'edit');
     }
   }
 
@@ -182,7 +199,9 @@ class Task extends Component {
     const {
       id,
       onCardStateChange,
-      onBoardStateChange } = this.props;
+      onBoardStateChange,
+      onTaskFinish
+    } = this.props;
     const {
       isMaximized,
       isTaskMounted,
@@ -311,6 +330,7 @@ class Task extends Component {
               onTaskRemove={this.handleTaskRemove}
               cardRotatingMode={cardRotatingMode}
               onCardStateChange={onCardStateChange}
+              onTaskFinish={onTaskFinish}
             />
           : <div className="empty"></div>
         }

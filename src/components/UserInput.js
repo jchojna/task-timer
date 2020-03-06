@@ -1,92 +1,116 @@
 import React from 'react';
 import classNames from 'classnames';
 import icons from '../assets/svg/icons.svg';
+import '../scss/UserInput.scss';
 
 const UserInput = (props) => {
-
+  
   const {
-    block,
-    modifier,
+    inputId,
+    inputName,
+    parentName,
     value,
-    type,
+    label,
     isInputValid,
     isAlertVisible,
     alertText,
+    isDisabled,
     isPreviewMode,
-    onPreviewClick,
-    onInputChange,
+    onPreviewModeChange,
     onInputBlur,
-    isInputDisabled
+    onInputChange
   } = props;
 
-  const handleInputDefocus = () => {
-    if (!isInputValid) {
-      onInputBlur(modifierName);
-    }
+  const handleInputBlur = (value) => {
+    if (!isInputValid) onInputBlur(value, inputName);
   }
 
-  const modifierName = modifier.charAt(0).toUpperCase() + modifier.substring(1);
-  const inputId = block + modifierName;
+  // #region [ Horizon ] CLASS NAMES
 
-  const labelClass = classNames(`${block}__label ${block}__label--${modifier}`, {
-    [`${block}__label--disabled`]: isInputDisabled
+  const userInputClass = `
+    UserInput UserInput--${parentName} UserInput--${inputName}
+  `;
+
+  const labelClass = classNames(
+    'UserInput__label',
+    `UserInput__label--${parentName}`, {
+    'UserInput__label--disabled': isDisabled
   });
 
-  const inputClass = classNames(`${block}__input ${block}__input--${modifier}`, {
-    [`${block}__input--disabled`]: isInputDisabled
+  const inputClass = classNames(
+    'UserInput__input',
+    `UserInput__input--${parentName}`, {
+    'UserInput__input--disabled': isDisabled
   });
 
-  const alertBoxClass = classNames(`${block}__alertBox`,
-  `${block}__alertBox--${modifier}`, {
-    [`${block}__alertBox--visible`]: isAlertVisible && !isInputDisabled,
+  const inputType = inputName === 'login'
+  ? 'text'
+  : isPreviewMode ? 'text' : 'password'
+
+  const alertBoxClass = classNames(
+    'UserInput__alertBox',
+    `UserInput__alertBox--${parentName}`, {
+    'UserInput__alertBox--visible': isAlertVisible
   });
 
-  const alertClass = `${block}__alert ${block}__alert--${modifier}`;
-  const iconsClass = `${block}__icons ${block}__icons--${modifier}`;
-  const passedClass = classNames(`inputPassed inputPassed--${block}`, {
+  const passedClass = classNames(
+    'inputPassed',
+    `inputPassed--${parentName}`, {
     'inputPassed--visible': isInputValid
   });
-  const previewClass = classNames(`previewPassword previewPassword--${block}`, {
+
+  const previewClass = classNames(
+    'previewPassword',
+    `previewPassword--${parentName}`, {
     'previewPassword--active': isPreviewMode,
-    'previewPassword--disabled': isInputDisabled
+    'previewPassword--disabled': isDisabled
   });
+
+  // #endregion
   
   return (
-    <React.Fragment>
+    <div className={userInputClass}>
+      {/* LABEL */}
       <label htmlFor={inputId} className={labelClass}>
-        {`${modifierName}:`}
+        {label}
       </label>
+
+      {/* INPUT */}
       <input
         id={inputId}
-        type={type}
         name={inputId}
         value={value}
-        onChange={(e) => onInputChange(e.target.value)}
+        type={inputType}
         className={inputClass}
         spellCheck="false"
         maxLength="20"
-        disabled={isInputDisabled}
-        onBlur={handleInputDefocus}
+        disabled={isDisabled}
+        onBlur={(e) => handleInputBlur(e.target.value)}
+        onChange={(e) => onInputChange(e.target.value)}
       />
+
+      {/* ALERT */}
       <div className={alertBoxClass}>
-        <p className={alertClass}>{alertText}</p>
+        <p className="UserInput__alert">{alertText}</p>
       </div>
-      <div className={iconsClass}>
+
+      {/* INDICATORS */}
+      <div className="UserInput__icons">
         {
-        modifier === 'password' || modifier === 'confirm'
-        ? <button
+        inputName === 'login'
+        ? <div className="empty"></div>
+        : <button
             type="button"
             className={previewClass}
-            onClick={() => onPreviewClick(modifierName)}
+            onClick={() => onPreviewModeChange(inputName)}
           >
             <svg className="previewPassword__svg" viewBox="0 0 100 100">
               <use href={`${icons}#preview`} />
             </svg>
           </button>
-        : <div className="empty"></div>
         }
         {
-        block === 'loginForm' && modifier === 'password'
+        parentName === 'loginForm' && inputName === 'password'
         ? <div className="empty"></div>
         : <div className={passedClass}>
             <svg className="inputPassed__svg" viewBox="0 0 100 100">
@@ -95,7 +119,7 @@ const UserInput = (props) => {
           </div>
         }
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 export default UserInput;

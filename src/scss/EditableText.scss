@@ -22,7 +22,6 @@
 
   &--maximized {
 
-
     &:hover {
       cursor: text;
     }
@@ -31,7 +30,7 @@
   &__text {
     border: 2px solid transparent;
     font-weight: 600;
-    font-size: 1.2em;
+    font-size: 2em;
     margin: 0;
     width: 100%;
     word-break: break-word;
@@ -68,7 +67,7 @@
     border: 2px solid $color-teal-light-3;
     color: $color-teal-light-3;
     font-weight: 600;
-    font-size: 1.2em;
+    font-size: 2em;
     height: 100%;
     outline: none;
     overflow: hidden;

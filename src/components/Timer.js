@@ -127,10 +127,12 @@ class Timer extends Component {
     }));
   }
 
-  handleTimeTick = (type) => {
+  handleTimeTick = (type) => { // type = task or break
+
     if (this.state[`is${type}TimeActive`] && this.state.isTimerStarted) {
 
       const { previousTime, elapsedTaskTime, elapsedBreakTime } = this.state;
+      const { onTaskFinish } = this.props;
       const totalTime = this.state[`total${type}Time`];
       const elapsedTime = this.state[`elapsed${type}Time`];
       const remainingTime = this.state[`remaining${type}Time`];
@@ -160,6 +162,8 @@ class Timer extends Component {
           overallTime,
           overallTimeArray,
         });
+        // update app state
+        onTaskFinish({ elapsedTaskTime, elapsedBreakTime });
       // normal task time tick
       } else {
         this.setState({

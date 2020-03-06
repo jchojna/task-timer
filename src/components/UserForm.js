@@ -2,28 +2,32 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import UserInput from './UserInput';
 import icons from '../assets/svg/icons.svg';
+import { getCapitalized } from '../lib/handlers.js';
 import '../scss/UserForm.scss';
 
 class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      rememberMe: false,
+      // login
       login: '',
-      password: '',
-      confirm: '',
-      isLoginInputValid: false,
-      isPasswordInputValid: false,
-      isConfirmPasswordValid: false,
+      isLoginValid: false,
       isLoginAlertVisible: false,
-      isPasswordAlertVisible: false,
-      isConfirmAlertVisible: false,
-      isPasswordPreviewed: false,
-      isConfirmPreviewed: false,
       loginAlertText: 'Please enter your login',
+      // password
+      password: '',
+      isPasswordValid: false,
+      isPasswordAlertVisible: false,
       passwordAlertText: 'Please enter your password',
+      isPasswordPreviewMode: false,
+      // password confirm
+      confirm: '',
+      isConfirmValid: false,
+      isConfirmAlertVisible: false,
       confirmAlertText: 'Please confirm your password',
-      isConfirmPasswordDisabled: true,
-      shouldRemember: false
+      isConfirmPreviewMode: false,
+      isConfirmDisabled: true
     }
   }
 
@@ -31,18 +35,20 @@ class UserForm extends Component {
     const { block, users } = this.props;
     if (block === 'loginForm') {
 
-      const { login, password } = [...users].find(user => user.rememberMe);
-      this.setState({
-        login,
-        password,
-        isLoginInputValid: true,
-        isPasswordInputValid: true,
-        shouldRemember: true
-      });
+      const rememberedUser = [...users].find(user => user.rememberMe);
+      if (rememberedUser) {
+        const { login, password } = rememberedUser;
+
+        this.setState({
+          login,
+          isLoginValid: true,
+          password,
+          isPasswordValid: true,
+          rememberMe: true
+        });
+      }
     }
   }
-
-  handleStateChange = (object) => this.setState(object);
 
   handleCardToggle = () => {
     const { onCardToggle } = this.props;
@@ -50,117 +56,126 @@ class UserForm extends Component {
     this.handleFormReset();
   }
 
-  handleLoginValidation = (value) => {
-    const { block, users } = this.props;
-    const logins = [...users].map(user => user.login);
+  handleAlert = (value, input) => {
+    const inputName = getCapitalized(input);
+    const alertText = this.getInputAlert(value, input);
 
-    const isEmpty = value === '';
-    const doesContainWhiteSpaces = /\s/g.test(value);
-    const doesLoginExist = [...logins].filter(l => l === value).length > 0;
-    const isLoginIncorrect = block === 'loginForm' && !doesLoginExist;
-    const isNewLoginIncorrect = block === 'signupForm' && doesLoginExist;
-
-    // handle alert text
-    const loginAlertText = isEmpty ? 'Please enter your login' :
-    doesContainWhiteSpaces ? 'Login cannot contain any spaces' :
-    isLoginIncorrect ? 'There is no user with this login' :
-    isNewLoginIncorrect ? 'This login already exist. Try another one' : '';
-
-    const isInvalid = isEmpty
-    || doesContainWhiteSpaces
-    || isLoginIncorrect
-    || isNewLoginIncorrect;
-    
     this.setState({
-      login: value,
-      isLoginInputValid: isInvalid ? false : true,
-      isLoginAlertVisible: false,
-      loginAlertText: isInvalid ? loginAlertText : this.state.loginAlertText,
-    });
-    return isInvalid ? false : true;
+      [`is${inputName}AlertVisible`]: true,
+      [`${input}AlertText`]: alertText
+    });    
   }
 
-  handlePasswordValidation = (value) => {
+  getInputAlert = (value, input) => {
+
+    const { password } = this.state;
     const isEmpty = value === '';
     const doesContainWhiteSpaces = /\s/g.test(value);
     const isPasswordTooShort = value.length < 6;
     
-    // handle alert text
-    const passwordAlertText = isEmpty ? 'Please enter your password' :
-    doesContainWhiteSpaces ? 'Password cannot contain any spaces' :
-    isPasswordTooShort ? 'Password should have at least 6 signs' : '';
+    switch (input) {
+  
+      case 'login':
 
-    const isInvalid = isEmpty
-    || doesContainWhiteSpaces
-    || isPasswordTooShort;
+        const { block, users, loggedUserLogin } = this.props;
 
+        const logins = [...users].map(user => user.login);
+        const doesLoginExist = [...logins]
+        .find(login => login === value && login !== loggedUserLogin);
+        const isLoginIncorrect = block === 'loginForm' && !doesLoginExist;
+        const isNewLoginIncorrect = (block === 'signupForm' || block === 'userEdit')
+        && doesLoginExist;
+
+        return isEmpty
+        ? 'Please enter your login' : doesContainWhiteSpaces
+        ? 'Login cannot contain any spaces' : isLoginIncorrect
+        ? 'There is no user with this login' : isNewLoginIncorrect
+        ? 'This login already exist. Try another one' : false;  
+  
+      case 'password':
+
+        return isEmpty
+        ? 'Please enter your password' : doesContainWhiteSpaces
+        ? 'Password cannot contain any spaces' : isPasswordTooShort
+        ? 'Password should have at least 6 characters' : false;
+
+  
+      case 'confirm':
+        const doPasswordsMatch = password === value;
+
+        return isEmpty
+        ? 'Please confirm your password' : !doPasswordsMatch
+        ? 'Passwords do not match!' : false;
+  
+      default: return false;
+    }
+  }
+
+  handleLoginValidation = (value) => {
+    const isInvalid = this.getInputAlert(value, 'login') ? true : false;
     
     this.setState({
+      login: value,
+      isLoginValid: !isInvalid,
+      isLoginAlertVisible: false
+    });
+  }
+
+  handlePasswordValidation = (value) => {
+    const isInvalid = this.getInputAlert(value, 'password') ? true : false;
+
+    this.setState({
       password: value,
-      isPasswordInputValid: isInvalid ? false : true,
+      isPasswordValid: !isInvalid,
       isPasswordAlertVisible: false,
-      passwordAlertText: isInvalid ? passwordAlertText : this.state.passwordAlertText,
+      isPasswordPreviewed: false,
 
       confirm: '',
-      isConfirmPasswordValid: false,
-      isConfirmPasswordDisabled: isInvalid ? true : false,
+      isConfirmValid: false,
       isConfirmAlertVisible: false,
-      isConfirmPreviewed: false
+      isConfirmPreviewMode: false,
+      isConfirmDisabled: isInvalid
     });
-    return isInvalid ? false : true;
   }
 
   handleConfirmValidation = (value) => {
-    const { password } = this.state;
-
-    const isEmpty = value === '';
-    const doPasswordsMatch = password === value;
-    const confirmAlertText = isEmpty ? 'Please confirm your password' :
-    !doPasswordsMatch ? 'Passwords do not match' : '';
-    const isInvalid = isEmpty || !doPasswordsMatch;
+    const isInvalid = this.getInputAlert(value, 'confirm') ? true : false;
 
     this.setState({
       confirm: value,
-      isConfirmPasswordValid: isInvalid ? false : true,
+      isConfirmValid: !isInvalid,
       isConfirmAlertVisible: false,
-      confirmAlertText: isInvalid ? confirmAlertText : this.state.confirmAlertText,
+      isConfirmPreviewed: false
     });
-    return isInvalid ? false : true;
-  }
-
-  handleAlerts = (inputName) => {
-    this.setState({
-      [`is${inputName}AlertVisible`]: true
-    }); 
   }
 
   handlePasswordPreview = (input) => {
+    const inputName = getCapitalized(input);
+
     this.setState(prevState => ({
-      [`is${input}Previewed`]: !prevState[`is${input}Previewed`]
+      [`is${inputName}PreviewMode`]: !prevState[`is${inputName}PreviewMode`]
     }));
   }
 
   handleRememberMe = () => {
-    this.setState(prevState => ({
-      shouldRemember: !prevState.shouldRemember
-    }));
+    this.setState(prevState => ({ rememberMe: !prevState.rememberMe }));
   }
 
   handleFormReset = () => {
     this.setState({
+      rememberMe: false,
       login: '',
-      password: '',
-      confirm: '',
-      isLoginInputValid: false,
-      isPasswordInputValid: false,
-      isConfirmPasswordValid: false,
+      isLoginValid: false,
       isLoginAlertVisible: false,
+      password: '',
+      isPasswordValid: false,
       isPasswordAlertVisible: false,
+      isPasswordPreviewMode: false,
+      confirm: '',
+      isConfirmValid: false,
       isConfirmAlertVisible: false,
-      isConfirmPasswordDisabled: true,
-      isPasswordPreviewed: false,
-      isConfirmPreviewed: false,
-      shouldRemember: false
+      isConfirmPreviewMode: false,
+      isConfirmDisabled: true
     });
   }
 
@@ -168,41 +183,44 @@ class UserForm extends Component {
     e.preventDefault();
     const { block, users, onUserLogin } = this.props;
     const {
-      isLoginInputValid,
-      isPasswordInputValid,
-      isConfirmPasswordValid,
       login,
       password,
-      shouldRemember
+      isLoginValid,
+      isPasswordValid,
+      isConfirmValid,
+      rememberMe
     } = this.state;
 
-    const user = [...users].filter(user => user.login === login)[0];
+    const user = [...users].find(user => user.login === login);
 
     const isLoginPasswordCorrect = block === 'loginForm'
-    && isLoginInputValid
+    && isLoginValid
     && user.password === password;
     
     if (block === 'loginForm') {
 
-      if (isLoginInputValid && isLoginPasswordCorrect) {
-
+      if (isLoginPasswordCorrect) {
+        user.rememberMe = rememberMe;
         onUserLogin(user, block);
         this.handleFormReset();
         
       } else {
         this.setState({
+          password: '',
+          isPasswordValid: false,
           isPasswordAlertVisible: true,
-          passwordAlertText: 'Password is incorrect!'
+          passwordAlertText: 'Password is wrong!',
+          isPasswordPreviewMode: false
         });
       }
 
     } else if (block === 'signupForm') {
 
-      if (isLoginInputValid && isPasswordInputValid && isConfirmPasswordValid) {
+      if (isLoginValid && isPasswordValid && isConfirmValid) {
         const newUser = {
-          login: login,
-          password: password,
-          rememberMe: shouldRemember,
+          login,
+          password,
+          rememberMe,
           tasks: []
         }
 
@@ -218,22 +236,22 @@ class UserForm extends Component {
     const { className, block } = this.props;
 
     const {
+      rememberMe,
       login,
-      password,
-      confirm,
-      isLoginInputValid,
-      isPasswordInputValid,
-      isConfirmPasswordValid,
+      isLoginValid,
       isLoginAlertVisible,
-      isPasswordAlertVisible,
-      isConfirmAlertVisible,
       loginAlertText,
+      password,
+      isPasswordValid,
+      isPasswordAlertVisible,
       passwordAlertText,
+      isPasswordPreviewMode,
+      confirm,
+      isConfirmValid,
+      isConfirmAlertVisible,
       confirmAlertText,
-      isConfirmPasswordDisabled,
-      isPasswordPreviewed,
-      isConfirmPreviewed,
-      shouldRemember
+      isConfirmPreviewMode,
+      isConfirmDisabled
     } = this.state;
 
     const isLoginForm = block === 'loginForm';
@@ -243,63 +261,66 @@ class UserForm extends Component {
     const submitButtonType = isLoginForm ? 'button' : 'submit';
     const onLoginButtonClick = isLoginForm ? undefined : this.handleCardToggle;
     const onSignupButtonClick = isLoginForm ? this.handleCardToggle : undefined;
-    const passwordInputType = isPasswordPreviewed ? 'text' : 'password';
-    const confirmInputType = isConfirmPreviewed ? 'text' : 'password';
 
     const checkboxClass = classNames('remember__checkbox',
     `remember__checkbox--${block}`, {
-      'remember__checkbox--visible': shouldRemember
+      'remember__checkbox--visible': rememberMe
     });
 
     return (
       <form className={className} onSubmit={this.handleFormSubmit}>
-        <h2 className={`${block}__heading`}>
-          {title}
-        </h2>
+        <h2 className={`${block}__heading`}>{title}</h2>
+
         {/* LOGIN */}
         <UserInput
-          block={block}
-          modifier="login"
+          inputId={`${block}Login`}
+          inputName="login"
+          parentName={block}
           value={login}
-          type="text"
-          isInputValid={isLoginInputValid}
+          label="Login:"
+          isInputValid={isLoginValid}
           isAlertVisible={isLoginAlertVisible}
           alertText={loginAlertText}
+          onInputBlur={this.handleAlert}
           onInputChange={this.handleLoginValidation}
-          onInputBlur={this.handleAlerts}
         />
+
         {/* PASSWORD */}
         <UserInput
-          block={block}
-          modifier="password"
+          inputId={`${block}Password`}
+          inputName="password"
+          parentName={block}
           value={password}
-          type={passwordInputType}
-          isInputValid={isPasswordInputValid}
+          label="Password:"
+          isInputValid={isPasswordValid}
           isAlertVisible={isPasswordAlertVisible}
           alertText={passwordAlertText}
-          isPreviewMode={isPasswordPreviewed}
-          onPreviewClick={this.handlePasswordPreview}
+          isPreviewMode={isPasswordPreviewMode}
+          onPreviewModeChange={this.handlePasswordPreview}
+          onInputBlur={this.handleAlert}
           onInputChange={this.handlePasswordValidation}
-          onInputBlur={this.handleAlerts}
         />
+
         {/* PASSWORD CONFIRM */
         isLoginForm
         ? <div className="empty"></div>
         : <UserInput
-            block={block}
-            modifier="confirm"
+            inputId={`${block}Confirm`}
+            inputName="confirm"
+            parentName={block}
             value={confirm}
-            type={confirmInputType}
-            isInputValid={isConfirmPasswordValid}
+            label="Confirm:"
+            isInputValid={isConfirmValid}
             isAlertVisible={isConfirmAlertVisible}
             alertText={confirmAlertText}
-            isPreviewMode={isConfirmPreviewed}
-            isInputDisabled={isConfirmPasswordDisabled}
-            onPreviewClick={this.handlePasswordPreview}
+            isDisabled={isConfirmDisabled}
+            isPreviewMode={isConfirmPreviewMode}
+            onPreviewModeChange={this.handlePasswordPreview}
+            onInputBlur={this.handleAlert}
             onInputChange={this.handleConfirmValidation}
-            onInputBlur={this.handleAlerts}
           />
         }
+
         {/* REMEMBER ME */}
         <div className="remember">
           <div
@@ -324,6 +345,7 @@ class UserForm extends Component {
             Remember Me
           </label>
         </div>
+        
         {/* BUTTONS */}
         <button
           className={`${block}__button ${block}__button--login`}
