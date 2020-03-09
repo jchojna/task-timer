@@ -1,9 +1,9 @@
-export const initialUsers = [
-  {
+export default {
+  "5365465436": {
     "login": "Jakub",
     "password": "jakubek",
-    "rememberMe": false,
     "date": [20,0,2020,16,6],
+    "rememberMe": true,
     "stats": {
       "finishedTasks": 33,
       "avgTaskTime": 0,
@@ -24,8 +24,7 @@ export const initialUsers = [
         totalBreakTime: 500000,
         totalTaskTimeArray: ["20","00","00"],
         totalBreakTimeArray: ["05","00","00"],
-        id: 56436543654,
-        dateCreated: 56436543654
+        id: 56436543654
       },
       {
         taskName: "Do exercices",
@@ -37,8 +36,7 @@ export const initialUsers = [
         totalBreakTime: 1000,
         totalTaskTimeArray: ["00","01","00"],
         totalBreakTimeArray: ["00","01","00"],
-        id: 6546567854,
-        dateCreated: 6546567854
+        id: 6546567854
       },
       {
         taskName: "Test task for preview purposes",
@@ -50,8 +48,7 @@ export const initialUsers = [
         totalBreakTime: 100000,
         totalTaskTimeArray: ["05","00","00"],
         totalBreakTimeArray: ["01","00","00"],
-        id: 90798758576,
-        dateCreated: 90798758576
+        id: 90798758576
       },
       {
         taskName: "Another task for testing",
@@ -63,16 +60,15 @@ export const initialUsers = [
         totalBreakTime: 1000,
         totalTaskTimeArray: ["00","01","00"],
         totalBreakTimeArray: ["00","01","00"],
-        id: 654765387657985,
-        dateCreated: 654765387657985
+        id: 654765387657985
       }
     ]
   },
-  {
+  "5454524254": {
     "login": "Anna",
     "password": "aneczka",
-    "rememberMe": true,
     "date": [12,10,2019,18,12],
+    "rememberMe": false,
     "stats": {
       "finishedTasks": 444,
       "avgTaskTime": 0,
@@ -93,8 +89,7 @@ export const initialUsers = [
         totalBreakTime: 100000,
         totalTaskTimeArray: ["05","00","00"],
         totalBreakTimeArray: ["01","00","00"],
-        id: 90798758576,
-        dateCreated: 90798758576
+        id: 90798758576
       },
       {
         taskName: "Another task for testing",
@@ -106,16 +101,15 @@ export const initialUsers = [
         totalBreakTime: 1000,
         totalTaskTimeArray: ["00","01","00"],
         totalBreakTimeArray: ["00","01","00"],
-        id: 654765387657985,
-        dateCreated: 654765387657985
+        id: 654765387657985
       }
     ]
   },
-  {
+  "3434566453": {
     "login": "Agnieszka",
     "password": "agnieszka",
-    "rememberMe": false,
     "date": [3,2,2020,14,38],
+    "rememberMe": false,
     "stats": {
       "finishedTasks": 22,
       "avgTaskTime": 0,
@@ -127,11 +121,11 @@ export const initialUsers = [
     },
     "tasks": []
   },
-  {
+  "8978747678": {
     "login": "Olek",
     "password": "aleksander",
-    "rememberMe": false,
     "date": [16,2,2020,14,58],
+    "rememberMe": false,
     "stats": {
       "finishedTasks": 12,
       "avgTaskTime": 0,
@@ -142,5 +136,5 @@ export const initialUsers = [
       "totalBreakTime": 454
     },
     "tasks": []
-  },
-];
+  }
+}

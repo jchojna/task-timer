@@ -30,7 +30,7 @@
   &__text {
     border: 2px solid transparent;
     font-weight: 600;
-    font-size: 2em;
+    font-size: $card-taskName-size;
     margin: 0;
     width: 100%;
     word-break: break-word;
@@ -67,7 +67,7 @@
     border: 2px solid $color-teal-light-3;
     color: $color-teal-light-3;
     font-weight: 600;
-    font-size: 2em;
+    font-size: $card-taskName-size;
     height: 100%;
     outline: none;
     overflow: hidden;

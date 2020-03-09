@@ -33,10 +33,11 @@ class UserForm extends Component {
 
   componentDidMount = () => {
     const { block, users } = this.props;
-    if (block === 'loginForm') {
+    const rememberedUser = Object.values(users).find(user => user.rememberMe);
 
-      const rememberedUser = [...users].find(user => user.rememberMe);
+    if (block === 'loginForm') {
       if (rememberedUser) {
+
         const { login, password } = rememberedUser;
 
         this.setState({
@@ -77,11 +78,12 @@ class UserForm extends Component {
   
       case 'login':
 
-        const { block, users, loggedUserLogin } = this.props;
+        const { block, users } = this.props;
 
-        const logins = [...users].map(user => user.login);
-        const doesLoginExist = [...logins]
-        .find(login => login === value && login !== loggedUserLogin);
+        const doesLoginExist = Object.values(users)
+        .map(user => user.login)
+        .find(login => login === value);
+
         const isLoginIncorrect = block === 'loginForm' && !doesLoginExist;
         const isNewLoginIncorrect = (block === 'signupForm' || block === 'userEdit')
         && doesLoginExist;
@@ -191,7 +193,7 @@ class UserForm extends Component {
       rememberMe
     } = this.state;
 
-    const user = [...users].find(user => user.login === login);
+    const user = Object.values(users).find(user => user.login === login);
 
     const isLoginPasswordCorrect = block === 'loginForm'
     && isLoginValid
@@ -200,7 +202,6 @@ class UserForm extends Component {
     if (block === 'loginForm') {
 
       if (isLoginPasswordCorrect) {
-        user.rememberMe = rememberMe;
         onUserLogin(user, block);
         this.handleFormReset();
         

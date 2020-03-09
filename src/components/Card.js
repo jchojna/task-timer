@@ -222,7 +222,7 @@ class Card extends Component {
       >
         <Task
           task={task}
-          id={task.dateCreated}
+          id={task.id}
           onTaskRemove={onTaskRemove}
           onCardStateChange={this.handleStateChange}
           onBoardStateChange={onBoardStateChange}

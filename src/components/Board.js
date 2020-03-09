@@ -68,7 +68,7 @@ class Board extends Component {
   render() {
     const {
       users,
-      loggedUserLogin,
+      loggedUserId,
       onUserUpdate,
       onTaskOrderChange,
       onUserLogout,
@@ -89,8 +89,8 @@ class Board extends Component {
       cardsSizes
     } = this.state;
 
-    const { tasks } = [...users].find(user =>user.login === loggedUserLogin);
-
+    const { tasks } = users[loggedUserId];
+    
     //#region [ Horizon ] CLASS NAMES
 
     const boardClass = classNames('Board', {
@@ -133,7 +133,7 @@ class Board extends Component {
           block="userEdit"
           isSidebarVisible={isSidebarVisible}
           users={users}
-          loggedUserLogin={loggedUserLogin}
+          loggedUserId={loggedUserId}
           onUserUpdate={onUserUpdate}
           onUserLogout={onUserLogout}
           onUserRemove={onUserRemove}
@@ -142,7 +142,7 @@ class Board extends Component {
         {/* TASK CARDS */}
         {tasks.map((task, index) => (
           <Card
-            key={`card-${task.dateCreated}`}
+            key={`card-${task.id}`}
             task={task}
             cardIndex={index}
             onTaskOrderChange={onTaskOrderChange}
