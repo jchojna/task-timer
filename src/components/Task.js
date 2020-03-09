@@ -6,7 +6,7 @@ import CardButtons from './CardButtons';
 import Timer from './Timer.js';
 import StopAlert from './StopAlert.js';
 import { validateTaskName, handleTimeChange } from '../lib/handlers';
-import { animationStyle } from '../lib/globalVariables';
+import { cardFlipTime, animationStyle } from '../lib/globalVariables';
 import icons from '../assets/svg/icons.svg';
 import '../scss/Task.scss';
 
@@ -23,7 +23,7 @@ class Task extends Component {
 
     this.state = {
       isMaximized: true,
-      isTaskRotatingIn: false,
+      isTaskRotatingIn: true,
       isTaskRotatingOut: false,
       isTaskMounted: false,
       isTimerMounted: false,
@@ -49,9 +49,9 @@ class Task extends Component {
 
   componentDidMount = () => {
     this.setState({ isTaskMounted: true });
-    /* this.timeoutId = setTimeout(() => this.setState({
+    this.timeoutId = setTimeout(() => this.setState({
       isTaskRotatingIn: false
-    }), cardFlipTime); */
+    }), cardFlipTime);
   }
 
   componentWillUnmount = () => {
@@ -200,7 +200,8 @@ class Task extends Component {
       id,
       onCardStateChange,
       onBoardStateChange,
-      onTaskFinish
+      onTaskFinish,
+      onDrag
     } = this.props;
     const {
       isMaximized,
@@ -307,6 +308,7 @@ class Task extends Component {
           onRemoveButtonClick={this.handleAlertVisibility}
           onTaskStateChange={this.handleStateChange}
           onBoardStateChange={onBoardStateChange}
+          onDrag={onDrag}
         />
 
         {/* START BUTTON */}

@@ -13,10 +13,11 @@ const CardButtons = (props) => {
     onAcceptButtonClick,
     onRemoveButtonClick,
     onTaskStateChange,
-    onBoardStateChange
+    onBoardStateChange,
+    onDrag
   } = props;
 
-  const handleMinMaxButtons = () => {
+  const handleMaximize = () => {
     onTaskStateChange(prevState => ({
       isMaximized: !prevState.isMaximized
     }));
@@ -33,21 +34,9 @@ const CardButtons = (props) => {
     "CardButtons__button--disabled": inputInvalid || cardRotatingMode
   });
 
-  const minimizeButtonClass = classNames("CardButtons__button",
-  "CardButtons__button--minimize", {
+  const buttonClass = classNames("CardButtons__button", {
     "CardButtons__button--disabled": editModeActive || cardRotatingMode,
     "CardButtons__button--visible": isMaximized
-  });
-
-  const maximizeButtonClass = classNames("CardButtons__button",
-  "CardButtons__button--maximize", {
-    "CardButtons__button--disabled": editModeActive || cardRotatingMode,
-    "CardButtons__button--visible": !isMaximized
-  });
-
-  const removeButtonClass = classNames("CardButtons__button",
-  "CardButtons__button--remove", "CardButtons__button--visible", {
-    "CardButtons__button--disabled": editModeActive || cardRotatingMode
   });
   
   return (
@@ -62,32 +51,31 @@ const CardButtons = (props) => {
         </svg>
       </button>
 
-      <div className="CardButtons__minmax">
-        {/* MINIMIZE BUTTON */}
-        <button
-          className={minimizeButtonClass}
-          onClick={handleMinMaxButtons}
-          //disabled={editModeActive}
-        >
-          <svg className="CardButtons__svg" viewBox="0 0 512 512">
-            <use href={`${icons}#minimize`}/>
-          </svg>
-        </button>
-        {/* MAXIMIZE BUTTON */}
-        <button
-          className={maximizeButtonClass}
-          onClick={handleMinMaxButtons}
-          //disabled={editModeActive}
-        >
-          <svg className="CardButtons__svg" viewBox="0 0 512 512">
-            <use href={`${icons}#maximize`}/>
-          </svg>
-        </button>
-      </div>
+      {/* MINIMIZE BUTTON */}
+      <button
+        className={buttonClass}
+        onClick={handleMaximize}
+        disabled={editModeActive || cardRotatingMode}
+      >
+        <svg className="CardButtons__svg" viewBox="0 0 512 512">
+          <use href={`${icons}#minimize`}/>
+        </svg>
+      </button>
+
+      {/* DRAG BUTTON */}
+      <button
+        className={buttonClass}
+        onMouseDown={onDrag}
+        disabled={editModeActive || cardRotatingMode}
+      >
+        <svg className="CardButtons__svg" viewBox="0 0 100 100">
+          <use href={`${icons}#drag`}/>
+        </svg>
+      </button>
       
       {/* REMOVE BUTTON */}
       <button
-        className={removeButtonClass}
+        className={buttonClass}
         onClick={onRemoveButtonClick}
         disabled={editModeActive || cardRotatingMode}
       >

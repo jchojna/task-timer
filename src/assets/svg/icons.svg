@@ -38,16 +38,27 @@
 
   <symbol id="tick" viewBox="0 0 100 100">
     <polyline points="5,45 40,80 95,25"/>
-    <!-- <polyline points="10,25 10,10 85,10"/> -->
-    <!-- <polyline points="10,75 10,90 25,90"/> -->
-    <!-- <polyline points="55,90 90,90 90,60"/> -->
+    <!-- <polyline points="10,25 10,10 85,10"/>
+    <polyline points="10,75 10,90 25,90"/>
+    <polyline points="55,90 90,90 90,60"/> -->
   </symbol>
 
-  <symbol id="minimize" viewBox="0 0 100 100">
+  <symbol id="drag" viewBox="0 0 100 100">
+    <path d="M35 90h-25v-25m80 0v25h-25m0-80h25v25m-55-25h-25v25m0 55l80-80m-80 0l80 80"/>
+  </symbol>
+
+  <!-- <symbol id="minimize-circles" viewBox="0 0 100 100">
     <circle cx="25" cy="25" r="15"/>
     <circle cx="75" cy="25" r="15"/>
     <circle cx="25" cy="75" r="15"/>
     <circle cx="75" cy="75" r="15"/>
+  </symbol> -->
+
+  <symbol id="minimize" viewBox="0 0 100 100">
+    <rect x="10" y="10" width="25" height="25"/>
+    <rect x="65" y="10" width="25" height="25"/>
+    <rect x="10" y="65" width="25" height="25"/>
+    <rect x="65" y="65" width="25" height="25"/>
   </symbol>
 
   <symbol id="maximize" viewBox="0 0 100 100">

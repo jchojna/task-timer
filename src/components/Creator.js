@@ -78,7 +78,6 @@ class Creator extends Component {
       totalBreakTime: creatorTotalBreakTime,
       totalTaskTimeArray: creatorTaskTimeArray,
       totalBreakTimeArray: creatorBreakTimeArray,
-      dateCreated: date,
       id: date
     };
     // add new task to app state

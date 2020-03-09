@@ -7,7 +7,6 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.card = React.createRef();
-    this.draggable = React.createRef();
     this.transitionTime = 1000;
     this.state = {
       isDragging: false,
@@ -218,7 +217,7 @@ class Card extends Component {
         className={cardClass}
         style={cardStyle}
         ref={this.card}
-        onMouseDown={this.handleMouseDown}
+        //onMouseDown={this.handleMouseDown}
       >
         <Task
           task={task}
@@ -228,6 +227,7 @@ class Card extends Component {
           onBoardStateChange={onBoardStateChange}
           onTaskFinish={onTaskFinish}
           onTaskEdit={onTaskEdit}
+          onDrag={this.handleMouseDown}
         />
       </div>
     );
