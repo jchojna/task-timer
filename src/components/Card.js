@@ -216,8 +216,8 @@ class Card extends Component {
       <div
         className={cardClass}
         style={cardStyle}
+        onMouseDown={this.handleMouseDown}
         ref={this.card}
-        //onMouseDown={this.handleMouseDown}
       >
         <Task
           task={task}

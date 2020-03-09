@@ -94,7 +94,6 @@ class App extends Component {
   }
 
   handleUserLogin = (user, form) => {
-    console.log('user', user);
     const { users } = this.state;
     const [ loggedUserId ] = Object
     .entries(users)

@@ -49,7 +49,6 @@ const TotalTime = (props) => {
       <div
         className={displayClass}
         onKeyDown={(e) => onKeyPress(e.key)}
-        tabIndex="0"
       >
         <Spinners
           modifier="minutes"

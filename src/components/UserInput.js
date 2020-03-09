@@ -96,6 +96,7 @@ const UserInput = (props) => {
 
       {/* INDICATORS */}
       <div className="UserInput__icons">
+        {/* PREVIEW PASSWORD */}
         {
         inputName === 'login'
         ? <div className="empty"></div>
@@ -109,8 +110,10 @@ const UserInput = (props) => {
             </svg>
           </button>
         }
+        {/* INPUT CORRECT BADGE */}
         {
-        parentName === 'loginForm' && inputName === 'password'
+        (parentName === 'loginForm' && inputName === 'password') ||
+        (parentName === 'userEdit' && inputName === 'oldPassword')
         ? <div className="empty"></div>
         : <div className={passedClass}>
             <svg className="inputPassed__svg" viewBox="0 0 100 100">

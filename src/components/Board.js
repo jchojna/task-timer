@@ -40,7 +40,7 @@ class Board extends Component {
 
   handleStateChange = (object) => this.setState(object);
 
-  handleSidebar = () => {
+  handleSidebar = (e) => {
     this.setState(prevState => ({
       isSidebarVisible: !prevState.isSidebarVisible
     }));

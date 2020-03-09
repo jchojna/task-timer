@@ -317,6 +317,7 @@ class Sidebar extends Component {
               `userButtons__button--${button}`, {
                 'userButtons__button--visible': !isEditMode
               });
+              const tabIndexVal = isSidebarVisible && !isEditMode ? '0' : '-1';
               
               return (
                 <button
@@ -324,6 +325,7 @@ class Sidebar extends Component {
                   key={button}
                   title={userEditLabels[index]}
                   onClick={() => this.handleUserEdit(button)}
+                  tabIndex={tabIndexVal}
                 >
                   <svg className="userButtons__svg" viewBox="0 0 100 100">
                     <use href={`${icons}#${button}Edit`}></use>
@@ -352,6 +354,7 @@ class Sidebar extends Component {
                 'userButtons__button--visible': isEditMode,
                 'userButtons__button--disabled': isConfirmButtonDisabled
               });
+              const tabIndexVal = isSidebarVisible && isEditMode ? '0' : '-1';
               
               return (
                 <button
@@ -359,6 +362,7 @@ class Sidebar extends Component {
                   key={button}
                   onClick={() => this.handleUserEdit(button)}
                   disabled={isConfirmButtonDisabled}
+                  tabIndex={tabIndexVal}
                 >
                   <svg className="userButtons__svg" viewBox="0 0 100 100">
                     <use href={`${icons}#${button}Edit`}></use>

@@ -29,6 +29,7 @@ $intro-time: 4s;
 // TIME
 $time-slide: 0.5s;
 $time-display: 0.5s;
+$time-button: 0.2s;
 $hover-icon: 0.3s;
 $focus-input: 0.2s;
 $fade-stopTask: 0.3s;
@@ -43,9 +44,13 @@ $time-component-fade: 1s;
 $layout-max-width: 1200px;
 
 // BOARD
-$board-padding-xs: 20px;
-$board-padding-md: 40px;
-$board-padding-lg: 60px;
+$board-padding-xs: 30px;
+$board-padding-md: 80px;
+$board-padding-lg: 90px;
+
+$board-gap-xs: 30px;
+$board-gap-md: 40px;
+$board-gap-lg: 60px;
 
 // HEADER
 $header-padding-xs: 10px;
