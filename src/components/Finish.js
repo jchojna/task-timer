@@ -46,12 +46,10 @@ class Finish extends Component {
           ?
           <h2 className="Finish__heading">
             Time is up!
-            <span className="Finish__emoji" role="img" aria-label="party"> 🎉</span>
           </h2>
           :
           <h2 className="Finish__heading">
             Too long break!
-            <span className="Finish__emoji" role="img" aria-label="party"> 🙁</span>
           </h2>
         }
         {/* TASK FINISHED MESSAGE */}

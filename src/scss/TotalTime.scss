@@ -53,6 +53,7 @@
   &__display {
     align-items: center;
     border-radius: 10px;
+    border-color: $color-teal-light-2;
     display: grid;
     grid-template-columns: repeat(2, 1fr) auto repeat(2, 1fr);
     justify-items: center;
@@ -67,11 +68,12 @@
     &--editMode {
       background-color: $color-teal;
       border: $card-border;
+      border-color: $color-teal-light-2;
       color: $color-teal-light-3;
     }
 
     &--incorrect {
-      border-color: $color-teal-warning;
+      border-color: $color-teal-accent;
     }
   }
 

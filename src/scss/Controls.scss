@@ -12,9 +12,11 @@
 
   &__button {
     @include button;
+    @include flex-center;
     border-radius: 50%;
     fill: none;
-    height: $size-controls-xs;
+    height: $size-controls;
+    padding: 2px;
     stroke: $color-teal-light-1;
     stroke-width: 3;
     transition:
@@ -22,17 +24,31 @@
       border-color $hover-icon,
       opacity $card-edit,
       stroke $hover-icon;
-    width: $size-controls-xs;
+    width: $size-controls;
 
-    &:hover {
-      background-color: $color-teal-dark-3;
+    @mixin controlButtons {
+      background-color: $color-teal;
       border-color: $color-teal-warning;
-      stroke: $color-teal;
+      stroke: $color-teal-dark-2;
+    }
+
+    &:active {
+      @include controlButtons;
     }
     
     &--disabled {
       opacity: 0.5;
       pointer-events: none;
+    }
+
+    @media only screen and (min-width: $media-md) {
+  
+      & {
+        &:focus,
+        &:hover {
+          @include controlButtons;
+        }
+      }
     }
   }
 

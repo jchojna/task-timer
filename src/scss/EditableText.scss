@@ -64,6 +64,7 @@
   &__input {
     background-color: $color-teal;
     border: $card-border;
+    border-color: $color-teal-light-2;
     border-radius: 10px;
     color: $color-teal-light-3;
     font-weight: 600;
@@ -77,12 +78,12 @@
     width: 100%;
 
     &--incorrect {
-      border-color: $color-teal-warning;
+      border-color: $color-teal-accent;
     }
   }
   
   &__progress {
-    background-color: $color-teal-warning;
+    background-color: $color-teal-accent;
     height: 4px;
     margin-top: 4px;
     width: 0;

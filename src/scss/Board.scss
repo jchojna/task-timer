@@ -183,15 +183,26 @@
       visibility: visible;
     }
 
-    &:hover {
+    @mixin newTaskButton {
       background-color: $color-teal-dark-1;
       box-shadow: $placeholder-shadow-small;
       color: $color-teal-light-1;
     }
 
+    &:active {
+      @include newTaskButton;
+    }
+
     @media only screen and (min-width: $media-md) {
 
-      font-size: 2.5em;
+      & {
+        font-size: 2.5em;
+
+        &:focus,
+        &:hover {
+          @include newTaskButton;
+        }
+      }
     }
   }
 }

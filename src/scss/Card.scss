@@ -86,15 +86,16 @@
     display: none;
     fill: none;
     grid-area: startBtn;
-    height: 70px;
+    height: $main-button;
     justify-content: center;
     margin: 10px;
+    padding: 2px;
     stroke: $color-teal-dark-2;
     stroke-width: 3;
     transition:
       background-color $time-button,
       stroke $time-button;
-    width: 70px;
+    width: 80px;
   
     &:active {
       background-color: $color-teal-warning;

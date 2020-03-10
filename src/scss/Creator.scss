@@ -12,7 +12,7 @@
     ".        closeBtn"
     "input    input   "
     "backBtn  nextBtn ";
-  grid-template-rows: $nav-button 1fr $nav-button;
+  grid-template-rows: $main-button 1fr $main-button;
   height: 100%;
   left: 0;
   overflow: hidden;
@@ -34,10 +34,13 @@
     opacity: 0;
     stroke: $color-teal-dark-1;
     stroke-linecap: round;
-    stroke-width: 30;
-    transition: opacity $toggle-button, visibility 0s $toggle-button;
+    stroke-width: 20;
+    transition:
+      stroke $time-button,
+      opacity $time-button,
+      visibility 0s $time-button;
     visibility: hidden;
-    width: $nav-button;
+    width: $main-button;
 
     &--back {
       grid-area: backBtn;
@@ -52,18 +55,31 @@
     &--close {
       grid-area: closeBtn;
       justify-self: end;
-      stroke-width: 10;
+      stroke-width: 8;
       width: $close-button;
     }
 
     &--visible {
       opacity: 1;
-      transition: opacity $toggle-button, visibility;
+      transition:
+        stroke $time-button,
+        opacity $time-button,
+        visibility;
       visibility: inherit;
     }
 
-    &:hover {
-      stroke: $color-teal-warning;
+    &:active {
+      stroke: $color-teal-light-3;
+    }
+
+    @media only screen and (min-width: $media-md) {
+  
+      & {
+        &:focus,
+        &:hover {
+          stroke: $color-teal-light-3;
+        }
+      }
     }
   }
 
@@ -81,7 +97,7 @@
   width: 100%;
 
   &__loaded {
-    background-color: $color-teal-warning;
+    background-color: $color-teal-accent;
     bottom: 0;
     left: 0;
     position: absolute;

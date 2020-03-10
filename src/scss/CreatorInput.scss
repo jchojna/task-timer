@@ -29,9 +29,8 @@
   }
 
   &__label {
-    color: $color-teal-light-3;
-    font-size: 2em;
-    font-weight: 600;
+    color: $color-teal-light-2;
+    font-size: 2rem;
     grid-area: label;
     margin: 0;
     text-align: center;
@@ -47,20 +46,23 @@
   &__text,
   &__input {
     background: none;
-    border: 3px solid $color-teal-dark-1;
+    border: $card-border;
+    border-color: $color-teal-light-2;
     color: $color-teal-light-3;
-    font-size: 1.2em;
+    font-size: 1.2rem;
+    line-height: 1.2;
     padding: 15px;
     width: 100%;
+    transition: background-color $time-button, border-color $time-button;
 
     &::placeholder {
-      color: $color-teal-dark-1;
+      color: $color-teal-light-1;
       opacity: 1;
     }
 
     &:focus {
       background-color: $color-teal-dark-1;
-      border-color: $color-teal-light-3;
+      border-color: $color-teal-light-2;
 
       &::placeholder {
         color: $color-teal;
@@ -68,54 +70,61 @@
     }
 
     &--invalid {
-      background-color: $color-teal-warning;
-      border-color: $color-teal-warning;
+      background-color: $color-teal-accent;
+      border-color: $color-teal-dark-2;
 
       &:focus {
-        background-color: $color-teal-warning;
-        border-color: $color-teal-warning;
+        background-color: $color-teal-accent;
+        border-color: $color-teal-dark-2;
       }
     }
   }
 
   &__text {
-    resize: none;
+    border-radius: 10px;
     height: 100%;
+    resize: none;
   }
 
   &__inputs {
     align-self: center;
     align-items: center;
-    border: 3px solid $color-teal-dark-1;
+    border: $card-border;
+    border-color: $color-teal-light-2;
+    border-radius: 10px;
     display: flex;
-    font-size: 1.5em;
+    font-size: 2.5rem;
     grid-area: input;
     justify-content: space-between;
+    overflow: hidden;
     width: 100%;
 
     &--invalid {
-      background-color: $color-teal-warning;
-      border-color: $color-teal-warning;
+      background-color: $color-teal-accent;
+      border-color: $color-teal-dark-2;
 
       &:focus {
-        background-color: $color-teal-warning;
-        border-color: $color-teal-warning;
+        background-color: $color-teal-accent;
+        border-color: $color-teal-dark-2;
       }
     }
   }
 
   &__input {
     border: none;
+    font-size: 2.5rem;
+    font-weight: bold;
+    outline: none;
     text-align: center;
     width: 45%;
-  }
 
-  &__colon {
-    font-weight: bold;
+    &::placeholder {
+      font-size: 1.5rem;
+    }
   }
 
   &__progress {
-    background-color: $color-teal-warning;
+    background-color: $color-teal-accent;
     height: 4px;
     margin-top: 4px;
     width: 0;

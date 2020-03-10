@@ -21,36 +21,32 @@
   top: 0;
 
   &--success {
-    background-color: $color-teal-success;
-    fill: $color-teal-success;
+    background-color: $color-teal-dark-3;
   }
 
   &--failure {
-    background-color: $color-teal-fail;
-    fill: $color-teal-fail;
+    background-color: $color-teal-dark-3;
   }
 
   &__heading {
-    font-size: 1.5em;
+    color: $color-teal-accent;
+    font-size: 2em;
     font-weight: 600;
     grid-area: heading;
     margin: 1em 0;
   }
 
-  &__emoji {
-    font-size: 2em;
-  }
-
   &__message {
-    font-size: 1em;
-    line-height: 1.5;
+    color: $color-teal-light-1;
+    font-size: 1.3em;
+    line-height: 1.4;
     text-align: center;
     grid-area: message;
     margin: 0;
   }
 
   &__accent {
-    color: $color-teal-warning;
+    color: $color-teal-accent;
     font-weight: 800;
   }
   
@@ -64,15 +60,16 @@
       border-radius: 50%;
       grid-area: restart;
       margin: 10px;
+      padding: 2px;
       stroke-width: 3;
       transition:
         background-color $time-button,
         stroke $time-button;
-      width: $nav-button;
+      width: $main-button;
       
       &:active {
-        background-color: $color-teal-warning;
-        stroke: $color-teal;
+        background-color: $color-teal;
+        stroke: $color-teal-dark-3;
       }
     }
    
@@ -96,8 +93,8 @@
         &--restart {
           &:focus,
           &:hover {
-            background-color: $color-teal-warning;
-            stroke: $color-teal;
+            background-color: $color-teal;
+            stroke: $color-teal-dark-3;
           }
         }
        
