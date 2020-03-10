@@ -89,8 +89,7 @@ class UserForm extends Component {
         && doesLoginExist;
 
         return isEmpty
-        ? 'Please enter your login' : doesContainWhiteSpaces
-        ? 'Login cannot contain any spaces' : isLoginIncorrect
+        ? 'Please enter your login' : isLoginIncorrect
         ? 'There is no user with this login' : isNewLoginIncorrect
         ? 'This login already exist. Try another one' : false;  
   

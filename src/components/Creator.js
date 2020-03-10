@@ -24,8 +24,8 @@ class Creator extends Component {
       creatorTotalTaskTime: 0,
       creatorTotalBreakTime: 0,
       taskNameLength: 0,
-      creatorTaskTimeArray: ["",""],
-      creatorBreakTimeArray: ["",""],
+      creatorTaskTimeArray: ["00","00"],
+      creatorBreakTimeArray: ["00","00"],
       // validation
       isTaskNameValid: false,
       isTaskTimeValid: false,

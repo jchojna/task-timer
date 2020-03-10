@@ -3,7 +3,7 @@ import Intro from './Intro';
 import UserPanel from './UserPanel';
 import Board from './Board';
 import Logo from './Logo';
-import initialJson from '../lib/initialJson';
+import initialUsers from '../lib/initialUsers';
 import { makeTwoDigits, getTotalDays, getTimeArray } from '../lib/handlers';
 import '../scss/App.scss';
 
@@ -13,11 +13,11 @@ class App extends Component {
     this.state = {
       // visibility
       isAppLoaded: false,
-      isIntroVisible: true,
+      isIntroVisible: false,
       isUserPanelVisible: true,
       isBoardVisible: false,
       // users
-      users: initialJson,
+      users: null,
       loggedUserId: '',
       createdAt: null
     };
@@ -35,9 +35,10 @@ class App extends Component {
 
     // set state and export to local storage based on initial users object
     } else {
-      const { users } = this.state;
+      //const { users } = this.state;
+      let users = {};
 
-      for (let user of Object.values(users)) {
+      for (let user of initialUsers) {
         const {
           finishedTasks,
           totalTaskTime,
@@ -47,6 +48,7 @@ class App extends Component {
         // set date of profile creation
         let [day, month, year, hr, min] = user.date;
         const date = new Date(year, month, day, hr, min);
+        const userId = date.getTime();
         // set stat displaying creation date
         day = makeTwoDigits(day);
         month = makeTwoDigits(month + 1);
@@ -54,6 +56,7 @@ class App extends Component {
         min = makeTwoDigits(min);
         
         const totalDays = getTotalDays(date);
+        console.log('totalDays', totalDays);
         const avgTasksPerDay = Math.round(finishedTasks / totalDays);
         const avgTaskTime = getTimeArray(totalTaskTime / finishedTasks);
         const avgBreakTime = getTimeArray(totalBreakTime / finishedTasks);
@@ -67,14 +70,11 @@ class App extends Component {
         user.stats.avgTaskTime = formattedAvgTaskTime;
         user.stats.dateCreated = `${day}-${month}-${year} ${hr}:${min}`;
         user.createdAt = date;
+
+        users = { ...users, [userId]: user };
       }
-
-      this.setState(prevState => ({
-        isAppLoaded: true,
-        users: {...prevState.users}
-      }));
+      this.setState({ isAppLoaded: true, users });
     }
-
     this.exportUsers();
   }
 

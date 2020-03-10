@@ -16,6 +16,7 @@ class Finish extends Component {
       id
     } = this.props;
     const {
+      totalBreakTime,
       totalBreaks,
       elapsedBreakTime,
       elapsedBreakTimeArray,
@@ -48,9 +49,15 @@ class Finish extends Component {
             Time is up!
           </h2>
           :
-          <h2 className="Finish__heading">
-            Too long break!
-          </h2>
+          totalBreakTime === 0
+            ?
+            <h2 className="Finish__heading">
+              No breaks allowed!
+            </h2>
+            :
+            <h2 className="Finish__heading">
+              Too long break!
+            </h2>
         }
         {/* TASK FINISHED MESSAGE */}
         { isTaskFinished
@@ -70,16 +77,21 @@ class Finish extends Component {
             {totalBreaks ? " of all time." : "."}
           </p>
           :
-          <p className="Finish__message">
-            You spent too much time on breaks! <br />
-            You had
-            <span className="Finish__accent">{breaksAmount}</span>
-            during this task
-            <span className="Finish__accent">{breakTimeResult}</span>
-            {totalBreaks ? " long, what makes it around" : ""}
-            <span className="Finish__accent">{breakPercent}</span>
-            {totalBreaks ? " of all time." : "."}
-          </p>
+          totalBreakTime === 0
+          ? <p className="Finish__message">
+              You cannot have any breaks during this task! Try again..
+            </p>
+            :
+            <p className="Finish__message">
+              You spent too much time on breaks! <br />
+              You had
+              <span className="Finish__accent">{breaksAmount}</span>
+              during this task
+              <span className="Finish__accent">{breakTimeResult}</span>
+              {totalBreaks ? " long, what makes it around" : ""}
+              <span className="Finish__accent">{breakPercent}</span>
+              {totalBreaks ? " of all time." : "."}
+            </p>
         }
         {/* RESTART BUTTON */}
         <button

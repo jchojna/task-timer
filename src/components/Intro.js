@@ -43,7 +43,7 @@ class Intro extends Component {
       const distanceIncrement = maxDistance / totalIntervals;
       const factor = 3;
       const easeOut = factor / Math.pow(factor, 2 * (elapsedTime / totalTime));
-      const angleIncrement = 360 / totalIntervals * easeOut; // ! to fix
+      const angleIncrement = 360 / totalIntervals * easeOut;
 
       const radians = elapsedAngle * (Math.PI / 180);
       const x = Math.sin(radians) * (elapsedDistance);
@@ -64,7 +64,7 @@ class Intro extends Component {
         clearInterval(this.intervalId);
         this.timeoutId = setTimeout(() => {
           onAppStateChange({ isIntroVisible: false });
-        }, 3000);
+        }, 1000);
       }
     }
   }
