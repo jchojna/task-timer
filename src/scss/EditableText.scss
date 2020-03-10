@@ -7,21 +7,19 @@
   align-self: center;
   flex-direction: column;
   grid-area: taskName;
+  height: 100%;
   overflow: hidden;
   padding: 15px;
   position: relative;
   text-align: center;
   transition: opacity $card-edit;
-  height: 100%;
   width: 100%;
 
   &--disabled {
-    opacity: 0.5;
-    pointer-events: none;
+    @include disabled;
   }
 
   &--maximized {
-
     &:hover {
       cursor: text;
     }
@@ -29,6 +27,7 @@
 
   &__text {
     border: 2px solid transparent;
+    color: $color-teal-dark-2;
     font-weight: 600;
     font-size: $card-taskName-size;
     margin: 0;
@@ -63,8 +62,9 @@
   }
 
   &__input {
-    background-color: $color-teal-dark-1;
-    border: 2px solid $color-teal-light-3;
+    background-color: $color-teal;
+    border: $card-border;
+    border-radius: 10px;
     color: $color-teal-light-3;
     font-weight: 600;
     font-size: $card-taskName-size;

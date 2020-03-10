@@ -6,6 +6,7 @@
   align-content: center;
   align-items: center;
   display: grid;
+  font-size: 1.1rem;
   font-weight: bold;
   gap: 20px;
   height: 100%;
@@ -37,13 +38,12 @@
   }
 
   &__heading {
-    font-weight: normal;
+    font-size: 1.1rem;
     grid-area: heading;
     margin: 0;
   }
 
   &__timeType {
-    font-weight: normal;
     margin: 0;
   }
 }

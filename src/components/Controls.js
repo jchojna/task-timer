@@ -9,14 +9,16 @@ class Controls extends Component {
     const {
       isTaskTimeActive,
       isBreakTimeActive,
-      onTimerStateChange } = this.props;
+      onTimerStateChange,
+      onCardStateChange,
+    } = this.props;
 
     if (isTaskTimeActive || isBreakTimeActive) {
-      onTimerStateChange(prevState => ({
+      onCardStateChange(prevState => ({
         isTaskTimeActive: !prevState.isTaskTimeActive,
-        isBreakTimeActive: !prevState.isBreakTimeActive,
-        previousTime: Date.now()
+        isBreakTimeActive: !prevState.isBreakTimeActive
       }));
+      onTimerStateChange({ previousTime: Date.now() });
     }
     if (isTaskTimeActive) {
       onTimerStateChange(prevState => ({
@@ -25,14 +27,13 @@ class Controls extends Component {
     }
   }
 
-  handleToggleButton = () => this.props.onDisplayModeChange();
-
   render() {
 
     const {
       isTaskTimeActive,
       onStopButtonClick,
-      cardRotatingMode
+      cardRotatingMode,
+      onDisplayModeChange
     } = this.props;
 
     const svgPlayClass = classNames("Controls__svg", {
@@ -65,10 +66,10 @@ class Controls extends Component {
           onClick={this.handlePlayPauseButton}
           disabled={cardRotatingMode}
         >
-          <svg className={svgPlayClass} viewBox="0 0 512 512">
+          <svg className={svgPlayClass} viewBox="0 0 100 100">
             <use href={`${icons}#play`} />
           </svg>
-          <svg className={svgPauseClass} viewBox="0 0 512 512">
+          <svg className={svgPauseClass} viewBox="0 0 100 100">
             <use href={`${icons}#pause`} />
           </svg>
         </button>
@@ -79,7 +80,7 @@ class Controls extends Component {
           onClick={onStopButtonClick}
           disabled={cardRotatingMode}
         >
-          <svg className="Controls__svg" viewBox="0 0 512 512">
+          <svg className="Controls__svg" viewBox="0 0 100 100">
             <use href={`${icons}#stop`} />
           </svg>
         </button>
@@ -87,10 +88,10 @@ class Controls extends Component {
         {/* TOGGLE BUTTON */}
         <button
           className={toggleButtonClass}
-          onClick={this.handleToggleButton}
+          onClick={onDisplayModeChange}
           disabled={cardRotatingMode}
         >
-          <svg className="Controls__svg" viewBox="0 0 512 512">
+          <svg className="Controls__svg" viewBox="0 0 100 100">
             <use href={`${icons}#toggle`} />
           </svg>
         </button>

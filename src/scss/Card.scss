@@ -10,14 +10,12 @@
   z-index: 1;
 
   &--dragged {
-    cursor: move;
     pointer-events: none;
     z-index: 2;
   }
   
   &--hovered {
     opacity: 0.6;
-    //pointer-events: none;
   }
 
   &--noTransition {
@@ -28,9 +26,10 @@
 .Task {
   align-items: start;
   background-color: $color-teal;
+  border: $card-border;
   border-radius: $radius-card;
   box-shadow: $card-shadow-small;
-  cursor: pointer;
+  cursor: move;
   display: grid;
     grid-template-areas:
     "buttons  "
@@ -38,15 +37,14 @@
   justify-items: center;
   min-height: 50px;
   overflow: hidden;
-  padding: $card-padding-xs;
+  padding: $card-padding;
   position: relative;
   transition: background-color $card-edit, min-height $card-edit;
   user-select: none;
   visibility: hidden;
-  
-  //border: $card-border;
 
   &--maximized {
+    cursor: initial;
     gap: 10px;
     grid-template-areas:
       "buttons  "
@@ -73,13 +71,17 @@
   }
 
   &--editMode {
-    background-color: $color-teal-dark-2;
+    background-color: $color-teal-dark-1;
+    border-color: transparent;
+  }
+
+  &--taskActive {
+    border-color: $color-teal-accent;
   }
 
   &__startButton {
     @include button;
     align-items: center;
-    border: 3px solid $color-teal-dark-1;
     border-radius: 50%;
     display: none;
     fill: none;
@@ -87,17 +89,15 @@
     height: 70px;
     justify-content: center;
     margin: 10px;
-    stroke: $color-teal-dark-1;
-    stroke-width: 25;
+    stroke: $color-teal-dark-2;
+    stroke-width: 3;
     transition:
-      background-color $hover-icon,
-      border-color $hover-icon,
-      stroke $hover-icon;
+      background-color $time-button,
+      stroke $time-button;
     width: 70px;
   
-    &:hover {
+    &:active {
       background-color: $color-teal-warning;
-      border-color: $color-teal-warning;
       stroke: $color-teal;
     }
   
@@ -118,7 +118,16 @@
 
     & {
       box-shadow: $card-shadow-medium;
-      padding: $card-padding-md;
+      padding: $card-padding;
+
+      &__startButton {
+  
+        &:focus,
+        &:hover {
+          background-color: $color-teal-warning;
+          stroke: $color-teal;
+        }
+      }
     }
   }
 }

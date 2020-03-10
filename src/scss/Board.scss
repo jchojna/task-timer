@@ -114,16 +114,24 @@
     min-width: 30px;
     height: $burger-size-xs;
     pointer-events: all;
+    transition: fill $time-button;
     width: $burger-size-xs;
     z-index: 3;
   
-    &:hover {
+    &:active {
       fill: $color-teal-light-3;
     }
   
     @media only screen and (min-width: $media-md) {
-      height: $burger-size-md;
-      width: $burger-size-md;
+      & {
+        height: $burger-size-md;
+        width: $burger-size-md;
+        
+        &:focus,
+        &:hover {
+          fill: $color-teal-light-3;
+        }
+      }
     }
   
     @media only screen and (min-width: $media-lg) {

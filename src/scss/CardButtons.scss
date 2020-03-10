@@ -17,21 +17,24 @@
     @include button;
     @include flex-center;
     fill: none;
-    stroke: $color-teal-dark-1;
-    stroke-width: 10;
+    stroke: $color-teal-dark-2;
+    stroke-width: 8;
     stroke-linejoin: round;
     stroke-linecap: round;
-    transition: opacity $card-edit, visibility 0s $card-edit;
+    transition:
+      stroke $time-button,
+      opacity $card-edit,
+      visibility 0s $card-edit;
     visibility: hidden;
     width: $close-button;
     
-    &:hover {
-      stroke: $color-teal-warning;
+    &:active {
+      stroke: $color-teal-light-3;
     }
   
     &--accept {
       opacity: 0;
-      stroke: $color-teal-light-3;
+      stroke: $color-teal-light-2;
     }
     
     &--disabled {
@@ -40,8 +43,19 @@
     
     &--visible {
       opacity: 1;
-      transition: opacity $card-edit, visibility 0s;
+      transition:
+        stroke $time-button,
+        opacity $card-edit,
+        visibility 0s;
       visibility: visible;
+    }
+
+    @media only screen and (min-width: $media-md) {
+    
+      &:focus,
+      &:hover {
+        stroke: $color-teal-light-3;
+      }
     }
   }
 

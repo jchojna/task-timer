@@ -22,11 +22,11 @@
   width: 100%;
 
   &--taskTime {
-    background-color: $color-teal-work;
+    background-color: $color-teal-accent;
   }
 
   &--breakTime {
-    background-color: $color-teal-break;
+    background-color: $color-teal-dark-2;
   }
 
   &--visible {
@@ -39,7 +39,7 @@
     font-weight: 600;
     grid-area: heading;
     margin: 0;
-    padding: 40px $card-padding-md 0;
+    padding: 40px $card-padding 0;
     text-align: center;
     word-break: break-word;
   }

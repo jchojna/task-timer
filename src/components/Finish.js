@@ -88,7 +88,7 @@ class Finish extends Component {
           className="Finish__button Finish__button--restart"
           onClick={onTimerRestart}
         >
-          <svg className="Finish__svg" viewBox="0 0 512 512">
+          <svg className="Finish__svg" viewBox="0 0 100 100">
             <use href={`${icons}#retry`}/>
           </svg>
         </button>

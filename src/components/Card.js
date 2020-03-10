@@ -32,7 +32,11 @@ class Card extends Component {
       isTaskRotatingIn: true,
       isTaskRotatingOut: false,
       isTaskMounted: false,
+      // timer
       isTimerMounted: false,
+      isTimerStarted: false,
+      isTaskTimeActive: false,
+      isBreakTimeActive: false,
       isStopAlertVisible: false,
       originalX: 0,
       originalY: 0,
@@ -398,6 +402,8 @@ class Card extends Component {
       translateY,
       isMaximized,
       isTaskMounted,
+      isTimerStarted,
+      isTaskTimeActive,
       isTaskRotatingIn,
       isTaskRotatingOut,
       isStopAlertVisible,
@@ -447,6 +453,7 @@ class Card extends Component {
       "Task--visible": isTaskMounted,
       "Task--maximized": isMaximized,
       "Task--editMode": editModeActive,
+      "Task--taskActive": isTaskTimeActive && isTimerStarted,
       "Task--rotateIn": isTaskRotatingIn && isTaskMounted,
       "Task--rotateOut": isTaskRotatingOut && isTaskMounted
     });
@@ -492,6 +499,7 @@ class Card extends Component {
             isDisabled={taskTimeDisabled}
             onEditModeChange={() => this.handleEditMode('TaskTime')}
             isEditMode={isTaskTimeEditMode}
+            isCardEditMode={editModeActive}
             onKeyPress={this.handleKeyPress}
             onMinutesChange={(value) => 
               this.handleTimeChange(value, taskSeconds, 'minutes', 'task')}
@@ -511,6 +519,7 @@ class Card extends Component {
             isDisabled={breakTimeDisabled}
             onEditModeChange={() => this.handleEditMode('BreakTime')}
             isEditMode={isBreakTimeEditMode}
+            isCardEditMode={editModeActive}
             onKeyPress={this.handleKeyPress}
             onMinutesChange={(value) => 
               this.handleTimeChange(value, breakSeconds, 'minutes', 'break')}
@@ -546,7 +555,6 @@ class Card extends Component {
           {
             this.state.isTimerMounted
             ? <Timer
-                onTaskStateChange={this.handleStateChange}
                 state={this.state}
                 id={id}
                 onTaskRemove={this.handleTaskRemove}
