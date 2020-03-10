@@ -6,7 +6,7 @@ class Intro extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalTime: 4000,
+      totalTime: 5000,
       timeInterval: 10,
       maxDistance: 4,
       elapsedDistance: 0,
@@ -59,10 +59,12 @@ class Intro extends Component {
 
       if ( this.state.elapsedTime >= this.state.totalTime ) {
         const { onAppStateChange } = this.props;
+        
         this.setState({ isIntroFadingOut: true });
+        clearInterval(this.intervalId);
         this.timeoutId = setTimeout(() => {
           onAppStateChange({ isIntroVisible: false });
-        }, 1000);
+        }, 3000);
       }
     }
   }
