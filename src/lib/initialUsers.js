@@ -3,7 +3,7 @@ export default [
     "login": "Jakub",
     "password": "password",
     "date": [15,0,2020,16,6],
-    "rememberMe": false,
+    "rememberMe": true,
     "stats": {
       "finishedTasks": 411,
       "avgTaskTime": 0,
@@ -210,7 +210,7 @@ export default [
     "login": "Aleksander",
     "password": "password",
     "date": [16,1,2020,14,58],
-    "rememberMe": true,
+    "rememberMe": false,
     "stats": {
       "finishedTasks": 202,
       "avgTaskTime": 0,

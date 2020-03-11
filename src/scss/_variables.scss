@@ -40,7 +40,6 @@ $toggle-button: 0.5s;
 $new-task-button: 0.5s;
 $time-component-fade: 1s;
 
-
 // LAYOUT
 $layout-max-width: 1200px;
 
@@ -81,14 +80,13 @@ $login-icons: 30px;
 
 // CARDS
 $toggle-card: 0.3s;
-
 $radius-card: 10px;
 $card-edit: 0.2s;
 $card-padding: 10px;
 $card-min-height: 540px;
 $card-taskName-size: 1.6em;
-
 $card-border: 4px solid $color-teal-dark-2;
+
 // BOX SHADOWS
 $card-shadow-small: 0 2px 5px rgba($color: $color-teal-dark-3, $alpha: 0.8);
 $card-shadow-medium: 0 3px 8px rgba($color: $color-teal-dark-3, $alpha: 0.8);
