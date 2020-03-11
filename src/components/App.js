@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       // visibility
       isAppLoaded: false,
-      isIntroVisible: false,
+      isIntroVisible: true,
       isUserPanelVisible: true,
       isBoardVisible: false,
       // users

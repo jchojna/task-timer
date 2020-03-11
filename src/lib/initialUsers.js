@@ -1,7 +1,7 @@
 export default [
   {
     "login": "Jakub",
-    "password": "kuba1234",
+    "password": "password",
     "date": [15,0,2020,16,6],
     "rememberMe": false,
     "stats": {
@@ -78,9 +78,9 @@ export default [
   },
   {
     "login": "Anna P",
-    "password": "anna1234",
+    "password": "password",
     "date": [12,10,2019,18,12],
-    "rememberMe": true,
+    "rememberMe": false,
     "stats": {
       "finishedTasks": 1026,
       "avgTaskTime": 0,
@@ -104,46 +104,58 @@ export default [
         id: 1111111116
       },
       {
-        taskName: "Another task for testing",
-        taskMinutes: 0,
-        taskSeconds: 1,
-        breakMinutes: 0,
-        breakSeconds: 1,
-        totalTaskTime: 1000,
-        totalBreakTime: 1000,
-        totalTaskTimeArray: ["00","01","00"],
-        totalBreakTimeArray: ["00","01","00"],
+        taskName: "Feed the cat",
+        taskMinutes: "04",
+        taskSeconds: "00",
+        breakMinutes: "00",
+        breakSeconds: "00",
+        totalTaskTime: 240000,
+        totalBreakTime: 0,
+        totalTaskTimeArray: ["04", "00", "00"],
+        totalBreakTimeArray: ["00", "00", "00"],
         id: 1111111117
       },
       {
-        taskName: "Prepare a contract",
-        taskMinutes: 30,
-        taskSeconds: 0,
-        breakMinutes: 10,
-        breakSeconds: 0,
-        totalTaskTime: 500000,
-        totalBreakTime: 100000,
-        totalTaskTimeArray: ["05","00","00"],
-        totalBreakTimeArray: ["01","00","00"],
+        taskName: "Arrange some meetings with clients for tomorrow",
+        taskMinutes: "25",
+        taskSeconds: "00",
+        breakMinutes: "08",
+        breakSeconds: "00",
+        totalTaskTime: 1500000,
+        totalBreakTime: 480000,
+        totalTaskTimeArray: ["25", "00", "00"],
+        totalBreakTimeArray: ["08", "00", "00"],
         id: 1111111118
       },
       {
-        taskName: "Another task for testing",
-        taskMinutes: 0,
-        taskSeconds: 1,
-        breakMinutes: 0,
-        breakSeconds: 1,
-        totalTaskTime: 1000,
-        totalBreakTime: 1000,
-        totalTaskTimeArray: ["00","01","00"],
-        totalBreakTimeArray: ["00","01","00"],
+        taskName: "Buy new shoes",
+        taskMinutes: "15",
+        taskSeconds: "",
+        breakMinutes: "2",
+        breakSeconds: "",
+        totalTaskTime: 900000,
+        totalBreakTime: 120000,
+        totalTaskTimeArray: ["15", "00", "00"],
+        totalBreakTimeArray: ["02", "00", "00"],
         id: 1111111119
+      },
+      {
+        taskName: "Do research about climate change",
+        taskMinutes: "30",
+        taskSeconds: "",
+        breakMinutes: "12",
+        breakSeconds: "",
+        totalTaskTime: 1800000,
+        totalBreakTime: 720000,
+        totalTaskTimeArray: ["30", "00", "00"],
+        totalBreakTimeArray: ["12", "00", "00"],
+        id: 1111111120
       }
     ]
   },
   {
     "login": "Agnieszka",
-    "password": "aga1234",
+    "password": "password",
     "date": [3,2,2020,14,38],
     "rememberMe": false,
     "stats": {
@@ -155,13 +167,50 @@ export default [
       "totalTaskTime": 214548546,
       "totalBreakTime": 75455844
     },
-    "tasks": []
+    "tasks": [
+      {
+        taskName: "Study for the exam",
+        taskMinutes: "25",
+        taskSeconds: "",
+        breakMinutes: "8",
+        breakSeconds: "",
+        totalTaskTime: 1500000,
+        totalBreakTime: 480000,
+        totalTaskTimeArray: ["25", "00", "00"],
+        totalBreakTimeArray: ["08", "00", "00"],
+        id: 1111111121
+      },
+      {
+        taskName: "Bake some cookies",
+        taskMinutes: "35",
+        taskSeconds: "",
+        breakMinutes: "10",
+        breakSeconds: "",
+        totalTaskTime: 2100000,
+        totalBreakTime: 600000,
+        totalTaskTimeArray: ["35", "00", "00"],
+        totalBreakTimeArray: ["10", "00", "00"],
+        id: 1111111122
+      },
+      {
+        taskName: "Read some news",
+        taskMinutes: "15",
+        taskSeconds: "",
+        breakMinutes: "2",
+        breakSeconds: "",
+        totalTaskTime: 900000,
+        totalBreakTime: 120000,
+        totalTaskTimeArray: ["15", "00", "00"],
+        totalBreakTimeArray: ["02", "00", "00"],
+        id: 1111111123
+      }
+    ]
   },
   {
     "login": "Aleksander",
-    "password": "olek1234",
+    "password": "password",
     "date": [16,1,2020,14,58],
-    "rememberMe": false,
+    "rememberMe": true,
     "stats": {
       "finishedTasks": 202,
       "avgTaskTime": 0,
@@ -171,6 +220,55 @@ export default [
       "totalTaskTime": 455102045,
       "totalBreakTime": 155544784
     },
-    "tasks": []
+    "tasks": [
+      {
+        taskName: "Prepare 3d printer for a new project",
+        taskMinutes: "25",
+        taskSeconds: "00",
+        breakMinutes: "09",
+        breakSeconds: "00",
+        totalTaskTime: 1500000,
+        totalBreakTime: 540000,
+        totalTaskTimeArray: ["25", "00", "00"],
+        totalBreakTimeArray: ["09", "00", "00"],
+        id: 1111111124
+      },
+      {
+        taskName: "Meet the client",
+        taskMinutes: "40",
+        taskSeconds: "00",
+        breakMinutes: "00",
+        breakSeconds: "00",
+        totalTaskTime: 2400000,
+        totalBreakTime: 0,
+        totalTaskTimeArray: ["40", "00", "00"],
+        totalBreakTimeArray: ["00", "00"],
+        id: 1111111125
+      },
+      {
+        taskName: "Fix the kitchen's sink",
+        taskMinutes: "30",
+        taskSeconds: "",
+        breakMinutes: "5",
+        breakSeconds: "",
+        totalTaskTime: 1800000,
+        totalBreakTime: 300000,
+        totalTaskTimeArray: ["30", "00", "00"],
+        totalBreakTimeArray: ["05", "00", "00"],
+        id: 1111111126
+      },
+      {
+        taskName: "Buy a new keyboard",
+        taskMinutes: "20",
+        taskSeconds: "",
+        breakMinutes: "4",
+        breakSeconds: "",
+        totalTaskTime: 1200000,
+        totalBreakTime: 240000,
+        totalTaskTimeArray: ["20", "00", "00"],
+        totalBreakTimeArray: ["04", "00", "00"],
+        id: 1111111127
+      }
+    ]
   }
 ]
