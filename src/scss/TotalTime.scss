@@ -3,6 +3,7 @@
 @import "_animations.scss";
 
 .TotalTime {
+  color: $color-teal-dark-2;
   display: none;
   flex-direction: column;
   text-align: center;
@@ -10,12 +11,15 @@
   width: 100%;
   
   &--taskTime {
-    color: $color-teal-light-3;
-    font-size: 3em;
+    font-size: 3rem;
   }
 
   &--breakTime {
-    font-size: 2.5em;
+    font-size: 2.5rem;
+  }
+
+  &--main {
+    color: $color-teal-light-3;
   }
 
   &--maximized {
@@ -32,27 +36,29 @@
   }
 
   &__label {
+    color: $color-teal-dark-1;
     font-size: 1.1rem;
-    font-weight: 400;
     transition:
       color $card-edit,
       font-size $card-edit,
       margin-bottom $card-edit;
 
     &--editMode {
-      color: $color-teal-light-3;
+      color: $color-teal-light-2;
       font-size: 1.5rem;
-      margin-bottom: 1em;
+      margin-bottom: 1rem;
     }
   }
 
   &__display {
     align-items: center;
-    border: 2px solid transparent;
+    border-radius: 10px;
+    border-color: $color-teal-light-2;
     display: grid;
     grid-template-columns: repeat(2, 1fr) auto repeat(2, 1fr);
     justify-items: center;
     outline: none;
+    overflow: hidden;
     transition:
       background-color $card-edit,
       border-color $card-edit,
@@ -60,13 +66,14 @@
     width: 100%;
 
     &--editMode {
-      background-color: $color-teal-dark-1;
-      border-color: $color-teal-light-3;
+      background-color: $color-teal;
+      border: $card-border;
+      border-color: $color-teal-light-2;
       color: $color-teal-light-3;
     }
 
     &--incorrect {
-      border-color: $color-teal-warning;
+      border-color: $color-teal-accent;
     }
   }
 
@@ -74,7 +81,6 @@
     align-items: center;
     display: flex;
     font-weight: 600;
-    font-size: 1.2em;
     height: 100%;
     position: relative;
     width: 100%;
@@ -113,12 +119,7 @@
     }
 
     &::placeholder {
-      font-size: 0.3em;
+      font-size: 0.3rem;
     }
-  }
-  
-  &__colon {
-    font-size: 1.2em;
-    font-weight: 600;
   }
 }

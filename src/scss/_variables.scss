@@ -1,18 +1,13 @@
 // @region [ Horizon ] COLORS
 
-$color-teal-light-3: #e1edea;
-$color-teal-light-2: #9cb9bd;
-$color-teal-light-1: #769599;
-$color-teal: #50787c;
-$color-teal-dark-1: #305b60;
-$color-teal-dark-2: #2b5458;
-$color-teal-dark-3: #19373a;
-
-$color-teal-work: #629a9c;
-$color-teal-break: rgb(126, 177, 85);
-$color-teal-success: rgb(126, 177, 85);
-$color-teal-fail: rgb(182, 161, 94);
-$color-teal-warning: #96343c;
+$color-teal-light-3:  #e1edea;
+$color-teal-light-2:  #9cb9bd;
+$color-teal-light-1:  #769599;
+$color-teal:          #50787c;
+$color-teal-dark-1:   #305b60;
+$color-teal-dark-2:   #2b5458;
+$color-teal-dark-3:   #19373a;
+$color-teal-accent:   #703035;
 $color-teal-disabled: #ddd;
 
 // #endregion
@@ -24,11 +19,12 @@ $media-lg: 1200px;
 
 // LOGO ANIMATION
 $logo-size: 600px;
-$intro-time: 4s;
+$intro-time: 5s;
 
 // TIME
 $time-slide: 0.5s;
 $time-display: 0.5s;
+$time-button: 0.2s;
 $hover-icon: 0.3s;
 $focus-input: 0.2s;
 $fade-stopTask: 0.3s;
@@ -38,14 +34,17 @@ $toggle-button: 0.5s;
 $new-task-button: 0.5s;
 $time-component-fade: 1s;
 
-
 // LAYOUT
 $layout-max-width: 1200px;
 
 // BOARD
-$board-padding-xs: 20px;
-$board-padding-md: 40px;
-$board-padding-lg: 60px;
+$board-padding-xs: 30px;
+$board-padding-md: 80px;
+$board-padding-lg: 90px;
+
+$board-gap-xs: 30px;
+$board-gap-md: 40px;
+$board-gap-lg: 60px;
 
 // HEADER
 $header-padding-xs: 10px;
@@ -65,24 +64,22 @@ $sidebar-content-width-xs: 300px;
 $sidebar-content-width-md: 340px;
 
 // CONTROLS
-$size-controls-xs: 50px;
-$size-controls-md: 70px;
+$size-controls: 60px;
 
 // SIZE
-$close-button: 35px;
-$nav-button: 70px;
+$close-button: 30px;
+$main-button: 80px;
 $progressBar-height: 16px;
 $login-icons: 30px;
 
 // CARDS
 $toggle-card: 0.3s;
-
 $radius-card: 10px;
-$card-border: 5px solid $color-teal-dark-1;
 $card-edit: 0.2s;
-$card-padding-xs: 10px;
-$card-padding-md: 20px;
+$card-padding: 10px;
 $card-min-height: 540px;
+$card-taskName-size: 1.6em;
+$card-border: 4px solid $color-teal-dark-2;
 
 // BOX SHADOWS
 $card-shadow-small: 0 2px 5px rgba($color: $color-teal-dark-3, $alpha: 0.8);

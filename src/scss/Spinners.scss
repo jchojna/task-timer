@@ -31,13 +31,23 @@
     @include flex-center;
     fill: none;
     padding: 5px;
-    stroke: $color-teal-light-3;
-    stroke-width: 30;
+    stroke: $color-teal-light-2;
+    stroke-width: 50;
     stroke-linecap: round;
     width: 40px;
 
-    &:hover {
-      background-color: $color-teal;
+    &:active {
+      background-color: $color-teal-dark-1;
+      stroke: $color-teal-light-3;
+    }
+
+    @media only screen and (min-width: $media-md) {
+    
+      &:focus,
+      &:hover {
+        background-color: $color-teal-dark-1;
+        stroke: $color-teal-light-3;
+      }
     }
   }
 

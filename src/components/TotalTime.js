@@ -16,6 +16,7 @@ const TotalTime = (props) => {
     isValid,
     isDisabled,
     isEditMode,
+    isCardEditMode,
     onEditModeChange,
     onMinutesChange,
     onSecondsChange,
@@ -24,7 +25,8 @@ const TotalTime = (props) => {
 
   const totalTimeClass = classNames(`TotalTime TotalTime--${modifier}`, {
     "TotalTime--maximized": isMaximized,
-    "TotalTime--disabled": isDisabled
+    "TotalTime--disabled": isDisabled,
+    "TotalTime--main": !isCardEditMode && modifier === "taskTime"
   });
 
   const labelClass = classNames("TotalTime__label", {
@@ -49,7 +51,6 @@ const TotalTime = (props) => {
       <div
         className={displayClass}
         onKeyDown={(e) => onKeyPress(e.key)}
-        tabIndex="0"
       >
         <Spinners
           modifier="minutes"

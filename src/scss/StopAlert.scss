@@ -20,7 +20,7 @@
   }
 
   &__container {
-    background-color: $color-teal-warning;
+    background-color: $color-teal-accent;
     display: grid;
     gap: 1em;
     grid-template-areas:
@@ -47,13 +47,14 @@
     @include button;
     border: 2px solid $color-teal-light-3;
     border-radius: 5px;
+    font-size: 1.1rem;
     font-weight: 600;
-    padding: 0.75em 2em;
+    padding: 0.7em 1em;
     transition: background-color $hover-icon, color $hover-icon;
 
     &:hover {
       background-color: $color-teal-light-3;
-      color: $color-teal-warning;
+      color: $color-teal-accent;
     }
 
     &--stop { grid-area: stop; };

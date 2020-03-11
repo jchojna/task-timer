@@ -16,6 +16,7 @@ class Finish extends Component {
       id
     } = this.props;
     const {
+      totalBreakTime,
       totalBreaks,
       elapsedBreakTime,
       elapsedBreakTimeArray,
@@ -46,13 +47,17 @@ class Finish extends Component {
           ?
           <h2 className="Finish__heading">
             Time is up!
-            <span className="Finish__emoji" role="img" aria-label="party"> 🎉</span>
           </h2>
           :
-          <h2 className="Finish__heading">
-            Too long break!
-            <span className="Finish__emoji" role="img" aria-label="party"> 🙁</span>
-          </h2>
+          totalBreakTime === 0
+            ?
+            <h2 className="Finish__heading">
+              No breaks allowed!
+            </h2>
+            :
+            <h2 className="Finish__heading">
+              Too long break!
+            </h2>
         }
         {/* TASK FINISHED MESSAGE */}
         { isTaskFinished
@@ -72,23 +77,28 @@ class Finish extends Component {
             {totalBreaks ? " of all time." : "."}
           </p>
           :
-          <p className="Finish__message">
-            You spent too much time on breaks! <br />
-            You had
-            <span className="Finish__accent">{breaksAmount}</span>
-            during this task
-            <span className="Finish__accent">{breakTimeResult}</span>
-            {totalBreaks ? " long, what makes it around" : ""}
-            <span className="Finish__accent">{breakPercent}</span>
-            {totalBreaks ? " of all time." : "."}
-          </p>
+          totalBreakTime === 0
+          ? <p className="Finish__message">
+              You cannot have any breaks during this task! Try again..
+            </p>
+            :
+            <p className="Finish__message">
+              You spent too much time on breaks! <br />
+              You had
+              <span className="Finish__accent">{breaksAmount}</span>
+              during this task
+              <span className="Finish__accent">{breakTimeResult}</span>
+              {totalBreaks ? " long, what makes it around" : ""}
+              <span className="Finish__accent">{breakPercent}</span>
+              {totalBreaks ? " of all time." : "."}
+            </p>
         }
         {/* RESTART BUTTON */}
         <button
           className="Finish__button Finish__button--restart"
           onClick={onTimerRestart}
         >
-          <svg className="Finish__svg" viewBox="0 0 512 512">
+          <svg className="Finish__svg" viewBox="0 0 100 100">
             <use href={`${icons}#retry`}/>
           </svg>
         </button>

@@ -47,6 +47,7 @@
     font-weight: 700;
     margin-top: 20px;
     padding: 0.5em;
+    transition: background-color $time-button, color $time-button;
   
     &--login {
       grid-area: loginBtn;
@@ -201,6 +202,7 @@
   }
 
   &__checkbox {
+    fill: $color-teal-light-3;
     height: 30px;
     left: -5px;
     position: absolute;
@@ -210,14 +212,6 @@
 
     &--visible {
       visibility: visible;
-    }
-
-    &--loginForm {
-      fill: $color-teal-dark-3;
-    }
-
-    &--signupForm {
-      fill: $color-teal-light-3;
     }
   }
 

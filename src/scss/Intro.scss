@@ -23,12 +23,11 @@
 }
 
 .logo {
-  animation: clockFadeIn $intro-time * 1/2 forwards;
-  height: $logo-size;
+  animation: clockFadeIn 5.4s forwards;
+  height: auto;
   width: $logo-size;
 
   &__background {
-    animation: clockBackground $intro-time forwards;
     fill: $color-teal-dark-1;
   }
 
@@ -38,13 +37,11 @@
   }
 
   &__shadow {
-    animation: clockShadow $intro-time forwards;
-    fill: rgba($color: #000, $alpha: 0.5);
-  }
+    fill: rgba($color: rgb(17, 20, 20), $alpha: 0.6);
+  } 
 
   &__clockHand {
-    animation: clockHand $intro-time ease-out forwards;
-    transform: rotate(180deg);
+    animation: clockHand $intro-time cubic-bezier(.13,.63,.43,1) forwards;
     transform-origin: center;
   }
 

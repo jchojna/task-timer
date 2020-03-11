@@ -45,7 +45,6 @@ const UserEdit = (props) => {
     [`UserEdit--${editedSetting}`]: isEditMode
   })
 
-
   return (
     <React.Fragment>
       {

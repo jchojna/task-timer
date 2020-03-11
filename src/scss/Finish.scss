@@ -15,71 +15,61 @@
   grid-template-rows: auto auto 1fr auto;
   justify-items: center;
   left: 0;
-  padding: $card-padding-md;
+  padding: $card-padding;
   position: absolute;
   right: 0;
   top: 0;
 
   &--success {
-    background-color: $color-teal-success;
-    fill: $color-teal-success;
+    background-color: $color-teal-dark-3;
   }
 
   &--failure {
-    background-color: $color-teal-fail;
-    fill: $color-teal-fail;
+    background-color: $color-teal-dark-3;
   }
 
   &__heading {
-    font-size: 1.5em;
+    color: $color-teal-accent;
+    font-size: 2em;
     font-weight: 600;
     grid-area: heading;
     margin: 1em 0;
   }
 
-  &__emoji {
-    font-size: 2em;
-  }
-
   &__message {
-    font-size: 1em;
-    line-height: 1.5;
+    color: $color-teal-light-1;
+    font-size: 1.3em;
+    line-height: 1.4;
     text-align: center;
     grid-area: message;
     margin: 0;
   }
 
   &__accent {
-    color: $color-teal-warning;
+    color: $color-teal-accent;
     font-weight: 800;
   }
   
   &__button {
     @include flex-center;
     @include button;
-    fill: $color-teal-dark-1;
-    width: $size-controls-xs;
-
-    &:hover {
-      fill: $color-teal-warning;
-    }
+    fill: none;
+    stroke: $color-teal-dark-2;
 
     &--restart {
-      border: 3px solid $color-teal-dark-1;
       border-radius: 50%;
       grid-area: restart;
       margin: 10px;
-      padding: 7px 9px 11px;
+      padding: 2px;
+      stroke-width: 3;
       transition:
-        background-color $hover-icon,
-        border-color $hover-icon,
-        fill $hover-icon;
-      width: $nav-button;
+        background-color $time-button,
+        stroke $time-button;
+      width: $main-button;
       
-      &:hover {
-        fill: inherit;
-        background-color: $color-teal-warning;
-        border-color: $color-teal-warning;
+      &:active {
+        background-color: $color-teal;
+        stroke: $color-teal-dark-3;
       }
     }
    
@@ -87,7 +77,34 @@
       align-self: start;
       justify-self: end;
       grid-area: remove;
+      stroke-width: 8;
       width: $close-button;
+      transition: stroke $time-button;
+
+      &:active {
+        stroke: $color-teal-light-3;
+      }
+    }
+
+    @media only screen and (min-width: $media-md) {
+  
+      & {
+
+        &--restart {
+          &:focus,
+          &:hover {
+            background-color: $color-teal;
+            stroke: $color-teal-dark-3;
+          }
+        }
+       
+        &--remove {
+          &:focus,
+          &:hover {
+            stroke: $color-teal-light-3;
+          }
+        }
+      }
     }
   }
 

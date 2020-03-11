@@ -11,18 +11,27 @@ const Progress = (props) => {
     remainingPercent
   } = props;
 
-  const progressClass = classNames("Progress", {
-    "Progress--visible": isVisible,
-    "Progress--taskTime": modifier === "taskTime",
-    "Progress--breakTime": modifier === "breakTime"
+  const progressClass = classNames("Progress",
+  `Progress--${modifier}`, {
+    "Progress--visible": isVisible
   });
 
-  const elapsedPercentClass = classNames("Progress__percent", {
+  const elapsedPercentClass = classNames("Progress__percent",
+  `Progress__percent--${modifier}`, {
     "Progress__percent--visible": isElapsedMode
   });
-  const remainingPercentClass = classNames("Progress__percent", {
+  const remainingPercentClass = classNames("Progress__percent",
+    `Progress__percent--${modifier}`, {
     "Progress__percent--visible": !isElapsedMode
   });
+  const loadingClass = `
+    Progress__part Progress__part--loading Progress__part--${modifier}
+  `;
+  const unloadingClass = `
+    Progress__part Progress__part--unloading Progress__part--${modifier}
+  `;
+
+
   const roundedElapsedPercent = `${Math.round(elapsedPercent)}%`;
   const roundedRemainingPercent = `${Math.round(remainingPercent)}%`;
   const loadingWidth = {
@@ -42,11 +51,11 @@ const Progress = (props) => {
       {/* PROGRESS BAR */}
       <div className="Progress__bar">
         <div
-          className="Progress__part Progress__part--loading"
+          className={loadingClass}
           style={loadingWidth}
         ></div>
         <div
-          className="Progress__part Progress__part--unloading"
+          className={unloadingClass}
           style={unloadingWidth}
         ></div>
       </div>

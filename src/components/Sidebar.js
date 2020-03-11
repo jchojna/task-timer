@@ -61,18 +61,19 @@ class Sidebar extends Component {
   
       case 'login':
 
-        const { block, users, loggedUserLogin } = this.props;
+        const { block, users, loggedUserId } = this.props;        
+        const { login } = users[loggedUserId];
 
-        const logins = [...users].map(user => user.login);
-        const doesLoginExist = [...logins]
-        .find(login => login === value && login !== loggedUserLogin);
+        const doesLoginExist = Object.values(users)
+        .map(user => user.login)
+        .find(userLogin => userLogin === value && userLogin !== login);
+
         const isLoginIncorrect = block === 'loginForm' && !doesLoginExist;
         const isNewLoginIncorrect = (block === 'signupForm' || block === 'userEdit')
         && doesLoginExist;
 
         return isEmpty
-        ? 'Please enter your login' : doesContainWhiteSpaces
-        ? 'Login cannot contain any spaces' : isLoginIncorrect
+        ? 'Please enter your login' : isLoginIncorrect
         ? 'There is no user with this login' : isNewLoginIncorrect
         ? 'This login already exist. Try another one' : false;  
   
@@ -146,7 +147,6 @@ class Sidebar extends Component {
   }
 
   handlePasswordPreview = (input) => {
-    console.log('input', input);
     const inputName = getCapitalized(input);
 
     this.setState(prevState => ({
@@ -160,10 +160,11 @@ class Sidebar extends Component {
       onUserLogout,
       onUserRemove,
       users,
-      loggedUserLogin
+      loggedUserId
     } = this.props;
+
     const { editedSetting, login, oldPassword, newPassword } = this.state;
-    const user = [...users].find(user => user.login === loggedUserLogin);
+    const user = users[loggedUserId];
 
     if (setting === 'confirm') {
 
@@ -234,7 +235,7 @@ class Sidebar extends Component {
       block,
       isSidebarVisible,
       users,
-      loggedUserLogin
+      loggedUserId
     } = this.props;
 
     const {
@@ -246,7 +247,7 @@ class Sidebar extends Component {
       isConfirmValid
     } = this.state;
 
-    const { stats } = [...users].find(user =>user.login === loggedUserLogin);
+    const { login, stats } = users[loggedUserId];
     
     const userEditButtons = ['login', 'password', 'logout', 'remove'];
     const userEditLabels = [
@@ -286,7 +287,7 @@ class Sidebar extends Component {
       <section className={sidebarClass}>
         {/* USER LOGIN */}
         <h2 className="Sidebar__userLogin">
-          {loggedUserLogin}
+          {login}
         </h2>
   
         <UserEdit
@@ -315,6 +316,7 @@ class Sidebar extends Component {
               `userButtons__button--${button}`, {
                 'userButtons__button--visible': !isEditMode
               });
+              const tabIndexVal = isSidebarVisible && !isEditMode ? '0' : '-1';
               
               return (
                 <button
@@ -322,6 +324,7 @@ class Sidebar extends Component {
                   key={button}
                   title={userEditLabels[index]}
                   onClick={() => this.handleUserEdit(button)}
+                  tabIndex={tabIndexVal}
                 >
                   <svg className="userButtons__svg" viewBox="0 0 100 100">
                     <use href={`${icons}#${button}Edit`}></use>
@@ -350,6 +353,7 @@ class Sidebar extends Component {
                 'userButtons__button--visible': isEditMode,
                 'userButtons__button--disabled': isConfirmButtonDisabled
               });
+              const tabIndexVal = isSidebarVisible && isEditMode ? '0' : '-1';
               
               return (
                 <button
@@ -357,6 +361,7 @@ class Sidebar extends Component {
                   key={button}
                   onClick={() => this.handleUserEdit(button)}
                   disabled={isConfirmButtonDisabled}
+                  tabIndex={tabIndexVal}
                 >
                   <svg className="userButtons__svg" viewBox="0 0 100 100">
                     <use href={`${icons}#${button}Edit`}></use>

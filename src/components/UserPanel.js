@@ -28,7 +28,10 @@ class UserPanel extends Component {
   }
 
   render() {
-    const { onUserLogin, users } = this.props;
+    const {
+      onUserLogin,
+      users
+    } = this.props;
     const {
       isUserPanelLoaded,
       isLoginFormVisible,

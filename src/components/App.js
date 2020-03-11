@@ -3,7 +3,7 @@ import Intro from './Intro';
 import UserPanel from './UserPanel';
 import Board from './Board';
 import Logo from './Logo';
-import { initialUsers } from '../lib/initialUsers';
+import initialUsers from '../lib/initialUsers';
 import { makeTwoDigits, getTotalDays, getTimeArray } from '../lib/handlers';
 import '../scss/App.scss';
 
@@ -11,13 +11,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // visibility
       isAppLoaded: false,
-      isIntroVisible: false,
+      isIntroVisible: true,
       isUserPanelVisible: true,
       isBoardVisible: false,
-      users: initialUsers,
-      loggedUserLogin: null,
-      date: null,
+      // users
+      users: null,
+      loggedUserId: '',
       createdAt: null
     };
   }
@@ -25,18 +26,19 @@ class App extends Component {
   componentDidMount = () => {
     // update app state from local storage
     if (localStorage.getItem('taskTimerUsers')) {
-      const users = JSON.parse(localStorage.getItem('taskTimerUsers'));
+      const taskTimerUsers = JSON.parse(localStorage.getItem('taskTimerUsers'));
 
       this.setState({
-        users,
-        isAppLoaded: true
+        isAppLoaded: true,
+        users: taskTimerUsers
       });
 
     // set state and export to local storage based on initial users object
     } else {
+      //const { users } = this.state;
+      let users = {};
 
-      const { users } = this.state;
-      [...users].forEach(user => {
+      for (let user of initialUsers) {
         const {
           finishedTasks,
           totalTaskTime,
@@ -46,6 +48,7 @@ class App extends Component {
         // set date of profile creation
         let [day, month, year, hr, min] = user.date;
         const date = new Date(year, month, day, hr, min);
+        const userId = date.getTime();
         // set stat displaying creation date
         day = makeTwoDigits(day);
         month = makeTwoDigits(month + 1);
@@ -62,24 +65,19 @@ class App extends Component {
         const formattedAvgBreakTime = `${breakMin} min ${breakSec} sec`;
 
         user.stats.avgTasksPerDay = avgTasksPerDay;
-        user.stats.avgTaskTime = formattedAvgTaskTime;
         user.stats.avgBreakTime = formattedAvgBreakTime;
-        user.createdAt = date;
+        user.stats.avgTaskTime = formattedAvgTaskTime;
         user.stats.dateCreated = `${day}-${month}-${year} ${hr}:${min}`;
-      });
+        user.createdAt = date;
 
-      this.setState(prevState => ({
-        users: prevState.users,
-        isAppLoaded: true
-      }));
-
-      this.exportUsers();
+        users = { ...users, [userId]: user };
+      }
+      this.setState({ isAppLoaded: true, users });
     }
-    this.setState({ isAppLoaded: true });
+    this.exportUsers();
   }
 
   componentDidUpdate = () => {
-    console.log('APP UPDATED');
     this.exportUsers();
   }
 
@@ -94,76 +92,83 @@ class App extends Component {
   }
 
   handleUserLogin = (user, form) => {
+    const { users } = this.state;
+    const [ loggedUserId ] = Object
+    .entries(users)
+    .find(([key, value]) => value === user);
+
     this.setState(prevState => ({
       isUserPanelVisible: false,
       isBoardVisible: true,
       users: form === 'loginForm' ? this.state.users : [...prevState.users, user],
-      loggedUserLogin: user.login
+      loggedUserId
     }));
   }
 
   handleUserLogout = () => {
-    const { users, loggedUserLogin } = this.state;
-    const user = [...users].find(user => user.login === loggedUserLogin);
-
+    const { users, loggedUserId } = this.state;
+    const user = users[loggedUserId];
     user.rememberMe = false;
 
     this.setState(prevState => ({
-      users: prevState.users,
+      users: { ...prevState.users },
+      loggedUserId: '',
       isUserPanelVisible: true,
-      isBoardVisible: false,
-      loggedUserLogin: null
+      isBoardVisible: false
     }));
   }
 
   handleUserRemove = () => {
-    const { loggedUserLogin } = this.state;
+    const { users, loggedUserId } = this.state;
+    delete users[loggedUserId]; 
 
     this.setState(prevState => ({
-      users: [...prevState.users].filter(user => user.login !== loggedUserLogin),
+      users: { ...prevState.users },
       isBoardVisible: false,
       isUserPanelVisible: true
     }));
   }
 
   handleTaskRemove = (id) => {
-    const { loggedUserLogin, users } = this.state;
+    const { users, loggedUserId } = this.state;
+    const user = users[loggedUserId];
+    user.tasks = user.tasks.filter(task => task.id !== id)
 
-    this.setState(prevState => {
-      const user = [...prevState.users].find(user => user.login === loggedUserLogin);
-      user.tasks = user.tasks.filter(task => task.id !== id);
-      return { users };
-    })
+    this.setState(prevState => ({
+      users: { ...prevState.users }
+    }));
   }
   
   handleTaskOrder = (dragIndex, dropIndex) => {
-    const { loggedUserLogin, users } = this.state;
+    const { users, loggedUserId } = this.state;
+    const user = users[loggedUserId];
+    const { tasks } = user;
+    const updatedTasks = [...tasks];
+    updatedTasks.splice(dragIndex, 1, tasks[dropIndex]);
+    updatedTasks.splice(dropIndex, 1, tasks[dragIndex]);
+    user.tasks = updatedTasks;
 
-    this.setState(prevState => {
-      const user = [...prevState.users].find(user => user.login === loggedUserLogin);
-      const tasks = user.tasks;
-      const updatedTasks = [...tasks];
-      updatedTasks.splice(dragIndex, 1, tasks[dropIndex]);
-      updatedTasks.splice(dropIndex, 1, tasks[dragIndex]);
-      user.tasks = updatedTasks;
-      return { users };
-    });
+    this.setState(prevState => ({
+      users: { ...prevState.users }
+    }));
   }
 
   handleUserUpdate = (value, prop) => {
-    const { loggedUserLogin, users } = this.state;
-    const user = [...users].find(user => user.login === loggedUserLogin);
-
+    const { users, loggedUserId } = this.state;
+    const user = users[loggedUserId];
     user[prop] = value;
-    if (prop === 'login') this.setState({ loggedUserLogin: value });
+    
+    this.setState(prevState => ({ 
+      users: { ...prevState.users }
+    }));
   }
 
   handleTaskFinish = (results) => {
 
-    const { users, loggedUserLogin } = this.state;
+    const { users, loggedUserId } = this.state;
     const { elapsedTaskTime, elapsedBreakTime } = results;
+    const user = users[loggedUserId];
 
-    const user = [...users].find(user => user.login === loggedUserLogin);
     const {
       finishedTasks,
       totalTaskTime,
@@ -190,28 +195,32 @@ class App extends Component {
     user.stats.avgTasksPerDay = avgTasksPerDay;
 
     this.setState(prevState => ({
-      users: prevState.users
+      users: { ...prevState.users }
     }));
   }
 
   handleTaskEdit = (newTask, option) => {
-    const { users, loggedUserLogin } = this.state;
-    const user = [...users].find(user => user.login === loggedUserLogin);
+    const { users, loggedUserId } = this.state;
+    const user = users[loggedUserId];
 
     if (option === 'edit') {
+      const { id } = newTask;
+      const tasksIds = user.tasks.map(task => task.id);
+      const editedIndex = tasksIds.indexOf(id);
 
-      //const taskId = newTask.id;
-      //user.tasks = [...user.tasks.filter(task => task.id !== taskId), newTask];
-
+      user.tasks = [
+        ...user.tasks.filter((task, idx) => task.id !== id && idx < editedIndex),
+        newTask,
+        ...user.tasks.filter((task, idx) => task.id !== id && idx > editedIndex)
+      ];        
 
     } else if (option === 'add') {
-
       user.tasks = [...user.tasks, newTask];
-  
-      this.setState(prevState => ({
-        users: prevState.users
-      }));
     }
+
+    this.setState(prevState => ({
+      users: { ...prevState.users }
+    }));
   }
 
   render() {
@@ -221,7 +230,7 @@ class App extends Component {
       isUserPanelVisible,
       isBoardVisible,
       users,
-      loggedUserLogin
+      loggedUserId
     } = this.state;
 
     return (
@@ -240,8 +249,8 @@ class App extends Component {
           { /* USER PANEL */
             isUserPanelVisible && isAppLoaded
             ? <UserPanel
-                onUserLogin={this.handleUserLogin}
                 users={users}
+                onUserLogin={this.handleUserLogin}
               />
             : <div className="empty"></div>
           }
@@ -250,7 +259,7 @@ class App extends Component {
             ?
             <Board
               users={users}
-              loggedUserLogin={loggedUserLogin}
+              loggedUserId={loggedUserId}
               onUserUpdate={this.handleUserUpdate}
               onUserLogout={this.handleUserLogout}
               onUserRemove={this.handleUserRemove}

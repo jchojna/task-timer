@@ -3,7 +3,7 @@
 @import "_animations.scss";
 
 .TimeDisplay {
-  font-size: 2em;
+  font-size: 3rem;
   grid-area: display;
   height: 100%;
   position: relative;
@@ -13,7 +13,6 @@
     @include flex-center;
     color: $color-teal-light-3;
     width: 100%;
-    font-size: 2em;
     height: 100%;
     visibility: hidden;
     transition: visibility 0s $time-display;
