@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/task-timer/static/css/main.cd59301b.chunk.css",
+    "main.css": "/task-timer/static/css/main.47d6e76a.chunk.css",
     "main.js": "/task-timer/static/js/main.e1e50a27.chunk.js",
     "main.js.map": "/task-timer/static/js/main.e1e50a27.chunk.js.map",
     "runtime-main.js": "/task-timer/static/js/runtime-main.4070a8e8.js",
@@ -8,16 +8,16 @@
     "static/js/2.f65274a0.chunk.js": "/task-timer/static/js/2.f65274a0.chunk.js",
     "static/js/2.f65274a0.chunk.js.map": "/task-timer/static/js/2.f65274a0.chunk.js.map",
     "index.html": "/task-timer/index.html",
-    "precache-manifest.8f12184d4a31aa8595d5f0dc754c76f3.js": "/task-timer/precache-manifest.8f12184d4a31aa8595d5f0dc754c76f3.js",
+    "precache-manifest.ef1d5cd22f80a697ab72bcf394ca75b1.js": "/task-timer/precache-manifest.ef1d5cd22f80a697ab72bcf394ca75b1.js",
     "service-worker.js": "/task-timer/service-worker.js",
-    "static/css/main.cd59301b.chunk.css.map": "/task-timer/static/css/main.cd59301b.chunk.css.map",
+    "static/css/main.47d6e76a.chunk.css.map": "/task-timer/static/css/main.47d6e76a.chunk.css.map",
     "static/media/icons.svg": "/task-timer/static/media/icons.5e951e40.svg",
     "static/media/logo.svg": "/task-timer/static/media/logo.84c2435d.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.4070a8e8.js",
     "static/js/2.f65274a0.chunk.js",
-    "static/css/main.cd59301b.chunk.css",
+    "static/css/main.47d6e76a.chunk.css",
     "static/js/main.e1e50a27.chunk.js"
   ]
 }

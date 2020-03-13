@@ -1,12 +1,12 @@
 {
-  "name": "TaskTimer",
-  "short_name": "TaskTimer",
-  "theme_color": "#c36565",
-  "background_color": "#b4cecf",
+  "name": "taskTimer",
+  "short_name": "taskTimer",
+  "theme_color": "#19373a",
+  "background_color": "#50787c",
   "display": "standalone",
   "orientation": "portrait",
-  "Scope": "/task-timer/",
-  "start_url": "/task-timer/",
+  "Scope": ".",
+  "start_url": "./index.html",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
