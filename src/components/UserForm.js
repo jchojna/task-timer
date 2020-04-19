@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import UserInput from './UserInput';
-import icons from '../assets/svg/icons.svg';
-import { getCapitalized } from '../lib/handlers.js';
-import '../scss/UserForm.scss';
+import React, {Component} from "react";
+import classNames from "classnames";
+import UserInput from "./UserInput";
+import icons from "../assets/svg/icons.svg";
+import {getCapitalized} from "../lib/handlers.js";
+import {User} from "../lib/classes.js";
+import "../scss/UserForm.scss";
 
 class UserForm extends Component {
   constructor(props) {
@@ -11,51 +12,50 @@ class UserForm extends Component {
     this.state = {
       rememberMe: false,
       // login
-      login: '',
+      login: "",
       isLoginValid: false,
       isLoginAlertVisible: false,
-      loginAlertText: 'Please enter your login',
+      loginAlertText: "Please enter your login",
       // password
-      password: '',
+      password: "",
       isPasswordValid: false,
       isPasswordAlertVisible: false,
-      passwordAlertText: 'Please enter your password',
+      passwordAlertText: "Please enter your password",
       isPasswordPreviewMode: false,
       // password confirm
-      confirm: '',
+      confirm: "",
       isConfirmValid: false,
       isConfirmAlertVisible: false,
-      confirmAlertText: 'Please confirm your password',
+      confirmAlertText: "Please confirm your password",
       isConfirmPreviewMode: false,
-      isConfirmDisabled: true
-    }
+      isConfirmDisabled: true,
+    };
   }
 
   componentDidMount = () => {
-    const { block, users } = this.props;
-    const rememberedUser = Object.values(users).find(user => user.rememberMe);
+    const {block, users} = this.props;
+    const rememberedUser = Object.values(users).find((user) => user.rememberMe);
 
-    if (block === 'loginForm') {
+    if (block === "loginForm") {
       if (rememberedUser) {
-
-        const { login, password } = rememberedUser;
+        const {login, password} = rememberedUser;
 
         this.setState({
           login,
           isLoginValid: true,
           password,
           isPasswordValid: true,
-          rememberMe: true
+          rememberMe: true,
         });
       }
     }
-  }
+  };
 
   handleCardToggle = () => {
-    const { onCardToggle } = this.props;
+    const {onCardToggle} = this.props;
     onCardToggle();
     this.handleFormReset();
-  }
+  };
 
   handleAlert = (value, input) => {
     const inputName = getCapitalized(input);
@@ -63,67 +63,71 @@ class UserForm extends Component {
 
     this.setState({
       [`is${inputName}AlertVisible`]: true,
-      [`${input}AlertText`]: alertText
-    });    
-  }
+      [`${input}AlertText`]: alertText,
+    });
+  };
 
   getInputAlert = (value, input) => {
-
-    const { password } = this.state;
-    const isEmpty = value === '';
+    const {password} = this.state;
+    const isEmpty = value === "";
     const doesContainWhiteSpaces = /\s/g.test(value);
     const isPasswordTooShort = value.length < 6;
-    
-    switch (input) {
-  
-      case 'login':
 
-        const { block, users } = this.props;
+    switch (input) {
+      case "login":
+        const {block, users} = this.props;
 
         const doesLoginExist = Object.values(users)
-        .map(user => user.login)
-        .find(login => login === value);
+          .map((user) => user.login)
+          .find((login) => login === value);
 
-        const isLoginIncorrect = block === 'loginForm' && !doesLoginExist;
-        const isNewLoginIncorrect = (block === 'signupForm' || block === 'userEdit')
-        && doesLoginExist;
-
-        return isEmpty
-        ? 'Please enter your login' : isLoginIncorrect
-        ? 'There is no user with this login' : isNewLoginIncorrect
-        ? 'This login already exist. Try another one' : false;  
-  
-      case 'password':
+        const isLoginIncorrect = block === "loginForm" && !doesLoginExist;
+        const isNewLoginIncorrect =
+          (block === "signupForm" || block === "userEdit") && doesLoginExist;
 
         return isEmpty
-        ? 'Please enter your password' : doesContainWhiteSpaces
-        ? 'Password cannot contain any spaces' : isPasswordTooShort
-        ? 'Password should have at least 6 characters' : false;
+          ? "Please enter your login"
+          : isLoginIncorrect
+          ? "There is no user with this login"
+          : isNewLoginIncorrect
+          ? "This login already exist. Try another one"
+          : false;
 
-  
-      case 'confirm':
+      case "password":
+        return isEmpty
+          ? "Please enter your password"
+          : doesContainWhiteSpaces
+          ? "Password cannot contain any spaces"
+          : isPasswordTooShort
+          ? "Password should have at least 6 characters"
+          : false;
+
+      case "confirm":
         const doPasswordsMatch = password === value;
 
         return isEmpty
-        ? 'Please confirm your password' : !doPasswordsMatch
-        ? 'Passwords do not match!' : false;
-  
-      default: return false;
+          ? "Please confirm your password"
+          : !doPasswordsMatch
+          ? "Passwords do not match!"
+          : false;
+
+      default:
+        return false;
     }
-  }
+  };
 
   handleLoginValidation = (value) => {
-    const isInvalid = this.getInputAlert(value, 'login') ? true : false;
-    
+    const isInvalid = this.getInputAlert(value, "login") ? true : false;
+
     this.setState({
       login: value,
       isLoginValid: !isInvalid,
-      isLoginAlertVisible: false
+      isLoginAlertVisible: false,
     });
-  }
+  };
 
   handlePasswordValidation = (value) => {
-    const isInvalid = this.getInputAlert(value, 'password') ? true : false;
+    const isInvalid = this.getInputAlert(value, "password") ? true : false;
 
     this.setState({
       password: value,
@@ -131,110 +135,102 @@ class UserForm extends Component {
       isPasswordAlertVisible: false,
       isPasswordPreviewed: false,
 
-      confirm: '',
+      confirm: "",
       isConfirmValid: false,
       isConfirmAlertVisible: false,
       isConfirmPreviewMode: false,
-      isConfirmDisabled: isInvalid
+      isConfirmDisabled: isInvalid,
     });
-  }
+  };
 
   handleConfirmValidation = (value) => {
-    const isInvalid = this.getInputAlert(value, 'confirm') ? true : false;
+    const isInvalid = this.getInputAlert(value, "confirm") ? true : false;
 
     this.setState({
       confirm: value,
       isConfirmValid: !isInvalid,
       isConfirmAlertVisible: false,
-      isConfirmPreviewed: false
+      isConfirmPreviewed: false,
     });
-  }
+  };
 
   handlePasswordPreview = (input) => {
     const inputName = getCapitalized(input);
 
-    this.setState(prevState => ({
-      [`is${inputName}PreviewMode`]: !prevState[`is${inputName}PreviewMode`]
+    this.setState((prevState) => ({
+      [`is${inputName}PreviewMode`]: !prevState[`is${inputName}PreviewMode`],
     }));
-  }
+  };
 
   handleRememberMe = () => {
-    this.setState(prevState => ({ rememberMe: !prevState.rememberMe }));
-  }
+    this.setState((prevState) => ({rememberMe: !prevState.rememberMe}));
+  };
 
   handleFormReset = () => {
     this.setState({
       rememberMe: false,
-      login: '',
+      login: "",
       isLoginValid: false,
       isLoginAlertVisible: false,
-      password: '',
+      password: "",
       isPasswordValid: false,
       isPasswordAlertVisible: false,
       isPasswordPreviewMode: false,
-      confirm: '',
+      confirm: "",
       isConfirmValid: false,
       isConfirmAlertVisible: false,
       isConfirmPreviewMode: false,
-      isConfirmDisabled: true
+      isConfirmDisabled: true,
     });
-  }
+  };
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    const { block, users, onUserLogin } = this.props;
+    const {block, users, onUserLogin} = this.props;
     const {
       login,
       password,
       isLoginValid,
       isPasswordValid,
       isConfirmValid,
-      rememberMe
+      rememberMe,
     } = this.state;
 
-    const user = Object.values(users).find(user => user.login === login);
+    const user = Object.values(users).find((user) => user.login === login);
 
-    const isLoginPasswordCorrect = block === 'loginForm'
-    && isLoginValid
-    && user.password === password;
-    
-    if (block === 'loginForm') {
+    const isLoginPasswordCorrect =
+      block === "loginForm" && isLoginValid && user.password === password;
 
+    if (block === "loginForm") {
       if (isLoginPasswordCorrect) {
         user.rememberMe = rememberMe;
         onUserLogin(user, block);
         this.handleFormReset();
-        
       } else {
         this.setState({
-          password: '',
+          password: "",
           isPasswordValid: false,
           isPasswordAlertVisible: true,
-          passwordAlertText: 'Password is wrong!',
-          isPasswordPreviewMode: false
+          passwordAlertText: "Password is wrong!",
+          isPasswordPreviewMode: false,
         });
       }
-
-    } else if (block === 'signupForm') {
-
+    } else if (block === "signupForm") {
       if (isLoginValid && isPasswordValid && isConfirmValid) {
-        const newUser = {
-          login,
-          password,
-          rememberMe,
-          tasks: []
-        }
+        const date = new Date();
+        const newUser = new User(date);
+        newUser.login = login;
+        newUser.password = password;
+        newUser.rememberMe = rememberMe;
 
         onUserLogin(newUser, block);
         this.handleFormReset();
-
       } else return;
     }
-  }
+  };
 
   render() {
-
-    const { className, block } = this.props;
+    const {className, block} = this.props;
 
     const {
       rememberMe,
@@ -252,21 +248,24 @@ class UserForm extends Component {
       isConfirmAlertVisible,
       confirmAlertText,
       isConfirmPreviewMode,
-      isConfirmDisabled
+      isConfirmDisabled,
     } = this.state;
 
-    const isLoginForm = block === 'loginForm';
-    const title = isLoginForm ? 'Log In' : 'Sign Up';
-    const loginButtonName = isLoginForm ? 'Log In' : 'Cancel';
-    const loginButtonType = isLoginForm ? 'submit' : 'button';
-    const submitButtonType = isLoginForm ? 'button' : 'submit';
+    const isLoginForm = block === "loginForm";
+    const title = isLoginForm ? "Log In" : "Sign Up";
+    const loginButtonName = isLoginForm ? "Log In" : "Cancel";
+    const loginButtonType = isLoginForm ? "submit" : "button";
+    const submitButtonType = isLoginForm ? "button" : "submit";
     const onLoginButtonClick = isLoginForm ? undefined : this.handleCardToggle;
     const onSignupButtonClick = isLoginForm ? this.handleCardToggle : undefined;
 
-    const checkboxClass = classNames('remember__checkbox',
-    `remember__checkbox--${block}`, {
-      'remember__checkbox--visible': rememberMe
-    });
+    const checkboxClass = classNames(
+      "remember__checkbox",
+      `remember__checkbox--${block}`,
+      {
+        "remember__checkbox--visible": rememberMe,
+      }
+    );
 
     return (
       <form className={className} onSubmit={this.handleFormSubmit}>
@@ -302,32 +301,34 @@ class UserForm extends Component {
           onInputChange={this.handlePasswordValidation}
         />
 
-        {/* PASSWORD CONFIRM */
-        isLoginForm
-        ? <div className="empty"></div>
-        : <UserInput
-            inputId={`${block}Confirm`}
-            inputName="confirm"
-            parentName={block}
-            value={confirm}
-            label="Confirm:"
-            isInputValid={isConfirmValid}
-            isAlertVisible={isConfirmAlertVisible}
-            alertText={confirmAlertText}
-            isDisabled={isConfirmDisabled}
-            isPreviewMode={isConfirmPreviewMode}
-            onPreviewModeChange={this.handlePasswordPreview}
-            onInputBlur={this.handleAlert}
-            onInputChange={this.handleConfirmValidation}
-          />
+        {
+          /* PASSWORD CONFIRM */
+          isLoginForm ? (
+            <div className="empty"></div>
+          ) : (
+            <UserInput
+              inputId={`${block}Confirm`}
+              inputName="confirm"
+              parentName={block}
+              value={confirm}
+              label="Confirm:"
+              isInputValid={isConfirmValid}
+              isAlertVisible={isConfirmAlertVisible}
+              alertText={confirmAlertText}
+              isDisabled={isConfirmDisabled}
+              isPreviewMode={isConfirmPreviewMode}
+              onPreviewModeChange={this.handlePasswordPreview}
+              onInputBlur={this.handleAlert}
+              onInputChange={this.handleConfirmValidation}
+            />
+          )
         }
 
         {/* REMEMBER ME */}
         <div className="remember">
           <div
             className={`remember__field remember__field--${block}`}
-            onClick={this.handleRememberMe}
-          >
+            onClick={this.handleRememberMe}>
             <svg className={checkboxClass}>
               <use href={`${icons}#check`}></use>
             </svg>
@@ -341,25 +342,22 @@ class UserForm extends Component {
           <label
             htmlFor={`${block}Remember`}
             className={`remember__label remember__label--${block}`}
-            onClick={this.handleRememberMe}
-          >
+            onClick={this.handleRememberMe}>
             Remember Me
           </label>
         </div>
-        
+
         {/* BUTTONS */}
         <button
           className={`${block}__button ${block}__button--login`}
           onClick={onLoginButtonClick}
-          type={loginButtonType}
-        >
+          type={loginButtonType}>
           {loginButtonName}
         </button>
         <button
           className={`${block}__button ${block}__button--signup`}
           onClick={onSignupButtonClick}
-          type={submitButtonType}
-        >
+          type={submitButtonType}>
           Sign Up
         </button>
       </form>
