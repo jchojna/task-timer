@@ -13,7 +13,7 @@
     pointer-events: none;
     z-index: 2;
   }
-  
+
   &--hovered {
     opacity: 0.6;
   }
@@ -31,7 +31,7 @@
   box-shadow: $card-shadow-small;
   cursor: move;
   display: grid;
-    grid-template-areas:
+  grid-template-areas:
     "buttons  "
     "taskName ";
   justify-items: center;
@@ -92,37 +92,33 @@
     padding: 2px;
     stroke: $color-teal-dark-2;
     stroke-width: 3;
-    transition:
-      background-color $time-button,
-      stroke $time-button;
+    transition: background-color $time-button, stroke $time-button;
     width: 80px;
-  
+
     &:active {
       background-color: $color-teal-accent;
       stroke: $color-teal;
     }
-  
+
     &--maximized {
       display: flex;
     }
-      
+
     &--disabled {
       @include disabled;
     }
   }
-  
+
   &__svg {
     width: 100%;
   }
 
   @media only screen and (min-width: $media-md) {
-
     & {
       box-shadow: $card-shadow-medium;
       padding: $card-padding;
 
       &__startButton {
-  
         &:focus,
         &:hover {
           background-color: $color-teal-accent;

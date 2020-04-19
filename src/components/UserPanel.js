@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import UserForm from './UserForm';
-import '../scss/UserPanel.scss';
+import React, {Component} from "react";
+import classNames from "classnames";
+import UserForm from "./UserForm";
+import "../scss/UserPanel.scss";
 
 class UserPanel extends Component {
   constructor(props) {
@@ -9,47 +9,44 @@ class UserPanel extends Component {
     this.state = {
       isUserPanelLoaded: false,
       isLoginFormVisible: false,
-      isSignupFormVisible: false
+      isSignupFormVisible: false,
     };
   }
 
   componentDidMount() {
     this.setState({
       isUserPanelLoaded: true,
-      isLoginFormVisible: true
+      isLoginFormVisible: true,
     });
   }
 
   handleCardToggle = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       isLoginFormVisible: !prevState.isLoginFormVisible,
-      isSignupFormVisible: !prevState.isSignupFormVisible
+      isSignupFormVisible: !prevState.isSignupFormVisible,
     }));
-  }
+  };
 
   render() {
-    const {
-      onUserLogin,
-      users
-    } = this.props;
+    const {onUserLogin, users} = this.props;
     const {
       isUserPanelLoaded,
       isLoginFormVisible,
-      isSignupFormVisible
+      isSignupFormVisible,
     } = this.state;
 
-    const userPanelClass = classNames('UserPanel', {
-      'UserPanel--visible': isUserPanelLoaded
+    const userPanelClass = classNames("UserPanel", {
+      "UserPanel--visible": isUserPanelLoaded,
     });
 
-    const loginClass = classNames('loginForm', {
-      'loginForm--rotateIn': isLoginFormVisible,
-      'loginForm--rotateOut': !isLoginFormVisible
+    const loginClass = classNames("loginForm", {
+      "loginForm--rotateIn": isLoginFormVisible,
+      "loginForm--rotateOut": !isLoginFormVisible,
     });
 
-    const signupClass = classNames('signupForm', {
-      'signupForm--rotateIn': isSignupFormVisible,
-      'signupForm--rotateOut': !isSignupFormVisible
+    const signupClass = classNames("signupForm", {
+      "signupForm--rotateIn": isSignupFormVisible,
+      "signupForm--rotateOut": !isSignupFormVisible,
     });
 
     return (
