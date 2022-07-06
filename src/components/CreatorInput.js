@@ -5,7 +5,6 @@ import { maxTaskNameLength } from '../lib/globalVariables';
 import { taskNameProgressStyle } from '../lib/handlers';
 
 const CreatorInput = (props) => {
-
   const {
     isVisible,
     isValid,
@@ -20,49 +19,50 @@ const CreatorInput = (props) => {
     onTaskNameChange,
     onMinutesChange,
     onSecondsChange,
-    alertFlag
+    alertFlag,
   } = props;
 
-  const creatorInputClass = classNames("CreatorInput", {
+  const creatorInputClass = classNames('CreatorInput', {
     [`CreatorInput--${modifier}`]: isVisible,
-    "showFromRight": isVisible && slideDirection === 'toRight',
-    "hideToLeft": !isVisible && slideDirection === 'toRight',
-    "showFromLeft": isVisible && slideDirection === 'toLeft',
-    "hideToRight": !isVisible && slideDirection === 'toLeft'
+    showFromRight: isVisible && slideDirection === 'toRight',
+    hideToLeft: !isVisible && slideDirection === 'toRight',
+    showFromLeft: isVisible && slideDirection === 'toLeft',
+    hideToRight: !isVisible && slideDirection === 'toLeft',
   });
 
-  const textInputClass = classNames("CreatorInput__text", {
-    "CreatorInput__text--invalid": !isValid && alertFlag
+  const textInputClass = classNames('CreatorInput__text', {
+    'CreatorInput__text--invalid': !isValid && alertFlag,
   });
 
-  const timeInputsClass = classNames("CreatorInput__inputs", {
-    "CreatorInput__inputs--invalid": !isValid && alertFlag
+  const timeInputsClass = classNames('CreatorInput__inputs', {
+    'CreatorInput__inputs--invalid': !isValid && alertFlag,
   });
 
-  const minutesInputClass = classNames("CreatorInput__input",
-    "CreatorInput__input--minutes", {
-      "CreatorInput__input--invalid": !isValid && alertFlag
-    });
+  const minutesInputClass = classNames(
+    'CreatorInput__input',
+    'CreatorInput__input--minutes',
+    {
+      'CreatorInput__input--invalid': !isValid && alertFlag,
+    }
+  );
 
-  const secondsInputClass = classNames("CreatorInput__input",
-    "CreatorInput__input--seconds", {
-      "CreatorInput__input--invalid": !isValid && alertFlag
-    });
+  const secondsInputClass = classNames(
+    'CreatorInput__input',
+    'CreatorInput__input--seconds',
+    {
+      'CreatorInput__input--invalid': !isValid && alertFlag,
+    }
+  );
 
   return (
     <div className={creatorInputClass}>
-
       {/* INPUT LABEL */}
-      <label
-        htmlFor={modifier}
-        className="CreatorInput__label"
-      >
+      <label htmlFor={modifier} className="CreatorInput__label">
         {label}
       </label>
 
-      {
-        modifier === "taskName"
-        ? /* TEXT INPUT */
+      {modifier === 'taskName' ? (
+        /* TEXT INPUT */
         <div className="CreatorInput__textContainer">
           <textarea
             id={modifier}
@@ -78,8 +78,8 @@ const CreatorInput = (props) => {
             style={taskNameProgressStyle(taskNameLength)}
           ></div>
         </div>
-
-        : /* TIME INPUT */
+      ) : (
+        /* TIME INPUT */
         <div className={timeInputsClass}>
           <input
             id={modifier}
@@ -100,8 +100,8 @@ const CreatorInput = (props) => {
             onChange={(e) => onSecondsChange(e.target.value)}
           />
         </div>
-      }
+      )}
     </div>
-  )
-}
+  );
+};
 export default CreatorInput;

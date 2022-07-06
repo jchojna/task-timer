@@ -20,12 +20,12 @@ class Card extends Component {
       totalTaskTime,
       totalBreakTime,
       totalTaskTimeArray,
-      totalBreakTimeArray
+      totalBreakTimeArray,
     } = this.props.task;
 
     const [taskMinutes, taskSeconds] = totalTaskTimeArray;
     const [breakMinutes, breakSeconds] = totalBreakTimeArray;
-    
+
     this.state = {
       isDragging: false,
       isMaximized: true,
@@ -57,18 +57,22 @@ class Card extends Component {
       isBreakTimeEditMode: false,
       isTaskNameValid: true,
       isTaskTimeValid: true,
-      isBreakTimeValid: true
+      isBreakTimeValid: true,
     };
   }
-  
+
   componentDidMount = () => {
     this.setState({
-      isTaskMounted: true
+      isTaskMounted: true,
     });
-    this.timeoutId = setTimeout(() => this.setState({
-      isTaskRotatingIn: false
-    }), cardFlipTime);
-  }
+    this.timeoutId = setTimeout(
+      () =>
+        this.setState({
+          isTaskRotatingIn: false,
+        }),
+      cardFlipTime
+    );
+  };
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove);
@@ -79,39 +83,34 @@ class Card extends Component {
   handleStateChange = (object) => this.setState(object);
 
   getHoveredCardSizes = (index) => {
-    const {cardIndex, cardsSizes } = this.props;
-    return index >= 0
-    ? index !== cardIndex
-      ? cardsSizes[index]
-      : null
-    : null; 
-  }
-  
+    const { cardIndex, cardsSizes } = this.props;
+    return index >= 0 ? (index !== cardIndex ? cardsSizes[index] : null) : null;
+  };
+
   handleCardsSizes = () => {
     const { onBoardStateChange } = this.props;
     const appNodes = this.card.current.parentNode.children;
 
     const cardsSizes = [...appNodes]
-    .filter(node => node.classList.contains('Card'))
-    .map(card => {
-      const { offsetHeight, offsetLeft, offsetTop, offsetWidth } = card;
-      return {
-        height: offsetHeight,
+      .filter((node) => node.classList.contains('Card'))
+      .map((card) => {
+        const { offsetHeight, offsetLeft, offsetTop, offsetWidth } = card;
+        return {
+          height: offsetHeight,
           width: offsetWidth,
           left: offsetLeft,
-          top: offsetTop
-        }
-      }
-    );
+          top: offsetTop,
+        };
+      });
     onBoardStateChange({ cardsSizes });
-  }
+  };
 
   handleCardDrag = (e) => {
     const { isMaximized } = this.state;
     if (!isMaximized) {
       this.handleMouseDown(e);
     }
-  }
+  };
 
   //#region [ Horizon ] MOUSE EVENTS
 
@@ -120,29 +119,29 @@ class Card extends Component {
 
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
-      
+
     this.setState({
       originalX: clientX + window.scrollX,
-      originalY: clientY + window.scrollY
+      originalY: clientY + window.scrollY,
     });
     this.handleCardsSizes();
 
     onBoardStateChange({
-      isPlaceholderVisible: true
+      isPlaceholderVisible: true,
     });
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
-    
     const { onBoardStateChange, cardIndex, cardsSizes } = this.props;
     const xPosition = clientX + window.scrollX;
     const yPosition = clientY + window.scrollY;
     const draggedCardSizes = cardsSizes[cardIndex];
 
     // find index of hovered card
-    const hoveredCardIndex = [...cardsSizes].findIndex(card => {
+    const hoveredCardIndex = [...cardsSizes].findIndex((card) => {
       const { left, top, width, height } = card;
-      const isInsideHorizontally = xPosition >= left && xPosition <= left + width;
+      const isInsideHorizontally =
+        xPosition >= left && xPosition <= left + width;
       const isInsideVertically = yPosition >= top && yPosition <= top + height;
       //return isInsideHorizontally && isInsideVertically;
       return isInsideHorizontally && isInsideVertically;
@@ -150,41 +149,41 @@ class Card extends Component {
     const hoveredCardSizes = this.getHoveredCardSizes(hoveredCardIndex);
 
     // set translated position of dragged card
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       translateX: xPosition - prevState.originalX,
       translateY: yPosition - prevState.originalY,
       isDragging: true,
     }));
 
     // set translation offsets of hovered card
-    if (hoveredCardSizes) {;
+    if (hoveredCardSizes) {
       const offsetX = draggedCardSizes.left - hoveredCardSizes.left;
       const offsetY = draggedCardSizes.top - hoveredCardSizes.top;
-  
+
       onBoardStateChange({
         hoveredOffsetX: offsetX,
-        hoveredOffsetY: offsetY
+        hoveredOffsetY: offsetY,
       });
     }
 
     onBoardStateChange({
       isDraggingMode: true,
       draggedCardIndex: cardIndex,
-      hoveredCardIndex: cardIndex !== hoveredCardIndex ? hoveredCardIndex : -1
+      hoveredCardIndex: cardIndex !== hoveredCardIndex ? hoveredCardIndex : -1,
     });
   };
-  
-  handleMouseUp = () => {
 
+  handleMouseUp = () => {
     const {
       onBoardStateChange,
       draggedCardIndex,
       hoveredCardIndex,
-      cardsSizes } = this.props;
-    const delay = 30;    
+      cardsSizes,
+    } = this.props;
+    const delay = 30;
     const draggedCardSizes = cardsSizes[draggedCardIndex];
     const hoveredCardSizes = this.getHoveredCardSizes(hoveredCardIndex);
-      
+
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
 
@@ -195,25 +194,23 @@ class Card extends Component {
         originalY: 0,
         translateX: 0,
         translateY: 0,
-        isDragging: false
+        isDragging: false,
       });
-
     } else {
-
       const { onTaskOrderChange } = this.props;
-      
+
       if (hoveredCardSizes) {
         const offsetX = hoveredCardSizes.left - draggedCardSizes.left;
         const offsetY = hoveredCardSizes.top - draggedCardSizes.top;
 
-        const draggedOffsetX =  -1 * (offsetX - this.state.translateX);
+        const draggedOffsetX = -1 * (offsetX - this.state.translateX);
         const draggedOffsetY = -1 * (offsetY - this.state.translateY);
 
         this.setState({
           originalX: 0,
           originalY: 0,
           translateX: draggedOffsetX,
-          translateY: draggedOffsetY
+          translateY: draggedOffsetY,
         });
       }
 
@@ -221,41 +218,39 @@ class Card extends Component {
         this.setState({
           translateX: 0,
           translateY: 0,
-          isDragging: false
+          isDragging: false,
         });
         this.handleCardsSizes();
         clearTimeout(timeoutId);
       }, delay);
-      
+
       onTaskOrderChange(draggedCardIndex, hoveredCardIndex);
     }
 
     onBoardStateChange({
-      isDraggingMode: false
+      isDraggingMode: false,
     });
 
     const timeoutId = setTimeout(() => {
       onBoardStateChange({
         draggedCardIndex: -1,
-        hoveredCardIndex: -1
+        hoveredCardIndex: -1,
       });
       clearTimeout(timeoutId);
     }, delay);
   };
 
   //#endregion
-  
+
   handleKeyPress = (key) => {
-    const {
-      isTaskNameEditMode,
-      isTaskTimeEditMode,
-      isBreakTimeEditMode
-    } = this.state;
-    const editModeActive = isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
-    
-    if (key === "Enter" && editModeActive) this.acceptEditChange();
-  }
-  
+    const { isTaskNameEditMode, isTaskTimeEditMode, isBreakTimeEditMode } =
+      this.state;
+    const editModeActive =
+      isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
+
+    if (key === 'Enter' && editModeActive) this.acceptEditChange();
+  };
+
   handleMaximizeCard = () => {
     const { onBoardStateChange } = this.props;
     const { isMaximized } = this.state;
@@ -263,62 +258,86 @@ class Card extends Component {
       this.setState({ isMaximized: true });
       onBoardStateChange({ isPlaceholderVisible: false });
     }
-  }
+  };
 
   handleTaskNameChange = (value) => {
     this.setState({
       taskName: value,
       taskNameLength: value.length,
-      isTaskNameValid: validateTaskName(value)
+      isTaskNameValid: validateTaskName(value),
     });
-  }
-  
+  };
+
   handleTimeChange = (minutes, seconds, units, type) => {
     const object = handleTimeChange(minutes, seconds, units, type);
-  
+
     if (type === 'task') {
       if (units === 'minutes') {
         const {
-          taskMinutes, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
+          taskMinutes,
+          totalTaskTime,
+          totalTaskTimeArray,
+          isTaskTimeValid,
         } = object;
         this.setState({
-          taskMinutes, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
+          taskMinutes,
+          totalTaskTime,
+          totalTaskTimeArray,
+          isTaskTimeValid,
         });
       } else if (units === 'seconds') {
         const {
-          taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
+          taskSeconds,
+          totalTaskTime,
+          totalTaskTimeArray,
+          isTaskTimeValid,
         } = object;
         this.setState({
-          taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid
+          taskSeconds,
+          totalTaskTime,
+          totalTaskTimeArray,
+          isTaskTimeValid,
         });
       }
     } else if (type === 'break') {
       if (units === 'minutes') {
         const {
-          breakMinutes, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
+          breakMinutes,
+          totalBreakTime,
+          totalBreakTimeArray,
+          isBreakTimeValid,
         } = object;
         this.setState({
-          breakMinutes, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
+          breakMinutes,
+          totalBreakTime,
+          totalBreakTimeArray,
+          isBreakTimeValid,
         });
       } else if (units === 'seconds') {
         const {
-          breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
+          breakSeconds,
+          totalBreakTime,
+          totalBreakTimeArray,
+          isBreakTimeValid,
         } = object;
         this.setState({
-          breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid
+          breakSeconds,
+          totalBreakTime,
+          totalBreakTimeArray,
+          isBreakTimeValid,
         });
       }
     }
     //this.setState({ alertTimeFlag });
-  }
-  
+  };
+
   handleEditMode = (input) => {
     const { isMaximized } = this.state;
     if (isMaximized) {
       this.setState({ [`is${input}EditMode`]: true });
     }
-  }
-  
+  };
+
   acceptEditChange = () => {
     const {
       taskName,
@@ -328,14 +347,14 @@ class Card extends Component {
       totalBreakTimeArray,
       isTaskNameValid,
       isTaskTimeValid,
-      isBreakTimeValid
+      isBreakTimeValid,
     } = this.state;
 
     const { id } = this.props.task;
     const { onTaskEdit } = this.props;
-    const [ taskMinutes, taskSeconds ] = totalTaskTimeArray;
-    const [ breakMinutes, breakSeconds ] = totalBreakTimeArray;
-  
+    const [taskMinutes, taskSeconds] = totalTaskTimeArray;
+    const [breakMinutes, breakSeconds] = totalBreakTimeArray;
+
     if (isTaskNameValid && isTaskTimeValid && isBreakTimeValid) {
       this.setState({
         isTaskNameEditMode: false,
@@ -356,33 +375,32 @@ class Card extends Component {
         totalBreakTime,
         totalTaskTimeArray,
         totalBreakTimeArray,
-        id
-      }
+        id,
+      };
       onTaskEdit(editedTask, 'edit');
     }
-  }
-  
+  };
+
   handleAlertVisibility = () => {
-    this.setState(prevState => ({
-      isStopAlertVisible: !prevState.isStopAlertVisible
+    this.setState((prevState) => ({
+      isStopAlertVisible: !prevState.isStopAlertVisible,
     }));
-  }
-  
+  };
+
   handleTaskRemove = () => {
     const { id } = this.props.task;
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
-  }
-  
+  };
+
   handleStartButton = () => {
     this.setState({
       isTaskRotatingOut: true,
-      isTimerMounted: true
+      isTimerMounted: true,
     });
-  }
+  };
 
   render() {
-
     const {
       task: { id },
       cardIndex,
@@ -392,10 +410,9 @@ class Card extends Component {
       hoveredOffsetX,
       hoveredOffsetY,
       onBoardStateChange,
-      onTaskFinish
+      onTaskFinish,
     } = this.props;
-    
-    
+
     const {
       isDragging,
       translateX,
@@ -418,49 +435,46 @@ class Card extends Component {
       isBreakTimeEditMode,
       isTaskNameValid,
       isTaskTimeValid,
-      isBreakTimeValid
+      isBreakTimeValid,
     } = this.state;
 
-    const editModeActive = isTaskNameEditMode
-    || isTaskTimeEditMode
-    || isBreakTimeEditMode;
-    const inputInvalid = !isTaskNameValid
-    || !isTaskTimeValid
-    || !isBreakTimeValid;
+    const editModeActive =
+      isTaskNameEditMode || isTaskTimeEditMode || isBreakTimeEditMode;
+    const inputInvalid =
+      !isTaskNameValid || !isTaskTimeValid || !isBreakTimeValid;
     const cardRotatingMode = isTaskRotatingIn || isTaskRotatingOut;
-    const taskNameDisabled = isTaskTimeEditMode
-    || isBreakTimeEditMode
-    || cardRotatingMode;
-    const taskTimeDisabled = isTaskNameEditMode
-    || isBreakTimeEditMode
-    || cardRotatingMode;
-    const breakTimeDisabled = isTaskNameEditMode
-    || isTaskTimeEditMode
-    || cardRotatingMode;
+    const taskNameDisabled =
+      isTaskTimeEditMode || isBreakTimeEditMode || cardRotatingMode;
+    const taskTimeDisabled =
+      isTaskNameEditMode || isBreakTimeEditMode || cardRotatingMode;
+    const breakTimeDisabled =
+      isTaskNameEditMode || isTaskTimeEditMode || cardRotatingMode;
 
-    const cardStyle = cardIndex === hoveredCardIndex && isDraggingMode
-      ? { transform: `translate(${hoveredOffsetX}px, ${hoveredOffsetY}px)` }
-      : { transform: `translate(${translateX}px, ${translateY}px)` };
-  
-    const cardClass = classNames("Card", {
-      "Card--dragged": isDragging,
-      "Card--hovered": cardIndex === hoveredCardIndex && isDraggingMode,
-      "Card--noTransition": isDragging ||
-      (cardIndex === draggedCardIndex && hoveredCardIndex !== -1)
+    const cardStyle =
+      cardIndex === hoveredCardIndex && isDraggingMode
+        ? { transform: `translate(${hoveredOffsetX}px, ${hoveredOffsetY}px)` }
+        : { transform: `translate(${translateX}px, ${translateY}px)` };
+
+    const cardClass = classNames('Card', {
+      'Card--dragged': isDragging,
+      'Card--hovered': cardIndex === hoveredCardIndex && isDraggingMode,
+      'Card--noTransition':
+        isDragging ||
+        (cardIndex === draggedCardIndex && hoveredCardIndex !== -1),
     });
 
-    const taskClass = classNames("Task", {
-      "Task--visible": isTaskMounted,
-      "Task--maximized": isMaximized,
-      "Task--editMode": editModeActive,
-      "Task--taskActive": isTaskTimeActive && isTimerStarted,
-      "Task--rotateIn": isTaskRotatingIn && isTaskMounted,
-      "Task--rotateOut": isTaskRotatingOut && isTaskMounted
+    const taskClass = classNames('Task', {
+      'Task--visible': isTaskMounted,
+      'Task--maximized': isMaximized,
+      'Task--editMode': editModeActive,
+      'Task--taskActive': isTaskTimeActive && isTimerStarted,
+      'Task--rotateIn': isTaskRotatingIn && isTaskMounted,
+      'Task--rotateOut': isTaskRotatingOut && isTaskMounted,
     });
 
-    const startButtonClass = classNames("Task__startButton", {
-      "Task__startButton--maximized": isMaximized,
-      "Task__startButton--disabled": editModeActive || cardRotatingMode
+    const startButtonClass = classNames('Task__startButton', {
+      'Task__startButton--maximized': isMaximized,
+      'Task__startButton--disabled': editModeActive || cardRotatingMode,
     });
 
     return (
@@ -501,12 +515,14 @@ class Card extends Component {
             isEditMode={isTaskTimeEditMode}
             isCardEditMode={editModeActive}
             onKeyPress={this.handleKeyPress}
-            onMinutesChange={(value) => 
-              this.handleTimeChange(value, taskSeconds, 'minutes', 'task')}
-            onSecondsChange={(value) => 
-              this.handleTimeChange(taskMinutes, value, 'seconds', 'task')}
+            onMinutesChange={(value) =>
+              this.handleTimeChange(value, taskSeconds, 'minutes', 'task')
+            }
+            onSecondsChange={(value) =>
+              this.handleTimeChange(taskMinutes, value, 'seconds', 'task')
+            }
           />
-          
+
           {/* TOTAL BREAK TIME */}
           <TotalTime
             id={id}
@@ -521,10 +537,12 @@ class Card extends Component {
             isEditMode={isBreakTimeEditMode}
             isCardEditMode={editModeActive}
             onKeyPress={this.handleKeyPress}
-            onMinutesChange={(value) => 
-              this.handleTimeChange(value, breakSeconds, 'minutes', 'break')}
-            onSecondsChange={(value) => 
-              this.handleTimeChange(breakMinutes, value, 'seconds', 'break')}
+            onMinutesChange={(value) =>
+              this.handleTimeChange(value, breakSeconds, 'minutes', 'break')
+            }
+            onSecondsChange={(value) =>
+              this.handleTimeChange(breakMinutes, value, 'seconds', 'break')
+            }
           />
 
           {/* CARD BUTTONS */}
@@ -550,20 +568,20 @@ class Card extends Component {
               <use href={`${icons}#play`} />
             </svg>
           </button>
-          
+
           {/* TIMER COMPONENT */}
-          {
-            this.state.isTimerMounted
-            ? <Timer
-                state={this.state}
-                id={id}
-                onTaskRemove={this.handleTaskRemove}
-                cardRotatingMode={cardRotatingMode}
-                onCardStateChange={this.handleStateChange}
-                onTaskFinish={onTaskFinish}
-              />
-            : <div className="empty"></div>
-          }
+          {this.state.isTimerMounted ? (
+            <Timer
+              state={this.state}
+              id={id}
+              onTaskRemove={this.handleTaskRemove}
+              cardRotatingMode={cardRotatingMode}
+              onCardStateChange={this.handleStateChange}
+              onTaskFinish={onTaskFinish}
+            />
+          ) : (
+            <div className="empty"></div>
+          )}
 
           {/* REMOVE TASK ALERT */}
           <StopAlert

@@ -16,16 +16,16 @@ class Creator extends Component {
       isTaskTimeVisible: false,
       isBreakTimeVisible: false,
       // inputs
-      creatorTaskName: "",
-      creatorTaskMinutes: "",
-      creatorTaskSeconds: "",
-      creatorBreakMinutes: "",
-      creatorBreakSeconds: "",
+      creatorTaskName: '',
+      creatorTaskMinutes: '',
+      creatorTaskSeconds: '',
+      creatorBreakMinutes: '',
+      creatorBreakSeconds: '',
       creatorTotalTaskTime: 0,
       creatorTotalBreakTime: 0,
       taskNameLength: 0,
-      creatorTaskTimeArray: ["00","00"],
-      creatorBreakTimeArray: ["00","00"],
+      creatorTaskTimeArray: ['00', '00'],
+      creatorBreakTimeArray: ['00', '00'],
       // validation
       isTaskNameValid: false,
       isTaskTimeValid: false,
@@ -33,13 +33,13 @@ class Creator extends Component {
       isCreatorValid: false,
       alertFlag: false,
 
-      slideDirection: null
+      slideDirection: null,
     };
   }
 
   componentWillUnmount = () => {
     clearTimeout(this.timeoutOutroId);
-  }
+  };
 
   handleStateChange = (object) => this.setState(object);
 
@@ -48,9 +48,9 @@ class Creator extends Component {
       creatorTaskName: value,
       taskNameLength: value.length,
       isTaskNameValid: validateTaskName(value),
-      alertFlag: true
+      alertFlag: true,
     });
-  }
+  };
 
   addNewTask = () => {
     const { onBoardStateChange, onTaskEdit } = this.props;
@@ -63,7 +63,7 @@ class Creator extends Component {
       creatorTotalTaskTime,
       creatorTotalBreakTime,
       creatorTaskTimeArray,
-      creatorBreakTimeArray
+      creatorBreakTimeArray,
     } = this.state;
 
     const date = Date.now();
@@ -78,12 +78,12 @@ class Creator extends Component {
       totalBreakTime: creatorTotalBreakTime,
       totalTaskTimeArray: creatorTaskTimeArray,
       totalBreakTimeArray: creatorBreakTimeArray,
-      id: date
+      id: date,
     };
     // add new task to app state
     onBoardStateChange({ isCreatorVisible: false });
     onTaskEdit(newTask, 'add');
-  }
+  };
 
   /* handleKeyPress = (e) => {
     const { onStateChange } = this.props;
@@ -103,59 +103,76 @@ class Creator extends Component {
 
     if (type === 'task') {
       if (units === 'minutes') {
-        const { taskMinutes, totalTaskTime, totalTaskTimeArray, isTaskTimeValid } = newTime;
+        const {
+          taskMinutes,
+          totalTaskTime,
+          totalTaskTimeArray,
+          isTaskTimeValid,
+        } = newTime;
         this.setState({
           creatorTaskMinutes: taskMinutes,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: totalTaskTimeArray,
           isTaskTimeValid,
-          alertFlag: true
+          alertFlag: true,
         });
       } else if (units === 'seconds') {
-        const { taskSeconds, totalTaskTime, totalTaskTimeArray, isTaskTimeValid } = newTime;
+        const {
+          taskSeconds,
+          totalTaskTime,
+          totalTaskTimeArray,
+          isTaskTimeValid,
+        } = newTime;
         this.setState({
           creatorTaskSeconds: taskSeconds,
           creatorTotalTaskTime: totalTaskTime,
           creatorTaskTimeArray: totalTaskTimeArray,
           isTaskTimeValid,
-          alertFlag: true
+          alertFlag: true,
         });
       }
     } else if (type === 'break') {
       if (units === 'minutes') {
-        const { breakMinutes, totalBreakTime, totalBreakTimeArray, isBreakTimeValid } = newTime;
+        const {
+          breakMinutes,
+          totalBreakTime,
+          totalBreakTimeArray,
+          isBreakTimeValid,
+        } = newTime;
         this.setState({
           creatorBreakMinutes: breakMinutes,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: totalBreakTimeArray,
           isBreakTimeValid,
-          alertFlag: true
+          alertFlag: true,
         });
       } else if (units === 'seconds') {
-        const { breakSeconds, totalBreakTime, totalBreakTimeArray, isBreakTimeValid } = newTime;
+        const {
+          breakSeconds,
+          totalBreakTime,
+          totalBreakTimeArray,
+          isBreakTimeValid,
+        } = newTime;
         this.setState({
           creatorBreakSeconds: breakSeconds,
           creatorTotalBreakTime: totalBreakTime,
           creatorBreakTimeArray: totalBreakTimeArray,
           isBreakTimeValid,
-          alertFlag: true
+          alertFlag: true,
         });
       }
     }
-  }
+  };
 
   handleBackButton = (e) => {
     e.preventDefault();
-    const {
-      isTaskTimeVisible,
-      isBreakTimeVisible
-    } = this.state;
+    const { isTaskTimeVisible, isBreakTimeVisible } = this.state;
 
     if (isTaskTimeVisible) {
       this.setState({
         isTaskNameVisible: true,
         isTaskTimeVisible: false,
-        slideDirection: "toLeft"
+        slideDirection: 'toLeft',
       });
     }
 
@@ -163,11 +180,11 @@ class Creator extends Component {
       this.setState({
         isTaskTimeVisible: true,
         isBreakTimeVisible: false,
-        slideDirection: "toLeft"
+        slideDirection: 'toLeft',
       });
     }
-  }
-  
+  };
+
   handleNextButton = (e) => {
     e.preventDefault();
 
@@ -177,7 +194,7 @@ class Creator extends Component {
       isBreakTimeVisible,
       isTaskNameValid,
       isTaskTimeValid,
-      isBreakTimeValid
+      isBreakTimeValid,
     } = this.state;
 
     if (isTaskNameVisible && isTaskNameValid) {
@@ -185,7 +202,7 @@ class Creator extends Component {
         isTaskNameVisible: false,
         isTaskTimeVisible: true,
         alertFlag: false,
-        slideDirection: "toRight"
+        slideDirection: 'toRight',
       });
     }
 
@@ -194,7 +211,7 @@ class Creator extends Component {
         isTaskTimeVisible: false,
         isBreakTimeVisible: true,
         alertFlag: false,
-        slideDirection: "toRight"
+        slideDirection: 'toRight',
       });
     }
 
@@ -203,21 +220,19 @@ class Creator extends Component {
         isCreatorValid: true,
         alertFlag: false,
         isCreatorRotatingOut: true,
-        slideDirection: "toRight"
+        slideDirection: 'toRight',
       });
-      this.timeoutOutroId = setTimeout(() => this.addNewTask(),
-      cardFlipTime);
+      this.timeoutOutroId = setTimeout(() => this.addNewTask(), cardFlipTime);
     }
-  }
+  };
 
   handleCreatorClose = (e) => {
     e.preventDefault();
     const { onBoardStateChange } = this.props;
     onBoardStateChange({ isCreatorVisible: false });
-  }
+  };
 
   render() {
-
     const {
       // visibility
       isCreatorRotatingOut,
@@ -237,37 +252,47 @@ class Creator extends Component {
       isBreakTimeValid,
       isCreatorValid,
       alertFlag,
-      
-      slideDirection
+
+      slideDirection,
     } = this.state;
 
-    const isNextButtonVisible = 
-    (isTaskNameVisible && isTaskNameValid) ||
-    (isTaskTimeVisible && isTaskTimeValid) ||
-    (isBreakTimeVisible && isBreakTimeValid);
+    const isNextButtonVisible =
+      (isTaskNameVisible && isTaskNameValid) ||
+      (isTaskTimeVisible && isTaskTimeValid) ||
+      (isBreakTimeVisible && isBreakTimeValid);
 
-    const creatorClass = classNames("Creator", {
-      "Creator--rotateOut": isCreatorRotatingOut
+    const creatorClass = classNames('Creator', {
+      'Creator--rotateOut': isCreatorRotatingOut,
     });
-  
-    const backButtonClass = classNames("Creator__button",
-      "Creator__button--back", {
-      "Creator__button--visible": !isTaskNameVisible
-    });
-    
-    const nextButtonClass = classNames("Creator__button",
-      "Creator__button--next", {
-      "Creator__button--visible": isNextButtonVisible
-    });
-    
-    const closeButtonClass = "Creator__button Creator__button--visible Creator__button--close";
+
+    const backButtonClass = classNames(
+      'Creator__button',
+      'Creator__button--back',
+      {
+        'Creator__button--visible': !isTaskNameVisible,
+      }
+    );
+
+    const nextButtonClass = classNames(
+      'Creator__button',
+      'Creator__button--next',
+      {
+        'Creator__button--visible': isNextButtonVisible,
+      }
+    );
+
+    const closeButtonClass =
+      'Creator__button Creator__button--visible Creator__button--close';
 
     const progressBarLoadedStyle = {
-      width: isTaskTimeVisible ? `${1/3 * 100}%`
-      : isBreakTimeVisible ?
-        isCreatorValid ? "100%" : `${2/3 * 100}%`
-      : 0
-    }
+      width: isTaskTimeVisible
+        ? `${(1 / 3) * 100}%`
+        : isBreakTimeVisible
+        ? isCreatorValid
+          ? '100%'
+          : `${(2 / 3) * 100}%`
+        : 0,
+    };
 
     return (
       <form
@@ -302,11 +327,13 @@ class Creator extends Component {
           alertFlag={alertFlag}
           slideDirection={slideDirection}
           onMinutesChange={(value) =>
-            this.handleTimeChange(value, creatorTaskSeconds, 'minutes', 'task')}
+            this.handleTimeChange(value, creatorTaskSeconds, 'minutes', 'task')
+          }
           onSecondsChange={(value) =>
-            this.handleTimeChange(creatorTaskMinutes, value, 'seconds', 'task')}
+            this.handleTimeChange(creatorTaskMinutes, value, 'seconds', 'task')
+          }
         />
-        
+
         {/* BREAK TIME INPUT */}
         <CreatorInput
           isVisible={isBreakTimeVisible}
@@ -319,38 +346,41 @@ class Creator extends Component {
           alertFlag={alertFlag}
           slideDirection={slideDirection}
           onMinutesChange={(value) =>
-            this.handleTimeChange(value, creatorBreakSeconds, 'minutes', 'break')}
+            this.handleTimeChange(
+              value,
+              creatorBreakSeconds,
+              'minutes',
+              'break'
+            )
+          }
           onSecondsChange={(value) =>
-            this.handleTimeChange(creatorBreakMinutes, value, 'seconds', 'break')}
+            this.handleTimeChange(
+              creatorBreakMinutes,
+              value,
+              'seconds',
+              'break'
+            )
+          }
         />
 
         {/* GO BACK BUTTON */}
-        <button
-          className={backButtonClass}
-          onClick={this.handleBackButton}
-        >
+        <button className={backButtonClass} onClick={this.handleBackButton}>
           <svg className="Creator__svg" viewBox="0 0 512 512">
             <use href={`${icons}#arrow-left`}></use>
           </svg>
         </button>
-  
+
         {/* GO NEXT BUTTON */}
-        <button
-          className={nextButtonClass}
-          onClick={this.handleNextButton}
-        >
+        <button className={nextButtonClass} onClick={this.handleNextButton}>
           <svg className="Creator__svg" viewBox="0 0 512 512">
             <use href={`${icons}#arrow-right`}></use>
           </svg>
         </button>
 
         {/* CLOSE NEW TASK */}
-        <button
-          className={closeButtonClass}
-          onClick={this.handleCreatorClose}
-        >
+        <button className={closeButtonClass} onClick={this.handleCreatorClose}>
           <svg className="Creator__svg" viewBox="0 0 512 512">
-            <use href={`${icons}#remove`}/>
+            <use href={`${icons}#remove`} />
           </svg>
         </button>
 

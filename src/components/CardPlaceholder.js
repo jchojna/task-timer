@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import '../scss/CardPlaceholder.scss';
 
 const CardPlaceholder = (props) => {
-
   const { placeholderIndex, cardsSizes, isPlaceholderVisible } = props;
   const placeholder = cardsSizes[placeholderIndex];
   let placeholderStyle = {};
@@ -14,17 +13,14 @@ const CardPlaceholder = (props) => {
       top,
       left,
       width,
-      height
-    }
+      height,
+    };
   }
 
   const placeholderClass = classNames('CardPlaceholder', {
-    'CardPlaceholder--visible': isPlaceholderVisible
+    'CardPlaceholder--visible': isPlaceholderVisible,
   });
-  
-  return (
 
-    <div className={placeholderClass} style={placeholderStyle}></div>
-  );
-}
+  return <div className={placeholderClass} style={placeholderStyle}></div>;
+};
 export default CardPlaceholder;

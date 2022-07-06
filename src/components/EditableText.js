@@ -5,7 +5,6 @@ import { taskNameProgressStyle } from '../lib/handlers';
 import '../scss/EditableText.scss';
 
 const EditableText = (props) => {
-    
   const {
     output,
     isValid,
@@ -14,29 +13,29 @@ const EditableText = (props) => {
     isDisabled,
     isEditMode,
     onTaskNameChange,
-    onEditModeChange
+    onEditModeChange,
   } = props;
 
-  const editableTextClass = classNames("taskName", {
-    "taskName--disabled": isDisabled,
-    "taskName--maximized": isMaximized
+  const editableTextClass = classNames('taskName', {
+    'taskName--disabled': isDisabled,
+    'taskName--maximized': isMaximized,
   });
 
-  const textClass = classNames("taskName__text", {
-    "taskName__text--visible": !isEditMode
-  })
+  const textClass = classNames('taskName__text', {
+    'taskName__text--visible': !isEditMode,
+  });
 
-  const inputContainerClass = classNames("taskName__inputContainer", {
-    "taskName__inputContainer--visible": isEditMode
-  })
+  const inputContainerClass = classNames('taskName__inputContainer', {
+    'taskName__inputContainer--visible': isEditMode,
+  });
 
-  const inputClass = classNames("taskName__input", {
-    "taskName__input--incorrect": !isValid
-  })
+  const inputClass = classNames('taskName__input', {
+    'taskName__input--incorrect': !isValid,
+  });
 
-  const progressClass = classNames("taskName__progress", {
-    "taskName__progress--visible": isEditMode
-  })
+  const progressClass = classNames('taskName__progress', {
+    'taskName__progress--visible': isEditMode,
+  });
 
   return (
     <div className={editableTextClass}>
@@ -59,9 +58,8 @@ const EditableText = (props) => {
           className={progressClass}
           style={taskNameProgressStyle(taskNameLength)}
         ></div>
-
       </div>
     </div>
   );
-}
+};
 export default EditableText;

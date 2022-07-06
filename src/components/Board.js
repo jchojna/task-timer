@@ -20,50 +20,50 @@ class Board extends Component {
       draggedCardIndex: -1,
       hoveredCardIndex: -1,
       hoveredOffsetX: 0,
-      hoveredOffsetY: 0
+      hoveredOffsetY: 0,
     };
   }
 
   componentDidMount = () => {
     window.addEventListener('resize', this.handleWindowResize);
-  }
+  };
 
   componentWillUnmount = () => {
     window.removeEventListener('resize', this.handleWindowResize);
-  }
+  };
 
   handleWindowResize = () => {
     this.setState({
-      isPlaceholderVisible: false
+      isPlaceholderVisible: false,
     });
-  }
+  };
 
   handleStateChange = (object) => this.setState(object);
 
   handleSidebar = (e) => {
-    this.setState(prevState => ({
-      isSidebarVisible: !prevState.isSidebarVisible
+    this.setState((prevState) => ({
+      isSidebarVisible: !prevState.isSidebarVisible,
     }));
-  }
+  };
 
-  handleSidebarQuit = ({target}) => {
+  handleSidebarQuit = ({ target }) => {
     if (/Board--sidebarMode/.test(target.className)) this.handleSidebar();
-  }
+  };
 
   handleTaskRemove = (id) => {
     const { onTaskRemove } = this.props;
     onTaskRemove(id);
     this.setState({
-      isPlaceholderVisible: false
+      isPlaceholderVisible: false,
     });
-  }
-  
+  };
+
   handleNewTaskButton = () => {
     this.setState({
       isCreatorVisible: true,
-      isPlaceholderVisible: false
+      isPlaceholderVisible: false,
     });
-  }
+  };
 
   render() {
     const {
@@ -74,7 +74,7 @@ class Board extends Component {
       onUserLogout,
       onUserRemove,
       onTaskFinish,
-      onTaskEdit
+      onTaskEdit,
     } = this.props;
 
     const {
@@ -86,27 +86,27 @@ class Board extends Component {
       draggedCardIndex,
       hoveredOffsetX,
       hoveredOffsetY,
-      cardsSizes
+      cardsSizes,
     } = this.state;
 
     const { tasks } = users[loggedUserId];
-    
+
     //#region [ Horizon ] CLASS NAMES
 
     const boardClass = classNames('Board', {
-      'Board--sidebarMode': isSidebarVisible
+      'Board--sidebarMode': isSidebarVisible,
     });
 
     const newTaskButtonClass = classNames('Board__newTaskButton', {
-      'Board__newTaskButton--visible': !isCreatorVisible
+      'Board__newTaskButton--visible': !isCreatorVisible,
     });
 
     const creatorContainerClass = classNames('Board__creator', {
-      'Board__creator--maximized': isCreatorVisible
+      'Board__creator--maximized': isCreatorVisible,
     });
 
     const boardLogoClass = classNames('Board__logo', {
-      'Board__logo--visible': isSidebarVisible
+      'Board__logo--visible': isSidebarVisible,
     });
 
     //#endregion
@@ -114,7 +114,6 @@ class Board extends Component {
     return (
       <section className={boardClass} /* onClick={this.handleSidebarQuit} */>
         <header className="Board__header">
-
           {/* TEXT LOGO */}
           <h2 className={boardLogoClass}>
             task<span className="Board__logo--color">Timer</span>
@@ -177,15 +176,15 @@ class Board extends Component {
           >
             Add New Task
           </button>
-          {
-            isCreatorVisible
-            ? <Creator
-                isVisible={isCreatorVisible}
-                onBoardStateChange={this.handleStateChange}
-                onTaskEdit={onTaskEdit}
-              />
-            : <div className="empty"></div>
-          }
+          {isCreatorVisible ? (
+            <Creator
+              isVisible={isCreatorVisible}
+              onBoardStateChange={this.handleStateChange}
+              onTaskEdit={onTaskEdit}
+            />
+          ) : (
+            <div className="empty"></div>
+          )}
         </section>
       </section>
     );

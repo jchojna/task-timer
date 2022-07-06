@@ -7,17 +7,17 @@ const ProgressBar = (props) => {
     <div className="ProgressBar">
       <div
         className="ProgressBar__part ProgressBar__part--loading"
-        style={{width: `${isElapsedMode
-          ? percentElapsed
-          : percentRemaining}%`}}
+        style={{
+          width: `${isElapsedMode ? percentElapsed : percentRemaining}%`,
+        }}
       ></div>
       <div
         className="ProgressBar__part ProgressBar__part--unloading"
-        style={{width: `${isElapsedMode
-          ? percentRemaining
-          : percentElapsed}%`}}
+        style={{
+          width: `${isElapsedMode ? percentRemaining : percentElapsed}%`,
+        }}
       ></div>
     </div>
   );
-}
+};
 export default ProgressBar;

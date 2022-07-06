@@ -1,11 +1,11 @@
-import React, {Component} from "react";
-import Intro from "./Intro";
-import UserPanel from "./UserPanel";
-import Board from "./Board";
-import Logo from "./Logo";
-import initialUsers from "../lib/initialUsers";
-import {makeTwoDigits, getTotalDays, getTimeArray} from "../lib/handlers";
-import "../scss/App.scss";
+import React, { Component } from 'react';
+import Intro from '../Intro';
+import UserPanel from '../UserPanel';
+import Board from '../Board';
+import Logo from '../Logo';
+import initialUsers from '../../lib/initialUsers';
+import { makeTwoDigits, getTotalDays, getTimeArray } from '../../lib/handlers';
+import styles from './app.module.scss';
 
 class App extends Component {
   constructor(props) {
@@ -18,15 +18,16 @@ class App extends Component {
       isBoardVisible: false,
       // users
       users: null,
-      loggedUserId: "",
+      loggedUserId: '',
       createdAt: null,
     };
   }
 
   componentDidMount = () => {
     // update app state from local storage
-    if (localStorage.getItem("taskTimerUsers")) {
-      const taskTimerUsers = JSON.parse(localStorage.getItem("taskTimerUsers"));
+    const storedUsers = localStorage.getItem('taskTimerUsers');
+    if (storedUsers !== 'null') {
+      const taskTimerUsers = JSON.parse(storedUsers);
 
       this.setState({
         isAppLoaded: true,
@@ -39,7 +40,7 @@ class App extends Component {
       let users = {};
 
       for (let user of initialUsers) {
-        const {finishedTasks, totalTaskTime, totalBreakTime} = user.stats;
+        const { finishedTasks, totalTaskTime, totalBreakTime } = user.stats;
 
         // set date of profile creation
         let [day, month, year, hr, min] = user.date;
@@ -66,9 +67,9 @@ class App extends Component {
         user.stats.dateCreated = `${day}-${month}-${year} ${hr}:${min}`;
         user.createdAt = date;
 
-        users = {...users, [userId]: user};
+        users = { ...users, [userId]: user };
       }
-      this.setState({isAppLoaded: true, users});
+      this.setState({ isAppLoaded: true, users });
     }
     this.exportUsers();
   };
@@ -77,20 +78,18 @@ class App extends Component {
     this.exportUsers();
   };
 
-  componentWillUnmount = () => {};
-
   handleStateChange = (object) => this.setState(object);
 
   exportUsers = () => {
-    const {users} = this.state;
-    localStorage.setItem("taskTimerUsers", JSON.stringify(users));
+    const { users } = this.state;
+    localStorage.setItem('taskTimerUsers', JSON.stringify(users));
   };
 
   handleUserLogin = (user, form) => {
-    const {users} = this.state;
+    const { users } = this.state;
 
     const loggedUserId =
-      form === "loginForm"
+      form === 'loginForm'
         ? Object.entries(users).find(([key, value]) => value === user)[0]
         : new Date(user.createdAt).getTime();
 
@@ -98,77 +97,77 @@ class App extends Component {
       isUserPanelVisible: false,
       isBoardVisible: true,
       users:
-        form === "loginForm"
+        form === 'loginForm'
           ? prevState.users
-          : {...prevState.users, [loggedUserId]: user},
+          : { ...prevState.users, [loggedUserId]: user },
       loggedUserId,
     }));
   };
 
   handleUserLogout = () => {
-    const {users, loggedUserId} = this.state;
+    const { users, loggedUserId } = this.state;
     const user = users[loggedUserId];
     user.rememberMe = false;
 
     this.setState((prevState) => ({
-      users: {...prevState.users},
-      loggedUserId: "",
+      users: { ...prevState.users },
+      loggedUserId: '',
       isUserPanelVisible: true,
       isBoardVisible: false,
     }));
   };
 
   handleUserRemove = () => {
-    const {users, loggedUserId} = this.state;
+    const { users, loggedUserId } = this.state;
     delete users[loggedUserId];
 
     this.setState((prevState) => ({
-      users: {...prevState.users},
+      users: { ...prevState.users },
       isBoardVisible: false,
       isUserPanelVisible: true,
     }));
   };
 
   handleTaskRemove = (id) => {
-    const {users, loggedUserId} = this.state;
+    const { users, loggedUserId } = this.state;
     const user = users[loggedUserId];
     user.tasks = user.tasks.filter((task) => task.id !== id);
 
     this.setState((prevState) => ({
-      users: {...prevState.users},
+      users: { ...prevState.users },
     }));
   };
 
   handleTaskOrder = (dragIndex, dropIndex) => {
-    const {users, loggedUserId} = this.state;
+    const { users, loggedUserId } = this.state;
     const user = users[loggedUserId];
-    const {tasks} = user;
+    const { tasks } = user;
     const updatedTasks = [...tasks];
     updatedTasks.splice(dragIndex, 1, tasks[dropIndex]);
     updatedTasks.splice(dropIndex, 1, tasks[dragIndex]);
     user.tasks = updatedTasks;
 
     this.setState((prevState) => ({
-      users: {...prevState.users},
+      users: { ...prevState.users },
     }));
   };
 
   handleUserUpdate = (value, prop) => {
-    const {users, loggedUserId} = this.state;
+    const { users, loggedUserId } = this.state;
     const user = users[loggedUserId];
     user[prop] = value;
 
     this.setState((prevState) => ({
-      users: {...prevState.users},
+      users: { ...prevState.users },
     }));
   };
 
   handleTaskFinish = (results) => {
-    const {users, loggedUserId} = this.state;
-    const {elapsedTaskTime, elapsedBreakTime} = results;
+    const { users, loggedUserId } = this.state;
+    const { elapsedTaskTime, elapsedBreakTime } = results;
     const user = users[loggedUserId];
 
-    const {finishedTasks, totalTaskTime, totalBreakTime} = user.stats;
+    const { finishedTasks, totalTaskTime, totalBreakTime } = user.stats;
 
     const totalDays = getTotalDays(user.createdAt);
     const updatedFinishedTasks = finishedTasks + 1;
@@ -194,16 +193,16 @@ class App extends Component {
     user.stats.avgTasksPerDay = avgTasksPerDay;
 
     this.setState((prevState) => ({
-      users: {...prevState.users},
+      users: { ...prevState.users },
     }));
   };
 
   handleTaskEdit = (newTask, option) => {
-    const {users, loggedUserId} = this.state;
+    const { users, loggedUserId } = this.state;
     const user = users[loggedUserId];
 
-    if (option === "edit") {
-      const {id} = newTask;
+    if (option === 'edit') {
+      const { id } = newTask;
       const tasksIds = user.tasks.map((task) => task.id);
       const editedIndex = tasksIds.indexOf(id);
 
@@ -216,12 +215,12 @@ class App extends Component {
           (task, idx) => task.id !== id && idx > editedIndex
         ),
       ];
-    } else if (option === "add") {
+    } else if (option === 'add') {
       user.tasks = [...user.tasks, newTask];
     }
 
     this.setState((prevState) => ({
-      users: {...prevState.users},
+      users: { ...prevState.users },
     }));
   };
 
@@ -237,18 +236,18 @@ class App extends Component {
 
     return (
       <React.StrictMode>
-        <div className="App">
+        <div className={styles.app}>
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
           {
             /* LOGO ANIMATION */
-            isIntroVisible ? (
-              <Intro
-                isIntroVisible={isIntroVisible}
-                onAppStateChange={this.handleStateChange}
-              />
-            ) : (
-              <div className="empty"></div>
-            )
+            // isIntroVisible ? (
+            //   <Intro
+            //     isIntroVisible={isIntroVisible}
+            //     onAppStateChange={this.handleStateChange}
+            //   />
+            // ) : (
+            //   <div className="empty"></div>
+            // )
           }
           {
             /* USER PANEL */

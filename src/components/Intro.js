@@ -14,8 +14,8 @@ class Intro extends Component {
       elapsedTime: 0,
       xTranslation: 0,
       yTranslation: 0,
-      isIntroFadingOut: false
-    }
+      isIntroFadingOut: false,
+    };
   }
 
   componentDidMount() {
@@ -36,30 +36,30 @@ class Intro extends Component {
         elapsedTime,
         maxDistance,
         elapsedDistance,
-        elapsedAngle
+        elapsedAngle,
       } = this.state;
 
       const totalIntervals = totalTime / timeInterval;
       const distanceIncrement = maxDistance / totalIntervals;
       const factor = 3;
       const easeOut = factor / Math.pow(factor, 2 * (elapsedTime / totalTime));
-      const angleIncrement = 360 / totalIntervals * easeOut;
+      const angleIncrement = (360 / totalIntervals) * easeOut;
 
       const radians = elapsedAngle * (Math.PI / 180);
-      const x = Math.sin(radians) * (elapsedDistance);
-      const y = Math.cos(radians) * (elapsedDistance);
+      const x = Math.sin(radians) * elapsedDistance;
+      const y = Math.cos(radians) * elapsedDistance;
 
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         elapsedTime: elapsedTime + timeInterval,
         elapsedDistance: prevState.elapsedDistance + distanceIncrement,
         elapsedAngle: prevState.elapsedAngle - angleIncrement,
         xTranslation: x,
-        yTranslation: y
+        yTranslation: y,
       }));
 
-      if ( this.state.elapsedTime >= this.state.totalTime ) {
+      if (this.state.elapsedTime >= this.state.totalTime) {
         const { onAppStateChange } = this.props;
-        
+
         this.setState({ isIntroFadingOut: true });
         clearInterval(this.intervalId);
         this.timeoutId = setTimeout(() => {
@@ -67,20 +67,20 @@ class Intro extends Component {
         }, 1000);
       }
     }
-  }
+  };
 
   render() {
     const { isIntroFadingOut, xTranslation, yTranslation } = this.state;
 
-    const introClass = classNames("Intro", {
-      "Intro--visible": !isIntroFadingOut
+    const introClass = classNames('Intro', {
+      'Intro--visible': !isIntroFadingOut,
     });
 
     const styleObject = {
       transform: `
         translate(${xTranslation}%, ${yTranslation}%)
         rotate(0.01deg)
-      `
+      `,
     };
 
     return (
@@ -88,7 +88,7 @@ class Intro extends Component {
         <svg className="logo" viewBox="0 0 600 600">
           {/* MASK */}
           <mask id="mask" className="logo__mask">
-            <rect width="600" height="600" fill="#fff"/>
+            <rect width="600" height="600" fill="#fff" />
             <rect
               x="200"
               y="50"
@@ -98,8 +98,8 @@ class Intro extends Component {
               ry="17.5"
               fill="#000"
             />
-            <circle cx="300" cy="300" r="180" fill="#000"/>
-            <circle cx="300" cy="300" r="145" fill="#fff"/>
+            <circle cx="300" cy="300" r="180" fill="#000" />
+            <circle cx="300" cy="300" r="145" fill="#fff" />
             <rect
               x="282.5"
               y="282.5"
@@ -112,7 +112,7 @@ class Intro extends Component {
             />
           </mask>
           {/* ELEMENTS */}
-          <rect width="600" height="600" className="logo__background"/>
+          <rect width="600" height="600" className="logo__background" />
           <rect
             x="199"
             y="49"
