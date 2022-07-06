@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import icons from '../assets/svg/icons.svg';
-import '../scss/CardButtons.scss';
+import icons from '../../../assets/svg/icons.svg';
+import styles from './cardButtons.module.scss';
 
 const CardButtons = (props) => {
   const {
@@ -23,22 +23,22 @@ const CardButtons = (props) => {
     onBoardStateChange({ isPlaceholderVisible: false });
   };
 
-  const cardButtonsClass = classNames('CardButtons', {
-    'CardButtons--maximized': isMaximized,
+  const cardButtonsClass = classNames(styles.container, {
+    [styles['container--maximized']]: isMaximized,
   });
 
   const acceptButtonClass = classNames(
-    'CardButtons__button',
-    'CardButtons__button--accept',
+    styles.button,
+    [styles['button--accept']],
     {
-      'CardButtons__button--visible': editModeActive,
-      'CardButtons__button--disabled': inputInvalid || cardRotatingMode,
+      [styles['button--visible']]: editModeActive,
+      [styles['button--disabled']]: inputInvalid || cardRotatingMode,
     }
   );
 
-  const buttonClass = classNames('CardButtons__button', {
-    'CardButtons__button--disabled': editModeActive || cardRotatingMode,
-    'CardButtons__button--visible': isMaximized,
+  const buttonClass = classNames(styles.button, {
+    [styles['button--disabled']]: editModeActive || cardRotatingMode,
+    [styles['button--visible']]: isMaximized,
   });
 
   return (
