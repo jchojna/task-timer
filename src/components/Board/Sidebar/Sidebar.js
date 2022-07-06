@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import UserEdit from '../UserEdit';
+import UserEdit from './UserEdit/UserEdit';
 import icons from 'assets/svg/icons.svg';
 import { getCapitalized } from 'lib/handlers.js';
 import 'scss/Sidebar.scss';

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import TimeDisplay from './TimeDisplay';
+import TimeDisplay from './TimeDisplay/TimeDisplay';
 import 'scss/Countdown.scss';
 
 const Countdown = (props) => {
