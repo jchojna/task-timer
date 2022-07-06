@@ -1,0 +1,14 @@
+@use 'src/styles/vars.global.scss' as var;
+
+.container {
+  background-color: var.$color-teal-dark-2;
+  border-radius: var.$radius-card;
+  box-shadow: var.$placeholder-shadow-medium;
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+
+  &--visible {
+    visibility: visible;
+  }
+}

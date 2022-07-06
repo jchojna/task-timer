@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import '../scss/CardPlaceholder.scss';
+import styles from './CardPlaceholder.module.scss';
 
 const CardPlaceholder = (props) => {
   const { placeholderIndex, cardsSizes, isPlaceholderVisible } = props;
@@ -17,8 +17,8 @@ const CardPlaceholder = (props) => {
     };
   }
 
-  const placeholderClass = classNames('CardPlaceholder', {
-    'CardPlaceholder--visible': isPlaceholderVisible,
+  const placeholderClass = classNames(styles.container, {
+    [styles['container--visible']]: isPlaceholderVisible,
   });
 
   return <div className={placeholderClass} style={placeholderStyle}></div>;
