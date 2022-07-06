@@ -5,9 +5,9 @@ import TotalTime from '../TotalTime.js';
 import CardButtons from './CardButtons';
 import StopAlert from '../StopAlert.js';
 import Timer from '../Timer.js';
-import { validateTaskName, handleTimeChange } from '../../../lib/handlers';
-import { cardFlipTime, animationStyle } from '../../../lib/globalVariables';
-import icons from '../../../assets/svg/icons.svg';
+import { validateTaskName, handleTimeChange } from 'lib/handlers';
+import { cardFlipTime, animationStyle } from 'lib/globalVariables';
+import icons from 'assets/svg/icons.svg';
 import styles from './card.module.scss';
 
 class Card extends Component {

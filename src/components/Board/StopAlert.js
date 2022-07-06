@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import '../../scss/StopAlert.scss';
+import 'scss/StopAlert.scss';
 
 const StopAlert = (props) => {
   const { alertText, isStopAlertVisible, onStopCancel, onStopConfirm } = props;

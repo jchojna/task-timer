@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import UserForm from '../Board/UserForm';
-import '../../scss/UserPanel.scss';
+import 'scss/UserPanel.scss';
 
 class UserPanel extends Component {
   constructor(props) {

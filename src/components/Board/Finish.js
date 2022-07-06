@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { formatTimeResult } from '../../lib/handlers';
+import { formatTimeResult } from 'lib/handlers';
 import classNames from 'classnames';
-import icons from '../../assets/svg/icons.svg';
-import '../../scss/Finish.scss';
+import icons from 'assets/svg/icons.svg';
+import 'scss/Finish.scss';
 
 class Finish extends Component {
   render() {

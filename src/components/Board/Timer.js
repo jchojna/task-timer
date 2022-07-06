@@ -5,9 +5,9 @@ import StopAlert from './StopAlert.js';
 import Progress from './Progress';
 import Controls from './Controls';
 import Finish from './Finish.js';
-import { getTimeArray, breaksAmount } from '../../lib/handlers';
-import { cardFlipTime } from '../../lib/globalVariables';
-import '../../scss/Timer.scss';
+import { getTimeArray, breaksAmount } from 'lib/handlers';
+import { cardFlipTime } from 'lib/globalVariables';
+import 'scss/Timer.scss';
 
 class Timer extends Component {
   constructor(props) {
