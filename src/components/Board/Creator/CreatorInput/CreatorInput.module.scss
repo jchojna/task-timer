@@ -1,35 +1,34 @@
-@import "_variables.scss";
-@import "_mixins.scss";
-@import "_animations.scss";
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
 
 .CreatorInput {
   display: grid;
   grid-area: input;
   grid-template-areas:
-    "label"
-    "input"
-    ".    ";
+    'label'
+    'input'
+    '.    ';
   grid-template-rows: 1fr 2fr 1fr;
   height: 100%;
   transform: translate(0);
-  transition: transform $time-slide, visibility 0s $time-slide;
+  transition: transform var.$time-slide, visibility 0s var.$time-slide;
   user-select: none;
   visibility: hidden;
   width: 100%;
 
   &--taskName {
-    transition: transform $time-slide, visibility 0s;
+    transition: transform var.$time-slide, visibility 0s;
     visibility: visible;
   }
 
   &--taskTime,
   &--breakTime {
-    transition: transform $time-slide, visibility 0s;
+    transition: transform var.$time-slide, visibility 0s;
     visibility: visible;
   }
 
   &__label {
-    color: $color-teal-light-2;
+    color: var.$color-teal-light-2;
     font-size: 2rem;
     grid-area: label;
     margin: 0;
@@ -46,36 +45,36 @@
   &__text,
   &__input {
     background: none;
-    border: $card-border;
-    border-color: $color-teal-light-2;
-    color: $color-teal-light-3;
+    border: var.$card-border;
+    border-color: var.$color-teal-light-2;
+    color: var.$color-teal-light-3;
     font-size: 1.2rem;
     line-height: 1.2;
     padding: 15px;
     width: 100%;
-    transition: background-color $time-button, border-color $time-button;
+    transition: background-color var.$time-button, border-color var.$time-button;
 
     &::placeholder {
-      color: $color-teal-light-1;
+      color: var.$color-teal-light-1;
       opacity: 1;
     }
 
     &:focus {
-      background-color: $color-teal-dark-1;
-      border-color: $color-teal-light-2;
+      background-color: var.$color-teal-dark-1;
+      border-color: var.$color-teal-light-2;
 
       &::placeholder {
-        color: $color-teal;
+        color: var.$color-teal;
       }
     }
 
     &--invalid {
-      background-color: $color-teal-accent;
-      border-color: $color-teal-dark-2;
+      background-color: var.$color-teal-accent;
+      border-color: var.$color-teal-dark-2;
 
       &:focus {
-        background-color: $color-teal-accent;
-        border-color: $color-teal-dark-2;
+        background-color: var.$color-teal-accent;
+        border-color: var.$color-teal-dark-2;
       }
     }
   }
@@ -89,8 +88,8 @@
   &__inputs {
     align-self: center;
     align-items: center;
-    border: $card-border;
-    border-color: $color-teal-light-2;
+    border: var.$card-border;
+    border-color: var.$color-teal-light-2;
     border-radius: 10px;
     display: flex;
     font-size: 2.5rem;
@@ -100,12 +99,12 @@
     width: 100%;
 
     &--invalid {
-      background-color: $color-teal-accent;
-      border-color: $color-teal-dark-2;
+      background-color: var.$color-teal-accent;
+      border-color: var.$color-teal-dark-2;
 
       &:focus {
-        background-color: $color-teal-accent;
-        border-color: $color-teal-dark-2;
+        background-color: var.$color-teal-accent;
+        border-color: var.$color-teal-dark-2;
       }
     }
   }
@@ -124,7 +123,7 @@
   }
 
   &__progress {
-    background-color: $color-teal-accent;
+    background-color: var.$color-teal-accent;
     height: 4px;
     margin-top: 4px;
     width: 0;

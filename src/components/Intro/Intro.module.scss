@@ -1,10 +1,10 @@
-@import "_variables.scss";
-@import "_mixins.scss";
-@import "_animations.scss";
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
 
 .Intro {
-  @include flex-center;
-  background-color: $color-teal;
+  @include mix.flex-center;
+
+  background-color: var.$color-teal;
   bottom: 0;
   left: 0;
   opacity: 0;
@@ -25,27 +25,28 @@
 .logo {
   animation: clockFadeIn 5.4s forwards;
   height: auto;
-  width: $logo-size;
+  width: var.$logo-size;
 
   &__background {
-    fill: $color-teal-dark-1;
+    fill: var.$color-teal-dark-1;
   }
 
   &__letter {
-    animation: clockLetter $intro-time forwards;
-    fill: $color-teal-dark-1;
+    animation: clockLetter var.$intro-time forwards;
+    fill: var.$color-teal-dark-1;
   }
 
   &__shadow {
     fill: rgba($color: rgb(17, 20, 20), $alpha: 0.6);
-  } 
+  }
 
   &__clockHand {
-    animation: clockHand $intro-time cubic-bezier(.13,.63,.43,1) forwards;
+    animation: clockHand var.$intro-time cubic-bezier(0.13, 0.63, 0.43, 1)
+      forwards;
     transform-origin: center;
   }
 
   &__foreground {
-    fill: $color-teal;
+    fill: var.$color-teal;
   }
 }

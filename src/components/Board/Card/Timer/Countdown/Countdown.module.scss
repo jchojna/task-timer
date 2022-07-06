@@ -1,6 +1,5 @@
-@import "_variables.scss";
-@import "_mixins.scss";
-@import "_animations.scss";
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
 
 .Countdown {
   align-content: center;
@@ -12,7 +11,7 @@
   height: 100%;
   justify-items: center;
   width: 100%;
-  transition: visibility 0s $time-slide;
+  transition: visibility 0s var.$time-slide;
   visibility: hidden;
 
   &--visible {
@@ -22,19 +21,19 @@
 
   &--taskTime {
     grid-template-areas:
-      "heading "
-      "display "
-      "timeType";
+      'heading '
+      'display '
+      'timeType';
   }
-  
+
   &--breakTime {
     position: absolute;
     left: 0;
     top: 0;
     grid-template-areas:
-      "heading "
-      "display "
-      "timeType";
+      'heading '
+      'display '
+      'timeType';
   }
 
   &__heading {

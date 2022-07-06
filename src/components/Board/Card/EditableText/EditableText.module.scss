@@ -1,9 +1,9 @@
-@import "_variables.scss";
-@import "_mixins.scss";
-@import "_animations.scss";
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
 
 .taskName {
-  @include flex-center;
+  @include mix.flex-center;
+
   align-self: center;
   flex-direction: column;
   grid-area: taskName;
@@ -12,11 +12,11 @@
   padding: 15px;
   position: relative;
   text-align: center;
-  transition: opacity $card-edit;
+  transition: opacity var.$card-edit;
   width: 100%;
 
   &--disabled {
-    @include disabled;
+    @include mix.disabled;
   }
 
   &--maximized {
@@ -27,9 +27,9 @@
 
   &__text {
     border: 2px solid transparent;
-    color: $color-teal-dark-2;
+    color: var.$color-teal-dark-2;
     font-weight: 600;
-    font-size: $card-taskName-size;
+    font-size: var.$card-taskName-size;
     margin: 0;
     width: 100%;
     word-break: break-word;
@@ -50,25 +50,25 @@
     opacity: 0;
     position: absolute;
     top: 0;
-    transition: opacity $card-edit, visibility 0s $card-edit;
+    transition: opacity var.$card-edit, visibility 0s var.$card-edit;
     visibility: hidden;
     width: 100%;
 
     &--visible {
       opacity: 1;
-      transition: opacity $card-edit, visibility 0s;
+      transition: opacity var.$card-edit, visibility 0s;
       visibility: visible;
     }
   }
 
   &__input {
-    background-color: $color-teal;
-    border: $card-border;
-    border-color: $color-teal-light-2;
+    background-color: var.$color-teal;
+    border: var.$card-border;
+    border-color: var.$color-teal-light-2;
     border-radius: 10px;
-    color: $color-teal-light-3;
+    color: var.$color-teal-light-3;
     font-weight: 600;
-    font-size: $card-taskName-size;
+    font-size: var.$card-taskName-size;
     height: 100%;
     outline: none;
     overflow: hidden;
@@ -78,12 +78,12 @@
     width: 100%;
 
     &--incorrect {
-      border-color: $color-teal-accent;
+      border-color: var.$color-teal-accent;
     }
   }
-  
+
   &__progress {
-    background-color: $color-teal-accent;
+    background-color: var.$color-teal-accent;
     height: 4px;
     margin-top: 4px;
     width: 0;

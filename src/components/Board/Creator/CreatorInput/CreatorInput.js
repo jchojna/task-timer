@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import 'scss/CreatorInput.scss';
 import { maxTaskNameLength } from 'lib/globalVariables';
 import { taskNameProgressStyle } from 'lib/handlers';
+import './CreatorInput.module.scss';
 
 const CreatorInput = (props) => {
   const {

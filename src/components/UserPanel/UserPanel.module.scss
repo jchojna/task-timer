@@ -1,20 +1,21 @@
-@import "_variables.scss";
-@import "_mixins.scss";
-@import "_animations.scss";
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
 
 .UserPanel {
-  @include flex-center;
+  @include mix.flex-center;
+
   flex-direction: column;
   left: 0;
   opacity: 0;
   padding: 20px;
-  transition: opacity $time-component-fade, visibility 0s $time-component-fade;
+  transition: opacity var.$time-component-fade,
+    visibility 0s var.$time-component-fade;
   visibility: hidden;
   z-index: 1;
 
   &--visible {
     opacity: 1;
-    transition: opacity $time-component-fade, visibility 0s;
+    transition: opacity var.$time-component-fade, visibility 0s;
     visibility: visible;
   }
 
@@ -27,14 +28,14 @@
     user-select: none;
 
     &--color {
-      color: $color-teal-dark-3;
+      color: var.$color-teal-dark-3;
     }
 
     &--fadeOut {
       animation: textLogoFadeOut 0.3s forwards;
     }
 
-    @media only screen and (min-width: $media-md) {
+    @media only screen and (min-width: var.$media-md) {
       font-size: 80px;
     }
   }
@@ -45,8 +46,8 @@
     perspective: 1200px;
     width: 100%;
 
-    @media only screen and (min-width: $media-md) {
+    @media only screen and (min-width: var.$media-md) {
       max-width: 700px;
-    }    
+    }
   }
 }

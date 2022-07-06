@@ -1,15 +1,14 @@
-@import "_variables.scss";
-@import "_mixins.scss";
-@import "_animations.scss";
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
 
 .UserInput {
   align-items: center;
   display: grid;
   gap: 0.3em 0.6em;
   grid-template-areas:
-  "label label label"
-  "input input icons"
-  "alert alert .    ";
+    'label label label'
+    'input input icons'
+    'alert alert .    ';
   grid-template-columns: repeat(2, 1fr) auto;
 
   &--login {
@@ -23,16 +22,15 @@
   &--confirm {
     grid-area: confirm;
   }
-  
-  @media only screen and (min-width: $media-md) {
 
+  @media only screen and (min-width: var.$media-md) {
     & {
       &--loginForm,
       &--signupForm {
         gap: 0.6em 0.8em;
         grid-template-areas:
-        "label input input icons"
-        ".     alert alert .    ";
+          'label input input icons'
+          '.     alert alert .    ';
         grid-template-columns: repeat(4, 1fr);
       }
     }
@@ -53,23 +51,22 @@
     grid-area: label;
 
     &--loginForm {
-      color: $color-teal-dark-1;
+      color: var.$color-teal-dark-1;
     }
 
     &--signupForm {
-      color: $color-teal-dark-1;
+      color: var.$color-teal-dark-1;
     }
 
     &--userEdit {
-      color: $color-teal;
+      color: var.$color-teal;
     }
-  
-    &--disabled {
-      color: rgba($color: $color-teal-dark-2, $alpha: 0.5);
-    }
-  
-    @media only screen and (min-width: $media-md) {
 
+    &--disabled {
+      color: rgba($color: var.$color-teal-dark-2, $alpha: 0.5);
+    }
+
+    @media only screen and (min-width: var.$media-md) {
       & {
         justify-self: end;
 
@@ -79,13 +76,13 @@
       }
     }
   }
-  
+
   &__input {
-    background-color: $color-teal-dark-1;
+    background-color: var.$color-teal-dark-1;
     border: none;
-    box-shadow: $placeholder-shadow-small;
+    box-shadow: var.$placeholder-shadow-small;
     border-radius: 5px;
-    color: $color-teal-light-3;
+    color: var.$color-teal-light-3;
     font-size: 1.4em;
     font-weight: 400;
     grid-area: input;
@@ -93,23 +90,23 @@
     outline: none;
     padding: 0.5em;
     width: 100%;
-  
+
     &:focus {
-      background-color: $color-teal-dark-2;
-      box-shadow: $placeholder-shadow-medium;
+      background-color: var.$color-teal-dark-2;
+      box-shadow: var.$placeholder-shadow-medium;
     }
 
     &--disabled {
-      background-color: rgba($color: $color-teal-dark-2, $alpha: 0.5);
+      background-color: rgba($color: var.$color-teal-dark-2, $alpha: 0.5);
     }
   }
-  
+
   &__alertBox {
-    @include inputAlertBox;
+    @include mix.inputAlertBox;
   }
-  
+
   &__alert {
-    @include inputAlert;
+    @include mix.inputAlert;
   }
 
   &__icons {
@@ -122,80 +119,78 @@
 }
 
 .inputPassed {
-  height: $login-icons;
+  height: var.$login-icons;
   overflow: hidden;
   width: 0;
   transition: width 0.2s;
 
   &--visible {
-    width: $login-icons;
+    width: var.$login-icons;
   }
 
   &--loginForm {
-    fill: $color-teal-dark-2;
-
+    fill: var.$color-teal-dark-2;
   }
 
   &--signupForm {
-    fill: $color-teal;
+    fill: var.$color-teal;
   }
 
   &--userEdit {
-    fill: $color-teal-dark-1;
+    fill: var.$color-teal-dark-1;
   }
 
   &__svg {
-    width: $login-icons;
+    width: var.$login-icons;
   }
 }
 
 .previewPassword {
-  @include button;
-  height: $login-icons;
-  width: $login-icons;
-  transition: fill $time-button, transform $time-button;
+  @include mix.button;
+
+  height: var.$login-icons;
+  width: var.$login-icons;
+  transition: fill var.$time-button, transform var.$time-button;
 
   &:active {
-    fill: $color-teal-light-3;
+    fill: var.$color-teal-light-3;
   }
 
   &--active {
-    fill: $color-teal-light-2;
+    fill: var.$color-teal-light-2;
     transform: rotate(180deg);
   }
 
   &--disabled {
-    fill: $color-teal-dark-2;
+    fill: var.$color-teal-dark-2;
     pointer-events: none;
   }
 
   &--loginForm {
-    fill: $color-teal-dark-2;
+    fill: var.$color-teal-dark-2;
   }
 
   &--signupForm {
-    fill: $color-teal;
+    fill: var.$color-teal;
   }
 
   &--userEdit {
-    fill: $color-teal-dark-1;
+    fill: var.$color-teal-dark-1;
 
     &:hover {
-      fill: $color-teal-light-2;
+      fill: var.$color-teal-light-2;
     }
   }
 
   &__svg {
     width: 100%;
   }
-  
-  @media only screen and (min-width: $media-md) {
 
+  @media only screen and (min-width: var.$media-md) {
     & {
-
       &:focus,
       &:hover {
-        fill: $color-teal-light-3;
+        fill: var.$color-teal-light-3;
       }
     }
   }

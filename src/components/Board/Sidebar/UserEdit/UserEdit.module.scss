@@ -1,0 +1,49 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+
+.UserEdit {
+  display: flex;
+  flex-direction: column;
+  max-width: var.$sidebar-content-width-xs;
+  opacity: 1;
+  transition: max-height var.$sidebar-edit-toggle var.$sidebar-edit-toggle,
+    opacity var.$sidebar-edit-toggle var.$sidebar-edit-toggle, visibility 0s;
+  visibility: visible;
+  width: 100%;
+
+  &--login {
+    max-height: 120px;
+  }
+  &--password {
+    max-height: 380px;
+  }
+  &--logout {
+    max-height: 60px;
+  }
+  &--remove {
+    max-height: 60px;
+  }
+
+  &--hidden {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height var.$sidebar-edit-toggle,
+      opacity var.$sidebar-edit-toggle, visibility 0s var.$sidebar-edit-toggle;
+    visibility: hidden;
+  }
+
+  @media only screen and (min-width: var.$media-md) {
+    max-width: var.$sidebar-content-width-md;
+  }
+
+  &__text {
+    background-color: var.$color-teal-dark-2;
+    border-radius: 6px;
+    color: var.$color-teal-light-1;
+    font-weight: 700;
+    font-size: 1.2em;
+    margin: 0;
+    padding: 1em 0.5em;
+    text-align: center;
+  }
+}

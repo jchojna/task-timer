@@ -1,6 +1,5 @@
-@import "_variables.scss";
-@import "_mixins.scss";
-@import "_animations.scss";
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
 
 .Controls {
   display: grid;
@@ -8,41 +7,38 @@
   grid-template-columns: repeat(3, auto);
   grid-area: controls;
   justify-content: center;
-  padding: 20px $card-padding;
+  padding: 20px var.$card-padding;
 
   &__button {
-    @include button;
-    @include flex-center;
+    @include mix.button;
+    @include mix.flex-center;
+
     border-radius: 50%;
     fill: none;
-    height: $size-controls;
+    height: var.$size-controls;
     padding: 2px;
-    stroke: $color-teal-light-1;
+    stroke: var.$color-teal-light-1;
     stroke-width: 3;
-    transition:
-      background-color $hover-icon,
-      border-color $hover-icon,
-      opacity $card-edit,
-      stroke $hover-icon;
-    width: $size-controls;
+    transition: background-color var.$hover-icon, border-color var.$hover-icon,
+      opacity var.$card-edit, stroke var.$hover-icon;
+    width: var.$size-controls;
 
     @mixin controlButtons {
-      background-color: $color-teal;
-      border-color: $color-teal-accent;
-      stroke: $color-teal-dark-2;
+      background-color: var.$color-teal;
+      border-color: var.$color-teal-accent;
+      stroke: var.$color-teal-dark-2;
     }
 
     &:active {
       @include controlButtons;
     }
-    
+
     &--disabled {
       opacity: 0.5;
       pointer-events: none;
     }
 
-    @media only screen and (min-width: $media-md) {
-  
+    @media only screen and (min-width: var.$media-md) {
       & {
         &:focus,
         &:hover {

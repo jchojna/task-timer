@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import 'scss/Intro.scss';
+import './Intro.module.scss';
 
 class Intro extends Component {
   constructor(props) {

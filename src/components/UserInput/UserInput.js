@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import icons from 'assets/svg/icons.svg';
-import 'scss/UserInput.scss';
+import './UserInput.module.scss';
 
 const UserInput = (props) => {
   const {

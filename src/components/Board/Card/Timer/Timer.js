@@ -7,7 +7,7 @@ import Controls from './Controls';
 import Finish from './Finish';
 import { getTimeArray, breaksAmount } from 'lib/handlers';
 import { cardFlipTime } from 'lib/globalVariables';
-import 'scss/Timer.scss';
+import './Timer.module.scss';
 
 class Timer extends Component {
   constructor(props) {

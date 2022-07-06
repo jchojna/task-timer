@@ -4,7 +4,7 @@ import UserInput from 'components/UserInput';
 import icons from 'assets/svg/icons.svg';
 import { getCapitalized } from 'lib/handlers.js';
 import { User } from 'lib/classes.js';
-import 'scss/UserForm.scss';
+import './UserForm.module.scss';
 
 class UserForm extends Component {
   constructor(props) {

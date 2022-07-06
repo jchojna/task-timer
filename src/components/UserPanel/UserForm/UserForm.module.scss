@@ -1,0 +1,230 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+
+.loginForm,
+.signupForm {
+  box-shadow: var.$card-shadow-medium;
+  border-radius: 10px;
+  display: grid;
+  gap: 0.3em 0.6em;
+  grid-template-columns: repeat(2, 1fr) auto;
+  min-width: 250px;
+  padding: 20px;
+  transform: rotate3d(0, 1, 0, -90deg);
+  visibility: hidden;
+
+  &--rotateIn {
+    animation: rotateIn var.$toggle-card var.$toggle-card ease-out forwards;
+    visibility: visible;
+  }
+
+  &--rotateOut {
+    animation: rotateOut var.$toggle-card ease-in forwards;
+    transition: visibility 0s var.$toggle-card;
+  }
+
+  @media only screen and (min-width: var.$media-md) {
+    & {
+      gap: 0.6em 0.8em;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__heading {
+    font-size: 1.5em;
+    grid-area: heading;
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  &__button {
+    @include mix.button;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-top: 20px;
+    padding: 0.5em;
+    transition: background-color var.$time-button, color var.$time-button;
+
+    &--login {
+      grid-area: loginBtn;
+    }
+
+    &--signup {
+      grid-area: signupBtn;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      & {
+        font-size: 1.3em;
+        margin-top: 10px;
+        padding: 0.7em;
+      }
+    }
+  }
+}
+
+.loginForm {
+  background-color: var.$color-teal;
+  grid-template-areas:
+    'heading  heading   heading '
+    'login    login     login   '
+    'password password  password'
+    'alert    alert     .       '
+    'remember remember  .       '
+    'loginBtn signupBtn .       ';
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  @media only screen and (min-width: var.$media-md) {
+    & {
+      grid-template-areas:
+        '.        heading  heading   .       '
+        'login    login    login     login   '
+        'password password password  password'
+        '.        alert    alert     .       '
+        '.        remember remember  .       '
+        '.        loginBtn signupBtn .       ';
+    }
+  }
+
+  &__heading {
+    color: var.$color-teal-dark-2;
+  }
+
+  &__alertBox {
+    @include mix.inputAlertBox;
+  }
+
+  &__alert {
+    @include mix.inputAlert;
+  }
+
+  &__button {
+    background-color: var.$color-teal-dark-2;
+    color: var.$color-teal-light-1;
+
+    @mixin buttonActive {
+      background-color: var.$color-teal-dark-3;
+      color: var.$color-teal-light-2;
+    }
+
+    &:active {
+      @include buttonActive;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      &:focus,
+      &:hover {
+        @include buttonActive;
+      }
+    }
+  }
+}
+
+.signupForm {
+  background-color: var.$color-teal-dark-3;
+  grid-template-areas:
+    'heading  heading   heading '
+    'login    login     login   '
+    'password password  password'
+    'confirm  confirm   confirm '
+    'remember remember  .       '
+    'loginBtn signupBtn .       ';
+
+  @media only screen and (min-width: var.$media-md) {
+    & {
+      grid-template-areas:
+        '.        heading  heading   .       '
+        'login    login    login     login   '
+        'password password password  password'
+        'confirm  confirm  confirm   confirm '
+        '.        remember remember  .       '
+        '.        loginBtn signupBtn .       ';
+    }
+  }
+
+  &__heading {
+    color: var.$color-teal-light-1;
+  }
+
+  &__button {
+    background-color: var.$color-teal-dark-2;
+    color: var.$color-teal-light-1;
+    @mixin buttonActive {
+      background-color: var.$color-teal;
+      color: var.$color-teal-light-2;
+    }
+
+    &:active {
+      @include buttonActive;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      &:focus,
+      &:hover {
+        @include buttonActive;
+      }
+    }
+  }
+}
+
+.remember {
+  align-items: center;
+  display: flex;
+  grid-area: remember;
+
+  &__field {
+    border: 3px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 25px;
+    position: relative;
+    width: 25px;
+
+    &--loginForm {
+      border-color: var.$color-teal-dark-2;
+    }
+
+    &--signupForm {
+      border-color: var.$color-teal-dark-1;
+    }
+  }
+
+  &__checkbox {
+    fill: var.$color-teal-light-3;
+    height: 30px;
+    left: -5px;
+    position: absolute;
+    top: -6px;
+    visibility: hidden;
+    width: 30px;
+
+    &--visible {
+      visibility: visible;
+    }
+  }
+
+  &__input {
+    display: none;
+    position: absolute;
+  }
+
+  &__label {
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-left: 10px;
+
+    &--loginForm {
+      color: var.$color-teal-dark-2;
+    }
+
+    &--signupForm {
+      color: var.$color-teal-dark-1;
+    }
+  }
+}

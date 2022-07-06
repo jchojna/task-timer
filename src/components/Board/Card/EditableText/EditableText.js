@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { maxTaskNameLength } from 'lib/globalVariables';
 import { taskNameProgressStyle } from 'lib/handlers';
-import 'scss/EditableText.scss';
+import './EditableText.module.scss';
 
 const EditableText = (props) => {
   const {

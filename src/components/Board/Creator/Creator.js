@@ -4,7 +4,7 @@ import CreatorInput from './CreatorInput';
 import { validateTaskName, handleTimeChange } from 'lib/handlers';
 import { cardFlipTime, animationStyle } from 'lib/globalVariables';
 import icons from 'assets/svg/icons.svg';
-import 'scss/Creator.scss';
+import './Creator.module.scss';
 
 class Creator extends Component {
   constructor(props) {

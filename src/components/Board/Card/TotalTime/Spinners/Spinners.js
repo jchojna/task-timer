@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import icons from 'assets/svg/icons.svg';
 import { getNumFromRange } from 'lib/handlers';
-import 'scss/Spinners.scss';
+import './Spinners.module.scss';
 
 const Spinners = (props) => {
   const { modifier, value, isValid, isEditMode, onTimeChange } = props;
