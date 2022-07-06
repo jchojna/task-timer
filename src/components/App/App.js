@@ -1,11 +1,11 @@
 import React, {Component} from "react";
-import Intro from "./Intro";
-import UserPanel from "./UserPanel";
-import Board from "./Board";
-import Logo from "./Logo";
-import initialUsers from "../lib/initialUsers";
-import {makeTwoDigits, getTotalDays, getTimeArray} from "../lib/handlers";
-import "../scss/App.scss";
+import Intro from "../Intro";
+import UserPanel from "../UserPanel";
+import Board from "../Board";
+import Logo from "../Logo";
+import initialUsers from "../../lib/initialUsers";
+import {makeTwoDigits, getTotalDays, getTimeArray} from "../../lib/handlers";
+import styles from"./app.module.scss";
 
 class App extends Component {
   constructor(props) {
@@ -236,7 +236,7 @@ class App extends Component {
 
     return (
       <React.StrictMode>
-        <div className="App">
+        <div className={styles.app}>
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
           {
             /* LOGO ANIMATION */
