@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import '../scss/Progress.scss';
+import '../../scss/Progress.scss';
 
 const Progress = (props) => {
   const {

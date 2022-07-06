@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import Sidebar from '../Sidebar';
-import Creator from '../Creator';
-import Card from '../Card';
-import CardPlaceholder from '../CardPlaceholder';
+import Sidebar from './Sidebar';
+import Creator from './Creator';
+import Card from './Card/Card';
+import CardPlaceholder from './CardPlaceholder';
 import icons from '../../assets/svg/icons.svg';
 import styles from './board.module.scss';
 

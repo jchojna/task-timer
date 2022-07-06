@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import UserEdit from './UserEdit';
-import icons from '../assets/svg/icons.svg';
-import { getCapitalized } from '../lib/handlers.js';
-import '../scss/Sidebar.scss';
+import icons from '../../assets/svg/icons.svg';
+import { getCapitalized } from '../../lib/handlers.js';
+import '../../scss/Sidebar.scss';
 
 class Sidebar extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import '../scss/TimeDisplay.scss';
+import '../../scss/TimeDisplay.scss';
 
 const TimeDisplay = (props) => {
   const { type, elapsedTimeArray, remainingTimeArray, isElapsedMode } = props;

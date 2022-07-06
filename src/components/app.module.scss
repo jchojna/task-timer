@@ -1,5 +1,5 @@
-@use '../../styles/vars.global.scss' as var;
-@use '../../styles/mixins.global.scss' as mix;
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
 
 .container {
   @include mix.flex-center;

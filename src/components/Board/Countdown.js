@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import TimeDisplay from './TimeDisplay';
-import '../scss/Countdown.scss';
+import '../../scss/Countdown.scss';
 
 const Countdown = (props) => {
   const {

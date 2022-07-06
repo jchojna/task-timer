@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import icons from '../../../assets/svg/icons.svg';
+import icons from '../../../../assets/svg/icons.svg';
 import styles from './cardButtons.module.scss';
 
 const CardButtons = (props) => {

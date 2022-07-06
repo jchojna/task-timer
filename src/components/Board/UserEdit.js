@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import UserInput from './UserInput';
-import '../scss/UserEdit.scss';
+import '../../scss/UserEdit.scss';
 
 const UserEdit = (props) => {
   const {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import icons from '../assets/svg/icons.svg';
-import '../scss/Controls.scss';
+import icons from '../../assets/svg/icons.svg';
+import '../../scss/Controls.scss';
 
 class Controls extends Component {
   handlePlayPauseButton = () => {
