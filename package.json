@@ -16,7 +16,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --write \"src/**/*.{js,jsx}\""
+    "format": "prettier --write \"src/**/**/*.{js,jsx}\"",
+    "format:check": "prettier --check \"src/**/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"src/**/**/*.{js,jsx}\" --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -38,6 +41,8 @@
   },
   "devDependencies": {
     "classnames": "^2.3.1",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.7.1",
     "sass": "^1.53.0"
   }
