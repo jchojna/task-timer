@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import Countdown from './Countdown';
 import StopAlert from './StopAlert.js';
@@ -17,7 +17,7 @@ class Timer extends Component {
       totalTaskTime,
       totalBreakTime,
       totalTaskTimeArray,
-      totalBreakTimeArray
+      totalBreakTimeArray,
     } = this.props.state;
 
     this.state = {
@@ -36,10 +36,10 @@ class Timer extends Component {
       // elapsed
       elapsedTaskTime: 0,
       elapsedTaskPercent: 0,
-      elapsedTaskTimeArray: ['00','00','00'],
+      elapsedTaskTimeArray: ['00', '00', '00'],
       elapsedBreakTime: 0,
       elapsedBreakPercent: 0,
-      elapsedBreakTimeArray: ['00','00','00'],
+      elapsedBreakTimeArray: ['00', '00', '00'],
       //remaining
       remainingTaskTime: 0,
       remainingTaskPercent: 100,
@@ -50,8 +50,8 @@ class Timer extends Component {
       // overall
       previousTime: startTime,
       overallTime: 0,
-      overallTimeArray: ['00','00','00']
-    }
+      overallTimeArray: ['00', '00', '00'],
+    };
   }
 
   componentDidMount() {
@@ -65,21 +65,21 @@ class Timer extends Component {
     this.timeoutId = setTimeout(() => {
       this.setState({
         isTimerVisible: true,
-        previousTime: Date.now()
+        previousTime: Date.now(),
       });
       onCardStateChange({ isTimerStarted: true });
     }, cardFlipTime);
 
     this.handleRotatingStatus();
   }
-  
+
   componentWillUnmount() {
     clearInterval(this.taskIntervalId);
     clearInterval(this.breakIntervalId);
     clearTimeout(this.timeoutId);
     this.props.onCardStateChange({
       isTaskTimeActive: false,
-      isBreakTimeActive: false
+      isBreakTimeActive: false,
     });
   }
 
@@ -88,15 +88,15 @@ class Timer extends Component {
     setTimeout(() => {
       onCardStateChange({
         isTaskRotatingIn: true,
-        isTaskRotatingOut: false
-      })
+        isTaskRotatingOut: false,
+      });
     }, cardFlipTime);
 
     setTimeout(() => {
       onCardStateChange({
-        isTaskRotatingIn: false
-      })
-    }, cardFlipTime * 2)
+        isTaskRotatingIn: false,
+      });
+    }, cardFlipTime * 2);
   };
 
   handleTimerStop = () => {
@@ -104,7 +104,7 @@ class Timer extends Component {
 
     onCardStateChange({
       isTaskRotatingOut: true,
-      isTimerStarted: false
+      isTimerStarted: false,
     });
 
     this.setState({ isStopAlertVisible: false });
@@ -115,28 +115,31 @@ class Timer extends Component {
     }, cardFlipTime);
 
     this.handleRotatingStatus();
-  }
+  };
 
   handleStateChange = (object) => this.setState(object);
-  
+
   handleTimeDisplayMode = () => {
     const { isTaskTimeActive } = this.props.state;
-    const type = isTaskTimeActive ? "Task" : "Break";
-    this.setState(prevState => ({
-      [`is${type}TimeElapsedMode`]: !prevState[`is${type}TimeElapsedMode`]
+    const type = isTaskTimeActive ? 'Task' : 'Break';
+    this.setState((prevState) => ({
+      [`is${type}TimeElapsedMode`]: !prevState[`is${type}TimeElapsedMode`],
     }));
-  }
+  };
 
   handleAlertVisibility = () => {
-    this.setState(prevState => ({
-      isStopAlertVisible: !prevState.isStopAlertVisible
+    this.setState((prevState) => ({
+      isStopAlertVisible: !prevState.isStopAlertVisible,
     }));
-  }
+  };
 
-  handleTimeTick = (type) => { // type = task or break
+  handleTimeTick = (type) => {
+    // type = task or break
 
-    if (this.props.state[`is${type}TimeActive`] && this.props.state.isTimerStarted) {
-
+    if (
+      this.props.state[`is${type}TimeActive`] &&
+      this.props.state.isTimerStarted
+    ) {
       const { previousTime, elapsedTaskTime, elapsedBreakTime } = this.state;
       const { onTaskFinish, onCardStateChange } = this.props;
       const totalTime = this.state[`total${type}Time`];
@@ -145,12 +148,12 @@ class Timer extends Component {
       const overallTime = elapsedTaskTime + elapsedBreakTime;
 
       const now = Date.now();
-      const elapsedTimeArray   = getTimeArray(elapsedTime);
-      const totalTimeArray     = getTimeArray(totalTime);
+      const elapsedTimeArray = getTimeArray(elapsedTime);
+      const totalTimeArray = getTimeArray(totalTime);
       const remainingTimeArray = getTimeArray(remainingTime);
-      const overallTimeArray   = getTimeArray(overallTime);
-      const elapsedPercent   = elapsedTime / totalTime * 100;
-      const remainingPercent = remainingTime / totalTime * 100;
+      const overallTimeArray = getTimeArray(overallTime);
+      const elapsedPercent = (elapsedTime / totalTime) * 100;
+      const remainingPercent = (remainingTime / totalTime) * 100;
 
       // when task time finishes
       if (elapsedTime >= totalTime) {
@@ -158,7 +161,7 @@ class Timer extends Component {
           [`is${type}TimeActive`]: false,
           [`elapsed${type}Time`]: totalTime,
           [`elapsed${type}TimeArray`]: totalTimeArray,
-          [`remaining${type}TimeArray`]: ['00','00','00'],
+          [`remaining${type}TimeArray`]: ['00', '00', '00'],
           [`elapsed${type}Percent`]: 100,
           [`remaining${type}Time`]: 0,
           [`remaining${type}Percent`]: 0,
@@ -168,10 +171,10 @@ class Timer extends Component {
           overallTime,
           overallTimeArray,
         });
-        onCardStateChange({ [`is${type}TimeActive`]: false })
+        onCardStateChange({ [`is${type}TimeActive`]: false });
         // update app state
         onTaskFinish({ elapsedTaskTime, elapsedBreakTime });
-      // normal task time tick
+        // normal task time tick
       } else {
         this.setState({
           previousTime: now,
@@ -180,19 +183,14 @@ class Timer extends Component {
           [`remaining${type}Time`]: totalTime - elapsedTime,
           [`remaining${type}TimeArray`]: remainingTimeArray,
           [`elapsed${type}Percent`]: elapsedPercent,
-          [`remaining${type}Percent`]: remainingPercent
+          [`remaining${type}Percent`]: remainingPercent,
         });
       }
     }
-  }
+  };
 
   render() {
-    
-    const {
-      taskName,
-      isTaskTimeActive,
-      isBreakTimeActive
-    } = this.props.state;
+    const { taskName, isTaskTimeActive, isBreakTimeActive } = this.props.state;
 
     const {
       isTimerVisible,
@@ -209,20 +207,16 @@ class Timer extends Component {
       remainingTaskTimeArray,
       remainingBreakPercent,
       remainingBreakTimeArray,
-      totalBreaks
+      totalBreaks,
     } = this.state;
 
-    const {
-      id,
-      onTaskRemove,
-      cardRotatingMode,
-      onCardStateChange
-    } = this.props;
+    const { id, onTaskRemove, cardRotatingMode, onCardStateChange } =
+      this.props;
 
-    const timerClass = classNames("Timer", {
-      "Timer--visible": isTimerVisible,
-      "Timer--taskTime": isTaskTimeActive || isTaskFinished,
-      "Timer--breakTime": isBreakTimeActive || isBreakFinished
+    const timerClass = classNames('Timer', {
+      'Timer--visible': isTimerVisible,
+      'Timer--taskTime': isTaskTimeActive || isTaskFinished,
+      'Timer--breakTime': isBreakTimeActive || isBreakFinished,
     });
 
     return (
@@ -253,9 +247,7 @@ class Timer extends Component {
           />
         </div>
         {/* BREAKS COUNTER */}
-        <p className="Timer__breaks">
-          {breaksAmount(totalBreaks)}
-        </p>
+        <p className="Timer__breaks">{breaksAmount(totalBreaks)}</p>
         {/* CONTROL BUTTONS */}
         <Controls
           isTaskTimeActive={isTaskTimeActive}
@@ -291,9 +283,8 @@ class Timer extends Component {
           onStopConfirm={this.handleTimerStop}
         />
         {/* TASK TIME EXCEEDED */}
-        {
-          isTaskFinished
-          ? <Finish
+        {isTaskFinished ? (
+          <Finish
             isTaskFinished={isTaskFinished}
             taskName={taskName}
             state={this.state}
@@ -302,12 +293,12 @@ class Timer extends Component {
             onTimerRestart={this.handleTimerStop}
             id={id}
           />
-          : <div></div>
-        }
+        ) : (
+          <div></div>
+        )}
         {/* BREAK TIME EXCEEDED */}
-        {
-          isBreakFinished
-          ? <Finish
+        {isBreakFinished ? (
+          <Finish
             isTaskFinished={isTaskFinished}
             taskName={taskName}
             state={this.state}
@@ -316,8 +307,9 @@ class Timer extends Component {
             onTimerRestart={this.handleTimerStop}
             id={id}
           />
-          : <div></div>
-        }
+        ) : (
+          <div></div>
+        )}
       </section>
     );
   }

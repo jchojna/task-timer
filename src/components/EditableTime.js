@@ -2,26 +2,22 @@ import React from 'react';
 import classNames from 'classnames';
 
 const EditableTime = (props) => {
-  const {
-    id,
-    name,
-    unit,
-    time,
-    isEditMode,
-    onTimeChange,
-    onEditModeChange
-  } = props;
-  
-  const textClass = classNames("TotalTime__text", {
-    "TotalTime__text--visible": !isEditMode
+  const { id, name, unit, time, isEditMode, onTimeChange, onEditModeChange } =
+    props;
+
+  const textClass = classNames('TotalTime__text', {
+    'TotalTime__text--visible': !isEditMode,
   });
 
-  const timeClass = classNames("TotalTime__input",
-    `TotalTime__input--${unit}`, {
-    "TotalTime__input--visible": isEditMode
-  });
+  const timeClass = classNames(
+    'TotalTime__input',
+    `TotalTime__input--${unit}`,
+    {
+      'TotalTime__input--visible': isEditMode,
+    }
+  );
 
-  const placeholder = unit.slice(0,3);
+  const placeholder = unit.slice(0, 3);
 
   return (
     <div className={`TotalTime__unit TotalTime__unit--${unit}`}>
@@ -41,5 +37,5 @@ const EditableTime = (props) => {
       />
     </div>
   );
-}
+};
 export default EditableTime;

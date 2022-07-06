@@ -3,19 +3,14 @@ import classNames from 'classnames';
 import '../scss/StopAlert.scss';
 
 const StopAlert = (props) => {
-  const {
-    alertText,
-    isStopAlertVisible,
-    onStopCancel,
-    onStopConfirm
-  } = props;
+  const { alertText, isStopAlertVisible, onStopCancel, onStopConfirm } = props;
 
-  const stopAlertClass = classNames("StopAlert", {
-    "StopAlert--visible": isStopAlertVisible
+  const stopAlertClass = classNames('StopAlert', {
+    'StopAlert--visible': isStopAlertVisible,
   });
-  
-  const containerClass = classNames("StopAlert__container", {
-    "StopAlert__container--visible": isStopAlertVisible
+
+  const containerClass = classNames('StopAlert__container', {
+    'StopAlert__container--visible': isStopAlertVisible,
   });
 
   return (
@@ -37,5 +32,5 @@ const StopAlert = (props) => {
       </div>
     </section>
   );
-}
+};
 export default StopAlert;

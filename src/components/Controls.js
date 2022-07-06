@@ -4,7 +4,6 @@ import icons from '../assets/svg/icons.svg';
 import '../scss/Controls.scss';
 
 class Controls extends Component {
-
   handlePlayPauseButton = () => {
     const {
       isTaskTimeActive,
@@ -14,49 +13,57 @@ class Controls extends Component {
     } = this.props;
 
     if (isTaskTimeActive || isBreakTimeActive) {
-      onCardStateChange(prevState => ({
+      onCardStateChange((prevState) => ({
         isTaskTimeActive: !prevState.isTaskTimeActive,
-        isBreakTimeActive: !prevState.isBreakTimeActive
+        isBreakTimeActive: !prevState.isBreakTimeActive,
       }));
       onTimerStateChange({ previousTime: Date.now() });
     }
     if (isTaskTimeActive) {
-      onTimerStateChange(prevState => ({
-        totalBreaks: prevState.totalBreaks + 1
+      onTimerStateChange((prevState) => ({
+        totalBreaks: prevState.totalBreaks + 1,
       }));
     }
-  }
+  };
 
   render() {
-
     const {
       isTaskTimeActive,
       onStopButtonClick,
       cardRotatingMode,
-      onDisplayModeChange
+      onDisplayModeChange,
     } = this.props;
 
-    const svgPlayClass = classNames("Controls__svg", {
-      "Controls__svg--hidden": isTaskTimeActive
+    const svgPlayClass = classNames('Controls__svg', {
+      'Controls__svg--hidden': isTaskTimeActive,
     });
-    const svgPauseClass = classNames("Controls__svg", {
-      "Controls__svg--hidden": !isTaskTimeActive
-    });
-
-    const playPauseButtonClass = classNames("Controls__button",
-    "Controls__button--playPause", {
-      "Controls__button--disabled": cardRotatingMode
+    const svgPauseClass = classNames('Controls__svg', {
+      'Controls__svg--hidden': !isTaskTimeActive,
     });
 
-    const stopButtonClass = classNames("Controls__button",
-    "Controls__button--stop", {
-      "Controls__button--disabled": cardRotatingMode
-    });
+    const playPauseButtonClass = classNames(
+      'Controls__button',
+      'Controls__button--playPause',
+      {
+        'Controls__button--disabled': cardRotatingMode,
+      }
+    );
 
-    const toggleButtonClass = classNames("Controls__button",
-    "Controls__button--toggle", {
-      "Controls__button--disabled": cardRotatingMode
-    });
+    const stopButtonClass = classNames(
+      'Controls__button',
+      'Controls__button--stop',
+      {
+        'Controls__button--disabled': cardRotatingMode,
+      }
+    );
+
+    const toggleButtonClass = classNames(
+      'Controls__button',
+      'Controls__button--toggle',
+      {
+        'Controls__button--disabled': cardRotatingMode,
+      }
+    );
 
     return (
       <div className="Controls">
@@ -73,7 +80,7 @@ class Controls extends Component {
             <use href={`${icons}#pause`} />
           </svg>
         </button>
-  
+
         {/* STOP BUTTON */}
         <button
           className={stopButtonClass}
@@ -84,7 +91,7 @@ class Controls extends Component {
             <use href={`${icons}#stop`} />
           </svg>
         </button>
-  
+
         {/* TOGGLE BUTTON */}
         <button
           className={toggleButtonClass}

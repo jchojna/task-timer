@@ -1,11 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 import EditableTime from './EditableTime';
-import Spinners from './Spinners'
+import Spinners from './Spinners';
 import '../scss/TotalTime.scss';
 
 const TotalTime = (props) => {
-
   const {
     labelName,
     modifier,
@@ -20,22 +19,22 @@ const TotalTime = (props) => {
     onEditModeChange,
     onMinutesChange,
     onSecondsChange,
-    onKeyPress
+    onKeyPress,
   } = props;
 
   const totalTimeClass = classNames(`TotalTime TotalTime--${modifier}`, {
-    "TotalTime--maximized": isMaximized,
-    "TotalTime--disabled": isDisabled,
-    "TotalTime--main": !isCardEditMode && modifier === "taskTime"
+    'TotalTime--maximized': isMaximized,
+    'TotalTime--disabled': isDisabled,
+    'TotalTime--main': !isCardEditMode && modifier === 'taskTime',
   });
 
-  const labelClass = classNames("TotalTime__label", {
-    "TotalTime__label--editMode": isEditMode
+  const labelClass = classNames('TotalTime__label', {
+    'TotalTime__label--editMode': isEditMode,
   });
 
-  const displayClass = classNames("TotalTime__display", {
-    "TotalTime__display--editMode": isEditMode,
-    "TotalTime__display--incorrect": !isValid
+  const displayClass = classNames('TotalTime__display', {
+    'TotalTime__display--editMode': isEditMode,
+    'TotalTime__display--incorrect': !isValid,
   });
 
   return (
@@ -48,10 +47,7 @@ const TotalTime = (props) => {
       >
         {labelName}
       </label>
-      <div
-        className={displayClass}
-        onKeyDown={(e) => onKeyPress(e.key)}
-      >
+      <div className={displayClass} onKeyDown={(e) => onKeyPress(e.key)}>
         <Spinners
           modifier="minutes"
           value={minutes}
@@ -90,5 +86,5 @@ const TotalTime = (props) => {
       </div>
     </div>
   );
-}
+};
 export default TotalTime;

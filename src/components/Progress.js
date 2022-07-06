@@ -8,22 +8,27 @@ const Progress = (props) => {
     isVisible,
     isElapsedMode,
     elapsedPercent,
-    remainingPercent
+    remainingPercent,
   } = props;
 
-  const progressClass = classNames("Progress",
-  `Progress--${modifier}`, {
-    "Progress--visible": isVisible
+  const progressClass = classNames('Progress', `Progress--${modifier}`, {
+    'Progress--visible': isVisible,
   });
 
-  const elapsedPercentClass = classNames("Progress__percent",
-  `Progress__percent--${modifier}`, {
-    "Progress__percent--visible": isElapsedMode
-  });
-  const remainingPercentClass = classNames("Progress__percent",
-    `Progress__percent--${modifier}`, {
-    "Progress__percent--visible": !isElapsedMode
-  });
+  const elapsedPercentClass = classNames(
+    'Progress__percent',
+    `Progress__percent--${modifier}`,
+    {
+      'Progress__percent--visible': isElapsedMode,
+    }
+  );
+  const remainingPercentClass = classNames(
+    'Progress__percent',
+    `Progress__percent--${modifier}`,
+    {
+      'Progress__percent--visible': !isElapsedMode,
+    }
+  );
   const loadingClass = `
     Progress__part Progress__part--loading Progress__part--${modifier}
   `;
@@ -31,16 +36,15 @@ const Progress = (props) => {
     Progress__part Progress__part--unloading Progress__part--${modifier}
   `;
 
-
   const roundedElapsedPercent = `${Math.round(elapsedPercent)}%`;
   const roundedRemainingPercent = `${Math.round(remainingPercent)}%`;
   const loadingWidth = {
-    width: `${isElapsedMode ? elapsedPercent : remainingPercent}%`
+    width: `${isElapsedMode ? elapsedPercent : remainingPercent}%`,
   };
   const unloadingWidth = {
-    width: `${isElapsedMode ? remainingPercent : elapsedPercent}%`
+    width: `${isElapsedMode ? remainingPercent : elapsedPercent}%`,
   };
-  
+
   return (
     <section className={progressClass}>
       {/* PROGRESS HEADER */}
@@ -50,16 +54,10 @@ const Progress = (props) => {
       </header>
       {/* PROGRESS BAR */}
       <div className="Progress__bar">
-        <div
-          className={loadingClass}
-          style={loadingWidth}
-        ></div>
-        <div
-          className={unloadingClass}
-          style={unloadingWidth}
-        ></div>
+        <div className={loadingClass} style={loadingWidth}></div>
+        <div className={unloadingClass} style={unloadingWidth}></div>
       </div>
     </section>
   );
-}
+};
 export default Progress;
