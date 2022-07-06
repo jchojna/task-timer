@@ -235,47 +235,45 @@ class App extends Component {
     } = this.state;
 
     return (
-      <React.StrictMode>
-        <div className={styles.app}>
-          <h1 className="App__heading visuallyhidden">Task Timer App</h1>
-          {
-            /* LOGO ANIMATION */
-            // isIntroVisible ? (
-            //   <Intro
-            //     isIntroVisible={isIntroVisible}
-            //     onAppStateChange={this.handleStateChange}
-            //   />
-            // ) : (
-            //   <div className="empty"></div>
-            // )
-          }
-          {
-            /* USER PANEL */
-            isUserPanelVisible && isAppLoaded && (
-              <UserPanel users={users} onUserLogin={this.handleUserLogin} />
-            )
-          }
-          {
-            /* BOARD */
-            isBoardVisible ? (
-              <Board
-                users={users}
-                loggedUserId={loggedUserId}
-                onUserUpdate={this.handleUserUpdate}
-                onUserLogout={this.handleUserLogout}
-                onUserRemove={this.handleUserRemove}
-                onTaskRemove={this.handleTaskRemove}
-                onTaskOrderChange={this.handleTaskOrder}
-                onTaskFinish={this.handleTaskFinish}
-                onTaskEdit={this.handleTaskEdit}
-              />
-            ) : (
-              <div className="empty"></div>
-            )
-          }
-          <Logo />
-        </div>
-      </React.StrictMode>
+      <div className={styles.container}>
+        <h1 className={styles.heading}>Task Timer App</h1>
+        {
+          /* LOGO ANIMATION */
+          // isIntroVisible ? (
+          //   <Intro
+          //     isIntroVisible={isIntroVisible}
+          //     onAppStateChange={this.handleStateChange}
+          //   />
+          // ) : (
+          //   <div className="empty"></div>
+          // )
+        }
+        {
+          /* USER PANEL */
+          isUserPanelVisible && isAppLoaded && (
+            <UserPanel users={users} onUserLogin={this.handleUserLogin} />
+          )
+        }
+        {
+          /* BOARD */
+          isBoardVisible ? (
+            <Board
+              users={users}
+              loggedUserId={loggedUserId}
+              onUserUpdate={this.handleUserUpdate}
+              onUserLogout={this.handleUserLogout}
+              onUserRemove={this.handleUserRemove}
+              onTaskRemove={this.handleTaskRemove}
+              onTaskOrderChange={this.handleTaskOrder}
+              onTaskFinish={this.handleTaskFinish}
+              onTaskEdit={this.handleTaskEdit}
+            />
+          ) : (
+            <div className="empty"></div>
+          )
+        }
+        <Logo />
+      </div>
     );
   }
 }

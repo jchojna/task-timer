@@ -1,0 +1,195 @@
+@use '../../styles/vars.global.scss' as var;
+@use '../../styles/mixins.global.scss' as mix;
+
+.container {
+  align-content: start;
+  align-items: stretch;
+  display: grid;
+  gap: var.$board-gap-xs;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: var.$board-padding-xs;
+  padding-top: 80px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+
+  &::after {
+    background-color: #000;
+    content: '';
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity var.$sidebar-toggle, visibility 0s var.$sidebar-toggle;
+    visibility: hidden;
+    width: 100%;
+    z-index: 1;
+  }
+
+  &--sidebarMode {
+    &::after {
+      opacity: 0.7;
+      transition: opacity var.$sidebar-toggle, visibility;
+      visibility: visible;
+    }
+  }
+
+  @media only screen and (min-width: var.$media-md) {
+    gap: var.$board-gap-md;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    padding: var.$board-padding-md;
+  }
+
+  @media only screen and (min-width: var.$media-lg) {
+    gap: var.$board-gap-lg;
+    padding: var.$board-padding-lg;
+  }
+
+  .header {
+    align-items: center;
+    background-color: var.$color-teal-dark-3;
+    display: flex;
+    justify-content: space-between;
+    right: 0;
+    padding: var.$header-padding-xs;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+
+    @media only screen and (min-width: var.$media-md) {
+      background: none;
+      padding: var.$header-padding-md;
+      width: var.$sidebar-width-md;
+    }
+  }
+
+  .logo {
+    color: var.$color-teal;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 0;
+    user-select: none;
+
+    &--color {
+      color: var.$color-teal-dark-2;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      & {
+        font-size: 3rem;
+        transform: translateX(var.$sidebar-width-md);
+        transition: transform var.$sidebar-toggle;
+
+        &--visible {
+          transform: translateX(0);
+        }
+      }
+    }
+
+    @media only screen and (min-width: var.$media-lg) {
+      & {
+        font-size: 3.5rem;
+      }
+    }
+  }
+
+  .burger {
+    @include mix.button;
+
+    fill: var.$color-teal-light-2;
+    min-width: 30px;
+    height: var.$burger-size-xs;
+    pointer-events: all;
+    transition: fill var.$time-button;
+    width: var.$burger-size-xs;
+    z-index: 3;
+
+    &:active {
+      fill: var.$color-teal-light-3;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      & {
+        height: var.$burger-size-md;
+        width: var.$burger-size-md;
+
+        &:focus,
+        &:hover {
+          fill: var.$color-teal-light-3;
+        }
+      }
+    }
+
+    @media only screen and (min-width: var.$media-lg) {
+      height: var.$burger-size-lg;
+      width: var.$burger-size-lg;
+    }
+  }
+
+  .svg {
+    width: 100%;
+  }
+
+  .creator {
+    position: relative;
+    width: 100%;
+
+    &--maximized {
+      min-height: var.$card-min-height;
+    }
+  }
+
+  .newTaskButton {
+    @include mix.button;
+    @include mix.flex-center;
+
+    background-color: var.$color-teal-dark-2;
+    border-radius: var.$radius-card;
+    box-shadow: var.$placeholder-shadow-medium;
+    color: var.$color-teal;
+    font-size: 1.5rem;
+    font-weight: 600;
+    height: 100%;
+    opacity: 0;
+    padding: 20px;
+    transition: opacity var.$new-task-button, visibility 0s var.$new-task-button;
+    visibility: hidden;
+    width: 100%;
+    z-index: -1;
+
+    &--visible {
+      opacity: 1;
+      transition: background-color var.$hover-icon, box-shadow var.$hover-icon,
+        color var.$hover-icon, opacity var.$new-task-button, visibility 0s;
+      visibility: visible;
+    }
+
+    @mixin newTaskButton {
+      background-color: var.$color-teal-dark-1;
+      box-shadow: var.$placeholder-shadow-small;
+      color: var.$color-teal-light-1;
+    }
+
+    &:active {
+      @include newTaskButton;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      & {
+        font-size: 2rem;
+
+        &:focus,
+        &:hover {
+          @include newTaskButton;
+        }
+      }
+    }
+  }
+}

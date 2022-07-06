@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import Sidebar from './Sidebar';
-import Creator from './Creator';
-import Card from './Card';
-import CardPlaceholder from './CardPlaceholder';
-import icons from '../assets/svg/icons.svg';
-import '../scss/Board.scss';
+import Sidebar from '../Sidebar';
+import Creator from '../Creator';
+import Card from '../Card';
+import CardPlaceholder from '../CardPlaceholder';
+import icons from '../../assets/svg/icons.svg';
+import styles from './board.module.scss';
 
 class Board extends Component {
   constructor(props) {
@@ -91,37 +91,32 @@ class Board extends Component {
 
     const { tasks } = users[loggedUserId];
 
-    //#region [ Horizon ] CLASS NAMES
-
-    const boardClass = classNames('Board', {
-      'Board--sidebarMode': isSidebarVisible,
+    const boardClass = classNames(styles.container, {
+      [styles['container--sidebarMode']]: isSidebarVisible,
     });
 
-    const newTaskButtonClass = classNames('Board__newTaskButton', {
-      'Board__newTaskButton--visible': !isCreatorVisible,
+    const newTaskButtonClass = classNames(styles.newTaskButton, {
+      [styles['newTaskButton--visible']]: !isCreatorVisible,
     });
 
-    const creatorContainerClass = classNames('Board__creator', {
-      'Board__creator--maximized': isCreatorVisible,
+    const creatorContainerClass = classNames(styles.creator, {
+      [styles['creator--maximized']]: isCreatorVisible,
     });
-
-    const boardLogoClass = classNames('Board__logo', {
-      'Board__logo--visible': isSidebarVisible,
+    const boardLogoClass = classNames(styles.logo, {
+      [styles['logo--visible']]: isSidebarVisible,
     });
-
-    //#endregion
 
     return (
-      <section className={boardClass} /* onClick={this.handleSidebarQuit} */>
-        <header className="Board__header">
+      <section className={boardClass}>
+        <header className={styles.header}>
           {/* TEXT LOGO */}
           <h2 className={boardLogoClass}>
-            task<span className="Board__logo--color">Timer</span>
+            task<span className={styles['logo--color']}>Timer</span>
           </h2>
 
           {/* BURGER BUTTON */}
-          <button className="Board__burger" onClick={this.handleSidebar}>
-            <svg className="Board__burgerSvg" viewBox="0 0 100 100">
+          <button className={styles.burger} onClick={this.handleSidebar}>
+            <svg className={styles.svg} viewBox="0 0 100 100">
               <use href={`${icons}#burger`}></use>
             </svg>
           </button>
