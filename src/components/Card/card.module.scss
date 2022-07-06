@@ -1,8 +1,8 @@
-@import "_variables.scss";
-@import "_mixins.scss";
-@import "_animations.scss";
+@use '../../styles/vars.global.scss' as var;
+@use '../../styles/mixins.global.scss' as mix;
+@use '../../styles/animations.global.scss' as anim;
 
-.Card {
+.container {
   align-self: start;
   perspective: 800px;
   transition: transform 0.3s;
@@ -23,23 +23,23 @@
   }
 }
 
-.Task {
+.task {
   align-items: start;
-  background-color: $color-teal;
-  border: $card-border;
-  border-radius: $radius-card;
-  box-shadow: $card-shadow-small;
+  background-color: var.$color-teal;
+  border: var.$card-border;
+  border-radius: var.$radius-card;
+  box-shadow: var.$card-shadow-small;
   cursor: move;
   display: grid;
   grid-template-areas:
-    "buttons  "
-    "taskName ";
+    'buttons  '
+    'taskName ';
   justify-items: center;
   min-height: 50px;
   overflow: hidden;
-  padding: $card-padding;
+  padding: var.$card-padding;
   position: relative;
-  transition: background-color $card-edit, min-height $card-edit;
+  transition: background-color var.$card-edit, min-height var.$card-edit;
   user-select: none;
   visibility: hidden;
 
@@ -47,15 +47,15 @@
     cursor: initial;
     gap: 10px;
     grid-template-areas:
-      "buttons  "
-      "taskName "
-      "taskTime "
-      "breakTime"
-      "startBtn ";
+      'buttons  '
+      'taskName '
+      'taskTime '
+      'breakTime'
+      'startBtn ';
     grid-template-rows: auto 1fr repeat(3, auto);
     height: 100%;
-    min-height: $card-min-height;
-    transition: background-color $card-edit;
+    min-height: var.$card-min-height;
+    transition: background-color var.$card-edit;
   }
 
   &--visible {
@@ -71,33 +71,34 @@
   }
 
   &--editMode {
-    background-color: $color-teal-dark-1;
+    background-color: var.$color-teal-dark-1;
     border-color: transparent;
   }
 
   &--taskActive {
-    border-color: $color-teal-accent;
+    border-color: var.$color-teal-accent;
   }
 
-  &__startButton {
-    @include button;
+  .startButton {
+    @include mix.button;
+
     align-items: center;
     border-radius: 50%;
     display: none;
     fill: none;
     grid-area: startBtn;
-    height: $main-button;
+    height: var.$main-button;
     justify-content: center;
     margin: 10px;
     padding: 2px;
-    stroke: $color-teal-dark-2;
+    stroke: var.$color-teal-dark-2;
     stroke-width: 3;
-    transition: background-color $time-button, stroke $time-button;
+    transition: background-color var.$time-button, stroke var.$time-button;
     width: 80px;
 
     &:active {
-      background-color: $color-teal-accent;
-      stroke: $color-teal;
+      background-color: var.$color-teal-accent;
+      stroke: var.$color-teal;
     }
 
     &--maximized {
@@ -105,24 +106,24 @@
     }
 
     &--disabled {
-      @include disabled;
+      @include mix.disabled;
     }
   }
 
-  &__svg {
+  .svg {
     width: 100%;
   }
 
-  @media only screen and (min-width: $media-md) {
+  @media only screen and (min-width: var.$media-md) {
     & {
-      box-shadow: $card-shadow-medium;
-      padding: $card-padding;
+      box-shadow: var.$card-shadow-medium;
+      padding: var.$card-padding;
 
-      &__startButton {
+      .startButton {
         &:focus,
         &:hover {
-          background-color: $color-teal-accent;
-          stroke: $color-teal;
+          background-color: var.$color-teal-accent;
+          stroke: var.$color-teal;
         }
       }
     }

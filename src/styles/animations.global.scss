@@ -1,4 +1,4 @@
-@use '../../styles/vars.global.scss' as var;
+@import './vars.global.scss';
 
 @keyframes showUp {
   0% {
@@ -41,16 +41,16 @@
 }
 
 .slideInLeft {
-  animation: slideInLeft var.$time-slide forwards;
+  animation: slideInLeft $time-slide forwards;
 }
 .slideInRight {
-  animation: slideInRight var.$time-slide forwards;
+  animation: slideInRight $time-slide forwards;
 }
 .slideOutLeft {
-  animation: slideOutLeft var.$time-slide forwards;
+  animation: slideOutLeft $time-slide forwards;
 }
 .slideOutRight {
-  animation: slideOutRight var.$time-slide forwards;
+  animation: slideOutRight $time-slide forwards;
 }
 
 @keyframes showFromRight {
@@ -117,16 +117,16 @@
 }
 
 .showFromRight {
-  animation: showFromRight var.$time-slide forwards;
+  animation: showFromRight $time-slide forwards;
 }
 .hideToLeft {
-  animation: hideToLeft var.$time-slide forwards;
+  animation: hideToLeft $time-slide forwards;
 }
 .showFromLeft {
-  animation: showFromLeft var.$time-slide forwards;
+  animation: showFromLeft $time-slide forwards;
 }
 .hideToRight {
-  animation: hideToRight var.$time-slide forwards;
+  animation: hideToRight $time-slide forwards;
 }
 
 // #region [ Horizon ] LOGO ANIMATION
@@ -169,11 +169,11 @@
 
 @keyframes clockLetter {
   80% {
-    fill: var.$color-teal-dark-1;
+    fill: $color-teal-dark-1;
     opacity: 1;
   }
   100% {
-    fill: var.$color-teal-accent;
+    fill: $color-teal-accent;
     opacity: 1;
   }
 }

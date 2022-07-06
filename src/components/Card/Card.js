@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import EditableText from './EditableText.js';
-import TotalTime from './TotalTime.js';
-import CardButtons from './CardButtons';
-import StopAlert from './StopAlert.js';
-import Timer from './Timer.js';
-import { validateTaskName, handleTimeChange } from '../lib/handlers';
-import { cardFlipTime, animationStyle } from '../lib/globalVariables';
-import icons from '../assets/svg/icons.svg';
-import '../scss/Card.scss';
+import EditableText from '../EditableText.js';
+import TotalTime from '../TotalTime.js';
+import CardButtons from '../CardButtons';
+import StopAlert from '../StopAlert.js';
+import Timer from '../Timer.js';
+import { validateTaskName, handleTimeChange } from '../../lib/handlers';
+import { cardFlipTime, animationStyle } from '../../lib/globalVariables';
+import icons from '../../assets/svg/icons.svg';
+import styles from './card.module.scss';
 
 class Card extends Component {
   constructor(props) {
@@ -92,7 +92,7 @@ class Card extends Component {
     const appNodes = this.card.current.parentNode.children;
 
     const cardsSizes = [...appNodes]
-      .filter((node) => node.classList.contains('Card'))
+      .filter((node) => node.dataset.element === 'card')
       .map((card) => {
         const { offsetHeight, offsetLeft, offsetTop, offsetWidth } = card;
         return {
@@ -111,8 +111,6 @@ class Card extends Component {
       this.handleMouseDown(e);
     }
   };
-
-  //#region [ Horizon ] MOUSE EVENTS
 
   handleMouseDown = ({ clientX, clientY }) => {
     const { onBoardStateChange } = this.props;
@@ -239,8 +237,6 @@ class Card extends Component {
       clearTimeout(timeoutId);
     }, delay);
   };
-
-  //#endregion
 
   handleKeyPress = (key) => {
     const { isTaskNameEditMode, isTaskTimeEditMode, isBreakTimeEditMode } =
@@ -455,26 +451,27 @@ class Card extends Component {
         ? { transform: `translate(${hoveredOffsetX}px, ${hoveredOffsetY}px)` }
         : { transform: `translate(${translateX}px, ${translateY}px)` };
 
-    const cardClass = classNames('Card', {
-      'Card--dragged': isDragging,
-      'Card--hovered': cardIndex === hoveredCardIndex && isDraggingMode,
-      'Card--noTransition':
+    const cardClass = classNames(styles.container, {
+      [styles['container--dragged']]: isDragging,
+      [styles['container--hovered']]:
+        cardIndex === hoveredCardIndex && isDraggingMode,
+      [styles['container--noTransition']]:
         isDragging ||
         (cardIndex === draggedCardIndex && hoveredCardIndex !== -1),
     });
 
-    const taskClass = classNames('Task', {
-      'Task--visible': isTaskMounted,
-      'Task--maximized': isMaximized,
-      'Task--editMode': editModeActive,
-      'Task--taskActive': isTaskTimeActive && isTimerStarted,
-      'Task--rotateIn': isTaskRotatingIn && isTaskMounted,
-      'Task--rotateOut': isTaskRotatingOut && isTaskMounted,
+    const taskClass = classNames(styles.task, {
+      [styles['task--visible']]: isTaskMounted,
+      [styles['task--maximized']]: isMaximized,
+      [styles['task--editMode']]: editModeActive,
+      [styles['task--taskActive']]: isTaskTimeActive && isTimerStarted,
+      [styles['task--rotateIn']]: isTaskRotatingIn && isTaskMounted,
+      [styles['task--rotateOut']]: isTaskRotatingOut && isTaskMounted,
     });
 
-    const startButtonClass = classNames('Task__startButton', {
-      'Task__startButton--maximized': isMaximized,
-      'Task__startButton--disabled': editModeActive || cardRotatingMode,
+    const startButtonClass = classNames(styles.startButton, {
+      [styles['startButton--maximized']]: isMaximized,
+      [styles['startButton--disabled']]: editModeActive || cardRotatingMode,
     });
 
     return (
@@ -483,6 +480,7 @@ class Card extends Component {
         style={cardStyle}
         onMouseDown={this.handleCardDrag}
         ref={this.card}
+        data-element="card"
       >
         <div
           className={taskClass}
@@ -564,7 +562,7 @@ class Card extends Component {
             disabled={editModeActive || cardRotatingMode}
             onClick={this.handleStartButton}
           >
-            <svg className="Task__svg" viewBox="0 0 512 512">
+            <svg className={styles.svg} viewBox="0 0 512 512">
               <use href={`${icons}#play`} />
             </svg>
           </button>
