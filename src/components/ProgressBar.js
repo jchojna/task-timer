@@ -1,5 +1,5 @@
 import React from 'react';
-import '../scss/ProgressBar.scss';
+import 'scss/ProgressBar.scss';
 
 const ProgressBar = (props) => {
   const { isElapsedMode, percentElapsed, percentRemaining } = props;

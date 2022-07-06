@@ -3,8 +3,8 @@ import Intro from './Intro/Intro';
 import UserPanel from './UserPanel';
 import Board from './Board';
 import Logo from './Logo';
-import initialUsers from '../lib/initialUsers';
-import { makeTwoDigits, getTotalDays, getTimeArray } from '../lib/handlers';
+import initialUsers from 'lib/initialUsers';
+import { makeTwoDigits, getTotalDays, getTimeArray } from 'lib/handlers';
 import styles from './app.module.scss';
 
 class App extends Component {
