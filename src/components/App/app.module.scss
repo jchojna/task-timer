@@ -1,5 +1,5 @@
-@use "../../styles/vars.global.scss" as vars;
-@use "../../styles/mixins.global.scss" as mixins;
+@use '../../styles/vars.global.scss' as vars;
+@use '../../styles/mixins.global.scss' as mixins;
 
 .app {
   @include mixins.flex-center;

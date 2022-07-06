@@ -1,4 +1,4 @@
-export default [
+const initialUsers = [
   {
     login: 'Jakub',
     password: 'password',
@@ -272,3 +272,5 @@ export default [
     ],
   },
 ];
+
+export default initialUsers;
