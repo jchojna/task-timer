@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import CreatorInput from './CreatorInput/CreatorInput';
+import CreatorInput from './CreatorInput';
 import { validateTaskName, handleTimeChange } from 'lib/handlers';
 import { cardFlipTime, animationStyle } from 'lib/globalVariables';
 import icons from 'assets/svg/icons.svg';

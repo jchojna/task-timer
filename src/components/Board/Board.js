@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import Sidebar from './Sidebar/Sidebar';
-import Creator from './Creator/Creator';
+import Sidebar from './Sidebar';
+import Creator from './Creator';
 import Card from './Card/Card';
 import CardPlaceholder from './CardPlaceholder';
 import icons from 'assets/svg/icons.svg';

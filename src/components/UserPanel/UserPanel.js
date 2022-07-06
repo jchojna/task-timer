@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import UserForm from './UserForm/UserForm';
+import UserForm from './UserForm';
 import 'scss/UserPanel.scss';
 
 class UserPanel extends Component {

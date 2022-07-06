@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import Countdown from './Countdown/Countdown';
-import StopAlert from '../StopAlert/StopAlert.js';
-import Progress from './Progress/Progress';
-import Controls from './Controls/Controls';
-import Finish from './Finish/Finish.js';
+import Countdown from './Countdown';
+import StopAlert from '../StopAlert';
+import Progress from './Progress';
+import Controls from './Controls';
+import Finish from './Finish';
 import { getTimeArray, breaksAmount } from 'lib/handlers';
 import { cardFlipTime } from 'lib/globalVariables';
 import 'scss/Timer.scss';

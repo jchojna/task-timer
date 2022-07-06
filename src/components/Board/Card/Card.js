@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import EditableText from './EditableText/EditableText.js';
-import TotalTime from './TotalTime/TotalTime.js';
+import EditableText from './EditableText';
+import TotalTime from './TotalTime';
 import CardButtons from './CardButtons';
-import StopAlert from './StopAlert/StopAlert.js';
-import Timer from './Timer/Timer.js';
+import StopAlert from './StopAlert';
+import Timer from './Timer';
 import { validateTaskName, handleTimeChange } from 'lib/handlers';
 import { cardFlipTime, animationStyle } from 'lib/globalVariables';
 import icons from 'assets/svg/icons.svg';

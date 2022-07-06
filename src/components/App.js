@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Intro from './Intro/Intro';
+import Intro from './Intro';
 import UserPanel from './UserPanel';
 import Board from './Board';
 import Logo from './Logo';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import UserInput from 'components/UserInput/UserInput';
+import UserInput from 'components/UserInput';
 import icons from 'assets/svg/icons.svg';
 import { getCapitalized } from 'lib/handlers.js';
 import { User } from 'lib/classes.js';

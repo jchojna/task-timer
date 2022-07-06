@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import EditableTime from './EditableTime/EditableTime';
-import Spinners from './Spinners/Spinners';
+import EditableTime from './EditableTime';
+import Spinners from './Spinners';
 import 'scss/TotalTime.scss';
 
 const TotalTime = (props) => {
