@@ -25,8 +25,9 @@ class App extends Component {
 
   componentDidMount = () => {
     // update app state from local storage
-    if (localStorage.getItem("taskTimerUsers")) {
-      const taskTimerUsers = JSON.parse(localStorage.getItem("taskTimerUsers"));
+    const storedUsers = localStorage.getItem("taskTimerUsers");
+    if (storedUsers !== 'null') {
+      const taskTimerUsers = JSON.parse(storedUsers);
 
       this.setState({
         isAppLoaded: true,
@@ -76,8 +77,6 @@ class App extends Component {
   componentDidUpdate = () => {
     this.exportUsers();
   };
-
-  componentWillUnmount = () => {};
 
   handleStateChange = (object) => this.setState(object);
 
@@ -241,14 +240,14 @@ class App extends Component {
           <h1 className="App__heading visuallyhidden">Task Timer App</h1>
           {
             /* LOGO ANIMATION */
-            isIntroVisible ? (
-              <Intro
-                isIntroVisible={isIntroVisible}
-                onAppStateChange={this.handleStateChange}
-              />
-            ) : (
-              <div className="empty"></div>
-            )
+            // isIntroVisible ? (
+            //   <Intro
+            //     isIntroVisible={isIntroVisible}
+            //     onAppStateChange={this.handleStateChange}
+            //   />
+            // ) : (
+            //   <div className="empty"></div>
+            // )
           }
           {
             /* USER PANEL */
