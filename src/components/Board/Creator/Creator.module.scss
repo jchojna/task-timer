@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.Creator {
+.container {
   background-color: var.$color-teal;
   border: var.$card-border;
   border-radius: var.$radius-card;
@@ -25,7 +25,7 @@
     animation: rotateOut ease-in forwards;
   }
 
-  &__button {
+  .button {
     @include mix.button;
     @include mix.flex-center;
 
@@ -77,7 +77,7 @@
     }
   }
 
-  &__svg {
+  .svg {
     width: 100%;
   }
 }
@@ -90,7 +90,7 @@
   position: absolute;
   width: 100%;
 
-  &__loaded {
+  .loaded {
     background-color: var.$color-teal-accent;
     bottom: 0;
     left: 0;

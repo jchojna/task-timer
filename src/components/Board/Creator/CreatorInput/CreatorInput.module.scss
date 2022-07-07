@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.CreatorInput {
+.container {
   display: grid;
   grid-area: input;
   grid-template-areas:
@@ -27,7 +27,7 @@
     visibility: visible;
   }
 
-  &__label {
+  .label {
     color: var.$color-teal-light-2;
     font-size: 2rem;
     grid-area: label;
@@ -36,14 +36,14 @@
     width: 100%;
   }
 
-  &__textContainer {
+  .textContainer {
     display: flex;
     flex-direction: column;
     grid-area: input;
   }
 
-  &__text,
-  &__input {
+  .text,
+  .input {
     background: none;
     border: var.$card-border;
     border-color: var.$color-teal-light-2;
@@ -79,13 +79,13 @@
     }
   }
 
-  &__text {
+  .text {
     border-radius: 10px;
     height: 100%;
     resize: none;
   }
 
-  &__inputs {
+  .inputs {
     align-self: center;
     align-items: center;
     border: var.$card-border;
@@ -109,7 +109,7 @@
     }
   }
 
-  &__input {
+  .input {
     border: none;
     font-size: 2.5rem;
     font-weight: bold;
@@ -122,7 +122,7 @@
     }
   }
 
-  &__progress {
+  .progress {
     background-color: var.$color-teal-accent;
     height: 4px;
     margin-top: 4px;

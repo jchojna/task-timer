@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.UserEdit {
+.container {
   display: flex;
   flex-direction: column;
   max-width: var.$sidebar-content-width-xs;
@@ -36,7 +36,7 @@
     max-width: var.$sidebar-content-width-md;
   }
 
-  &__text {
+  .text {
     background-color: var.$color-teal-dark-2;
     border-radius: 6px;
     color: var.$color-teal-light-1;

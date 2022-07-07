@@ -4,7 +4,7 @@ import CreatorInput from './CreatorInput';
 import { validateTaskName, handleTimeChange } from 'lib/handlers';
 import { cardFlipTime, animationStyle } from 'lib/globalVariables';
 import icons from 'assets/svg/icons.svg';
-import './Creator.module.scss';
+import styles from './Creator.module.scss';
 
 class Creator extends Component {
   constructor(props) {
@@ -261,28 +261,23 @@ class Creator extends Component {
       (isTaskTimeVisible && isTaskTimeValid) ||
       (isBreakTimeVisible && isBreakTimeValid);
 
-    const creatorClass = classNames('Creator', {
-      'Creator--rotateOut': isCreatorRotatingOut,
+    const creatorClass = classNames(styles.container, {
+      [styles['container--rotateOut']]: isCreatorRotatingOut,
     });
 
-    const backButtonClass = classNames(
-      'Creator__button',
-      'Creator__button--back',
-      {
-        'Creator__button--visible': !isTaskNameVisible,
-      }
-    );
+    const backButtonClass = classNames(styles.button, styles['button--back'], {
+      [styles['button--visible']]: !isTaskNameVisible,
+    });
 
-    const nextButtonClass = classNames(
-      'Creator__button',
-      'Creator__button--next',
-      {
-        'Creator__button--visible': isNextButtonVisible,
-      }
-    );
+    const nextButtonClass = classNames(styles.button, styles['button--next'], {
+      [styles['button--visible']]: isNextButtonVisible,
+    });
 
-    const closeButtonClass =
-      'Creator__button Creator__button--visible Creator__button--close';
+    const closeButtonClass = classNames(
+      styles.button,
+      styles['button--visible'],
+      styles['button--close']
+    );
 
     const progressBarLoadedStyle = {
       width: isTaskTimeVisible
@@ -365,31 +360,28 @@ class Creator extends Component {
 
         {/* GO BACK BUTTON */}
         <button className={backButtonClass} onClick={this.handleBackButton}>
-          <svg className="Creator__svg" viewBox="0 0 512 512">
+          <svg className={styles.svg} viewBox="0 0 512 512">
             <use href={`${icons}#arrow-left`}></use>
           </svg>
         </button>
 
         {/* GO NEXT BUTTON */}
         <button className={nextButtonClass} onClick={this.handleNextButton}>
-          <svg className="Creator__svg" viewBox="0 0 512 512">
+          <svg className={styles.svg} viewBox="0 0 512 512">
             <use href={`${icons}#arrow-right`}></use>
           </svg>
         </button>
 
         {/* CLOSE NEW TASK */}
         <button className={closeButtonClass} onClick={this.handleCreatorClose}>
-          <svg className="Creator__svg" viewBox="0 0 512 512">
+          <svg className={styles.svg} viewBox="0 0 512 512">
             <use href={`${icons}#remove`} />
           </svg>
         </button>
 
         {/* PROGRESS BAR */}
-        <div className="progressBar">
-          <div
-            className="progressBar__loaded"
-            style={progressBarLoadedStyle}
-          ></div>
+        <div className={styles.progressBar}>
+          <div className={styles.loaded} style={progressBarLoadedStyle}></div>
         </div>
       </form>
     );

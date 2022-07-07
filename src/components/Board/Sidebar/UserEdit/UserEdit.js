@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import UserInput from 'components/UserInput';
-import './UserEdit.module.scss';
+import styles from './UserEdit.module.scss';
 
 const UserEdit = (props) => {
   const {
@@ -39,9 +39,9 @@ const UserEdit = (props) => {
     },
   } = props;
 
-  const userEditClass = classNames('UserEdit', {
-    'UserEdit--hidden': !isEditMode,
-    [`UserEdit--${editedSetting}`]: isEditMode,
+  const userEditClass = classNames(styles.container, {
+    [styles['container--hidden']]: !isEditMode,
+    [styles[`container--${editedSetting}`]]: isEditMode,
   });
 
   return (
@@ -115,12 +115,12 @@ const UserEdit = (props) => {
       ) : editedSetting === 'logout' ? (
         /* USER LOGOUT CONFIRM */
         <div className={userEditClass}>
-          <p className="UserEdit__text">Log out?</p>
+          <p className={styles.text}>Log out?</p>
         </div>
       ) : (
         /* USER REMOVE CONFIRM */
         <div className={userEditClass}>
-          <p className="UserEdit__text">Remove user?</p>
+          <p className={styles.text}>Remove user?</p>
         </div>
       )}
     </React.Fragment>
