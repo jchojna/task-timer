@@ -4,7 +4,7 @@ import UserInput from 'components/UserInput';
 import icons from 'assets/svg/icons.svg';
 import { getCapitalized } from 'lib/handlers.js';
 import { User } from 'lib/classes.js';
-import './UserForm.module.scss';
+import styles from './UserForm.module.scss';
 
 class UserForm extends Component {
   constructor(props) {
@@ -230,7 +230,7 @@ class UserForm extends Component {
   };
 
   render() {
-    const { className, block } = this.props;
+    const { formClassNames, block } = this.props;
 
     const {
       rememberMe,
@@ -259,21 +259,26 @@ class UserForm extends Component {
     const onLoginButtonClick = isLoginForm ? undefined : this.handleCardToggle;
     const onSignupButtonClick = isLoginForm ? this.handleCardToggle : undefined;
 
+    const formClass = formClassNames
+      .split(' ')
+      .map((name) => styles[name])
+      .join(' ');
+    const headingClass = styles.heading;
     const checkboxClass = classNames(
-      'remember__checkbox',
-      `remember__checkbox--${block}`,
+      styles.checkbox,
+      styles[`checkbox--${block}`],
       {
-        'remember__checkbox--visible': rememberMe,
+        [styles['checkbox--visible']]: rememberMe,
       }
     );
 
     return (
-      <form className={className} onSubmit={this.handleFormSubmit}>
-        <h2 className={`${block}__heading`}>{title}</h2>
+      <form className={formClass} onSubmit={this.handleFormSubmit}>
+        <h2 className={headingClass}>{title}</h2>
 
         {/* LOGIN */}
         <UserInput
-          inputId={`${block}Login`}
+          inputId={styles[`${block}Login`]}
           inputName="login"
           parentName={block}
           value={login}
@@ -287,7 +292,7 @@ class UserForm extends Component {
 
         {/* PASSWORD */}
         <UserInput
-          inputId={`${block}Password`}
+          inputId={styles[`${block}Password`]}
           inputName="password"
           parentName={block}
           value={password}
@@ -307,7 +312,7 @@ class UserForm extends Component {
             <div className="empty"></div>
           ) : (
             <UserInput
-              inputId={`${block}Confirm`}
+              inputId={styles[`${block}Confirm`]}
               inputName="confirm"
               parentName={block}
               value={confirm}
@@ -325,9 +330,9 @@ class UserForm extends Component {
         }
 
         {/* REMEMBER ME */}
-        <div className="remember">
+        <div className={styles.remember}>
           <div
-            className={`remember__field remember__field--${block}`}
+            className={classNames(styles.field, styles[`field--${block}`])}
             onClick={this.handleRememberMe}
           >
             <svg className={checkboxClass}>
@@ -337,12 +342,12 @@ class UserForm extends Component {
           <input
             id={`${block}Remember`}
             name={`${block}Remember`}
-            className={`remember__input remember__input--${block}`}
+            className={classNames(styles.input, styles[`input--${block}`])}
             type="checkbox"
           />
           <label
             htmlFor={`${block}Remember`}
-            className={`remember__label remember__label--${block}`}
+            className={classNames(styles.label, styles[`label--${block}`])}
             onClick={this.handleRememberMe}
           >
             Remember Me
@@ -351,14 +356,14 @@ class UserForm extends Component {
 
         {/* BUTTONS */}
         <button
-          className={`${block}__button ${block}__button--login`}
+          className={classNames(styles.button, styles['button--login'])}
           onClick={onLoginButtonClick}
           type={loginButtonType}
         >
           {loginButtonName}
         </button>
         <button
-          className={`${block}__button ${block}__button--signup`}
+          className={classNames(styles.button, styles['button--signup'])}
           onClick={onSignupButtonClick}
           type={submitButtonType}
         >

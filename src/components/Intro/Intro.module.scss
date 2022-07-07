@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.Intro {
+.container {
   @include mix.flex-center;
 
   background-color: var.$color-teal;
@@ -27,26 +27,26 @@
   height: auto;
   width: var.$logo-size;
 
-  &__background {
+  .background {
     fill: var.$color-teal-dark-1;
   }
 
-  &__letter {
+  .letter {
     animation: clockLetter var.$intro-time forwards;
     fill: var.$color-teal-dark-1;
   }
 
-  &__shadow {
+  .shadow {
     fill: rgba($color: rgb(17, 20, 20), $alpha: 0.6);
   }
 
-  &__clockHand {
+  .clockHand {
     animation: clockHand var.$intro-time cubic-bezier(0.13, 0.63, 0.43, 1)
       forwards;
     transform-origin: center;
   }
 
-  &__foreground {
+  .foreground {
     fill: var.$color-teal;
   }
 }

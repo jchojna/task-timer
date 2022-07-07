@@ -1,30 +1,30 @@
 import React from 'react';
 import classNames from 'classnames';
-import './StopAlert.module.scss';
+import styles from './StopAlert.module.scss';
 
 const StopAlert = (props) => {
   const { alertText, isStopAlertVisible, onStopCancel, onStopConfirm } = props;
 
-  const stopAlertClass = classNames('StopAlert', {
-    'StopAlert--visible': isStopAlertVisible,
+  const stopAlertClass = classNames(styles.container, {
+    [styles['container--visible']]: isStopAlertVisible,
   });
 
-  const containerClass = classNames('StopAlert__container', {
-    'StopAlert__container--visible': isStopAlertVisible,
+  const containerClass = classNames(styles.wrapper, {
+    [styles['wrapper--visible']]: isStopAlertVisible,
   });
 
   return (
     <section className={stopAlertClass}>
       <div className={containerClass}>
-        <h2 className="StopAlert__heading">{alertText}</h2>
+        <h2 className={styles.heading}>{alertText}</h2>
         <button
-          className="StopAlert__button StopAlert__button--stop"
+          className={classNames(styles.button, styles['button--stop'])}
           onClick={onStopConfirm}
         >
           Yes
         </button>
         <button
-          className="StopAlert__button StopAlert__button--cancel"
+          className={classNames(styles.button, styles['button--cancel'])}
           onClick={onStopCancel}
         >
           Cancel

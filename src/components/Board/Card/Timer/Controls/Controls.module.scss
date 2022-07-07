@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.Controls {
+.container {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(3, auto);
@@ -9,7 +9,7 @@
   justify-content: center;
   padding: 20px var.$card-padding;
 
-  &__button {
+  .button {
     @include mix.button;
     @include mix.flex-center;
 
@@ -48,7 +48,7 @@
     }
   }
 
-  &__svg {
+  .svg {
     width: 100%;
 
     &--hidden {

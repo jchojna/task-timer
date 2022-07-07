@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.Logo {
+.container {
   @include mix.flex-center;
 
   bottom: -10%;
@@ -16,16 +16,16 @@
     width: 100%;
   }
 
-  &__base {
+  .base {
     fill: var.$color-teal-dark-2;
   }
 
-  &__letter {
+  .letter {
     fill: rgba($color: var.$color-teal-dark-3, $alpha: 0.5);
     position: absolute;
   }
 
-  &__shadow {
+  .shadow {
     position: absolute;
 
     &--base {

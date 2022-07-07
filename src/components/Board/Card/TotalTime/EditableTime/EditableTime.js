@@ -1,26 +1,23 @@
 import React from 'react';
 import classNames from 'classnames';
+import styles from '../TotalTime.module.scss';
 
 const EditableTime = (props) => {
   const { id, name, unit, time, isEditMode, onTimeChange, onEditModeChange } =
     props;
 
-  const textClass = classNames('TotalTime__text', {
-    'TotalTime__text--visible': !isEditMode,
+  const textClass = classNames(styles.text, {
+    [styles['text--visible']]: !isEditMode,
   });
 
-  const timeClass = classNames(
-    'TotalTime__input',
-    `TotalTime__input--${unit}`,
-    {
-      'TotalTime__input--visible': isEditMode,
-    }
-  );
+  const timeClass = classNames(styles.input, styles[`input--${unit}`], {
+    [styles['input--visible']]: isEditMode,
+  });
 
   const placeholder = unit.slice(0, 3);
 
   return (
-    <div className={`TotalTime__unit TotalTime__unit--${unit}`}>
+    <div className={classNames(styles.unit, styles[`unit--${unit}`])}>
       {/* TEXT */}
       <p className={textClass} onClick={onEditModeChange}>
         {time}

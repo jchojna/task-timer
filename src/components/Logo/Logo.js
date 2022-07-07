@@ -1,20 +1,27 @@
 import React from 'react';
+import classNames from 'classnames';
 import icons from 'assets/svg/logo.svg';
-import './Logo.module.scss';
+import styles from './Logo.module.scss';
 
 const Logo = () => {
   return (
-    <div className="Logo">
-      <svg className="Logo__base" viewBox="0 0 512 612">
+    <div className={styles.container}>
+      <svg className={styles.base} viewBox="0 0 512 612">
         <use href={`${icons}#logoBase`}></use>
       </svg>
-      <svg className="Logo__letter" viewBox="0 0 512 612">
+      <svg className={styles.letter} viewBox="0 0 512 612">
         <use href={`${icons}#logoLetter`}></use>
       </svg>
-      <svg className="Logo__shadow Logo__shadow--base" viewBox="0 0 512 612">
+      <svg
+        className={classNames(styles.shadow, styles['shadow--base'])}
+        viewBox="0 0 512 612"
+      >
         <use href={`${icons}#logoBaseShadow`}></use>
       </svg>
-      <svg className="Logo__shadow Logo__shadow--letter" viewBox="0 0 512 612">
+      <svg
+        className={classNames(styles.shadow, styles['shadow--letter'])}
+        viewBox="0 0 512 612"
+      >
         <use href={`${icons}#logoLetterShadow`}></use>
       </svg>
     </div>

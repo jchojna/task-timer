@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { formatTimeResult } from 'lib/handlers';
 import classNames from 'classnames';
 import icons from 'assets/svg/icons.svg';
-import './Finish.module.scss';
+import styles from './Finish.module.scss';
 
 class Finish extends Component {
   render() {
@@ -33,70 +33,70 @@ class Finish extends Component {
       elapsedBreakTimeArray,
       elapsedBreakTime
     );
-    const finishClass = classNames('Finish', {
-      [`Finish--success`]: isTaskFinished,
-      [`Finish--failure`]: !isTaskFinished,
+    const finishClass = classNames(styles.container, {
+      [styles['container--success']]: isTaskFinished,
+      [styles['container--failure']]: !isTaskFinished,
     });
 
     return (
       <section className={finishClass}>
         {/* FINISH HEADING */}
         {isTaskFinished ? (
-          <h2 className="Finish__heading">Time is up!</h2>
+          <h2 className={styles.heading}>Time is up!</h2>
         ) : totalBreakTime === 0 ? (
-          <h2 className="Finish__heading">No breaks allowed!</h2>
+          <h2 className={styles.heading}>No breaks allowed!</h2>
         ) : (
-          <h2 className="Finish__heading">Too long break!</h2>
+          <h2 className={styles.heading}>Too long break!</h2>
         )}
         {/* TASK FINISHED MESSAGE */}
         {isTaskFinished ? (
-          <p className="Finish__message">
+          <p className={styles.message}>
             You have finished your task: <br />
-            <span className="Finish__accent">{`"${taskName}"`}</span>
+            <span className={styles.accent}>{`"${taskName}"`}</span>
             <br />
             in
-            <span className="Finish__accent">{overallTimeResult}</span>
+            <span className={styles.accent}>{overallTimeResult}</span>
             {`${elapsedBreakTime > 0 ? ' including break time.' : '.'}`} <br />
             You had
-            <span className="Finish__accent">{breaksAmount}</span>
+            <span className={styles.accent}>{breaksAmount}</span>
             during this task
-            <span className="Finish__accent">{breakTimeResult}</span>
+            <span className={styles.accent}>{breakTimeResult}</span>
             {totalBreaks ? ' long, what makes it around' : ''}
-            <span className="Finish__accent">{breakPercent}</span>
+            <span className={styles.accent}>{breakPercent}</span>
             {totalBreaks ? ' of all time.' : '.'}
           </p>
         ) : totalBreakTime === 0 ? (
-          <p className="Finish__message">
+          <p className={styles.message}>
             You cannot have any breaks during this task! Try again..
           </p>
         ) : (
-          <p className="Finish__message">
+          <p className={styles.message}>
             You spent too much time on breaks! <br />
             You had
-            <span className="Finish__accent">{breaksAmount}</span>
+            <span className={styles.accent}>{breaksAmount}</span>
             during this task
-            <span className="Finish__accent">{breakTimeResult}</span>
+            <span className={styles.accent}>{breakTimeResult}</span>
             {totalBreaks ? ' long, what makes it around' : ''}
-            <span className="Finish__accent">{breakPercent}</span>
+            <span className={styles.accent}>{breakPercent}</span>
             {totalBreaks ? ' of all time.' : '.'}
           </p>
         )}
         {/* RESTART BUTTON */}
         <button
-          className="Finish__button Finish__button--restart"
+          className={classNames(styles.button, styles['button--restart'])}
           onClick={onTimerRestart}
         >
-          <svg className="Finish__svg" viewBox="0 0 100 100">
+          <svg className={styles.svg} viewBox="0 0 100 100">
             <use href={`${icons}#retry`} />
           </svg>
         </button>
 
         {/* REMOVE BUTTON */}
         <button
-          className="Finish__button Finish__button--remove"
+          className={classNames(styles.button, styles['button--remove'])}
           onClick={() => onTaskRemove(id)}
         >
-          <svg className="Task__svg" viewBox="0 0 512 512">
+          <svg className={styles.svg} viewBox="0 0 512 512">
             <use href={`${icons}#remove`} />
           </svg>
         </button>

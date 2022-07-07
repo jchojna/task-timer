@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.Countdown {
+.container {
   align-content: center;
   align-items: center;
   display: grid;
@@ -36,13 +36,13 @@
       'timeType';
   }
 
-  &__heading {
+  .heading {
     font-size: 1.1rem;
     grid-area: heading;
     margin: 0;
   }
 
-  &__timeType {
+  .timeType {
     margin: 0;
   }
 }

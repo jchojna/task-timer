@@ -25,7 +25,7 @@
     }
   }
 
-  &__text {
+  .text {
     border: 2px solid transparent;
     color: var.$color-teal-dark-2;
     font-weight: 600;
@@ -41,7 +41,7 @@
     }
   }
 
-  &__inputContainer {
+  .inputContainer {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -61,7 +61,7 @@
     }
   }
 
-  &__input {
+  .input {
     background-color: var.$color-teal;
     border: var.$card-border;
     border-color: var.$color-teal-light-2;
@@ -82,7 +82,7 @@
     }
   }
 
-  &__progress {
+  .progress {
     background-color: var.$color-teal-accent;
     height: 4px;
     margin-top: 4px;

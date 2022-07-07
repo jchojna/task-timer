@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import TimeDisplay from './TimeDisplay';
-import './Countdown.module.scss';
+import styles from './Countdown.module.scss';
 
 const Countdown = (props) => {
   const {
@@ -13,28 +13,32 @@ const Countdown = (props) => {
     totalBreaks,
   } = props;
 
-  const countdownClass = classNames(`Countdown Countdown--${modifier}`, {
-    'Countdown--visible': isCountdownVisible,
-    showFromRight: isCountdownVisible && totalBreaks > 0,
-    hideToLeft: !isCountdownVisible,
-  });
+  const countdownClass = classNames(
+    styles.container,
+    styles[`container--${modifier}`],
+    {
+      [styles['Countdown--visible']]: isCountdownVisible,
+      [styles.showFromRight]: isCountdownVisible && totalBreaks > 0,
+      [styles.hideToLeft]: !isCountdownVisible,
+    }
+  );
 
   return (
     <div className={countdownClass}>
       {
         /* ACTIVE MODE */
         modifier === 'taskTime' ? (
-          <h3 className="Countdown__heading">Working Mode</h3>
+          <h3 className={styles.heading}>Working Mode</h3>
         ) : (
-          <h3 className="Countdown__heading">Break Mode</h3>
+          <h3 className={styles.heading}>Break Mode</h3>
         )
       }
       {
         /* ELAPSED / REMAINING TIME */
         isElapsedMode ? (
-          <p className="Countdown__timeType">Elapsed Time</p>
+          <p className={styles.timeType}>Elapsed Time</p>
         ) : (
-          <p className="Countdown__timeType">Remaining Time</p>
+          <p className={styles.timeType}>Remaining Time</p>
         )
       }
       {/* TIMER DISPLAY */}

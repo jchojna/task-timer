@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.Progress {
+.container {
   @include mix.flex-center;
 
   flex-direction: column;
@@ -21,13 +21,13 @@
     visibility: inherit;
   }
 
-  &__header {
+  .header {
     position: relative;
     height: 1.2em;
     width: 100%;
   }
 
-  &__percent {
+  .percent {
     @include mix.flex-center;
 
     font-weight: 600;
@@ -52,13 +52,13 @@
     }
   }
 
-  &__bar {
+  .bar {
     height: var.$progressBar-height;
     position: relative;
     width: 100%;
   }
 
-  &__part {
+  .part {
     bottom: 0;
     position: absolute;
     top: 0;

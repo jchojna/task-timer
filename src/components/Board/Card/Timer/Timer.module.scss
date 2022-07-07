@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.Timer {
+.container {
   align-items: stretch;
   display: grid;
   grid-template-areas:
@@ -32,7 +32,7 @@
     visibility: visible;
   }
 
-  &__heading {
+  .heading {
     @include mix.flex-center;
 
     font-size: var.$card-taskName-size;
@@ -44,14 +44,14 @@
     word-break: break-word;
   }
 
-  &__container {
+  .wrapper {
     font-weight: 600;
     grid-area: countdown;
     height: 100%;
     position: relative;
   }
 
-  &__breaks {
+  .breaks {
     font-size: 1.6em;
     font-weight: 600;
     grid-area: breaks;
@@ -59,7 +59,7 @@
     text-align: center;
   }
 
-  &__progress {
+  .progress {
     font-size: 1.5em;
     grid-area: progress;
     position: relative;

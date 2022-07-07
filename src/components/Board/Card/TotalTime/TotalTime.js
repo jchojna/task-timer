@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import EditableTime from './EditableTime';
 import Spinners from './Spinners';
-import './TotalTime.module.scss';
+import styles from './TotalTime.module.scss';
 
 const TotalTime = (props) => {
   const {
@@ -22,19 +22,23 @@ const TotalTime = (props) => {
     onKeyPress,
   } = props;
 
-  const totalTimeClass = classNames(`TotalTime TotalTime--${modifier}`, {
-    'TotalTime--maximized': isMaximized,
-    'TotalTime--disabled': isDisabled,
-    'TotalTime--main': !isCardEditMode && modifier === 'taskTime',
+  const totalTimeClass = classNames(
+    styles.container,
+    styles[`container--${modifier}`],
+    {
+      [styles['container--maximized']]: isMaximized,
+      [styles['container--disabled']]: isDisabled,
+      [styles['container--main']]: !isCardEditMode && modifier === 'taskTime',
+    }
+  );
+
+  const labelClass = classNames(styles.label, {
+    [styles['label--editMode']]: isEditMode,
   });
 
-  const labelClass = classNames('TotalTime__label', {
-    'TotalTime__label--editMode': isEditMode,
-  });
-
-  const displayClass = classNames('TotalTime__display', {
-    'TotalTime__display--editMode': isEditMode,
-    'TotalTime__display--incorrect': !isValid,
+  const displayClass = classNames(styles.display, {
+    [styles['display--editMode']]: isEditMode,
+    [styles['display--incorrect']]: !isValid,
   });
 
   return (
@@ -66,7 +70,7 @@ const TotalTime = (props) => {
           onEditModeChange={onEditModeChange}
         />
         {/* SEPARATOR */}
-        <span className="TotalTime__colon">{` : `}</span>
+        <span className={styles.colon}>{` : `}</span>
         {/* SECONDS */}
         <EditableTime
           name={`${modifier}Seconds`}

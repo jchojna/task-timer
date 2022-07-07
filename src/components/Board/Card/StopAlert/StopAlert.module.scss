@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.StopAlert {
+.container {
   background-color: none;
   bottom: 0;
   color: var.$color-teal-light-3;
@@ -19,7 +19,7 @@
     visibility: visible;
   }
 
-  &__container {
+  .wrapper {
     background-color: var.$color-teal-accent;
     display: grid;
     gap: 1em;
@@ -36,14 +36,14 @@
     }
   }
 
-  &__heading {
+  .heading {
     font-weight: 600;
     grid-area: head;
     margin: 0;
     text-align: center;
   }
 
-  &__button {
+  .button {
     @include mix.button;
 
     border: 2px solid var.$color-teal-light-3;

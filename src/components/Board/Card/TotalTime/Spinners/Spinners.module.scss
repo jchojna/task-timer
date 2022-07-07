@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.Spinners {
+.container {
   opacity: 0;
   transition: opacity var.$card-edit, visibility 0s var.$card-edit;
   visibility: hidden;
@@ -25,7 +25,7 @@
     justify-self: end;
   }
 
-  &__button {
+  .button {
     @include mix.button;
     @include mix.flex-center;
 
@@ -50,7 +50,7 @@
     }
   }
 
-  &__svg {
+  .svg {
     width: 100%;
   }
 }

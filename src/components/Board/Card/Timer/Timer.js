@@ -7,7 +7,7 @@ import Controls from './Controls';
 import Finish from './Finish';
 import { getTimeArray, breaksAmount } from 'lib/handlers';
 import { cardFlipTime } from 'lib/globalVariables';
-import './Timer.module.scss';
+import styles from './Timer.module.scss';
 
 class Timer extends Component {
   constructor(props) {
@@ -213,16 +213,16 @@ class Timer extends Component {
     const { id, onTaskRemove, cardRotatingMode, onCardStateChange } =
       this.props;
 
-    const timerClass = classNames('Timer', {
-      'Timer--visible': isTimerVisible,
-      'Timer--taskTime': isTaskTimeActive || isTaskFinished,
-      'Timer--breakTime': isBreakTimeActive || isBreakFinished,
+    const timerClass = classNames(styles.container, {
+      [styles['container--visible']]: isTimerVisible,
+      [styles['container--taskTime']]: isTaskTimeActive || isTaskFinished,
+      [styles['container--breakTime']]: isBreakTimeActive || isBreakFinished,
     });
 
     return (
       <section className={timerClass}>
-        <h2 className="Timer__heading">{`"${taskName}"`}</h2>
-        <div className="Timer__container">
+        <h2 className={styles.heading}>{`"${taskName}"`}</h2>
+        <div className={styles.wrapper}>
           {/* TASK TIME COUNTDOWN */}
           <Countdown
             modifier="taskTime"
@@ -247,7 +247,7 @@ class Timer extends Component {
           />
         </div>
         {/* BREAKS COUNTER */}
-        <p className="Timer__breaks">{breaksAmount(totalBreaks)}</p>
+        <p className={styles.breaks}>{breaksAmount(totalBreaks)}</p>
         {/* CONTROL BUTTONS */}
         <Controls
           isTaskTimeActive={isTaskTimeActive}
@@ -259,7 +259,7 @@ class Timer extends Component {
           onStopButtonClick={this.handleAlertVisibility}
         />
         {/* PROGRESS BAR */}
-        <div className="Timer__progress">
+        <div className={styles.progress}>
           <Progress
             modifier="taskTime"
             isVisible={isTaskTimeActive || isTaskFinished}

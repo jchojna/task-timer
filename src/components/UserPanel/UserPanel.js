@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import UserForm from './UserForm';
-import './UserPanel.module.scss';
+import styles from './UserPanel.module.scss';
 
 class UserPanel extends Component {
   constructor(props) {
@@ -32,8 +32,8 @@ class UserPanel extends Component {
     const { isUserPanelLoaded, isLoginFormVisible, isSignupFormVisible } =
       this.state;
 
-    const userPanelClass = classNames('UserPanel', {
-      'UserPanel--visible': isUserPanelLoaded,
+    const userPanelClass = classNames(styles.container, {
+      [styles['container--visible']]: isUserPanelLoaded,
     });
 
     const loginClass = classNames('loginForm', {
@@ -48,13 +48,13 @@ class UserPanel extends Component {
 
     return (
       <div className={userPanelClass}>
-        <p className="UserPanel__logo">
-          task<span className="UserPanel__logo--color">Timer</span>
+        <p className={styles.logo}>
+          task<span className={styles['logo--color']}>Timer</span>
         </p>
-        <div className="UserPanel__container">
+        <div className={styles.wrapper}>
           {/* LOGIN FORM */}
           <UserForm
-            className={loginClass}
+            formClassNames={loginClass}
             block="loginForm"
             onUserLogin={onUserLogin}
             users={users}
@@ -62,7 +62,7 @@ class UserPanel extends Component {
           />
           {/* SIGNUP FORM */}
           <UserForm
-            className={signupClass}
+            formClassNames={signupClass}
             block="signupForm"
             onUserLogin={onUserLogin}
             users={users}

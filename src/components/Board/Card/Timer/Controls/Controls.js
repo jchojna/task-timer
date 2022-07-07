@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import icons from 'assets/svg/icons.svg';
-import './Controls.module.scss';
+import styles from './Controls.module.scss';
 
 class Controls extends Component {
   handlePlayPauseButton = () => {
@@ -34,39 +34,35 @@ class Controls extends Component {
       onDisplayModeChange,
     } = this.props;
 
-    const svgPlayClass = classNames('Controls__svg', {
-      'Controls__svg--hidden': isTaskTimeActive,
+    const svgPlayClass = classNames(styles.svg, {
+      [styles['svg--hidden']]: isTaskTimeActive,
     });
-    const svgPauseClass = classNames('Controls__svg', {
-      'Controls__svg--hidden': !isTaskTimeActive,
+    const svgPauseClass = classNames(styles.svg, {
+      [styles['svg--hidden']]: !isTaskTimeActive,
     });
 
     const playPauseButtonClass = classNames(
-      'Controls__button',
-      'Controls__button--playPause',
+      styles.button,
+      styles['button--playPause'],
       {
-        'Controls__button--disabled': cardRotatingMode,
+        [styles['button--disabled']]: cardRotatingMode,
       }
     );
 
-    const stopButtonClass = classNames(
-      'Controls__button',
-      'Controls__button--stop',
-      {
-        'Controls__button--disabled': cardRotatingMode,
-      }
-    );
+    const stopButtonClass = classNames(styles.button, styles['button--stop'], {
+      [styles['button--disabled']]: cardRotatingMode,
+    });
 
     const toggleButtonClass = classNames(
-      'Controls__button',
-      'Controls__button--toggle',
+      styles.button,
+      styles['button--toggle'],
       {
-        'Controls__button--disabled': cardRotatingMode,
+        [styles['button--disabled']]: cardRotatingMode,
       }
     );
 
     return (
-      <div className="Controls">
+      <div className={styles.container}>
         {/* PLAY / PAUSE BUTTON */}
         <button
           className={playPauseButtonClass}
@@ -87,7 +83,7 @@ class Controls extends Component {
           onClick={onStopButtonClick}
           disabled={cardRotatingMode}
         >
-          <svg className="Controls__svg" viewBox="0 0 100 100">
+          <svg className={styles.svg} viewBox="0 0 100 100">
             <use href={`${icons}#stop`} />
           </svg>
         </button>
@@ -98,7 +94,7 @@ class Controls extends Component {
           onClick={onDisplayModeChange}
           disabled={cardRotatingMode}
         >
-          <svg className="Controls__svg" viewBox="0 0 100 100">
+          <svg className={styles.svg} viewBox="0 0 100 100">
             <use href={`${icons}#toggle`} />
           </svg>
         </button>

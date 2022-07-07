@@ -1,8 +1,8 @@
-@import "_variables.scss";
-@import "_mixins.scss";
-@import "_animations.scss";
+@import '_variables.scss';
+@import '_mixins.scss';
+@import '_animations.scss';
 
-.Break {
+.container {
   align-items: flex-end;
   display: flex;
   flex-direction: column;
@@ -13,13 +13,13 @@
     color: $color-tomato;
   }
 
-  &__counter {
+  .counter {
     margin: 0;
     font-weight: 600;
     font-size: 1em;
   }
 
-  &__display {
+  .display {
     font-weight: 400;
     margin: 0;
   }

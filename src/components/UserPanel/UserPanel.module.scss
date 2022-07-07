@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.UserPanel {
+.container {
   @include mix.flex-center;
 
   flex-direction: column;
@@ -19,7 +19,7 @@
     visibility: visible;
   }
 
-  &__logo {
+  .logo {
     animation: textLogoFadeIn 0.3s forwards;
     font-size: 60px;
     font-weight: 700;
@@ -40,7 +40,7 @@
     }
   }
 
-  &__container {
+  .wrapper {
     max-width: 400px;
     position: relative;
     perspective: 1200px;

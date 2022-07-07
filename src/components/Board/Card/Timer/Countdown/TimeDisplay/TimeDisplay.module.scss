@@ -1,14 +1,14 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.TimeDisplay {
+.container {
   font-size: 3rem;
   grid-area: display;
   height: 100%;
   position: relative;
   width: 100%;
 
-  &__type {
+  .type {
     @include mix.flex-center;
 
     color: var.$color-teal-light-3;

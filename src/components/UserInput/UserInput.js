@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import icons from 'assets/svg/icons.svg';
-import './UserInput.module.scss';
+import styles from './UserInput.module.scss';
 
 const UserInput = (props) => {
   const {
@@ -24,53 +24,47 @@ const UserInput = (props) => {
     if (!isInputValid) onInputBlur(value, inputName);
   };
 
-  // #region [ Horizon ] CLASS NAMES
-
-  const userInputClass = `
-    UserInput UserInput--${parentName} UserInput--${inputName}
-  `;
-
-  const labelClass = classNames(
-    'UserInput__label',
-    `UserInput__label--${parentName}`,
-    {
-      'UserInput__label--disabled': isDisabled,
-    }
+  const userInputClass = classNames(
+    styles.container,
+    styles[`container--${parentName}`],
+    styles[`container--${inputName}`]
   );
 
-  const inputClass = classNames(
-    'UserInput__input',
-    `UserInput__input--${parentName}`,
-    {
-      'UserInput__input--disabled': isDisabled,
-    }
-  );
+  const labelClass = classNames(styles.label, styles[`label--${parentName}`], {
+    [styles['label--disabled']]: isDisabled,
+  });
+
+  const inputClass = classNames(styles.input, styles[`input--${parentName}`], {
+    [styles['input--disabled']]: isDisabled,
+  });
 
   const inputType =
     inputName === 'login' ? 'text' : isPreviewMode ? 'text' : 'password';
 
   const alertBoxClass = classNames(
-    'UserInput__alertBox',
-    `UserInput__alertBox--${parentName}`,
+    styles.alertBox,
+    styles[`alertBox--${parentName}`],
     {
-      'UserInput__alertBox--visible': isAlertVisible,
+      [styles['alertBox--visible']]: isAlertVisible,
     }
   );
 
-  const passedClass = classNames('inputPassed', `inputPassed--${parentName}`, {
-    'inputPassed--visible': isInputValid,
-  });
+  const passedClass = classNames(
+    styles.inputPassed,
+    styles[`inputPassed--${parentName}`],
+    {
+      [styles['inputPassed--visible']]: isInputValid,
+    }
+  );
 
   const previewClass = classNames(
-    'previewPassword',
-    `previewPassword--${parentName}`,
+    styles.previewPassword,
+    styles[`previewPassword--${parentName}`],
     {
-      'previewPassword--active': isPreviewMode,
-      'previewPassword--disabled': isDisabled,
+      [styles['previewPassword--active']]: isPreviewMode,
+      [styles['previewPassword--disabled']]: isDisabled,
     }
   );
-
-  // #endregion
 
   return (
     <div className={userInputClass}>
@@ -95,11 +89,11 @@ const UserInput = (props) => {
 
       {/* ALERT */}
       <div className={alertBoxClass}>
-        <p className="UserInput__alert">{alertText}</p>
+        <p className={styles.alert}>{alertText}</p>
       </div>
 
       {/* INDICATORS */}
-      <div className="UserInput__icons">
+      <div className={styles.icons}>
         {/* PREVIEW PASSWORD */}
         {inputName === 'login' ? (
           <div className="empty"></div>
@@ -109,7 +103,7 @@ const UserInput = (props) => {
             className={previewClass}
             onClick={() => onPreviewModeChange(inputName)}
           >
-            <svg className="previewPassword__svg" viewBox="0 0 100 100">
+            <svg className={styles.svg} viewBox="0 0 100 100">
               <use href={`${icons}#preview`} />
             </svg>
           </button>
@@ -120,7 +114,7 @@ const UserInput = (props) => {
           <div className="empty"></div>
         ) : (
           <div className={passedClass}>
-            <svg className="inputPassed__svg" viewBox="0 0 100 100">
+            <svg className={styles.svg} viewBox="0 0 100 100">
               <use href={`${icons}#passed`} />
             </svg>
           </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import './Intro.module.scss';
+import styles from './Intro.module.scss';
 
 class Intro extends Component {
   constructor(props) {
@@ -72,8 +72,8 @@ class Intro extends Component {
   render() {
     const { isIntroFadingOut, xTranslation, yTranslation } = this.state;
 
-    const introClass = classNames('Intro', {
-      'Intro--visible': !isIntroFadingOut,
+    const introClass = classNames(styles.container, {
+      [styles['container--visible']]: !isIntroFadingOut,
     });
 
     const styleObject = {
@@ -85,9 +85,9 @@ class Intro extends Component {
 
     return (
       <div className={introClass}>
-        <svg className="logo" viewBox="0 0 600 600">
+        <svg className={styles.logo} viewBox="0 0 600 600">
           {/* MASK */}
-          <mask id="mask" className="logo__mask">
+          <mask id="mask" className={styles.mask}>
             <rect width="600" height="600" fill="#fff" />
             <rect
               x="200"
@@ -112,31 +112,31 @@ class Intro extends Component {
             />
           </mask>
           {/* ELEMENTS */}
-          <rect width="600" height="600" className="logo__background" />
+          <rect width="600" height="600" className={styles.background} />
           <rect
             x="199"
             y="49"
             width="202"
             height="37"
-            className="logo__letter logo__letter--top"
+            className={classNames(styles.letter, styles['letter--top'])}
           />
           <circle
             cx="300"
             cy="300"
             r="140"
-            className="logo__letter logo__letter--circle"
+            className={classNames(styles.letter, styles['letter--circle'])}
           />
           <rect
             width="600"
             height="600"
-            className="logo__shadow"
+            className={styles.shadow}
             mask="url(#mask)"
             style={styleObject}
           />
           <rect
             width="600"
             height="600"
-            className="logo__foreground"
+            className={styles.foreground}
             mask="url(#mask)"
           />
         </svg>

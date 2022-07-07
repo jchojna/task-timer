@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import './Progress.module.scss';
+import styles from './Progress.module.scss';
 
 const Progress = (props) => {
   const {
@@ -11,30 +11,38 @@ const Progress = (props) => {
     remainingPercent,
   } = props;
 
-  const progressClass = classNames('Progress', `Progress--${modifier}`, {
-    'Progress--visible': isVisible,
-  });
+  const progressClass = classNames(
+    styles.container,
+    styles[`container--${modifier}`],
+    {
+      [styles['container--visible']]: isVisible,
+    }
+  );
 
   const elapsedPercentClass = classNames(
-    'Progress__percent',
-    `Progress__percent--${modifier}`,
+    styles.percent,
+    styles[`percent--${modifier}`],
     {
-      'Progress__percent--visible': isElapsedMode,
+      [styles['percent--visible']]: isElapsedMode,
     }
   );
   const remainingPercentClass = classNames(
-    'Progress__percent',
-    `Progress__percent--${modifier}`,
+    styles.percent,
+    styles[`percent--${modifier}`],
     {
-      'Progress__percent--visible': !isElapsedMode,
+      [styles['percent--visible']]: !isElapsedMode,
     }
   );
-  const loadingClass = `
-    Progress__part Progress__part--loading Progress__part--${modifier}
-  `;
-  const unloadingClass = `
-    Progress__part Progress__part--unloading Progress__part--${modifier}
-  `;
+  const loadingClass = classNames(
+    styles.part,
+    styles['part--loading'],
+    styles[`part--${modifier}`]
+  );
+  const unloadingClass = classNames(
+    styles.part,
+    styles['part--unloading'],
+    styles[`part--${modifier}`]
+  );
 
   const roundedElapsedPercent = `${Math.round(elapsedPercent)}%`;
   const roundedRemainingPercent = `${Math.round(remainingPercent)}%`;
@@ -48,12 +56,12 @@ const Progress = (props) => {
   return (
     <section className={progressClass}>
       {/* PROGRESS HEADER */}
-      <header className="Progress__header">
+      <header className={styles.header}>
         <p className={elapsedPercentClass}>{roundedElapsedPercent}</p>
         <p className={remainingPercentClass}>{roundedRemainingPercent}</p>
       </header>
       {/* PROGRESS BAR */}
-      <div className="Progress__bar">
+      <div className={styles.bar}>
         <div className={loadingClass} style={loadingWidth}></div>
         <div className={unloadingClass} style={unloadingWidth}></div>
       </div>

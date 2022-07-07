@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import UserEdit from './UserEdit';
 import icons from 'assets/svg/icons.svg';
 import { getCapitalized } from 'lib/handlers.js';
-import './Sidebar.module.scss';
+import styles from './Sidebar.module.scss';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -231,7 +231,6 @@ class Sidebar extends Component {
 
   render() {
     const { block, isSidebarVisible, users, loggedUserId } = this.props;
-
     const {
       isEditMode,
       editedSetting,
@@ -240,9 +239,7 @@ class Sidebar extends Component {
       isNewPasswordValid,
       isConfirmValid,
     } = this.state;
-
     const { login, stats } = users[loggedUserId];
-
     const userEditButtons = ['login', 'password', 'logout', 'remove'];
     const userEditLabels = [
       'Change your login',
@@ -251,7 +248,6 @@ class Sidebar extends Component {
       'Remove your profile',
     ];
     const userConfirmButtons = ['confirm', 'cancel'];
-
     const statsLabels = {
       finishedTasks: 'Tasks finished:',
       avgTaskTime: 'Average task time:',
@@ -261,30 +257,30 @@ class Sidebar extends Component {
     };
     const statsLabelsKeys = Object.keys(statsLabels);
 
-    //#region [ Horizon ] CLASS NAMES
-
-    const sidebarClass = classNames('Sidebar', {
-      'Sidebar--visible': isSidebarVisible,
+    const sidebarClass = classNames(styles.container, {
+      [styles['container--visible']]: isSidebarVisible,
     });
 
-    const editButtonsClass = classNames('userButtons', 'userButtons--edit', {
-      'userButtons--visible': !isEditMode,
-    });
-
-    const confirmButtonsClass = classNames(
-      'userButtons',
-      'userButtons--confirm',
+    const editButtonsClass = classNames(
+      styles.userButtons,
+      styles['userButtons--edit'],
       {
-        'userButtons--visible': isEditMode,
+        [styles['userButtons--visible']]: !isEditMode,
       }
     );
 
-    //#endregion CLASS NAMES
+    const confirmButtonsClass = classNames(
+      styles.userButtons,
+      styles['userButtons--confirm'],
+      {
+        [styles['userButtons--visible']]: isEditMode,
+      }
+    );
 
     return (
       <section className={sidebarClass}>
         {/* USER LOGIN */}
-        <h2 className="Sidebar__userLogin">{login}</h2>
+        <h2 className={styles.userLogin}>{login}</h2>
 
         <UserEdit
           parentName={block}
@@ -300,15 +296,15 @@ class Sidebar extends Component {
         />
 
         {/* USER PANEL BUTTONS */}
-        <div className="Sidebar__buttons">
+        <div className={styles.buttons}>
           {/* EDIT BUTTONS */}
           <div className={editButtonsClass}>
             {userEditButtons.map((button, index) => {
               const buttonClass = classNames(
-                'userButtons__button',
-                `userButtons__button--${button}`,
+                styles.button,
+                styles[`button--${button}`],
                 {
-                  'userButtons__button--visible': !isEditMode,
+                  [styles['button--visible']]: !isEditMode,
                 }
               );
               const tabIndexVal = isSidebarVisible && !isEditMode ? '0' : '-1';
@@ -321,7 +317,7 @@ class Sidebar extends Component {
                   onClick={() => this.handleUserEdit(button)}
                   tabIndex={tabIndexVal}
                 >
-                  <svg className="userButtons__svg" viewBox="0 0 100 100">
+                  <svg className={styles.svg} viewBox="0 0 100 100">
                     <use href={`${icons}#${button}Edit`}></use>
                   </svg>
                 </button>
@@ -344,11 +340,11 @@ class Sidebar extends Component {
                 isButtonDisabled && button === 'confirm';
 
               const buttonClass = classNames(
-                'userButtons__button',
-                `userButtons__button--${button}`,
+                styles.button,
+                styles[`button--${button}`],
                 {
-                  'userButtons__button--visible': isEditMode,
-                  'userButtons__button--disabled': isConfirmButtonDisabled,
+                  [styles['button--visible']]: isEditMode,
+                  [styles['button--disabled']]: isConfirmButtonDisabled,
                 }
               );
               const tabIndexVal = isSidebarVisible && isEditMode ? '0' : '-1';
@@ -361,7 +357,7 @@ class Sidebar extends Component {
                   disabled={isConfirmButtonDisabled}
                   tabIndex={tabIndexVal}
                 >
-                  <svg className="userButtons__svg" viewBox="0 0 100 100">
+                  <svg className={styles.svg} viewBox="0 0 100 100">
                     <use href={`${icons}#${button}Edit`}></use>
                   </svg>
                 </button>
@@ -371,9 +367,9 @@ class Sidebar extends Component {
         </div>
 
         {/* USER STATS */}
-        <section className="Sidebar__section">
-          <h3 className="Sidebar__heading">Stats</h3>
-          <table className="stats">
+        <section className={styles.section}>
+          <h3 className={styles.heading}>Stats</h3>
+          <table className={styles.stats}>
             <caption className="stats__caption visuallyhidden">Stats</caption>
             <thead className="stats__header visuallyhidden">
               <tr className="stats__row">

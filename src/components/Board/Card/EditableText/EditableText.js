@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { maxTaskNameLength } from 'lib/globalVariables';
 import { taskNameProgressStyle } from 'lib/handlers';
-import './EditableText.module.scss';
+import styles from './EditableText.module.scss';
 
 const EditableText = (props) => {
   const {
@@ -16,25 +16,25 @@ const EditableText = (props) => {
     onEditModeChange,
   } = props;
 
-  const editableTextClass = classNames('taskName', {
-    'taskName--disabled': isDisabled,
-    'taskName--maximized': isMaximized,
+  const editableTextClass = classNames(styles.taskName, {
+    [styles['taskName--disabled']]: isDisabled,
+    [styles['taskName--maximized']]: isMaximized,
   });
 
-  const textClass = classNames('taskName__text', {
-    'taskName__text--visible': !isEditMode,
+  const textClass = classNames(styles.text, {
+    [styles['text--visible']]: !isEditMode,
   });
 
-  const inputContainerClass = classNames('taskName__inputContainer', {
-    'taskName__inputContainer--visible': isEditMode,
+  const inputContainerClass = classNames(styles.inputContainer, {
+    [styles['inputContainer--visible']]: isEditMode,
   });
 
-  const inputClass = classNames('taskName__input', {
-    'taskName__input--incorrect': !isValid,
+  const inputClass = classNames(styles.input, {
+    [styles['input--incorrect']]: !isValid,
   });
 
-  const progressClass = classNames('taskName__progress', {
-    'taskName__progress--visible': isEditMode,
+  const progressClass = classNames(styles.progress, {
+    [styles['progress--visible']]: isEditMode,
   });
 
   return (

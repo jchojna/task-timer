@@ -1,7 +1,7 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
 
-.TotalTime {
+.container {
   color: var.$color-teal-dark-2;
   display: none;
   flex-direction: column;
@@ -34,7 +34,7 @@
     cursor: text;
   }
 
-  &__label {
+  .label {
     color: var.$color-teal-dark-1;
     font-size: 1.1rem;
     transition: color var.$card-edit, font-size var.$card-edit,
@@ -47,7 +47,7 @@
     }
   }
 
-  &__display {
+  .display {
     align-items: center;
     border-radius: 10px;
     border-color: var.$color-teal-light-2;
@@ -72,7 +72,7 @@
     }
   }
 
-  &__unit {
+  .unit {
     align-items: center;
     display: flex;
     font-weight: 600;
@@ -81,7 +81,7 @@
     width: 100%;
   }
 
-  &__text {
+  .text {
     margin: 0;
     opacity: 0;
     padding: 5px;
@@ -95,7 +95,7 @@
     }
   }
 
-  &__input {
+  .input {
     background: none;
     border: none;
     color: inherit;
