@@ -1,5 +1,6 @@
 @use 'src/styles/vars.global.scss' as var;
 @use 'src/styles/mixins.global.scss' as mix;
+@import 'src/styles/animations.global.scss';
 
 .container {
   background-color: var.$color-teal;

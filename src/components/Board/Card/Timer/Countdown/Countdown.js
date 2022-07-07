@@ -17,7 +17,7 @@ const Countdown = (props) => {
     styles.container,
     styles[`container--${modifier}`],
     {
-      [styles['Countdown--visible']]: isCountdownVisible,
+      [styles['container--visible']]: isCountdownVisible,
       [styles.showFromRight]: isCountdownVisible && totalBreaks > 0,
       [styles.hideToLeft]: !isCountdownVisible,
     }
