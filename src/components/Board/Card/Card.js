@@ -8,7 +8,7 @@ import Timer from './Timer';
 import { validateTaskName, handleTimeChange } from 'lib/handlers';
 import { cardFlipTime, animationStyle } from 'lib/globalVariables';
 import icons from 'assets/svg/icons.svg';
-import styles from './card.module.scss';
+import styles from './Card.module.scss';
 
 class Card extends Component {
   constructor(props) {

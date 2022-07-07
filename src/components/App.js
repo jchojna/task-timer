@@ -5,7 +5,7 @@ import Board from './Board';
 import Logo from './Logo';
 import initialUsers from 'lib/initialUsers';
 import { makeTwoDigits, getTotalDays, getTimeArray } from 'lib/handlers';
-import styles from './app.module.scss';
+import styles from './App.module.scss';
 
 class App extends Component {
   constructor(props) {

@@ -5,7 +5,7 @@ import Creator from './Creator';
 import Card from './Card/Card';
 import CardPlaceholder from './CardPlaceholder';
 import icons from 'assets/svg/icons.svg';
-import styles from './board.module.scss';
+import styles from './Board.module.scss';
 
 class Board extends Component {
   constructor(props) {
