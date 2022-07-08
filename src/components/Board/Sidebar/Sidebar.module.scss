@@ -1,0 +1,191 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+
+.container {
+  align-items: center;
+  background-color: var.$color-teal-dark-3;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+  padding: var.$header-padding-xs;
+  padding-top: var.$header-padding-xs * 2 + var.$burger-size-xs;
+  position: fixed;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  transform: translate(0, -100%);
+  transition: transform var.$sidebar-toggle, visibility 0s var.$sidebar-toggle;
+  width: var.$sidebar-width-xs;
+  z-index: 2;
+
+  &--visible {
+    visibility: visible;
+    transform: translate(0, 0);
+    transition: transform var.$sidebar-toggle, visibility 0s;
+  }
+
+  @media only screen and (min-width: var.$media-md) {
+    & {
+      padding: var.$header-padding-md;
+      padding-top: var.$header-padding-md * 2 + var.$burger-size-md;
+      transform: translate(100%, 0);
+      width: var.$sidebar-width-md;
+
+      &--visible {
+        transform: translate(0, 0);
+      }
+    }
+  }
+
+  .userLogin {
+    word-break: break-all;
+    font-size: 3em;
+    margin: 0;
+    margin: 50px 0;
+    max-width: var.$sidebar-content-width-xs;
+    user-select: none;
+
+    @media only screen and (min-width: var.$media-md) {
+      max-width: var.$sidebar-content-width-md;
+    }
+  }
+
+  .buttons {
+    margin-top: 20px;
+    max-width: var.$sidebar-content-width-xs;
+    position: relative;
+
+    @media only screen and (min-width: var.$media-md) {
+      max-width: var.$sidebar-content-width-md;
+    }
+  }
+
+  .section {
+    align-items: center;
+    border-top: 2px solid var.$color-teal-dark-1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    max-width: var.$sidebar-content-width-xs;
+    width: 100%;
+
+    @media only screen and (min-width: var.$media-md) {
+      max-width: var.$sidebar-content-width-md;
+    }
+  }
+
+  .heading {
+    color: var.$color-teal-light-1;
+    font-size: 1.5em;
+    margin: 0;
+    margin: 0.5em 0;
+  }
+
+  .text {
+    color: var.$color-teal-dark-1;
+    font-size: 1.2em;
+    margin: 0;
+    margin-top: 1em;
+  }
+}
+
+.userButtons {
+  column-gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  visibility: hidden;
+  transition: visibility 0s var.$sidebar-edit-toggle;
+
+  &--visible {
+    visibility: visible;
+  }
+
+  &--confirm {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .button {
+    @include mix.button;
+    @include mix.flex-center;
+
+    border-radius: 50%;
+    fill: none;
+    padding: 5px;
+    stroke: var.$color-teal-dark-1;
+    stroke-width: 3;
+    transform: scale(0);
+    transition: background-color var.$hover-icon,
+      transform var.$sidebar-edit-toggle, visibility 0s var.$sidebar-edit-toggle;
+    visibility: hidden;
+
+    &--visible {
+      transform: scale(1);
+      transition: background-color var.$hover-icon,
+        transform var.$sidebar-edit-toggle var.$sidebar-edit-toggle,
+        visibility 0s var.$sidebar-edit-toggle;
+      visibility: visible;
+    }
+
+    &--disabled {
+      pointer-events: none;
+      stroke: rgba($color: var.$color-teal-dark-2, $alpha: 0.5);
+    }
+
+    &--cancel {
+      grid-column-start: 4;
+    }
+    @mixin userButtonActive {
+      background-color: rgba($color: #000, $alpha: 0.4);
+      stroke: var.$color-teal;
+    }
+
+    &:active {
+      @include userButtonActive;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      &:focus,
+      &:hover {
+        @include userButtonActive;
+      }
+    }
+  }
+
+  .svg {
+    width: 100%;
+  }
+}
+
+.stats {
+  border-collapse: collapse;
+  color: var.$color-teal-dark-1;
+  font-size: 1.1em;
+  width: 100%;
+
+  .caption,
+  .header {
+    @include mix.visuallyhidden;
+  }
+
+  .row {
+    border-bottom: 1px solid var.$color-teal-dark-2;
+  }
+
+  .cell {
+    padding: 10px;
+
+    &--name {
+      text-align: left;
+    }
+
+    &--value {
+      color: var.$color-teal-light-2;
+      text-align: right;
+    }
+  }
+}

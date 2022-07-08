@@ -1,0 +1,58 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+
+.container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, auto);
+  grid-area: controls;
+  justify-content: center;
+  padding: 20px var.$card-padding;
+
+  .button {
+    @include mix.button;
+    @include mix.flex-center;
+
+    border-radius: 50%;
+    fill: none;
+    height: var.$size-controls;
+    padding: 2px;
+    stroke: var.$color-teal-light-1;
+    stroke-width: 3;
+    transition: background-color var.$hover-icon, border-color var.$hover-icon,
+      opacity var.$card-edit, stroke var.$hover-icon;
+    width: var.$size-controls;
+
+    @mixin controlButtons {
+      background-color: var.$color-teal;
+      border-color: var.$color-teal-accent;
+      stroke: var.$color-teal-dark-2;
+    }
+
+    &:active {
+      @include controlButtons;
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      & {
+        &:focus,
+        &:hover {
+          @include controlButtons;
+        }
+      }
+    }
+  }
+
+  .svg {
+    width: 100%;
+
+    &--hidden {
+      display: none;
+    }
+  }
+}

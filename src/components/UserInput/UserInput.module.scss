@@ -1,0 +1,197 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+
+.container {
+  align-items: center;
+  display: grid;
+  gap: 0.3em 0.6em;
+  grid-template-areas:
+    'label label label'
+    'input input icons'
+    'alert alert .    ';
+  grid-template-columns: repeat(2, 1fr) auto;
+
+  &--login {
+    grid-area: login;
+  }
+
+  &--password {
+    grid-area: password;
+  }
+
+  &--confirm {
+    grid-area: confirm;
+  }
+
+  @media only screen and (min-width: var.$media-md) {
+    & {
+      &--loginForm,
+      &--signupForm {
+        gap: 0.6em 0.8em;
+        grid-template-areas:
+          'label input input icons'
+          '.     alert alert .    ';
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  }
+
+  .heading {
+    font-size: 1.5em;
+    grid-area: heading;
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .label {
+    justify-self: start;
+    font-size: 1.2em;
+    font-weight: 700;
+    grid-area: label;
+
+    &--loginForm {
+      color: var.$color-teal-dark-1;
+    }
+
+    &--signupForm {
+      color: var.$color-teal-dark-1;
+    }
+
+    &--userEdit {
+      color: var.$color-teal;
+    }
+
+    &--disabled {
+      color: rgba($color: var.$color-teal-dark-2, $alpha: 0.5);
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      & {
+        justify-self: end;
+
+        &--userEdit {
+          justify-self: start;
+        }
+      }
+    }
+  }
+
+  .input {
+    background-color: var.$color-teal-dark-1;
+    border: none;
+    box-shadow: var.$placeholder-shadow-small;
+    border-radius: 5px;
+    color: var.$color-teal-light-3;
+    font-size: 1.4em;
+    font-weight: 400;
+    grid-area: input;
+    min-width: 150px;
+    outline: none;
+    padding: 0.5em;
+    width: 100%;
+
+    &:focus {
+      background-color: var.$color-teal-dark-2;
+      box-shadow: var.$placeholder-shadow-medium;
+    }
+
+    &--disabled {
+      background-color: rgba($color: var.$color-teal-dark-2, $alpha: 0.5);
+    }
+  }
+
+  .alertBox {
+    @include mix.inputAlertBox;
+  }
+
+  .alert {
+    @include mix.inputAlert;
+  }
+
+  .icons {
+    column-gap: 5px;
+    display: grid;
+    grid-area: icons;
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+  }
+}
+
+.inputPassed {
+  height: var.$login-icons;
+  overflow: hidden;
+  width: 0;
+  transition: width 0.2s;
+
+  &--visible {
+    width: var.$login-icons;
+  }
+
+  &--loginForm {
+    fill: var.$color-teal-dark-2;
+  }
+
+  &--signupForm {
+    fill: var.$color-teal;
+  }
+
+  &--userEdit {
+    fill: var.$color-teal-dark-1;
+  }
+
+  &__svg {
+    width: var.$login-icons;
+  }
+}
+
+.previewPassword {
+  @include mix.button;
+
+  height: var.$login-icons;
+  width: var.$login-icons;
+  transition: fill var.$time-button, transform var.$time-button;
+
+  &:active {
+    fill: var.$color-teal-light-3;
+  }
+
+  &--active {
+    fill: var.$color-teal-light-2;
+    transform: rotate(180deg);
+  }
+
+  &--disabled {
+    fill: var.$color-teal-dark-2;
+    pointer-events: none;
+  }
+
+  &--loginForm {
+    fill: var.$color-teal-dark-2;
+  }
+
+  &--signupForm {
+    fill: var.$color-teal;
+  }
+
+  &--userEdit {
+    fill: var.$color-teal-dark-1;
+
+    &:hover {
+      fill: var.$color-teal-light-2;
+    }
+  }
+
+  .svg {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: var.$media-md) {
+    & {
+      &:focus,
+      &:hover {
+        fill: var.$color-teal-light-3;
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+@import 'src/styles/animations.global.scss';
+
+.container {
+  align-items: center;
+  animation: showToBottom var.$time-slide forwards;
+  bottom: 0;
+  display: grid;
+  grid-template-areas:
+    'remove '
+    'heading'
+    'message'
+    'restart';
+  grid-template-rows: auto auto 1fr auto;
+  justify-items: center;
+  left: 0;
+  padding: var.$card-padding;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  &--success {
+    background-color: var.$color-teal-dark-3;
+  }
+
+  &--failure {
+    background-color: var.$color-teal-dark-3;
+  }
+
+  .heading {
+    color: var.$color-teal-accent;
+    font-size: 2em;
+    font-weight: 600;
+    grid-area: heading;
+    margin: 1em 0;
+  }
+
+  .message {
+    color: var.$color-teal-light-1;
+    font-size: 1.3em;
+    line-height: 1.4;
+    text-align: center;
+    grid-area: message;
+    margin: 0;
+  }
+
+  .accent {
+    color: var.$color-teal-accent;
+    font-weight: 800;
+  }
+
+  .button {
+    @include mix.flex-center;
+    @include mix.button;
+
+    fill: none;
+    stroke: var.$color-teal-dark-2;
+
+    &--restart {
+      border-radius: 50%;
+      grid-area: restart;
+      margin: 10px;
+      padding: 2px;
+      stroke-width: 3;
+      transition: background-color var.$time-button, stroke var.$time-button;
+      width: var.$main-button;
+
+      &:active {
+        background-color: var.$color-teal;
+        stroke: var.$color-teal-dark-3;
+      }
+    }
+
+    &--remove {
+      align-self: start;
+      justify-self: end;
+      grid-area: remove;
+      stroke-width: 8;
+      width: var.$close-button;
+      transition: stroke var.$time-button;
+
+      &:active {
+        stroke: var.$color-teal-light-3;
+      }
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      & {
+        &--restart {
+          &:focus,
+          &:hover {
+            background-color: var.$color-teal;
+            stroke: var.$color-teal-dark-3;
+          }
+        }
+
+        &--remove {
+          &:focus,
+          &:hover {
+            stroke: var.$color-teal-light-3;
+          }
+        }
+      }
+    }
+  }
+
+  .svg {
+    width: 100%;
+  }
+}

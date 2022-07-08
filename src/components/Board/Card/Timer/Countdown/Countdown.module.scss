@@ -1,0 +1,49 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+@import 'src/styles/animations.global.scss';
+
+.container {
+  align-content: center;
+  align-items: center;
+  display: grid;
+  font-size: 1.1rem;
+  font-weight: bold;
+  gap: 20px;
+  height: 100%;
+  justify-items: center;
+  width: 100%;
+  transition: visibility 0s var.$time-slide;
+  visibility: hidden;
+
+  &--visible {
+    transition: visibility 0s;
+    visibility: inherit;
+  }
+
+  &--taskTime {
+    grid-template-areas:
+      'heading '
+      'display '
+      'timeType';
+  }
+
+  &--breakTime {
+    position: absolute;
+    left: 0;
+    top: 0;
+    grid-template-areas:
+      'heading '
+      'display '
+      'timeType';
+  }
+
+  .heading {
+    font-size: 1.1rem;
+    grid-area: heading;
+    margin: 0;
+  }
+
+  .timeType {
+    margin: 0;
+  }
+}

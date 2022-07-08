@@ -1,0 +1,54 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+@import 'src/styles/animations.global.scss';
+
+.container {
+  @include mix.flex-center;
+
+  flex-direction: column;
+  left: 0;
+  opacity: 0;
+  padding: 20px;
+  transition: opacity var.$time-component-fade,
+    visibility 0s var.$time-component-fade;
+  visibility: hidden;
+  z-index: 1;
+
+  &--visible {
+    opacity: 1;
+    transition: opacity var.$time-component-fade, visibility 0s;
+    visibility: visible;
+  }
+
+  .logo {
+    animation: textLogoFadeIn 0.3s forwards;
+    font-size: 60px;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 20px;
+    user-select: none;
+
+    &--color {
+      color: var.$color-teal-dark-3;
+    }
+
+    &--fadeOut {
+      animation: textLogoFadeOut 0.3s forwards;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      font-size: 80px;
+    }
+  }
+
+  .wrapper {
+    max-width: 400px;
+    position: relative;
+    perspective: 1200px;
+    width: 100%;
+
+    @media only screen and (min-width: var.$media-md) {
+      max-width: 700px;
+    }
+  }
+}

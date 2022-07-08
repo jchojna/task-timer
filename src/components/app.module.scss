@@ -1,0 +1,18 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+
+.container {
+  @include mix.flex-center;
+
+  background-color: var.$color-teal-dark-1;
+  color: var.$color-teal-light-2;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  .heading {
+    @include mix.visuallyhidden;
+  }
+}

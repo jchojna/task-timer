@@ -1,0 +1,40 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+@import 'src/styles/animations.global.scss';
+
+.container {
+  font-size: 3rem;
+  grid-area: display;
+  height: 100%;
+  position: relative;
+  width: 100%;
+
+  .type {
+    @include mix.flex-center;
+
+    color: var.$color-teal-light-3;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    transition: visibility 0s var.$time-display;
+
+    &--visible {
+      transition: visibility 0s;
+      visibility: inherit;
+    }
+
+    &--remaining {
+      left: 0;
+      position: absolute;
+      top: 0;
+    }
+
+    &--showUp {
+      animation: showUp var.$time-display forwards;
+    }
+
+    &--hideUp {
+      animation: hideUp var.$time-display forwards;
+    }
+  }
+}

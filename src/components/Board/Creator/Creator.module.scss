@@ -1,0 +1,103 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+@import 'src/styles/animations.global.scss';
+
+.container {
+  background-color: var.$color-teal;
+  border: var.$card-border;
+  border-radius: var.$radius-card;
+  box-shadow: var.$card-shadow-medium;
+  display: grid;
+  grid-template-areas:
+    '.        closeBtn'
+    'input    input   '
+    'backBtn  nextBtn ';
+  grid-template-rows: var.$main-button 1fr var.$main-button;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  padding: var.$card-padding;
+  padding-bottom: var.$card-padding + var.$progressBar-height;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  &--rotateOut {
+    animation: rotateOut ease-in forwards;
+  }
+
+  .button {
+    @include mix.button;
+    @include mix.flex-center;
+
+    align-self: start;
+    fill: none;
+    opacity: 0;
+    stroke: var.$color-teal-dark-1;
+    stroke-linecap: round;
+    stroke-width: 20;
+    transition: stroke var.$time-button, opacity var.$time-button,
+      visibility 0s var.$time-button;
+    visibility: hidden;
+    width: var.$main-button;
+
+    &--back {
+      grid-area: backBtn;
+      justify-self: start;
+    }
+
+    &--next {
+      grid-area: nextBtn;
+      justify-self: end;
+    }
+
+    &--close {
+      grid-area: closeBtn;
+      justify-self: end;
+      stroke-width: 8;
+      width: var.$close-button;
+    }
+
+    &--visible {
+      opacity: 1;
+      transition: stroke var.$time-button, opacity var.$time-button, visibility;
+      visibility: inherit;
+    }
+
+    &:active {
+      stroke: var.$color-teal-light-3;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      & {
+        &:focus,
+        &:hover {
+          stroke: var.$color-teal-light-3;
+        }
+      }
+    }
+  }
+
+  .svg {
+    width: 100%;
+  }
+}
+
+.progressBar {
+  background-color: var.$color-teal;
+  bottom: 0;
+  left: 0;
+  height: var.$progressBar-height;
+  position: absolute;
+  width: 100%;
+
+  .loaded {
+    background-color: var.$color-teal-accent;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
+    transition: width 0.5s;
+  }
+}

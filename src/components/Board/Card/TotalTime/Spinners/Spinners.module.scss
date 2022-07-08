@@ -1,0 +1,56 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+
+.container {
+  opacity: 0;
+  transition: opacity var.$card-edit, visibility 0s var.$card-edit;
+  visibility: hidden;
+
+  &--visible {
+    opacity: 1;
+    transition: opacity var.$card-edit, visibility 0s;
+    visibility: visible;
+  }
+
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  &--minutes {
+    justify-self: start;
+  }
+
+  &--seconds {
+    justify-self: end;
+  }
+
+  .button {
+    @include mix.button;
+    @include mix.flex-center;
+
+    fill: none;
+    padding: 5px;
+    stroke: var.$color-teal-light-2;
+    stroke-width: 50;
+    stroke-linecap: round;
+    width: 40px;
+
+    &:active {
+      background-color: var.$color-teal-dark-1;
+      stroke: var.$color-teal-light-3;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      &:focus,
+      &:hover {
+        background-color: var.$color-teal-dark-1;
+        stroke: var.$color-teal-light-3;
+      }
+    }
+  }
+
+  .svg {
+    width: 100%;
+  }
+}

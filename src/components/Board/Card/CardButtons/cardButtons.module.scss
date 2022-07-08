@@ -1,0 +1,60 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+@import 'src/styles/animations.global.scss';
+
+.container {
+  column-gap: 10px;
+  display: none;
+  grid-area: buttons;
+  grid-template-columns: repeat(4, auto);
+  justify-self: end;
+
+  &--maximized {
+    display: grid;
+  }
+
+  .button {
+    @include mix.button;
+    @include mix.flex-center;
+
+    fill: none;
+    stroke: var.$color-teal-dark-2;
+    stroke-width: 8;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    transition: stroke var.$time-button, opacity var.$card-edit,
+      visibility 0s var.$card-edit;
+    visibility: hidden;
+    width: var.$close-button;
+
+    &:active {
+      stroke: var.$color-teal-light-3;
+    }
+
+    &--accept {
+      opacity: 0;
+      stroke: var.$color-teal-light-2;
+    }
+
+    &--disabled {
+      @include mix.disabled;
+    }
+
+    &--visible {
+      opacity: 1;
+      transition: stroke var.$time-button, opacity var.$card-edit, visibility 0s;
+      visibility: visible;
+    }
+
+    @media only screen and (min-width: var.$media-md) {
+      &:focus,
+      &:hover {
+        stroke: var.$color-teal-light-3;
+      }
+    }
+  }
+
+  .svg {
+    width: 100%;
+  }
+}

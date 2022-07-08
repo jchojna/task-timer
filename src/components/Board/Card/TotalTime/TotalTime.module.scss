@@ -1,0 +1,120 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+
+.container {
+  color: var.$color-teal-dark-2;
+  display: none;
+  flex-direction: column;
+  text-align: center;
+  transition: opacity var.$card-edit;
+  width: 100%;
+
+  &--taskTime {
+    font-size: 3rem;
+  }
+
+  &--breakTime {
+    font-size: 2.5rem;
+  }
+
+  &--main {
+    color: var.$color-teal-light-3;
+  }
+
+  &--maximized {
+    display: flex;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &:hover {
+    cursor: text;
+  }
+
+  .label {
+    color: var.$color-teal-dark-1;
+    font-size: 1.1rem;
+    transition: color var.$card-edit, font-size var.$card-edit,
+      margin-bottom var.$card-edit;
+
+    &--editMode {
+      color: var.$color-teal-light-2;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .display {
+    align-items: center;
+    border-radius: 10px;
+    border-color: var.$color-teal-light-2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) auto repeat(2, 1fr);
+    justify-items: center;
+    outline: none;
+    overflow: hidden;
+    transition: background-color var.$card-edit, border-color var.$card-edit,
+      color var.$card-edit;
+    width: 100%;
+
+    &--editMode {
+      background-color: var.$color-teal;
+      border: var.$card-border;
+      border-color: var.$color-teal-light-2;
+      color: var.$color-teal-light-3;
+    }
+
+    &--incorrect {
+      border-color: var.$color-teal-accent;
+    }
+  }
+
+  .unit {
+    align-items: center;
+    display: flex;
+    font-weight: 600;
+    height: 100%;
+    position: relative;
+    width: 100%;
+  }
+
+  .text {
+    margin: 0;
+    opacity: 0;
+    padding: 5px;
+    text-align: center;
+    visibility: hidden;
+    width: 100%;
+
+    &--visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .input {
+    background: none;
+    border: none;
+    color: inherit;
+    font-weight: inherit;
+    height: 100%;
+    left: 0;
+    outline: none;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+
+    &--visible {
+      visibility: visible;
+    }
+
+    &::placeholder {
+      font-size: 0.3rem;
+    }
+  }
+}

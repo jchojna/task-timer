@@ -1,0 +1,131 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+@import 'src/styles/animations.global.scss';
+
+.container {
+  align-self: start;
+  perspective: 800px;
+  transition: transform 0.3s;
+  width: 100%;
+  z-index: 1;
+
+  &--dragged {
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &--hovered {
+    opacity: 0.6;
+  }
+
+  &--noTransition {
+    transition: none;
+  }
+}
+
+.task {
+  align-items: start;
+  background-color: var.$color-teal;
+  border: var.$card-border;
+  border-radius: var.$radius-card;
+  box-shadow: var.$card-shadow-small;
+  cursor: move;
+  display: grid;
+  grid-template-areas:
+    'buttons  '
+    'taskName ';
+  justify-items: center;
+  min-height: 50px;
+  overflow: hidden;
+  padding: var.$card-padding;
+  position: relative;
+  transition: background-color var.$card-edit, min-height var.$card-edit;
+  user-select: none;
+  visibility: hidden;
+
+  &--maximized {
+    cursor: initial;
+    gap: 10px;
+    grid-template-areas:
+      'buttons  '
+      'taskName '
+      'taskTime '
+      'breakTime'
+      'startBtn ';
+    grid-template-rows: auto 1fr repeat(3, auto);
+    height: 100%;
+    min-height: var.$card-min-height;
+    transition: background-color var.$card-edit;
+  }
+
+  &--visible {
+    visibility: visible;
+  }
+
+  &--rotateIn {
+    animation: rotateIn ease-out forwards;
+  }
+
+  &--rotateOut {
+    animation: rotateOut ease-in forwards;
+  }
+
+  &--editMode {
+    background-color: var.$color-teal-dark-1;
+    border-color: transparent;
+  }
+
+  &--taskActive {
+    border-color: var.$color-teal-accent;
+  }
+
+  .startButton {
+    @include mix.button;
+
+    align-items: center;
+    border-radius: 50%;
+    display: none;
+    fill: none;
+    grid-area: startBtn;
+    height: var.$main-button;
+    justify-content: center;
+    margin: 10px;
+    padding: 2px;
+    stroke: var.$color-teal-dark-2;
+    stroke-width: 3;
+    transition: background-color var.$time-button, stroke var.$time-button;
+    width: 80px;
+
+    &:active {
+      background-color: var.$color-teal-accent;
+      stroke: var.$color-teal;
+    }
+
+    &--maximized {
+      display: flex;
+    }
+
+    &--disabled {
+      @include mix.disabled;
+    }
+  }
+
+  .svg {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: var.$media-md) {
+    & {
+      box-shadow: var.$card-shadow-medium;
+      padding: var.$card-padding;
+
+      .startButton {
+        &:focus,
+        &:hover {
+          background-color: var.$color-teal-accent;
+          stroke: var.$color-teal;
+        }
+      }
+    }
+  }
+}

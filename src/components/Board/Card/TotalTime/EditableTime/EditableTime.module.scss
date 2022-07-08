@@ -1,0 +1,24 @@
+@use 'src/styles/vars.global.scss' as var;
+
+.container {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5em;
+  grid-area: breaks;
+
+  &--active {
+    color: var.$color-tomato;
+  }
+
+  .counter {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1em;
+  }
+
+  .display {
+    font-weight: 400;
+    margin: 0;
+  }
+}

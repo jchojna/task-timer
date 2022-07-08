@@ -1,0 +1,179 @@
+@import './vars.global.scss';
+
+@keyframes showUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes rotateIn {
+  0% {
+    transform: rotate3d(0, 1, 0, -90deg);
+  }
+  100% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+}
+
+@keyframes rotateOut {
+  0% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+  100% {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+}
+
+.slideInLeft {
+  animation: slideInLeft $time-slide forwards;
+}
+.slideInRight {
+  animation: slideInRight $time-slide forwards;
+}
+.slideOutLeft {
+  animation: slideOutLeft $time-slide forwards;
+}
+.slideOutRight {
+  animation: slideOutRight $time-slide forwards;
+}
+
+@keyframes showFromRight {
+  0% {
+    transform: translateX(120%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes hideToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-120%);
+  }
+}
+
+@keyframes showFromLeft {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes hideToRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes showToBottom {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes textLogoFadeIn {
+  0% {
+    transform: translateY(200px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes textLogoFadeOut {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(200px);
+  }
+}
+
+.showFromRight {
+  animation: showFromRight $time-slide forwards;
+}
+.hideToLeft {
+  animation: hideToLeft $time-slide forwards;
+}
+.showFromLeft {
+  animation: showFromLeft $time-slide forwards;
+}
+.hideToRight {
+  animation: hideToRight $time-slide forwards;
+}
+
+// #region [ Horizon ] LOGO ANIMATION
+
+@keyframes clockShadow {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes clockHand {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(180deg * 23);
+  }
+}
+
+@keyframes clockFadeIn {
+  0% {
+    transform: scale(1.6);
+    animation-timing-function: ease-out;
+    opacity: 0;
+  }
+  94% {
+    transform: scale(1);
+    animation-timing-function: ease-in;
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+}
+
+@keyframes clockLetter {
+  80% {
+    fill: $color-teal-dark-1;
+    opacity: 1;
+  }
+  100% {
+    fill: $color-teal-accent;
+    opacity: 1;
+  }
+}

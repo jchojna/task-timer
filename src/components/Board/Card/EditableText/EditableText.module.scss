@@ -1,0 +1,97 @@
+@use 'src/styles/vars.global.scss' as var;
+@use 'src/styles/mixins.global.scss' as mix;
+
+.taskName {
+  @include mix.flex-center;
+
+  align-self: center;
+  flex-direction: column;
+  grid-area: taskName;
+  height: 100%;
+  overflow: hidden;
+  padding: 15px;
+  position: relative;
+  text-align: center;
+  transition: opacity var.$card-edit;
+  width: 100%;
+
+  &--disabled {
+    @include mix.disabled;
+  }
+
+  &--maximized {
+    &:hover {
+      cursor: text;
+    }
+  }
+
+  .text {
+    border: 2px solid transparent;
+    color: var.$color-teal-dark-2;
+    font-weight: 600;
+    font-size: var.$card-taskName-size;
+    margin: 0;
+    width: 100%;
+    word-break: break-word;
+    text-align: center;
+    visibility: hidden;
+
+    &--visible {
+      visibility: visible;
+    }
+  }
+
+  .inputContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity var.$card-edit, visibility 0s var.$card-edit;
+    visibility: hidden;
+    width: 100%;
+
+    &--visible {
+      opacity: 1;
+      transition: opacity var.$card-edit, visibility 0s;
+      visibility: visible;
+    }
+  }
+
+  .input {
+    background-color: var.$color-teal;
+    border: var.$card-border;
+    border-color: var.$color-teal-light-2;
+    border-radius: 10px;
+    color: var.$color-teal-light-3;
+    font-weight: 600;
+    font-size: var.$card-taskName-size;
+    height: 100%;
+    outline: none;
+    overflow: hidden;
+    padding: 15px;
+    resize: none;
+    text-align: center;
+    width: 100%;
+
+    &--incorrect {
+      border-color: var.$color-teal-accent;
+    }
+  }
+
+  .progress {
+    background-color: var.$color-teal-accent;
+    height: 4px;
+    margin-top: 4px;
+    width: 0;
+    visibility: hidden;
+    z-index: 1;
+
+    &--visible {
+      visibility: visible;
+    }
+  }
+}
