@@ -167,11 +167,16 @@
   font-size: 1.1em;
   width: 100%;
 
-  &__row {
+  .caption,
+  .header {
+    @include mix.visuallyhidden;
+  }
+
+  .row {
     border-bottom: 1px solid var.$color-teal-dark-2;
   }
 
-  &__cell {
+  .cell {
     padding: 10px;
 
     &--name {

@@ -370,20 +370,25 @@ class Sidebar extends Component {
         <section className={styles.section}>
           <h3 className={styles.heading}>Stats</h3>
           <table className={styles.stats}>
-            <caption className="stats__caption visuallyhidden">Stats</caption>
-            <thead className="stats__header visuallyhidden">
-              <tr className="stats__row">
-                <th className="stats__cell">Name</th>
-                <th className="stats__cell">Value</th>
+            <caption className={styles.caption}>Stats</caption>
+            <thead className={styles.header}>
+              <tr className={styles.row}>
+                <th className={styles.cell}>Name</th>
+                <th className={styles.cell}>Value</th>
               </tr>
             </thead>
-            <tbody className="stats__body">
+            <tbody className={styles.body}>
               {[...statsLabelsKeys].map((key) => (
-                <tr className="stats__row" key={key}>
-                  <th className="stats__cell stats__cell--name" scope="row">
+                <tr className={styles.row} key={key}>
+                  <th
+                    className={classNames(styles.cell, styles['cell--name'])}
+                    scope="row"
+                  >
                     {statsLabels[key]}
                   </th>
-                  <td className="stats__cell stats__cell--value">
+                  <td
+                    className={classNames(styles.cell, styles['cell--value'])}
+                  >
                     {stats[key]}
                   </td>
                 </tr>
@@ -393,9 +398,9 @@ class Sidebar extends Component {
         </section>
 
         {/* USER COLOR PROFILE */}
-        <section className="Sidebar__section">
-          <h3 className="Sidebar__heading">Color Theme</h3>
-          <p className="Sidebar__text">To be added soon...</p>
+        <section className={styles.section}>
+          <h3 className={styles.heading}>Color Theme</h3>
+          <p className={styles.text}>To be added soon...</p>
         </section>
       </section>
     );
