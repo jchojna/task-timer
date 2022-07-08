@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       // visibility
       isAppLoaded: false,
-      isIntroVisible: true,
+      isIntroVisible: false,
       isUserPanelVisible: true,
       isBoardVisible: false,
       // users
@@ -239,14 +239,14 @@ class App extends Component {
         <h1 className={styles.heading}>Task Timer App</h1>
         {
           /* LOGO ANIMATION */
-          // isIntroVisible ? (
-          //   <Intro
-          //     isIntroVisible={isIntroVisible}
-          //     onAppStateChange={this.handleStateChange}
-          //   />
-          // ) : (
-          //   <div className="empty"></div>
-          // )
+          isIntroVisible ? (
+            <Intro
+              isIntroVisible={isIntroVisible}
+              onAppStateChange={this.handleStateChange}
+            />
+          ) : (
+            <div className="empty"></div>
+          )
         }
         {
           /* USER PANEL */
